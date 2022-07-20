@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 
 import * as yup from "yup";
+import {Link} from "react-router-dom";
 const validationSchema = yup.object({
   password: yup
     .string("Enter your password")
@@ -33,6 +34,7 @@ function Login(props) {
       setSubmitting(true);
       console.log(data);
       setSubmitting(false);
+
     },
   });
   return (
@@ -76,7 +78,9 @@ function Login(props) {
         }}
       >
         <div>
+          <Link to="/Signup">
         <Button type="submit">회원가입</Button>
+        </Link>
         </div>
       </form>
     </div>
