@@ -76,7 +76,7 @@ function Login(props) {
         }}
       >
         <div>
-          <Link to="/Signup">
+          <Link to="/signup">
             <Button type="submit">회원가입</Button>
           </Link>
         </div>
