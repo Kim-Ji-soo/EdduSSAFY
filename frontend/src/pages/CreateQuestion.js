@@ -27,14 +27,15 @@ const validationSchema = yup.object({
 
 function CreateContent(props) {
   const [result, setResult] = useState([]);
-  const [number, setNumber] = useState("1");
+  const [number, setNumber] = useState(1);
   const [value, setValue] = useState({
     1: "",
     2: "",
     3: "",
     4: "",
   });
-  console.log(number);
+  // console.log(number);
+  console.log(value, "value");
   const [content, setContent] = useState([
     // <div key={number}>
     //   <TextField
@@ -51,6 +52,7 @@ function CreateContent(props) {
     //   />
     // </div>,
   ]);
+  console.log(content);
   return (
     <>
       {content}
@@ -58,17 +60,17 @@ function CreateContent(props) {
         onClick={(e) => {
           setNumber(() => {
             console.log(number);
-            return String(Number(number) + 1);
+            return number + 1;
           });
           const newContent = [...content];
           newContent.push(
             <div key={number}>
               <TextField
-                name={number}
+                name={String(number)}
                 label={number}
-                value={value[Number(number)]}
+                value={value.number}
                 onChange={(e) => {
-                  e.preventDefault();
+                  // e.preventDefault();
                   const newValue = { ...value };
                   newValue[Number(number)] = e.target.value;
                   console.log(newValue[Number(number)]);
@@ -162,7 +164,7 @@ function CreateQuestion() {
           </FormControl>
         </div>
         <CreateContent
-          onSubmit={(event, arr) => {
+          onChange={(event, arr) => {
             event.preventDefault();
             formik.values.content = arr;
           }}
