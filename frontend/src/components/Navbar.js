@@ -1,3 +1,5 @@
+/** @format */
+
 import React from "react";
 import Paper from "@mui/material/Paper";
 import BottomNavigation from "@mui/material/BottomNavigation";
@@ -20,7 +22,7 @@ export default function Navbar() {
         <BottomNavigationAction
           label="홈페이지"
           icon={<HomeIcon />}
-          sx={{ right: 350 }}
+          sx={{ left: 100, my: "auto", position: "absolute" }}
         />
         <BottomNavigationAction label="로그인" component={Link} to="/" />
         <BottomNavigationAction
