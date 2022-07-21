@@ -1,18 +1,13 @@
 /** @format */
 
 import React from "react";
-import {useFormik} from "formik";
-import {
-  TextField,
-  Button
-} from "@mui/material";
+import { useFormik } from "formik";
+import { TextField, Button } from "@mui/material";
 
 import * as yup from "yup";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 const validationSchema = yup.object({
-  password: yup
-    .string("Enter your password")
-    .required("Password is required"),
+  password: yup.string("Enter your password").required("Password is required"),
   id: yup
     .string("Enter your id")
     .min(5, "id should be of minimum 5 characters length")
@@ -27,27 +22,26 @@ function Login(props) {
   const formik = useFormik({
     initialValues: {
       id: "",
-      password: ""
+      password: "",
     },
     validationSchema: validationSchema,
     onSubmit: (data, { setSubmitting }) => {
       setSubmitting(true);
       console.log(data);
       setSubmitting(false);
-
     },
   });
   return (
     <div>
       <form
         onSubmit={(event) => {
-          event.preventDefault()
+          event.preventDefault();
           formik.handleSubmit(event);
         }}
       >
         <h2>Login</h2>
         <div>
-        <TextField
+          <TextField
             name="id"
             label="id"
             value={formik.values.id}
@@ -57,7 +51,7 @@ function Login(props) {
           />
         </div>
         <div>
-        <TextField
+          <TextField
             name="password"
             type="password"
             label="password"
@@ -68,7 +62,11 @@ function Login(props) {
           />
         </div>
         <div>
-          <Button type="submit" disabled={formik.isSubmitting}>로그인</Button>
+          <Link to="/homepage">
+            <Button type="submit" disabled={formik.isSubmitting}>
+              로그인
+            </Button>
+          </Link>
         </div>
       </form>
 
@@ -78,9 +76,9 @@ function Login(props) {
         }}
       >
         <div>
-          <Link to="/Signup">
-        <Button type="submit">회원가입</Button>
-        </Link>
+          <Link to="/signup">
+            <Button type="submit">회원가입</Button>
+          </Link>
         </div>
       </form>
     </div>
