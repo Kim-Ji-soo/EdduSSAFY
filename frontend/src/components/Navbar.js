@@ -31,7 +31,11 @@ export default function Navbar() {
           to="signup/"
         />
         <BottomNavigationAction label="문제 목록" />
-        <BottomNavigationAction label="문제 생성" />
+        <BottomNavigationAction
+          label="문제 생성"
+          component={Link}
+          to="createquestion"
+        />
         <BottomNavigationAction label="개인정보수정" />
         <BottomNavigationAction label="로그아웃" />
       </BottomNavigation>
