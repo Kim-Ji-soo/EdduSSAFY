@@ -28,38 +28,14 @@ const validationSchema = yup.object({
 function CreateContent(props) {
   const [result, setResult] = useState([]);
   const [number, setNumber] = useState(1);
-  const [value, setValue] = useState({
-    1: "",
-    2: "",
-    3: "",
-    4: "",
-  });
-  // console.log(number);
-  console.log(value, "value");
-  const [content, setContent] = useState([
-    // <div key={number}>
-    //   <TextField
-    //     name={number}
-    //     label={number}
-    //     value={value[1]}
-    //     onChange={async (e) => {
-    //       e.preventDefault();
-    //       const newValue = { ...value };
-    //       newValue[1] = e.target.value;
-    //       console.log(newValue[1]);
-    //       await setValue(newValue);
-    //     }}
-    //   />
-    // </div>,
-  ]);
-  console.log(content);
+  const [value, setValue] = useState({});
+  const [content, setContent] = useState([]);
   return (
     <>
       {content}
       <Button
         onClick={(e) => {
           setNumber(() => {
-            console.log(number);
             return number + 1;
           });
           const newContent = [...content];
@@ -68,15 +44,13 @@ function CreateContent(props) {
               <TextField
                 name={String(number)}
                 label={number}
-                value={value.number}
+                value={value[number]}
                 onChange={(e) => {
-                  // e.preventDefault();
-                  const newValue = { ...value };
-                  newValue[Number(number)] = e.target.value;
-                  console.log(newValue[Number(number)]);
-                  console.log(newValue, "newValue");
-                  setValue(newValue);
-                  // console.log(value, "setValue한 후 value");
+                  setValue((value) => {
+                    const newValue = { ...value };
+                    newValue[number] = e.target.value;
+                    return newValue;
+                  });
                 }}
               />
             </div>
@@ -86,7 +60,13 @@ function CreateContent(props) {
       >
         보기추가
       </Button>
-      <Button type="submit">보기 확정</Button>
+      <Button
+        onClick={(e) => {
+          e.preventDefault();
+        }}
+      >
+        보기 확정
+      </Button>
     </>
   );
 }
