@@ -22,7 +22,7 @@ const validationSchema = yup.object({
   type: yup.string("Enter your type").required("type is required"),
   content: yup.array(),
   file: yup.mixed(),
-  answer: yup.mixed().required("필수 항목입니다."),
+  // answer: yup.mixed().required("필수 항목입니다."),
 });
 
 function CreateContent(props) {
@@ -61,8 +61,14 @@ function CreateContent(props) {
         보기추가
       </Button>
       <Button
-        onClick={(e) => {
+        onClick={async (e) => {
           e.preventDefault();
+          const newResult = [];
+          for (const i in value) {
+            newResult.push(value[i]);
+          }
+          await setResult(newResult);
+          props.onSubmit(newResult);
         }}
       >
         보기 확정
@@ -84,9 +90,9 @@ function CreateQuestion() {
     validationSchema: validationSchema,
     onSubmit: (data, { setSubmitting }) => {
       setSubmitting(true);
-      console.log(formik.values);
+      console.log(data);
       setSubmitting(false);
-      console.log(formik.values);
+      console.log(data);
     },
   });
   return (
@@ -144,11 +150,20 @@ function CreateQuestion() {
           </FormControl>
         </div>
         <CreateContent
-          onChange={(event, arr) => {
-            event.preventDefault();
-            formik.values.content = arr;
+          onSubmit={(result) => {
+            formik.values.content = result;
           }}
         ></CreateContent>
+        <div>
+          <TextField
+            name="answer"
+            label="answer"
+            value={formik.values.answer}
+            onChange={formik.handleChange}
+            error={formik.touched.answer && Boolean(formik.errors.answer)}
+            helperText={formik.touched.answer && formik.errors.answer}
+          />
+        </div>
         <Button type="submit" disabled={formik.isSubmitting}>
           Submit
         </Button>

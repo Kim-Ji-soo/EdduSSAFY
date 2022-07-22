@@ -26,6 +26,7 @@ function Login(props) {
     },
     validationSchema: validationSchema,
     onSubmit: (data, { setSubmitting }) => {
+      console.log(1);
       setSubmitting(true);
       console.log(data);
       setSubmitting(false);
