@@ -3,11 +3,11 @@
 import React from "react";
 import { useFormik } from "formik";
 import { TextField, Button } from "@mui/material";
-
+import { useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import * as api from "./api/api";
+import users from "./api/api";
 const validationSchema = yup.object({
   password: yup.string("Enter your password").required("Password is required"),
   id: yup
@@ -31,11 +31,13 @@ function Login(props) {
       setSubmitting(true);
       console.log(data);
       setSubmitting(false);
+      const history = useHistory();
       axios({
         method: "get",
-        url: api.users.login(),
+        url: users.users.login(),
       }).then((res) => {
         console.log(res.data);
+        history.replace("/homepage");
       });
     },
   });

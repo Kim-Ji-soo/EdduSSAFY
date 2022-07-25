@@ -10,7 +10,7 @@ import {
   FormLabel,
 } from "@mui/material";
 import * as yup from "yup";
-import * as api from "./api/api";
+import users from "./api/api";
 import axios from "axios";
 
 const validationSchema = yup.object({
@@ -58,7 +58,7 @@ function Signup() {
       setSubmitting(false);
       axios({
         method: "post",
-        url: api.users.signup(),
+        url: users.users.signup(),
       });
     },
   });
