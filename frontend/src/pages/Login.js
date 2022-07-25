@@ -2,21 +2,13 @@
 
 import React from "react";
 import { useFormik } from "formik";
-<<<<<<< HEAD
 import { TextField, Button } from "@mui/material";
-import { useHistory } from "react-router-dom";
-import * as yup from "yup";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import users from "./api/api";
-=======
-import { TextField, Button, getFormLabelUtilityClasses } from "@mui/material";
-
+import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import users from "../api/api";
->>>>>>> 2a67da8d66859da55d675f2c652c62d9a0b957a1
+
 const validationSchema = yup.object({
   password: yup.string("Enter your password").required("Password is required"),
   id: yup
@@ -30,6 +22,7 @@ function Login(props) {
   //const [password, setPassword] = useState("");
   //const [loading, setLoading] = useState(false);
   //const [msg, setMsg] = useState("");
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       id: "",
@@ -40,15 +33,13 @@ function Login(props) {
       setSubmitting(true);
       console.log(data);
       setSubmitting(false);
-      const history = useHistory();
       axios({
-
         method: "post",
-        url: users.users.login(),
-        data: formik.values
+        url: users.login(),
+        data: formik.values,
       }).then((res) => {
         console.log(res.data);
-        history.replace("/homepage");
+        navigate("/homepage", { replace: true });
       });
     },
   });
@@ -83,17 +74,9 @@ function Login(props) {
           />
         </div>
         <div>
-          <Link to="/homepage">
-            <Button type="submit" disabled={formik.isSubmitting}>
-              로그인
-            </Button>
-          </Link>
-        </div>
-        <div>
-            <Button type="submit" disabled={formik.isSubmitting}>
-              로그인
-            </Button>
-     
+          <Button type="submit" disabled={formik.isSubmitting}>
+            로그인
+          </Button>
         </div>
       </form>
 
