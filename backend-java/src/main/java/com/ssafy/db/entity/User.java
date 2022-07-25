@@ -22,7 +22,9 @@ public class User {
 
     String position;
 
-    String department;
+    String email;
+
+    String tel;
 
     String name;
 
