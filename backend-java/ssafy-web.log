@@ -43,3 +43,4 @@
 2022-07-25 11:18:06.273 DEBUG 9716 --- [RMI TCP Connection(2)-192.168.100.204] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@5b627fce
 2022-07-25 11:18:06.273 DEBUG 9716 --- [RMI TCP Connection(2)-192.168.100.204] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
 2022-07-25 11:18:06.274  INFO 9716 --- [RMI TCP Connection(2)-192.168.100.204] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+asd
