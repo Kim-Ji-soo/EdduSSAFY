@@ -8,6 +8,8 @@ import * as yup from "yup";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import users from "../api/api";
+import { useDispatch } from "react-redux";
+import { login } from "../redux/user";
 
 const validationSchema = yup.object({
   password: yup.string("Enter your password").required("Password is required"),
@@ -16,12 +18,8 @@ const validationSchema = yup.object({
     .min(5, "id should be of minimum 5 characters length")
     .required("id is required"),
 });
-function Login(props) {
-  //const dispatch = useDispatch();
-  //const [id, setId] = useState("");
-  //const [password, setPassword] = useState("");
-  //const [loading, setLoading] = useState(false);
-  //const [msg, setMsg] = useState("");
+function Login() {
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
@@ -39,6 +37,7 @@ function Login(props) {
         data: formik.values,
       }).then((res) => {
         console.log(res.data);
+        // dispatch(login({}));
         navigate("/homepage", { replace: true });
       });
     },
