@@ -8,9 +8,10 @@ import {
   FormControl,
   FormControlLabel,
   FormLabel,
+  getFormLabelUtilityClasses,
 } from "@mui/material";
 import * as yup from "yup";
-import users from "./api/api";
+import users from "../api/api";
 import axios from "axios";
 
 const validationSchema = yup.object({
@@ -56,10 +57,18 @@ function Signup() {
       setSubmitting(true);
       console.log(formik.values);
       setSubmitting(false);
+      console.log(users.users.signup());
       axios({
         method: "post",
         url: users.users.signup(),
-      });
+        data: formik.values,
+      })
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     },
   });
   return (
