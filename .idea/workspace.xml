@@ -6,31 +6,20 @@
   <component name="ChangeListManager">
     <list default="true" id="73beaca7-19d0-497c-b546-6020930ff10c" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/c111back/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/c111back/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/c111back/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/c111back/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/c111back/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/c111back/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/c111back/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/c111back/src/main/java/com/seveneleven/c111/C111Application.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/c111back/src/main/java/com/seveneleven/c111/api/controller/UserController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/c111back/src/main/java/com/seveneleven/c111/api/requset/LoginReq.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/c111back/src/main/java/com/seveneleven/c111/api/requset/UserLoginPostReq.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/c111back/src/main/java/com/seveneleven/c111/api/requset/UserRegisterPostReq.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/c111back/src/main/java/com/seveneleven/c111/api/requset/UserUpdateDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/c111back/src/main/java/com/seveneleven/c111/api/response/BaseResponseBody.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/c111back/src/main/java/com/seveneleven/c111/api/response/UserDtoRes.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/c111back/src/main/java/com/seveneleven/c111/api/response/UserLeaderDtoRes.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/c111back/src/main/java/com/seveneleven/c111/api/response/UserLoginDtoRes.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/c111back/src/main/java/com/seveneleven/c111/api/service/UserService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/c111back/src/main/java/com/seveneleven/c111/api/service/UserServicelmpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/c111back/src/main/java/com/seveneleven/c111/common/JwtTokenUtil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/c111back/src/main/java/com/seveneleven/c111/common/SsafyUserDetails.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/c111back/src/main/java/com/seveneleven/c111/config/SwaggerConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/c111back/src/main/java/com/seveneleven/c111/db/entity/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/c111back/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/c111back/src/test/java/com/seveneleven/c111/C111ApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-java/.gradle/6.7/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/backend-java/.gradle/6.7/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-java/.gradle/6.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/backend-java/.gradle/6.7/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-java/.gradle/6.7/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/backend-java/.gradle/6.7/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-java/.gradle/6.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/backend-java/.gradle/6.7/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-java/.gradle/6.7/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/backend-java/.gradle/6.7/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-java/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/backend-java/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-java/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/backend-java/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-java/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend-java/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-java/build/classes/java/main/com/ssafy/db/entity/BaseEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-java/build/classes/java/main/com/ssafy/db/entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend-java/build/classes/java/main/com/ssafy/db/entity/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-java/build/generated/sources/annotationProcessor/java/main/com/ssafy/db/entity/QBaseEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-java/build/generated/sources/annotationProcessor/java/main/com/ssafy/db/entity/QUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend-java/build/generated/sources/annotationProcessor/java/main/com/ssafy/db/entity/QUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-java/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" afterPath="$PROJECT_DIR$/backend-java/build/tmp/compileJava/source-classes-mapping.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,18 +36,21 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "SDK",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="이름이 지정되지 않았습니다" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="sun.tools.jar.Main" />
@@ -80,6 +72,7 @@
       <workItem from="1658379819602" duration="263000" />
       <workItem from="1658380218654" duration="961000" />
       <workItem from="1658640006115" duration="2000" />
+      <workItem from="1658735166809" duration="53000" />
     </task>
     <servers />
   </component>
