@@ -6,6 +6,8 @@ import { TextField, Button } from "@mui/material";
 
 import * as yup from "yup";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import * as api from "./api/api";
 const validationSchema = yup.object({
   password: yup.string("Enter your password").required("Password is required"),
   id: yup
@@ -26,10 +28,15 @@ function Login(props) {
     },
     validationSchema: validationSchema,
     onSubmit: (data, { setSubmitting }) => {
-      console.log(1);
       setSubmitting(true);
       console.log(data);
       setSubmitting(false);
+      axios({
+        method: "get",
+        url: api.users.login(),
+      }).then((res) => {
+        console.log(res.data);
+      });
     },
   });
   return (

@@ -10,6 +10,9 @@ import {
   FormLabel,
 } from "@mui/material";
 import * as yup from "yup";
+import * as api from "./api/api";
+import axios from "axios";
+
 const validationSchema = yup.object({
   email: yup
     .string("Enter your email")
@@ -53,6 +56,10 @@ function Signup() {
       setSubmitting(true);
       console.log(formik.values);
       setSubmitting(false);
+      axios({
+        method: "post",
+        url: api.users.signup(),
+      });
     },
   });
   return (
