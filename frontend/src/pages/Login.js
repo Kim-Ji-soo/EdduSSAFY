@@ -2,12 +2,12 @@
 
 import React from "react";
 import { useFormik } from "formik";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, getFormLabelUtilityClasses } from "@mui/material";
 
 import * as yup from "yup";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import * as api from "./api/api";
+import users from "../api/api";
 const validationSchema = yup.object({
   password: yup.string("Enter your password").required("Password is required"),
   id: yup
@@ -32,8 +32,9 @@ function Login(props) {
       console.log(data);
       setSubmitting(false);
       axios({
-        method: "get",
-        url: api.users.login(),
+        method: "post",
+        url: users.users.login(),
+        data: formik.values
       }).then((res) => {
         console.log(res.data);
       });
@@ -75,6 +76,12 @@ function Login(props) {
               로그인
             </Button>
           </Link>
+        </div>
+        <div>
+            <Button type="submit" disabled={formik.isSubmitting}>
+              로그인
+            </Button>
+     
         </div>
       </form>
 
