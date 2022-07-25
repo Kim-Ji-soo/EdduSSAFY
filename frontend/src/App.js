@@ -7,23 +7,27 @@ import ProblemList from "./pages/ProblemList";
 import CreateQuestion from "./pages/CreateQuestion";
 import Navbar from "./components/Navbar";
 import { Routes, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 function App() {
   return (
     <div className="App">
-      <Navbar></Navbar>
-      <Routes>
-        <Route path="/" element={<Login></Login>}></Route>
-        <Route path="/signup" element={<Signup></Signup>}></Route>
-        <Route path="/homepage" element={<Homepage></Homepage>}></Route>
-        <Route
-          path="/problemlist"
-          element={<ProblemList></ProblemList>}
-        ></Route>
-        <Route
-          path="/createquestion"
-          element={<CreateQuestion></CreateQuestion>}
-        ></Route>
-      </Routes>
+      <Provider store={store}>
+        <Navbar></Navbar>
+        <Routes>
+          <Route path="/" element={<Login></Login>}></Route>
+          <Route path="/signup" element={<Signup></Signup>}></Route>
+          <Route path="/homepage" element={<Homepage></Homepage>}></Route>
+          <Route
+            path="/problemlist"
+            element={<ProblemList></ProblemList>}
+          ></Route>
+          <Route
+            path="/createquestion"
+            element={<CreateQuestion></CreateQuestion>}
+          ></Route>
+        </Routes>
+      </Provider>
     </div>
   );
 }

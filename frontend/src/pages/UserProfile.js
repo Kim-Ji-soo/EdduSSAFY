@@ -84,32 +84,12 @@ function Signup() {
       >
         <div>
           <TextField
-            name="name"
-            label="name"
-            value={formik.values.name}
-            onChange={formik.handleChange}
-            error={formik.touched.name && Boolean(formik.errors.name)}
-            helperText={formik.touched.name && formik.errors.name}
-          />
-        </div>
-        <div>
-          <TextField
             name="email"
             label="email"
             value={formik.values.email}
             onChange={formik.handleChange}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
-          />
-        </div>
-        <div>
-          <TextField
-            name="id"
-            label="id"
-            value={formik.values.id}
-            onChange={formik.handleChange}
-            error={formik.touched.id && Boolean(formik.errors.id)}
-            helperText={formik.touched.id && formik.errors.id}
           />
         </div>
         <div>
@@ -150,31 +130,6 @@ function Signup() {
             }
             helperText={formik.touched.phonenumber && formik.errors.phonenumber}
           />
-        </div>
-        <div>
-          <FormControl>
-            <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
-            <RadioGroup
-              aria-labelledby="demo-controlled-radio-buttons-group"
-              name="position"
-              defaultValue="professor"
-              value={formik.values.position}
-              onChange={formik.handleChange}
-            >
-              <FormControlLabel
-                checked={formik.values.position === "professor"}
-                value="professor"
-                control={<Radio />}
-                label="교수"
-              ></FormControlLabel>
-              <FormControlLabel
-                checked={formik.values.position === "student"}
-                value="student"
-                control={<Radio />}
-                label="학생"
-              ></FormControlLabel>
-            </RadioGroup>
-          </FormControl>
         </div>
         <Button type="submit" disabled={formik.isSubmitting}>
           Submit
