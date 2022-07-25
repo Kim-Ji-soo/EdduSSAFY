@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3d46f31f-7aed-42bd-825f-858a0b0deab5" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/com/ssafy/api/controller/AuthController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/ssafy/api/controller/AuthController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/com/ssafy/api/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/ssafy/api/controller/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssafy-web.log" beforeDir="false" afterPath="$PROJECT_DIR$/ssafy-web.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +100,7 @@
       <updated>1658642543481</updated>
       <workItem from="1658642546088" duration="659000" />
       <workItem from="1658643258802" duration="2783000" />
-      <workItem from="1658667203747" duration="8022000" />
+      <workItem from="1658667203747" duration="8819000" />
     </task>
     <servers />
   </component>
