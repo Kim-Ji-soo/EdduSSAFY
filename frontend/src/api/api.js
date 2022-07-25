@@ -1,6 +1,6 @@
 const HOST = "http://localhost:8080/api/v1/";
 
-const USERS = "users";
+const USERS = "users/";
 
 export default {
   users: {
