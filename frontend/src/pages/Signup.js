@@ -8,11 +8,11 @@ import {
   FormControl,
   FormControlLabel,
   FormLabel,
-  getFormLabelUtilityClasses,
 } from "@mui/material";
 import * as yup from "yup";
 import users from "../api/api";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = yup.object({
   email: yup
@@ -42,6 +42,7 @@ const validationSchema = yup.object({
 });
 
 function Signup() {
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -57,16 +58,19 @@ function Signup() {
       setSubmitting(true);
       console.log(formik.values);
       setSubmitting(false);
-      console.log(users.users.signup())
+      console.log(users.users.signup());
       axios({
         method: "post",
         url: users.users.signup(),
         data: formik.values,
-      }).then((res) => {
-        console.log(res.data)
-      }).catch((e) => {
-        console.log(e)
       })
+        .then((res) => {
+          console.log(res.data);
+          navigate("/", { replace: true });
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     },
   });
   return (

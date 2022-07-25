@@ -2,12 +2,13 @@
 
 import React from "react";
 import { useFormik } from "formik";
-import { TextField, Button, getFormLabelUtilityClasses } from "@mui/material";
-
+import { TextField, Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import users from "../api/api";
+
 const validationSchema = yup.object({
   password: yup.string("Enter your password").required("Password is required"),
   id: yup
@@ -21,6 +22,7 @@ function Login(props) {
   //const [password, setPassword] = useState("");
   //const [loading, setLoading] = useState(false);
   //const [msg, setMsg] = useState("");
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       id: "",
@@ -33,10 +35,11 @@ function Login(props) {
       setSubmitting(false);
       axios({
         method: "post",
-        url: users.users.login(),
-        data: formik.values
+        url: users.login(),
+        data: formik.values,
       }).then((res) => {
         console.log(res.data);
+        navigate("/homepage", { replace: true });
       });
     },
   });
@@ -71,17 +74,9 @@ function Login(props) {
           />
         </div>
         <div>
-          <Link to="/homepage">
-            <Button type="submit" disabled={formik.isSubmitting}>
-              로그인
-            </Button>
-          </Link>
-        </div>
-        <div>
-            <Button type="submit" disabled={formik.isSubmitting}>
-              로그인
-            </Button>
-     
+          <Button type="submit" disabled={formik.isSubmitting}>
+            로그인
+          </Button>
         </div>
       </form>
 
