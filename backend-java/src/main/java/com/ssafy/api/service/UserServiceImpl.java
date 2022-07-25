@@ -42,7 +42,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean checkUserId(String userid) {
-		return false;
+		boolean result = userRepositorySupport.findByUserIdEquals(userid);
+		return result;
 	}
 
 	@Override

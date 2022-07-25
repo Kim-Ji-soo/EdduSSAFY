@@ -20,11 +20,17 @@ public class User {
     @Id
     String userId;
 
-    String position;
-
-    String department;
-
     String name;
 
     String password;
+
+    String email;
+
+    String tel;
+
+    String position;
+
+
+
+
 }
