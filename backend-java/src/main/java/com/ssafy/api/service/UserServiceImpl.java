@@ -26,23 +26,44 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public User createUser(UserRegisterPostReq userRegisterInfo) {
+		//아이디 중복이면 null 리턴
+		if(checkUserId(userRegisterInfo.getId())){
+			return null;
+		}
+
 		User user = new User();
 		user.setUserId(userRegisterInfo.getId());
 		// 보안을 위해서 유저 패스워드 암호화 하여 디비에 저장.
 		user.setPassword(passwordEncoder.encode(userRegisterInfo.getPassword()));
+		user.setEmail(userRegisterInfo.getEmail());
+		user.setIsActive(false);
+		user.setTel(userRegisterInfo.getTel());
+		user.setNickname(userRegisterInfo.getNickname());
+		user.setName(userRegisterInfo.getName());
+		user.setPosition(userRegisterInfo.getPosition());
+
 		return userRepository.save(user);
 	}
 
 	@Override
 	public User getUserByUserId(String userId) {
-		// 디비에 유저 정보 조회 (userId 를 통한 조회).
+		// 디비에 유저정보 조회 (userId 를 통한 조회).
 		User user = userRepositorySupport.findUserByUserId(userId).get();
 		return user;
 	}
 
 	@Override
 	public boolean checkUserId(String userid) {
-		return false;
+		if(userRepository.count() == 0) {
+			//
+			System.out.println("안겹침");
+			//
+			return false;
+		}
+		//
+		System.out.println("겹침");
+		//
+		return true;
 	}
 
 	@Override

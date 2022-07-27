@@ -19,13 +19,19 @@ public class QUser extends EntityPathBase<User> {
 
     public static final QUser user = new QUser("user");
 
-    public final StringPath department = createString("department");
+    public final StringPath email = createString("email");
+
+    public final BooleanPath isActive = createBoolean("isActive");
 
     public final StringPath name = createString("name");
+
+    public final StringPath nickname = createString("nickname");
 
     public final StringPath password = createString("password");
 
     public final StringPath position = createString("position");
+
+    public final StringPath tel = createString("tel");
 
     public final StringPath userId = createString("userId");
 
