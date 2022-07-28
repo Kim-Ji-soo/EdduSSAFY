@@ -10,29 +10,29 @@ import com.querydsl.core.types.Path;
 
 
 /**
- * QQuizBook is a Querydsl query type for QuizBook
+ * QQuizbook is a Querydsl query type for Quizbook
  */
 @Generated("com.querydsl.codegen.EntitySerializer")
-public class QQuizBook extends EntityPathBase<QuizBook> {
+public class QQuizbook extends EntityPathBase<Quizbook> {
 
-    private static final long serialVersionUID = -1034372960L;
+    private static final long serialVersionUID = -1033419648L;
 
-    public static final QQuizBook quizBook = new QQuizBook("quizBook");
+    public static final QQuizbook quizbook = new QQuizbook("quizbook");
 
     public final NumberPath<Long> quizbookId = createNumber("quizbookId", Long.class);
 
     public final NumberPath<Integer> quizbookSize = createNumber("quizbookSize", Integer.class);
 
-    public QQuizBook(String variable) {
-        super(QuizBook.class, forVariable(variable));
+    public QQuizbook(String variable) {
+        super(Quizbook.class, forVariable(variable));
     }
 
-    public QQuizBook(Path<? extends QuizBook> path) {
+    public QQuizbook(Path<? extends Quizbook> path) {
         super(path.getType(), path.getMetadata());
     }
 
-    public QQuizBook(PathMetadata metadata) {
-        super(QuizBook.class, metadata);
+    public QQuizbook(PathMetadata metadata) {
+        super(Quizbook.class, metadata);
     }
 
 }

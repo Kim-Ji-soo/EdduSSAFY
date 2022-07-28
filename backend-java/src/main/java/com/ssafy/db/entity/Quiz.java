@@ -5,7 +5,10 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity(name="quiz")
-@Getter @Setter
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Quiz {
     @Id @GeneratedValue
     @Column(name="quiz_id")
@@ -14,13 +17,12 @@ public class Quiz {
     private String content;
     private int type;
 
-    @Column(name="quiz_pic")
-    private int quizPic;
+    private String quizPic;
 
-    @Column(name="optionSize")
     private int optionSize;
 
     private String options;
 
+    //복수 정답을 위해선 나중에 따로 처리해줘야 됨.
     private String answer;
 }

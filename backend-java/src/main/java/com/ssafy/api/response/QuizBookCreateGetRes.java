@@ -1,7 +1,6 @@
 package com.ssafy.api.response;
 
-import com.ssafy.api.request.QuizBookCreateGetReq;
-import com.ssafy.db.entity.QuizBook;
+import com.ssafy.db.entity.Quizbook;
 import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +11,7 @@ import lombok.Setter;
 public class QuizBookCreateGetRes {
     private long quizbookId;
 
-    public static QuizBookCreateGetRes of(QuizBook quizBook){
+    public static QuizBookCreateGetRes of(Quizbook quizBook){
         QuizBookCreateGetRes res = new QuizBookCreateGetRes();
         res.setQuizbookId(quizBook.getQuizbookId());
         return res;

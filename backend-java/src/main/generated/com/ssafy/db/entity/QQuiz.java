@@ -29,7 +29,7 @@ public class QQuiz extends EntityPathBase<Quiz> {
 
     public final NumberPath<Long> quizId = createNumber("quizId", Long.class);
 
-    public final NumberPath<Integer> quizPic = createNumber("quizPic", Integer.class);
+    public final StringPath quizPic = createString("quizPic");
 
     public final NumberPath<Integer> type = createNumber("type", Integer.class);
 

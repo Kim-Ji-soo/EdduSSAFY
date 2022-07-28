@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean checkUserId(String userid) {
-		if(userRepository.count() == 0) {
+		if(userRepository.countUsersByUserId(userid) == 0) {
 			//
 			System.out.println("안겹침");
 			//

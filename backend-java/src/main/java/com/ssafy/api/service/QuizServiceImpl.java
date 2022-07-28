@@ -1,38 +1,58 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.QuizBookCreateGetReq;
-import com.ssafy.db.entity.QuizBook;
-import com.ssafy.db.entity.User_QuizBook;
-import com.ssafy.db.repository.QuizBookRepository;
-import com.ssafy.db.repository.UserRepository;
-import com.ssafy.db.repository.User_QuizBookRepository;
+import com.ssafy.api.request.QuizCreateReq;
+import com.ssafy.db.entity.Quiz;
+import com.ssafy.db.entity.Quizbook;
+import com.ssafy.db.entity.User;
+import com.ssafy.db.entity.UserQuizbook;
+import com.ssafy.db.repository.QuizRepository;
+import com.ssafy.db.repository.QuizbookRepository;
+import com.ssafy.db.repository.UserQuizbookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class QuizServiceImpl implements  QuizService{
     @Autowired
-    QuizBookRepository quizBookRepository;
+    QuizbookRepository quizBookRepository;
 
     @Autowired
-    User_QuizBookRepository user_quizBookRepository;
+    UserQuizbookRepository userQuizBookRepository;
+
+    @Autowired
+    QuizRepository quizRepository;
 
     @Override
-    public QuizBook createQuizBook(QuizBookCreateGetReq quizBookCreateGetReq) {
-        QuizBook quizBook = new QuizBook();
+    public Quizbook createQuizBook(QuizBookCreateGetReq quizBookCreateGetReq) {
+        Quizbook quizBook = new Quizbook();
         quizBook.setQuizbookSize(0);
 
-        //
         quizBookRepository.save(quizBook) ;
-        User_QuizBook user_quizBook = new User_QuizBook();
-        user_quizBook.setUserId(quizBookCreateGetReq.getUserId());
-        user_quizBook.setQuizbookId(quizBook.getQuizbookId());
-        user_quizBookRepository.save(user_quizBook);
+        UserQuizbook userQuizbook = new UserQuizbook();
+        User user = new User();
+        user.setUserId(quizBookCreateGetReq.getUserId());
+        userQuizbook.setUser(user);
+        userQuizbook.setQuizbook(quizBook);
+        userQuizBookRepository.save(userQuizbook);
         return quizBook;
     }
 
     @Override
-    public QuizBook getQuizBookById(long quizbookId) {
+    public Quiz createQuiz(QuizCreateReq quizCreateReq) {
+        Quiz quiz = quizCreateReq.toEntity();
+        try {
+            quizRepository.save(quiz);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+        return quiz;
+    }
+
+    @Override
+    public Quizbook getQuizBookById(long quizbookId) {
         return null;
     }
 
@@ -43,6 +63,13 @@ public class QuizServiceImpl implements  QuizService{
 
     @Override
     public boolean deleteQuizBookById(long quizbookId) {
-        return false;
+        try {
+            quizBookRepository.deleteById(quizbookId);
+            return true;
+        }
+        catch(Exception e){
+            return false;
+        }
+
     }
 }

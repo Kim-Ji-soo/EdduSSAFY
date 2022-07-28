@@ -6,9 +6,11 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity(name="quizbook")
-@Getter
-@Setter
-public class QuizBook {
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class Quizbook {
 
     @Id
     @GeneratedValue

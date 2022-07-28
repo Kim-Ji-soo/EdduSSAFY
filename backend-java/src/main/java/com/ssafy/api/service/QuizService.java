@@ -1,13 +1,16 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.QuizBookCreateGetReq;
-import com.ssafy.db.entity.QuizBook;
+import com.ssafy.api.request.QuizCreateReq;
+import com.ssafy.db.entity.Quiz;
+import com.ssafy.db.entity.Quizbook;
 
 public interface QuizService {
 
-    QuizBook createQuizBook (QuizBookCreateGetReq quizBookCreateGetReq);
+    Quizbook createQuizBook (QuizBookCreateGetReq quizBookCreateGetReq);
+    Quiz createQuiz (QuizCreateReq quizCreateReq);
 
-    QuizBook getQuizBookById(long quizbookId);
+    Quizbook getQuizBookById(long quizbookId);
 
     boolean checkQuizBookId(long quizbookId);
 
