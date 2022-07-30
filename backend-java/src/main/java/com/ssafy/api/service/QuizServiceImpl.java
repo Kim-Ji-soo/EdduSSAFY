@@ -24,21 +24,6 @@ public class QuizServiceImpl implements  QuizService{
     QuizRepository quizRepository;
 
     @Override
-    public Quizbook createQuizBook(QuizBookCreateGetReq quizBookCreateGetReq) {
-        Quizbook quizBook = new Quizbook();
-        quizBook.setQuizbookSize(0);
-
-        quizBookRepository.save(quizBook) ;
-        UserQuizbook userQuizbook = new UserQuizbook();
-        User user = new User();
-        user.setUserId(quizBookCreateGetReq.getUserId());
-        userQuizbook.setUser(user);
-        userQuizbook.setQuizbook(quizBook);
-        userQuizBookRepository.save(userQuizbook);
-        return quizBook;
-    }
-
-    @Override
     public Quiz createQuiz(QuizCreateReq quizCreateReq) {
         Quiz quiz = quizCreateReq.toEntity();
         try {
@@ -52,24 +37,24 @@ public class QuizServiceImpl implements  QuizService{
     }
 
     @Override
-    public Quizbook getQuizBookById(long quizbookId) {
-        return null;
-    }
-
-    @Override
-    public boolean checkQuizBookId(long quizbookId) {
-        return false;
-    }
-
-    @Override
-    public boolean deleteQuizBookById(long quizbookId) {
-        try {
-            quizBookRepository.deleteById(quizbookId);
-            return true;
-        }
-        catch(Exception e){
+    public Boolean alterQuiz(Quiz quiz) {
+        try{
+            quizRepository.save(quiz);
+        }catch(Exception e){
+            e.printStackTrace();
             return false;
         }
+        return true;
+    }
 
+    @Override
+    public boolean deleteQuiz(Long quizId) {
+        try{
+            quizRepository.deleteById(quizId);
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 }

@@ -6,14 +6,9 @@ import com.ssafy.db.entity.Quiz;
 import com.ssafy.db.entity.Quizbook;
 
 public interface QuizService {
-
-    Quizbook createQuizBook (QuizBookCreateGetReq quizBookCreateGetReq);
     Quiz createQuiz (QuizCreateReq quizCreateReq);
 
-    Quizbook getQuizBookById(long quizbookId);
+    Boolean alterQuiz(Quiz quiz);
 
-    boolean checkQuizBookId(long quizbookId);
-
-    boolean deleteQuizBookById(long quizbookId);
-
+    boolean deleteQuiz(Long quizId);
 }

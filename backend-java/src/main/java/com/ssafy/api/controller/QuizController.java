@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(value ="문제 +문제집 API", tags = {"Quiz"})
+@Api(value ="문제 API", tags = {"Quiz"})
 @RestController
 @RequestMapping("/api/v1/quiz")
 public class QuizController {
@@ -27,14 +27,7 @@ public class QuizController {
     QuizService quizService;
 
     //임시로 문제집 등록 + 유저랑 연결까지 여기서.
-    @PostMapping("/createQuizBook")
-    public ResponseEntity<QuizBookCreateGetRes> createQuizBook(@RequestBody QuizBookCreateGetReq quizBookCreateGetReq){
-        Quizbook quizBook = new Quizbook();
-        quizBook = quizService.createQuizBook(quizBookCreateGetReq);
 
-        QuizBookCreateGetRes  quizBookCreateGetRes= new QuizBookCreateGetRes();
-        return ResponseEntity.status(200).body(quizBookCreateGetRes.of(quizBook));
-    };
 
     //나중에 response 만들자.
     @PostMapping("/createQuiz")
@@ -47,23 +40,30 @@ public class QuizController {
         return ResponseEntity.status(200).body(quiz);
     };
 
+    //굳이 필요할까 리퀘스트가?
+    @PutMapping("/alterQuiz")
+    public ResponseEntity<Boolean> alterQuiz(@RequestBody Quiz quiz){
 
-
-    @GetMapping("/search/{quizbook_id}")
-    public ResponseEntity<Quizbook> searchQuizBookById(@PathVariable("quizbook_id") Long quizbookId){
-        Quizbook quizBook = quizService.getQuizBookById(quizbookId);
-
-        return ResponseEntity.status(200).body(quizBook);
-    }
-
-    @DeleteMapping("/delete/{quizbook_id}")
-    public ResponseEntity<Boolean> deleteQuizBook(@PathVariable("quizbook_id") Long quizbookId){
-
-        if(!quizService.deleteQuizBookById(quizbookId)){
+        if(quizService.alterQuiz(quiz)){
             return ResponseEntity.status(400).body(false);
         }
+        return ResponseEntity.status(200).body(true);
+    };
 
+    @DeleteMapping("/delete/{quiz_id}")
+    public ResponseEntity<Boolean> deleteQuizBook(@PathVariable("quiz_id") Long quizId){
+
+        if(!quizService.deleteQuiz(quizId)){
+            return ResponseEntity.status(400).body(false);
+        }
         return ResponseEntity.status(200).body(true);
     }
+    
+    
+
+
+
+
+
 
 }
