@@ -8,11 +8,18 @@ import {
   FormControl,
   FormControlLabel,
   FormLabel,
+<<<<<<< HEAD
+=======
+  getFormLabelUtilityClasses,
+>>>>>>> cba73cdc33efaf6f93b4ff73d3aacade614e9dc5
 } from "@mui/material";
 import * as yup from "yup";
 import users from "../api/api";
 import axios from "axios";
+<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
+=======
+>>>>>>> cba73cdc33efaf6f93b4ff73d3aacade614e9dc5
 
 const validationSchema = yup.object({
   email: yup
@@ -42,7 +49,10 @@ const validationSchema = yup.object({
 });
 
 function Signup() {
+<<<<<<< HEAD
   const navigate = useNavigate();
+=======
+>>>>>>> cba73cdc33efaf6f93b4ff73d3aacade614e9dc5
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -58,11 +68,16 @@ function Signup() {
       setSubmitting(true);
       console.log(formik.values);
       setSubmitting(false);
+<<<<<<< HEAD
       console.log(users.users.signup());
+=======
+      console.log(users.users.signup())
+>>>>>>> cba73cdc33efaf6f93b4ff73d3aacade614e9dc5
       axios({
         method: "post",
         url: users.users.signup(),
         data: formik.values,
+<<<<<<< HEAD
       })
         .then((res) => {
           console.log(res.data);
@@ -71,6 +86,13 @@ function Signup() {
         .catch((e) => {
           console.log(e);
         });
+=======
+      }).then((res) => {
+        console.log(res.data)
+      }).catch((e) => {
+        console.log(e)
+      })
+>>>>>>> cba73cdc33efaf6f93b4ff73d3aacade614e9dc5
     },
   });
   return (
