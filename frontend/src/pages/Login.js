@@ -28,7 +28,7 @@ const validationSchema = yup.object({
 });
 <<<<<<< HEAD
 function Login() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 =======
 function Login(props) {
@@ -55,7 +55,7 @@ function Login(props) {
         data: formik.values,
       }).then((res) => {
         console.log(res.data);
-        // dispatch(login({}));
+        dispatch(login({id: '', password: ''}));
         navigate("/homepage", { replace: true });
 =======
         url: users.users.login(),
@@ -125,6 +125,18 @@ function Login(props) {
         <div>
           <Link to="/signup">
             <Button type="submit">회원가입</Button>
+          </Link>
+        </div>
+      </form>
+
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+        }}
+      >
+        <div>
+          <Link to="/signup">
+            <Button type="submit">비밀번호찾기</Button>
           </Link>
         </div>
       </form>
