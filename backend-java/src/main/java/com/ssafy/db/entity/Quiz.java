@@ -1,6 +1,8 @@
 package com.ssafy.db.entity;
 
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -14,7 +16,14 @@ public class Quiz {
     @Column(name="quiz_id")
     private long quizId;
 
+    //문제와 문제집 다대일로 바꿧음.
+    @ManyToOne
+    @JoinColumn(name="quizbook_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    Quizbook quizbook;
+
     private String content;
+
     private int type;
 
     private String quizPic;

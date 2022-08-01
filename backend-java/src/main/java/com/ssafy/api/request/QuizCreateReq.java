@@ -1,6 +1,7 @@
 package com.ssafy.api.request;
 
 import com.ssafy.db.entity.Quiz;
+import com.ssafy.db.entity.Quizbook;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -8,6 +9,9 @@ import lombok.Data;
 public class QuizCreateReq {
     @ApiModelProperty(name="문제 내용", example="피카츄의 진화는?")
     private String content;
+
+    @ApiModelProperty(name="소속 문제집 아이디", example="0")
+    private Long quizbookId;
 
     @ApiModelProperty(name="객관식 = 0 주관식 = 1", example="0")
     private int type;
@@ -31,6 +35,7 @@ public class QuizCreateReq {
                 .optionSize(getOptionSize())
                 .options(getOptions())
                 .answer(getOptions())
+                .quizbook(Quizbook.builder().quizbookId(getQuizbookId()).build())
                 .build();
     }
 }

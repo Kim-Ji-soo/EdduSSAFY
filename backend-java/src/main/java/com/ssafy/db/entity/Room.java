@@ -25,7 +25,7 @@ public class Room {
 
     private String password;
 
-    private String desc;
+    private String description;
 
     @CreatedDate
     private LocalDateTime roomStartTime;

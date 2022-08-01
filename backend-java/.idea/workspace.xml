@@ -5,13 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05d222be-f06b-4b3e-b7dc-484f855c55b2" name="변경" comment="변경">
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/generated/com/ssafy/db/entity/QQuiz.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/generated/com/ssafy/db/entity/QQuiz.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/generated/com/ssafy/db/entity/QQuizBook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/generated/com/ssafy/db/entity/QQuizBook.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/generated/com/ssafy/db/entity/QQuizQuizbook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/generated/com/ssafy/db/entity/QQuizQuizbook.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/generated/com/ssafy/db/entity/QUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/generated/com/ssafy/db/entity/QUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/generated/com/ssafy/db/entity/QUserQuizbook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/generated/com/ssafy/db/entity/QUserQuizbook.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/generated/com/ssafy/db/entity/QRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/generated/com/ssafy/db/entity/QRoom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/api/request/QuizCreateReq.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/api/request/QuizCreateReq.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/db/entity/Quiz.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/db/entity/Quiz.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/db/entity/QuizQuizbook.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/db/entity/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/db/entity/Room.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ssafy-web.log" beforeDir="false" afterPath="$PROJECT_DIR$/ssafy-web.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -107,7 +106,7 @@
       <workItem from="1658970949008" duration="16591000" />
       <workItem from="1658992945493" duration="7422000" />
       <workItem from="1659055891378" duration="9461000" />
-      <workItem from="1659322480384" duration="4063000" />
+      <workItem from="1659322480384" duration="5628000" />
     </task>
     <servers />
   </component>
