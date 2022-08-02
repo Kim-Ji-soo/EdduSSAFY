@@ -5,8 +5,10 @@ import com.ssafy.db.entity.UserQuizbook;
 import com.ssafy.db.repository.UserQuizbookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class UserQuizbookServiceImpl implements UserQuizbookService {
 
     @Autowired

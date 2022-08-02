@@ -29,8 +29,8 @@ public class QuizbookController {
         return ResponseEntity.status(200).body(quizBookCreateGetRes.of(quizBook));
     };
 
-    @GetMapping("/search/{quizbook_id}")
-    public ResponseEntity<Quizbook> searchQuizBookById(@PathVariable("quizbook_id") Long quizbookId){
+    @GetMapping("/search/{quizbookId}")
+    public ResponseEntity<Quizbook> searchQuizBookById(@PathVariable("quizbookId") Long quizbookId){
         Optional<Quizbook> quizbookOptional = quizbookService.getQuizBookById(quizbookId);
 
         if(!quizbookOptional.isPresent()){
@@ -39,8 +39,8 @@ public class QuizbookController {
         return ResponseEntity.status(200).body(quizbookOptional.get());
     }
 
-    @DeleteMapping("/delete/{quizbook_id}")
-    public ResponseEntity<Boolean> deleteQuizBook(@PathVariable("quizbook_id") Long quizbookId){
+    @DeleteMapping("/delete/{quizbookId}")
+    public ResponseEntity<Boolean> deleteQuizBook(@PathVariable("quizbookId") Long quizbookId){
 
         if(!quizbookService.deleteQuizBookById(quizbookId)){
             return ResponseEntity.status(400).body(false);
