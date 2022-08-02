@@ -1,11 +1,7 @@
 package com.ssafy.api.service;
 
-import com.ssafy.api.request.QuizBookCreateGetReq;
 import com.ssafy.api.request.QuizCreateReq;
 import com.ssafy.db.entity.Quiz;
-import com.ssafy.db.entity.Quizbook;
-import com.ssafy.db.entity.User;
-import com.ssafy.db.entity.UserQuizbook;
 import com.ssafy.db.repository.QuizRepository;
 import com.ssafy.db.repository.QuizbookRepository;
 import com.ssafy.db.repository.UserQuizbookRepository;
@@ -37,7 +33,7 @@ public class QuizServiceImpl implements  QuizService{
     }
 
     @Override
-    public Boolean alterQuiz(Quiz quiz) {
+    public boolean alterQuiz(Quiz quiz) {
         try{
             quizRepository.save(quiz);
         }catch(Exception e){

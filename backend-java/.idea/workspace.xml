@@ -5,11 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05d222be-f06b-4b3e-b7dc-484f855c55b2" name="변경" comment="변경">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/api/controller/EmailController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/api/service/EmailService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/api/service/EmailServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/config/EmailConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/email.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/com/ssafy/config/SwaggerConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/ssafy/config/SwaggerConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/api/controller/RoomController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/api/controller/RoomController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/api/response/UserRes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/api/response/UserRes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/api/request/QuizCreateReq.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/api/request/QuizCreateReq.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/api/service/QuizService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/api/service/QuizService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/api/service/QuizServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/api/service/QuizServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/api/service/RoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/api/service/RoomService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/api/service/RoomServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/api/service/RoomServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/config/SwaggerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/config/SwaggerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ssafy-web.log" beforeDir="false" afterPath="$PROJECT_DIR$/ssafy-web.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -36,12 +49,16 @@
   <component name="JpbToolWindowState">
     <option name="myId2FirstActivated">
       <map>
+        <entry key="com.haulmont.jpb.jpaInspector" value="true" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="true" />
         <entry key="com.haulmont.jpb.jpaStructure" value="true" />
       </map>
     </option>
     <option name="myId2Visible">
       <map>
-        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
+        <entry key="com.haulmont.jpb.jpaInspector" value="false" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="false" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="false" />
       </map>
     </option>
   </component>
@@ -55,31 +72,24 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelOrder2": "2",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RequestMappingsPanelWidth2": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/SSAFY/workspace/2nd/0801/S07P12C111/backend-java",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
-    "spring.configuration.checksum": "1c625e95bb42363b964eadb5c496c14e"
-  }
-}]]></component>
+  <component name="PropertiesComponent">
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
+  </component>
   <component name="RunManager">
     <configuration name="GroupCallApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="ssafy-web-project.main" />
@@ -106,6 +116,7 @@
       <workItem from="1658992945493" duration="7422000" />
       <workItem from="1659055891378" duration="9461000" />
       <workItem from="1659322480384" duration="9324000" />
+      <workItem from="1659403420313" duration="9676000" />
     </task>
     <servers />
   </component>
@@ -122,5 +133,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

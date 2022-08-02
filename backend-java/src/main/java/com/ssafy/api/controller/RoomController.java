@@ -1,21 +1,13 @@
 package com.ssafy.api.controller;
 
-import com.ssafy.api.request.QuizBookCreateGetReq;
-import com.ssafy.api.request.QuizCreateReq;
 import com.ssafy.api.request.RoomAlterReq;
 import com.ssafy.api.request.RoomCreateReq;
-import com.ssafy.api.response.QuizBookCreateGetRes;
 import com.ssafy.api.service.RoomService;
-import com.ssafy.db.entity.Quiz;
-import com.ssafy.db.entity.Quizbook;
 import com.ssafy.db.entity.Room;
-import com.ssafy.db.entity.UserRoom;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @Api(value ="방 API", tags = {"Room"})
 @RestController
@@ -46,7 +38,7 @@ public class RoomController {
     @DeleteMapping("/delete/{room_id}")
     public ResponseEntity<Boolean> deleteRoom(@PathVariable("room_id") Long roomId){
 
-        if(!roomService.deleteRoomById(roomId)){
+        if(!roomService.deleteRoom(roomId)){
             return ResponseEntity.status(400).body(false);
         }
 

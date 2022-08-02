@@ -1,6 +1,5 @@
 package com.ssafy.api.service;
 
-import com.ssafy.api.request.QuizCreateReq;
 import com.ssafy.api.request.RoomAlterReq;
 import com.ssafy.api.request.RoomCreateReq;
 import com.ssafy.db.entity.Room;
@@ -39,9 +38,10 @@ public class RoomServiceImpl implements  RoomService{
     }
 
     @Override
-    public boolean deleteRoomById(Long roomId) {
+    public boolean alterRoom(RoomAlterReq roomAlterReq) {
         try{
-            roomRepository.deleteById(roomId);
+            Room room = roomAlterReq.toEntity();
+            roomRepository.save(room);
         } catch(Exception e){
             e.printStackTrace();
             return false;
@@ -50,10 +50,9 @@ public class RoomServiceImpl implements  RoomService{
     }
 
     @Override
-    public boolean alterRoom(RoomAlterReq roomAlterReq) {
+    public boolean deleteRoom(Long roomId) {
         try{
-            Room room = roomAlterReq.toEntity();
-            roomRepository.save(room);
+            roomRepository.deleteById(roomId);
         } catch(Exception e){
             e.printStackTrace();
             return false;

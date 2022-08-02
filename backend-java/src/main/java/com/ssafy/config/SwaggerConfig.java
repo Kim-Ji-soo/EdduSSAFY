@@ -1,3 +1,5 @@
+// http://localhost:8080/swagger-ui/index.html
+
 package com.ssafy.config;
 
 import org.springframework.context.annotation.Bean;

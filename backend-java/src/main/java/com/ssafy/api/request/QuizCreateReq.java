@@ -29,7 +29,8 @@ public class QuizCreateReq {
     private String answer;
 
     public Quiz toEntity(){
-        return Quiz.builder().content(getContent())
+        return Quiz.builder()
+                .content(getContent())
                 .type(getType())
                 .quizPic(getQuizPic())
                 .optionSize(getOptionSize())
