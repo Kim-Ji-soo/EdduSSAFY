@@ -3,32 +3,16 @@ import { useFormik } from "formik";
 import {
   TextField,
   Button,
-  Radio,
-  RadioGroup,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
 } from "@mui/material";
 import * as yup from "yup";
 import users from "../api/api";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const validationSchema = yup.object({
   email: yup
     .string("Enter your email")
     .email("Enter a valid email")
     .required("Email is required"),
-  password: yup
-    .string("Enter your password")
-    .min(8, "Password should be of minimum 8 characters length")
-    .required("Password is required"),
-  passwordCheck: yup.string().when("password", {
-    is: (val) => (val && val.length > 0 ? true : false),
-    then: yup
-      .string()
-      .oneOf([yup.ref("password")], "Both password need to be the same"),
-  }),
   name: yup.string("Enter your name").required("name is required"),
   nickname : yup.string("Enter your nickname").required("nickname is required"),
   id: yup
@@ -39,37 +23,32 @@ const validationSchema = yup.object({
     .string("Enter your phonenumber")
     .length(11, "phonenumber should be 11 characters length")
     .required("phonenumber is required"),
-  position: yup.string("Enter your position").required("position is required"),
 });
 
-function Signup() {
-  const navigate = useNavigate();
+function UserProfile() {
   const formik = useFormik({
     initialValues: {
-      name: "",
+      name : "",
       nickname : "",
-      id: "",
-      password: "",
-      passwordCheck: "",
+      id : "",
       email: "",
       tel: "",
-      position: "",
+
     },
     validationSchema: validationSchema,
     onSubmit: (data, { setSubmitting }) => {
       setSubmitting(true);
       console.log(formik.values);
-      console.log(users.signup());
+      console.log(users.update());
       setSubmitting(false);
-  
       axios({
-        method: "post",
-        url: users.signup(),
+        method: "put",
+        url: users.update(),
         data: formik.values,
       })
         .then((res) => {
           console.log(res.data);
-          navigate("/", { replace: true });
+
         })
         .catch((e) => {
           console.log(e);
@@ -78,7 +57,7 @@ function Signup() {
   });
   return (
     <>
-      <h1>Sign up</h1>
+      <h1>User Profile</h1>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -115,35 +94,6 @@ function Signup() {
             helperText={formik.touched.id && formik.errors.id}
           />
         </div>
-
-
-        <div>
-          <TextField
-            name="password"
-            type="password"
-            label="password"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password}
-          />
-        </div>
-        <div>
-          <TextField
-            name="passwordCheck"
-            type="password"
-            label="passwordcheck"
-            value={formik.values.passwordCheck}
-            onChange={formik.handleChange}
-            error={
-              formik.touched.passwordCheck &&
-              Boolean(formik.errors.passwordCheck)
-            }
-            helperText={
-              formik.touched.passwordCheck && formik.errors.passwordCheck
-            }
-          />
-        </div>
         <div>
           <TextField
             name="email"
@@ -166,31 +116,6 @@ function Signup() {
             helperText={formik.touched.tel && formik.errors.tel}
           />
         </div>
-        <div>
-          <FormControl>
-            <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
-            <RadioGroup
-              aria-labelledby="demo-controlled-radio-buttons-group"
-              name="position"
-              defaultValue="professor"
-              value={formik.values.position}
-              onChange={formik.handleChange}
-            >
-              <FormControlLabel
-                checked={formik.values.position === "professor"}
-                value="professor"
-                control={<Radio />}
-                label="교수"
-              ></FormControlLabel>
-              <FormControlLabel
-                checked={formik.values.position === "student"}
-                value="student"
-                control={<Radio />}
-                label="학생"
-              ></FormControlLabel>
-            </RadioGroup>
-          </FormControl>
-        </div>
         <Button type="submit" disabled={formik.isSubmitting}>
           Submit
         </Button>
@@ -198,4 +123,4 @@ function Signup() {
     </>
   );
 }
-export default Signup;
+export default UserProfile;

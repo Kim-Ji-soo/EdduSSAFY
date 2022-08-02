@@ -2,12 +2,15 @@
 
 import React from "react";
 import { useFormik } from "formik";
-import { TextField, Button, getFormLabelUtilityClasses } from "@mui/material";
-
+import { TextField, Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import users from "../api/api";
+import { useDispatch } from "react-redux";
+import { setToken } from "../redux/token";
+
 const validationSchema = yup.object({
   password: yup.string("Enter your password").required("Password is required"),
   id: yup
@@ -15,12 +18,9 @@ const validationSchema = yup.object({
     .min(5, "id should be of minimum 5 characters length")
     .required("id is required"),
 });
-function Login(props) {
-  //const dispatch = useDispatch();
-  //const [id, setId] = useState("");
-  //const [password, setPassword] = useState("");
-  //const [loading, setLoading] = useState(false);
-  //const [msg, setMsg] = useState("");
+function Login() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       id: "",
@@ -33,10 +33,14 @@ function Login(props) {
       setSubmitting(false);
       axios({
         method: "post",
-        url: users.users.login(),
-        data: formik.values
+        url: users.login(),
+        data: formik.values,
       }).then((res) => {
         console.log(res.data);
+        const token = res.data.accessToken;
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        // dispatch(setToken(res.data.accessToken));
+        navigate("/homepage", { replace: true });
       });
     },
   });
@@ -71,17 +75,9 @@ function Login(props) {
           />
         </div>
         <div>
-          <Link to="/homepage">
-            <Button type="submit" disabled={formik.isSubmitting}>
-              로그인
-            </Button>
-          </Link>
-        </div>
-        <div>
-            <Button type="submit" disabled={formik.isSubmitting}>
-              로그인
-            </Button>
-     
+          <Button type="submit" disabled={formik.isSubmitting}>
+            로그인
+          </Button>
         </div>
       </form>
 
@@ -93,6 +89,18 @@ function Login(props) {
         <div>
           <Link to="/signup">
             <Button type="submit">회원가입</Button>
+          </Link>
+        </div>
+      </form>
+
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+        }}
+      >
+        <div>
+          <Link to="/signup">
+            <Button type="submit">비밀번호찾기</Button>
           </Link>
         </div>
       </form>

@@ -1,0 +1,26 @@
+.toolbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.logo {
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+}
+.navlinks {
+    margin-left: 5px;
+    display: flex;
+  }
+.link{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+.link:hover{
+    color: yellow;
+    border-bottom: 1px solid white;
+}
