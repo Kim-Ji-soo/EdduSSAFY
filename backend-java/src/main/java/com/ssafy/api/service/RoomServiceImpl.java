@@ -9,13 +9,14 @@ import com.ssafy.db.repository.RoomRepository;
 import com.ssafy.db.repository.UserRoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class RoomServiceImpl implements  RoomService{
 
     @Autowired
     RoomRepository roomRepository;
-
     @Autowired
     UserRoomRepository userRoomRepository;
 

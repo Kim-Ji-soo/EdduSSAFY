@@ -50,8 +50,8 @@ public class QuizController {
         return ResponseEntity.status(200).body(true);
     };
 
-    @DeleteMapping("/delete/{quiz_id}")
-    public ResponseEntity<Boolean> deleteQuizBook(@PathVariable("quiz_id") Long quizId){
+    @DeleteMapping("/delete/{quizId}")
+    public ResponseEntity<Boolean> deleteQuizBook(@PathVariable("quizId") Long quizId){
 
         if(!quizService.deleteQuiz(quizId)){
             return ResponseEntity.status(400).body(false);

@@ -35,8 +35,8 @@ public class RoomController {
         return ResponseEntity.status(200).body(true);
     };
 
-    @DeleteMapping("/delete/{room_id}")
-    public ResponseEntity<Boolean> deleteRoom(@PathVariable("room_id") Long roomId){
+    @DeleteMapping("/delete/{roomId}")
+    public ResponseEntity<Boolean> deleteRoom(@PathVariable("roomId") Long roomId){
 
         if(!roomService.deleteRoom(roomId)){
             return ResponseEntity.status(400).body(false);

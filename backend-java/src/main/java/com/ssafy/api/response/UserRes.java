@@ -22,7 +22,9 @@ public class UserRes{
 
 	String nickName;
 
-	private String tel;
+	String tel;
+
+	String email;
 
 	public static UserRes of(User user) {
 		UserRes res = new UserRes();
@@ -30,6 +32,7 @@ public class UserRes{
 		res.setName(user.getName());
 		res.setNickName(user.getNickname());
 		res.setTel(user.getTel());
+		res.setEmail(user.getEmail());
 		return res;
 	}
 }
