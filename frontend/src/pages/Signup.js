@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import {
   TextField,
@@ -11,8 +11,10 @@ import {
 } from "@mui/material";
 import * as yup from "yup";
 import users from "../api/api";
+import { email } from "../api/api";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "../css/signup.css";
 
 const validationSchema = yup.object({
   email: yup
@@ -30,7 +32,7 @@ const validationSchema = yup.object({
       .oneOf([yup.ref("password")], "Both password need to be the same"),
   }),
   name: yup.string("Enter your name").required("name is required"),
-  nickname : yup.string("Enter your nickname").required("nickname is required"),
+  nickname: yup.string("Enter your nickname").required("nickname is required"),
   id: yup
     .string("Enter your id")
     .min(5, "id should be of minimum 5 characters length")
@@ -44,10 +46,15 @@ const validationSchema = yup.object({
 
 function Signup() {
   const navigate = useNavigate();
+  const [checkId, setCheckId] = useState(false);
+  const [checkEmail, setCheckEmail] = useState(false);
+  const [message, setMessage] = useState("");
+  const [messageValue, setMessageValue] = useState("");
+  const [valid, setValid] = useState(false);
   const formik = useFormik({
     initialValues: {
       name: "",
-      nickname : "",
+      nickname: "",
       id: "",
       password: "",
       passwordCheck: "",
@@ -57,23 +64,31 @@ function Signup() {
     },
     validationSchema: validationSchema,
     onSubmit: (data, { setSubmitting }) => {
-      setSubmitting(true);
-      console.log(formik.values);
-      console.log(users.signup());
-      setSubmitting(false);
-  
-      axios({
-        method: "post",
-        url: users.signup(),
-        data: formik.values,
-      })
-        .then((res) => {
-          console.log(res.data);
-          navigate("/", { replace: true });
+      if (valid === true) {
+        setSubmitting(true);
+        console.log(formik.values);
+        console.log(users.signup());
+        setSubmitting(false);
+
+        axios({
+          method: "post",
+          url: users.signup(),
+          data: formik.values,
         })
-        .catch((e) => {
-          console.log(e);
-        });
+          .then((res) => {
+            console.log(res.data);
+            navigate("/", { replace: true });
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      } else {
+        if (checkId === false) {
+          alert("아이디 중복체크 해주세요.");
+        } else {
+          alert("이메일 인증 해주세요.");
+        }
+      }
     },
   });
   return (
@@ -105,7 +120,7 @@ function Signup() {
             helperText={formik.touched.nickname && formik.errors.nickname}
           />
         </div>
-        <div>
+        <div id="inputId">
           <TextField
             name="id"
             label="id"
@@ -114,9 +129,28 @@ function Signup() {
             error={formik.touched.id && Boolean(formik.errors.id)}
             helperText={formik.touched.id && formik.errors.id}
           />
+          <Button
+            id="inputButton"
+            onClick={() => {
+              const id = formik.values.id;
+              console.log(users.idcheck() + id);
+              axios({
+                method: "get",
+                url: users.idcheck() + id,
+              }).then((res) => {
+                if (res.data === true) {
+                  alert("중복된 아이디입니다.");
+                } else {
+                  setCheckId(true);
+                  setValid(checkEmail && checkId);
+                  alert("사용 가능한 아이디입니다.");
+                }
+              });
+            }}
+          >
+            중복체크
+          </Button>
         </div>
-
-
         <div>
           <TextField
             name="password"
@@ -144,7 +178,7 @@ function Signup() {
             }
           />
         </div>
-        <div>
+        <div className="inputEmail">
           <TextField
             name="email"
             label="email"
@@ -153,16 +187,59 @@ function Signup() {
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
           />
+          <Button
+            className="inputButton"
+            onClick={() => {
+              const id = formik.values.id;
+              console.log(users.idcheck() + id);
+              console.log(formik.values.email);
+              axios({
+                method: "post",
+                url: email.emailConfirm(),
+                data: { email: formik.values.email },
+              }).then((res) => {
+                console.log(res.data.message);
+                setMessage(res.data.message);
+              });
+            }}
+          >
+            코드발송
+          </Button>
         </div>
+
+        <div className="inputEmail">
+          <TextField
+            name="message"
+            label="message"
+            value={messageValue}
+            onChange={(e) => {
+              setMessageValue(e.target.value);
+            }}
+          />
+          <Button
+            className="inputButton"
+            onClick={(e) => {
+              e.preventDefault();
+              if (messageValue === message) {
+                setCheckEmail(true);
+                setValid(checkEmail && checkId);
+                alert("이메일 인증이 완료 되었습니다.");
+              } else {
+                alert("코드가 일치하지 않습니다.");
+              }
+            }}
+          >
+            코드제출
+          </Button>
+        </div>
+
         <div>
           <TextField
             name="tel"
             label="tel"
             value={formik.values.tel}
             onChange={formik.handleChange}
-            error={
-              formik.touched.tel && Boolean(formik.errors.tel)
-            }
+            error={formik.touched.tel && Boolean(formik.errors.tel)}
             helperText={formik.touched.tel && formik.errors.tel}
           />
         </div>
@@ -191,9 +268,7 @@ function Signup() {
             </RadioGroup>
           </FormControl>
         </div>
-        <Button type="submit" disabled={formik.isSubmitting}>
-          Submit
-        </Button>
+        <Button type="submit">Submit</Button>
       </form>
     </>
   );
