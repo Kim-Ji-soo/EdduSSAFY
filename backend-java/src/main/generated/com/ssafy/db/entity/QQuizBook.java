@@ -23,6 +23,8 @@ public class QQuizbook extends EntityPathBase<Quizbook> {
 
     public final NumberPath<Integer> quizbookSize = createNumber("quizbookSize", Integer.class);
 
+    public final StringPath title = createString("title");
+
     public QQuizbook(String variable) {
         super(Quizbook.class, forVariable(variable));
     }

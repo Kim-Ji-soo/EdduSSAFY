@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @Api(value ="문제 API", tags = {"Quiz"})
 @RestController
 @RequestMapping("/api/v1/quiz")
@@ -59,7 +61,14 @@ public class QuizController {
         return ResponseEntity.status(200).body(true);
     }
     
-    
+    @GetMapping("/searchByQuizbook/{quizbookId}")
+    public ResponseEntity<List<Quiz>> searchByQuizbookId (@PathVariable("quizbookId") Long quizbookId){
+        List<Quiz> quizs = quizService.searchByQuizbookId(quizbookId);
+        if(quizs == null ){
+            return ResponseEntity.status(400).body(null);
+        }
+        return ResponseEntity.status(200).body(quizs);
+    }
 
 
 

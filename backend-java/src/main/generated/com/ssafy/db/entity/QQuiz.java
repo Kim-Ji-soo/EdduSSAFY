@@ -26,6 +26,8 @@ public class QQuiz extends EntityPathBase<Quiz> {
 
     public final StringPath content = createString("content");
 
+    public final BooleanPath isChoice = createBoolean("isChoice");
+
     public final StringPath options = createString("options");
 
     public final NumberPath<Integer> optionSize = createNumber("optionSize", Integer.class);
@@ -36,7 +38,7 @@ public class QQuiz extends EntityPathBase<Quiz> {
 
     public final StringPath quizPic = createString("quizPic");
 
-    public final NumberPath<Integer> type = createNumber("type", Integer.class);
+    public final NumberPath<Integer> score = createNumber("score", Integer.class);
 
     public QQuiz(String variable) {
         this(Quiz.class, forVariable(variable), INITS);
