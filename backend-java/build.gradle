@@ -190,8 +190,19 @@ dependencies {
 
     // 이메일
     implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+    // 오픈비두
+    implementation 'io.openvidu:openvidu-java-client:2.20.0'
 }
 
 test {
     useJUnitPlatform()
+}
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
 }
