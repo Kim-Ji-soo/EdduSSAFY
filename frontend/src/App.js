@@ -9,16 +9,17 @@ import UserProfile from "./pages/UserProfile";
 import Navbar from "./components/Navbar";
 import Logout from "./pages/Logout";
 import { Routes, Route } from "react-router-dom";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import store from "./redux/store";
 import { Grid } from "@mui/material"; //contain
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor } from "./redux/store";
+import PrivateRoute from "./lib/PrivateRoute";
 
 function App() {
   return (
-    <div className="App">
-      <Provider store={store}>
+  <div className="App">
+    <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <Grid
             container
@@ -30,7 +31,7 @@ function App() {
               <Navbar></Navbar>
             </Grid>
 
-            <Routes>
+          <Routes>
               <Route path="/" element={<Login></Login>}></Route>
               <Route path="/signup" element={<Signup></Signup>}></Route>
               <Route path="/homepage" element={<Homepage></Homepage>}></Route>
@@ -44,7 +45,11 @@ function App() {
               ></Route>
               <Route
                 path="/userprofile"
-                element={<UserProfile></UserProfile>}
+                element={
+                  <PrivateRoute>
+                  component={<UserProfile></UserProfile>}
+                  </PrivateRoute>
+                }
               ></Route>
               <Route
               path="/logout"
@@ -53,7 +58,7 @@ function App() {
             </Routes>
           </Grid>
         </PersistGate>
-      </Provider>
+        </Provider>
     </div>
   );
 }

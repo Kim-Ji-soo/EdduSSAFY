@@ -65,12 +65,8 @@ export default function Navbar() {
                 }).then((res) => {
                   console.log(res.data);
                   dispatch(me(res.data));
-                  if(token.accessToken !==""){
-                    navigate("/userprofile", { replace: true });
-                  }
-                  else{
-                    alert('로그인 하시오');
-                  }
+                  navigate("/userprofile", { replace: true });
+
                 });
               }}
               className={classes.link}

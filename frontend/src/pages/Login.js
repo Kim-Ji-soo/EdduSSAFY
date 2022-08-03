@@ -41,6 +41,8 @@ function Login() {
         dispatch(setToken(res.data));
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         // dispatch(setToken(res.data.accessToken));
+        //localStorage.setItem("token", token);
+        //console.log(localStorage.getItem("token"));
         navigate("/homepage", { replace: true });
       });
     },
