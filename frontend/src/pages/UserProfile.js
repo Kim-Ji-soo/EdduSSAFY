@@ -30,7 +30,7 @@ function UserProfile() {
     initialValues: {
       name : "",
       nickname : "",
-      id : "",
+      userId : "",
       email: "",
       tel: "",
 
@@ -86,12 +86,12 @@ function UserProfile() {
         </div>
         <div>
           <TextField
-            name="id"
-            label="id"
-            value={formik.values.id}
+            name="userId"
+            label="userId"
+            value={formik.values.userId}
             onChange={formik.handleChange}
-            error={formik.touched.id && Boolean(formik.errors.id)}
-            helperText={formik.touched.id && formik.errors.id}
+            error={formik.touched.userId && Boolean(formik.errors.userId)}
+            helperText={formik.touched.userId && formik.errors.userId}
           />
         </div>
         <div>

@@ -7,13 +7,13 @@ import { useEffect } from 'react';
 function Logout(){
     // store에 저장된 Access Token 정보를 받아 온다
     const token = useSelector(state => state.token.value);
-    console.log(token);
+    console.log(token.accessToken);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     dispatch(deleteToken());
-    console.log(token);
+    console.log(token.accessToken);
     useEffect(()=>{
-        if(token ===""){
+        if(token.accessToken ===""){
             navigate("/", { replace: true });
         }
     })

@@ -13,7 +13,7 @@ import { setToken } from "../redux/token";
 
 const validationSchema = yup.object({
   password: yup.string("Enter your password").required("Password is required"),
-  id: yup
+  userId: yup
     .string("Enter your id")
     .min(5, "id should be of minimum 5 characters length")
     .required("id is required"),
@@ -23,7 +23,7 @@ function Login() {
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
-      id: "",
+      userId: "",
       password: "",
     },
     validationSchema: validationSchema,
@@ -38,6 +38,7 @@ function Login() {
       }).then((res) => {
         console.log(res.data);
         const token = res.data.accessToken;
+        dispatch(setToken(res.data));
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         // dispatch(setToken(res.data.accessToken));
         navigate("/homepage", { replace: true });
@@ -55,12 +56,12 @@ function Login() {
         <h2>Login</h2>
         <div>
           <TextField
-            name="id"
-            label="id"
-            value={formik.values.id}
+            name="userId"
+            label="userId"
+            value={formik.values.userId}
             onChange={formik.handleChange}
-            error={formik.touched.id && Boolean(formik.errors.id)}
-            helperText={formik.touched.id && formik.errors.id}
+            error={formik.touched.userId && Boolean(formik.errors.userId)}
+            helperText={formik.touched.userId && formik.errors.userId}
           />
         </div>
         <div>
