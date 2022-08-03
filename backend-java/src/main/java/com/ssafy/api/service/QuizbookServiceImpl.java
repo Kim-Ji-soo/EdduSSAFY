@@ -1,6 +1,7 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.QuizBookCreateGetReq;
+import com.ssafy.db.entity.Quiz;
 import com.ssafy.db.entity.Quizbook;
 import com.ssafy.db.entity.User;
 import com.ssafy.db.entity.UserQuizbook;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,7 +24,7 @@ public class QuizbookServiceImpl implements QuizbookService {
     public Quizbook createQuizBook(QuizBookCreateGetReq quizBookCreateGetReq) {
         Quizbook quizBook = new Quizbook();
         quizBook.setQuizbookSize(0);
-
+        quizBook.setTitle(quizBookCreateGetReq.getTitle());
         quizbookRepository.save(quizBook);
         return quizBook;
     }
@@ -51,4 +53,9 @@ public class QuizbookServiceImpl implements QuizbookService {
         }
 
     }
+
+//    @Override
+//    public List<Quiz> getQuizList(long quizbookId) {
+//        return quizbookRepository.findByQuizbookId(quizbookId);
+//    }
 }
