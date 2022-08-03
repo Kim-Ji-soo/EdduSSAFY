@@ -14,7 +14,8 @@ import users from "../api/api";
 import { email } from "../api/api";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "../css/signup.css";
+import { Link } from "react-router-dom";
+import styles from "../css/signup.module.css"
 
 const validationSchema = yup.object({
   email: yup
@@ -91,15 +92,101 @@ function Signup() {
       }
     },
   });
+
+  const Textfieldsx = {
+    width: "70%",
+    height: "100%",
+    "& .MuiInputLabel-root": {color: "black", fontSize:"0.8vmax",},
+    "& .MuiOutlinedInput-root": {
+    "& > fieldset": { width:"100%", height:"100%", border:"3px solid blue", borderRadius: "20px 20px"},
+  },
+    "& .MuiOutlinedInput-root:hover": {
+    "& > fieldset": {
+    borderColor: "blue"
+    }
+  },
+    "& .MuiOutlinedInput-root.Mui-focused": {
+    "& > fieldset": {
+    borderColor: "blue"
+    }
+  }
+}
+
+const Textbtnfieldsx = {
+  width: "52%",
+  height: "100%",
+  "& .MuiInputLabel-root": {color: "black", fontSize:"0.8vmax",},
+  "& .MuiOutlinedInput-root": {
+  "& > fieldset": { width:"90%", height:"100%", border:"3px solid blue", borderRadius: "20px 20px"},
+},
+  "& .MuiOutlinedInput-root:hover": {
+  "& > fieldset": {
+  borderColor: "blue"
+  }
+},
+  "& .MuiOutlinedInput-root.Mui-focused": {
+  "& > fieldset": {
+  borderColor: "blue"
+  }
+}
+}
+
+const Buttonsx = {
+    "&.MuiButton-root": {
+    border: "3px blue solid",
+    width: "80%",
+    textDecoration: "none",
+    borderRadius: "70px 70px",
+    padding: "10px 0px",
+    color: "#4C3657",
+  },
+  "&.MuiButton-root::before": {
+    content: "''",
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    borderRadius: "70px 70px",
+    backgroundColor: "#FDDD6D",
+    top: "-10px",
+    left: "10px",
+    zIndex: "-1",
+  },
+}
+
+const radiosx = {
+color: "#FDDD6D",
+'&.Mui-checked': {
+color: "#FDDD6D",
+},
+}
+
   return (
     <>
-      <h1>Sign up</h1>
+      <div className={styles.container} >
+        <div className={styles.toplinks}>
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+            }}
+              >
+            <div>
+            <Link to="/" className={ styles.link}>
+              <Button type="submit" className={ styles.buttons}>Sign in</Button>
+            </Link>
+            </div>
+          </form>
+        </div>
+        <div>
+          <h2 className={styles.h2}>Sign Up</h2>
+          <span className={styles.span}>Make our Eddu SSAFY community register </span>
+        </div>
       <form
         onSubmit={(e) => {
           e.preventDefault();
           formik.handleSubmit(e);
         }}
       >
+              <div className={styles.textcon}>
         <div>
           <TextField
             name="name"
@@ -108,6 +195,7 @@ function Signup() {
             onChange={formik.handleChange}
             error={formik.touched.name && Boolean(formik.errors.name)}
             helperText={formik.touched.name && formik.errors.name}
+            sx = {Textfieldsx}
           />
         </div>
         <div>
@@ -118,9 +206,10 @@ function Signup() {
             onChange={formik.handleChange}
             error={formik.touched.nickname && Boolean(formik.errors.nickname)}
             helperText={formik.touched.nickname && formik.errors.nickname}
+            sx = {Textfieldsx}
           />
         </div>
-        <div id="inputId">
+        <div id={styles.inputId}>
           <TextField
             name="id"
             label="id"
@@ -128,9 +217,11 @@ function Signup() {
             onChange={formik.handleChange}
             error={formik.touched.id && Boolean(formik.errors.id)}
             helperText={formik.touched.id && formik.errors.id}
+            sx = {Textbtnfieldsx}
           />
           <Button
             id="inputButton"
+            className={styles.inputButton}
             onClick={() => {
               const id = formik.values.id;
               console.log(users.idcheck() + id);
@@ -160,6 +251,7 @@ function Signup() {
             onChange={formik.handleChange}
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
+            sx = {Textfieldsx}
           />
         </div>
         <div>
@@ -176,9 +268,10 @@ function Signup() {
             helperText={
               formik.touched.passwordCheck && formik.errors.passwordCheck
             }
+            sx = {Textfieldsx}
           />
         </div>
-        <div className="inputEmail">
+        <div className={styles.inputEmail}>
           <TextField
             name="email"
             label="email"
@@ -186,9 +279,10 @@ function Signup() {
             onChange={formik.handleChange}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
+            sx = {Textbtnfieldsx}
           />
           <Button
-            className="inputButton"
+            className={styles.inputButton}
             onClick={() => {
               const id = formik.values.id;
               console.log(users.idcheck() + id);
@@ -207,7 +301,7 @@ function Signup() {
           </Button>
         </div>
 
-        <div className="inputEmail">
+        <div className={styles.inputEmail}>
           <TextField
             name="message"
             label="message"
@@ -215,9 +309,10 @@ function Signup() {
             onChange={(e) => {
               setMessageValue(e.target.value);
             }}
+            sx = {Textbtnfieldsx}
           />
           <Button
-            className="inputButton"
+            className={styles.inputButton}
             onClick={(e) => {
               e.preventDefault();
               if (messageValue === message) {
@@ -241,7 +336,9 @@ function Signup() {
             onChange={formik.handleChange}
             error={formik.touched.tel && Boolean(formik.errors.tel)}
             helperText={formik.touched.tel && formik.errors.tel}
+            sx = {Textfieldsx}
           />
+        </div>
         </div>
         <div>
           <FormControl>
@@ -252,24 +349,37 @@ function Signup() {
               defaultValue="professor"
               value={formik.values.position}
               onChange={formik.handleChange}
+              row
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                marginBottom: "20px",
+            }}
             >
               <FormControlLabel
                 checked={formik.values.position === "professor"}
                 value="professor"
-                control={<Radio />}
+                control={<Radio  sx={radiosx}/>}
                 label="교수"
+                sx={{
+                  color: "black",
+              }}
               ></FormControlLabel>
               <FormControlLabel
                 checked={formik.values.position === "student"}
                 value="student"
-                control={<Radio />}
+                control={<Radio  sx={radiosx}/>}
                 label="학생"
+                sx={{
+                  color: "black",
+              }}
               ></FormControlLabel>
             </RadioGroup>
           </FormControl>
         </div>
-        <Button type="submit">Submit</Button>
+        <Button type="submit" sx={Buttonsx}>Submit</Button>
       </form>
+      </div>
     </>
   );
 }
