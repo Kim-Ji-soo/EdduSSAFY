@@ -1,2 +1,8 @@
-package com.ssafy.api.request;public class EmailReq {
+package com.ssafy.api.request;
+
+import lombok.Data;
+
+@Data
+public class EmailReq {
+    private String email;
 }

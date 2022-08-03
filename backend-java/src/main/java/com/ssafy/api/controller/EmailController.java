@@ -1,5 +1,6 @@
 package com.ssafy.api.controller;
 
+import com.ssafy.api.request.EmailReq;
 import com.ssafy.api.service.EmailService;
 import com.ssafy.api.service.QuizbookService;
 import com.ssafy.common.model.response.BaseResponseBody;
@@ -29,8 +30,8 @@ public class EmailController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<? extends BaseResponseBody> emailConfirm(
-            @RequestBody @ApiParam(value="이메일정보 정보", required = true) String email) throws Exception {
-
+            @RequestBody @ApiParam(value="이메일정보 정보", required = true) EmailReq emailReq) throws Exception {
+        String email = emailReq.getEmail();
         String confirm = emailService.sendSimpleMessage(email);
 
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, confirm));

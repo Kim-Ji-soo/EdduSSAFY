@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
-public class QuizServiceImpl implements  QuizService{
+public class    QuizServiceImpl implements  QuizService{
     @Autowired
     QuizbookRepository quizBookRepository;
 
@@ -54,5 +56,17 @@ public class QuizServiceImpl implements  QuizService{
             return false;
         }
         return true;
+    }
+
+    @Override
+    public List<Quiz> searchByQuizbookId(Long quizbookId) {
+        List<Quiz> quizs;
+        try{
+            quizs = quizRepository.findByQuizbookQuizbookId(quizbookId);
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+        return quizs;
     }
 }
