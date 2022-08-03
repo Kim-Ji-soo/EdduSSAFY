@@ -96,12 +96,12 @@ public class UserController {
 	public ResponseEntity<Boolean> idCheck(@PathVariable("userId") String userId) {
 		boolean temp = userService.checkUserId(userId);
 		System.out.println(temp);
-		if (temp == true) {
+		if (temp == false ) {
 			System.out.println("id 중복이 없다");
-			return ResponseEntity.status(200).body(userService.checkUserId(userId));
+			return ResponseEntity.status(200).body(temp);
 		} else
 			System.out.println("id 중복이 있다.");
-		return ResponseEntity.status(401).body(userService.checkUserId(userId));
+		return ResponseEntity.status(200).body(temp);
 	}
 
 	// 회원 정보 수정 (비밀번호 수정)

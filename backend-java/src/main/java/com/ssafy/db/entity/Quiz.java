@@ -24,7 +24,7 @@ public class Quiz {
 
     private String content;
 
-    private int type;
+    private boolean isChoice; //true : 객관식, false : 주관식
 
     private String quizPic;
 
@@ -34,4 +34,6 @@ public class Quiz {
 
     //복수 정답을 위해선 나중에 따로 처리해줘야 됨.
     private String answer;
+
+    private int score;
 }

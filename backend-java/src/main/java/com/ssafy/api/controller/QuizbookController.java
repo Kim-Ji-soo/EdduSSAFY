@@ -3,6 +3,7 @@ package com.ssafy.api.controller;
 import com.ssafy.api.request.QuizBookCreateGetReq;
 import com.ssafy.api.response.QuizBookCreateGetRes;
 import com.ssafy.api.service.QuizbookService;
+import com.ssafy.db.entity.Quiz;
 import com.ssafy.db.entity.Quizbook;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Api(value ="문제집 API", tags = {"Quizbook"})
@@ -40,7 +42,7 @@ public class QuizbookController {
     }
 
     @DeleteMapping("/delete/{quizbookId}")
-    public ResponseEntity<Boolean> deleteQuizBook(@PathVariable("quizbookId") Long quizbookId){
+    public ResponseEntity<Boolean> deleteQuizBook(@PathVariable("quizbookId") long quizbookId){
 
         if(!quizbookService.deleteQuizBookById(quizbookId)){
             return ResponseEntity.status(400).body(false);
@@ -48,4 +50,15 @@ public class QuizbookController {
 
         return ResponseEntity.status(200).body(true);
     }
+
+//    @GetMapping("/quizList/{quizbookId}")
+//    public ResponseEntity<List<Quiz>> getQuizList(@PathVariable("quizbookId") long quizbookId){
+//        List<Quiz> quizs = quizbookService.getQuizList(quizbookId);
+//        if(quizs == null ){
+//            return ResponseEntity.status(400).body(null);
+//        }
+//
+//        return ResponseEntity.status(200).body(quizs);
+//
+//    }
 }

@@ -29,12 +29,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User createUser(UserRegisterPostReq userRegisterInfo) {
 		//아이디 중복이면 null 리턴
-		if(checkUserId(userRegisterInfo.getId())){
+		if(checkUserId(userRegisterInfo.getUserId())){
 			return null;
 		}
 
 		User user = new User();
-		user.setUserId(userRegisterInfo.getId());
+		user.setUserId(userRegisterInfo.getUserId());
 		// 보안을 위해서 유저 패스워드 암호화 하여 디비에 저장.
 		user.setPassword(passwordEncoder.encode(userRegisterInfo.getPassword()));
 		user.setEmail(userRegisterInfo.getEmail());
