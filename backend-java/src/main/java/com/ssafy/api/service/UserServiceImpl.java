@@ -1,6 +1,6 @@
 package com.ssafy.api.service;
 
-import com.ssafy.api.request.UserUpdateDto;
+import com.ssafy.api.request.UserUpdateReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -70,12 +70,29 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean deleteByUserId(User user) {
-		userRepository.delete(user);
+		try {
+			userRepository.delete(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 		return true;
 	}
 
 	@Override
-	public void updateUser(UserUpdateDto updateUserDto) {
+	public boolean updateUser(UserUpdateReq updateUserDto, User user) {
+		user.setName(updateUserDto.getName());
+		user.setNickname(updateUserDto.getNickname());
+		user.setPosition(updateUserDto.getPosition());
+		user.setTel(updateUserDto.getTel());
+		user.setPassword(passwordEncoder.encode(updateUserDto.getPassword()));
 
+		try{
+			userRepository.save(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 }
