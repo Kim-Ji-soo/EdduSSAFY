@@ -8,6 +8,7 @@ import * as yup from "yup";
 import users from "../api/api";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = yup.object({
   email: yup
@@ -16,6 +17,10 @@ const validationSchema = yup.object({
     .required("Email is required"),
   name: yup.string("Enter your name").required("name is required"),
   nickname : yup.string("Enter your nickname").required("nickname is required"),
+  password: yup
+  .string("Enter your password")
+  .min(8, "Password should be of minimum 8 characters length")
+  .required("Password is required"),
   userId: yup
     .string("Enter your id")
     .min(5, "id should be of minimum 5 characters length")
@@ -28,15 +33,15 @@ const validationSchema = yup.object({
 
 function UserProfile() {
   const user = useSelector(state => state.user.value);
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       name : user.name,
       nickname : user.nickName, // api/me 로 받아올때 nickName으로 받음
+      password : "",
       userId : user.userId,
       email: user.email,
       tel: user.tel,
-
     },
     validationSchema: validationSchema,
     onSubmit: (data, { setSubmitting }) => {
@@ -52,6 +57,8 @@ function UserProfile() {
       })
         .then((res) => {
           console.log(res.data);
+          alert("회원정보 수정완료!");
+          navigate("/homepage", { replace: true });
         })
         .catch((e) => {
           console.log(e);
@@ -90,6 +97,17 @@ function UserProfile() {
         </div>
         <div>
           <TextField
+            name="password"
+            type="password"
+            label="password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            error={formik.touched.password && Boolean(formik.errors.password)}
+            helperText={formik.touched.password && formik.errors.password}
+          />
+        </div>
+        <div>
+          <TextField
             disabled
             name="userId"
             label="userId"
@@ -101,6 +119,7 @@ function UserProfile() {
         </div>
         <div>
           <TextField
+            disabled
             name="email"
             label="email"
             value={formik.values.email}
@@ -122,7 +141,7 @@ function UserProfile() {
           />
         </div>
         <Button type="submit" disabled={formik.isSubmitting}>
-          Submit
+          정보수정
         </Button>
       </form>
     </>
