@@ -1,6 +1,6 @@
 /** @format */
 import * as React from "react";
-import { useState } from 'react';
+import { useState, forwardRef, useEffect} from 'react';
 
 //contain
 import Box from '@mui/material/Box';
@@ -35,7 +35,7 @@ import { ListItemSecondaryAction } from '@mui/material';
 
 
 
-const CustomContainerComponent = React.forwardRef(
+const CustomContainerComponent = forwardRef(
   function CustomContainerComponent(
     { children, extraSecondaryAction, ...other },
     ref
@@ -49,25 +49,46 @@ const CustomContainerComponent = React.forwardRef(
   }
 );
 
+function ProblemList() {
+  const QUIZBOOK = useSelector((state) => state.quizbooks.quizbook);
+  
+  const dispatch = useDispatch(); 
+  
+  const handleCreateQuizbook = () => {
+    const newID = new Date().toLocaleString().replace(/[\.\s\:ㄱ-ㅎㅏ-ㅣ가-힣]/g, "");
+    dispatch(quizbookActions.addquizbook(newID, false))
+  }
 
-function RenderItem({ item, handleRemoveFruit, index }) {
-  console.log(item);
-
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState([]);
 
   const handleClick = () => {
-    setOpen(!open);
+    setOpen(!open.index);
   };
 
+  useEffect(() => {
+    for (let i = 0; i < QUIZBOOK.length; i++){
+      setOpen( open => ( [...open, { now: false }] ) );
+    }
+    console.log(open);
+  }, [])
+
   return (
-    <List>
+    <>
+      <Grid item xs={12} md={12}>
+          <Box sx={{ mt: 1 }}>
+        <List>
+            <TransitionGroup>
+              {QUIZBOOK.map((item, index) => {
+                return (
+                <Collapse key={index}>
+          <List>
       <ListItem ContainerComponent={CustomContainerComponent}
         ContainerProps={{
                   extraSecondaryAction: (
                     <ListItemSecondaryAction
                     >
                       <IconButton
-                        onClick={(event) => {}}
+                        onClick={() => { dispatch(quizbookActions.removequizbook(item.id)) }}
                         aria-label="delete"
                       >
                         <DeleteForeverIcon />
@@ -76,7 +97,7 @@ function RenderItem({ item, handleRemoveFruit, index }) {
                   )
               }}>
         
-      <ListItemButton onClick={handleClick}>
+                        <ListItemButton onClick={() => { console.log(index, open); open = true }}>
 
       <ListItemIcon>
         { open ? <FolderOpenIcon/> : <FolderIcon/> }
@@ -90,12 +111,12 @@ function RenderItem({ item, handleRemoveFruit, index }) {
         
         <ListItemSecondaryAction>  </ListItemSecondaryAction>
       </ListItem>
-     {open ? <Divider variant="middle" /> : null }
+    {open ? <Divider variant="middle" /> : null }
     <Collapse in={open} timeout="auto" unmountOnExit >
 
       <List component="div" disablePadding >
 
-        <ListItemButton onClick={()=>{console.log(index)}} sx={{ pl: 4 }}>
+        <ListItem sx={{ pl: 4 }}>
 
           <ListItemIcon>
             <DescriptionIcon />
@@ -104,41 +125,16 @@ function RenderItem({ item, handleRemoveFruit, index }) {
           <ListItemText primary={"happy"} />
 
 
-        </ListItemButton>
+        </ListItem>
 
       </List>
 
     </Collapse>
     <Divider />
   </List>
-  );
-}
-
-function ProblemList() {
-
-  const QUIZBOOK = useSelector((state) => state.quizbooks.quizbook);
-  console.log(QUIZBOOK)
-  
-  const dispatch = useDispatch(); 
-  const handleCreateQuizbook = () => {
-    // dispatch(quizbookActions.addquizbook(new Date().toLocaleString().replace(/[\.\s\:ㄱ-ㅎㅏ-ㅣ가-힣]/g,"")))
-  }
-
-  const handleRemoveQuizbook = (item) => {
-    
-  };
-
-  return (
-    <>
-      <Grid item xs={12} md={12}>
-          <Box sx={{ mt: 1 }}>
-        <List>
-          <TransitionGroup>
-            {QUIZBOOK.map((item, index) => (
-              <Collapse key={item}>
-                {RenderItem({ item, handleRemoveQuizbook, index })}
-              </Collapse>
-            ))}
+                  </Collapse>
+                )
+              })}
           </TransitionGroup>
         </List>
       </Box>

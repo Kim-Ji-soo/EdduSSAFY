@@ -1,19 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialState = { quizbook: [] };
+
 export const quizbookSlice = createSlice({
   name: "quizbooklist",
-  initialState: {
-    quizbook: [
-      { id: 20220804104801 },
-      { id: 20220804104803 },
-      { id: 20220804104805 },
-      ],
-  },
+  initialState,
   reducers: {
       addquizbook: (state, action) => {
       const newquizbook = action.payload;
       state.quizbook.push({
-      quizbookId : newquizbook.id,
+      id : newquizbook,
       })
       },
       removequizbook: (state, action) => {
