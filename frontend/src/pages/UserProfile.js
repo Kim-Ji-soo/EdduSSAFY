@@ -16,7 +16,7 @@ const validationSchema = yup.object({
     .required("Email is required"),
   name: yup.string("Enter your name").required("name is required"),
   nickname : yup.string("Enter your nickname").required("nickname is required"),
-  id: yup
+  userId: yup
     .string("Enter your id")
     .min(5, "id should be of minimum 5 characters length")
     .required("id is required"),
