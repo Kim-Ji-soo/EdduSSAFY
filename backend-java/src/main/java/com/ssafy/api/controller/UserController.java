@@ -1,5 +1,7 @@
 package com.ssafy.api.controller;
 
+import com.ssafy.api.request.UserChangePasswordReq;
+import com.ssafy.api.request.UserLoginPostReq;
 import com.ssafy.api.request.UserUpdateReq;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -139,4 +141,13 @@ public class UserController {
 		logger.debug("회원 탈퇴 성공");
 		return ResponseEntity.status(200).body("회원 탈퇴 성공");
 	}
+
+	@PutMapping("/changePassword")
+	public ResponseEntity<Boolean> changePassword(@RequestBody UserChangePasswordReq userInfo){
+		if (!userService.changePassword(userInfo){
+			return ResponseEntity.status(400).body(false);
+		}
+		return ResponseEntity.status(200).body(true);
+	}
 }
+
