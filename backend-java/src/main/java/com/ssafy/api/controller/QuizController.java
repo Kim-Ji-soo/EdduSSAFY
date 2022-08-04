@@ -46,7 +46,7 @@ public class QuizController {
     @PutMapping("/alterQuiz")
     public ResponseEntity<Boolean> alterQuiz(@RequestBody Quiz quiz){
 
-        if(quizService.alterQuiz(quiz)){
+        if(!quizService.alterQuiz(quiz)){
             return ResponseEntity.status(400).body(false);
         }
         return ResponseEntity.status(200).body(true);
