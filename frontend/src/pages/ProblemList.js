@@ -8,7 +8,7 @@ import Collapse from '@mui/material/Collapse';
 import List from '@mui/material/List';
 import ListItemText from '@mui/material/ListItemText';
 import { TransitionGroup } from 'react-transition-group';
-import { Grid, Divider } from "@mui/material";
+import { Grid, Divider, ListItem } from "@mui/material";
 //
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -22,15 +22,36 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import FolderIcon from '@mui/icons-material/Folder';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 
-const FRUITS = [
-  'Apple',
-  'Banana',
-  'Pineapple',
-  'Coconut',
-  'Watermelon',
-];
+//
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { quizbookActions } from '../redux/quizbook'
+
+//
+import { Button } from "@mui/material";
+import IconButton from '@mui/material/IconButton';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { ListItemSecondaryAction } from '@mui/material';
+
+
+
+const CustomContainerComponent = React.forwardRef(
+  function CustomContainerComponent(
+    { children, extraSecondaryAction, ...other },
+    ref
+  ) {
+    return (
+      <li ref={ref} {...other}>
+        {children}
+        {extraSecondaryAction}
+      </li>
+    );
+  }
+);
+
 
 function RenderItem({ item, handleRemoveFruit, index }) {
+  console.log(item);
 
   const [open, setOpen] = React.useState(false);
 
@@ -40,18 +61,35 @@ function RenderItem({ item, handleRemoveFruit, index }) {
 
   return (
     <List>
-
-    <ListItemButton onClick={handleClick}>
+      <ListItem ContainerComponent={CustomContainerComponent}
+        ContainerProps={{
+                  extraSecondaryAction: (
+                    <ListItemSecondaryAction
+                    >
+                      <IconButton
+                        onClick={(event) => {}}
+                        aria-label="delete"
+                      >
+                        <DeleteForeverIcon />
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  )
+              }}>
+        
+      <ListItemButton onClick={handleClick}>
 
       <ListItemIcon>
         { open ? <FolderOpenIcon/> : <FolderIcon/> }
       </ListItemIcon>
 
-      <ListItemText primary={"INDEX " + index}/>
+      <ListItemText primary={item.id}/>
 
       {open ? <ExpandLess /> : <ExpandMore/>}
-      
-    </ListItemButton>
+        
+        </ListItemButton>
+        
+        <ListItemSecondaryAction>  </ListItemSecondaryAction>
+      </ListItem>
      {open ? <Divider variant="middle" /> : null }
     <Collapse in={open} timeout="auto" unmountOnExit >
 
@@ -63,7 +101,7 @@ function RenderItem({ item, handleRemoveFruit, index }) {
             <DescriptionIcon />
           </ListItemIcon>
 
-          <ListItemText primary={item} />
+          <ListItemText primary={"happy"} />
 
 
         </ListItemButton>
@@ -77,10 +115,17 @@ function RenderItem({ item, handleRemoveFruit, index }) {
 }
 
 function ProblemList() {
-  const [fruitsInBasket, setFruitsInBasket] = useState(FRUITS);
 
-  const handleRemoveFruit = (item) => {
-    setFruitsInBasket((prev) => [...prev.filter((i) => i !== item)]);
+  const QUIZBOOK = useSelector((state) => state.quizbooks.quizbook);
+  console.log(QUIZBOOK)
+  
+  const dispatch = useDispatch(); 
+  const handleCreateQuizbook = () => {
+    // dispatch(quizbookActions.addquizbook(new Date().toLocaleString().replace(/[\.\s\:ㄱ-ㅎㅏ-ㅣ가-힣]/g,"")))
+  }
+
+  const handleRemoveQuizbook = (item) => {
+    
   };
 
   return (
@@ -89,9 +134,9 @@ function ProblemList() {
           <Box sx={{ mt: 1 }}>
         <List>
           <TransitionGroup>
-            {fruitsInBasket.map((item, index) => (
+            {QUIZBOOK.map((item, index) => (
               <Collapse key={item}>
-                {RenderItem({ item, handleRemoveFruit, index })}
+                {RenderItem({ item, handleRemoveQuizbook, index })}
               </Collapse>
             ))}
           </TransitionGroup>
@@ -100,6 +145,7 @@ function ProblemList() {
         </Grid>
         
       <Grid item container spacing={2}>
+        <Button onClick={() => { handleCreateQuizbook() }}>문제집 생성하기</Button>
       </Grid>
     </>
   );

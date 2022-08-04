@@ -90,6 +90,7 @@ function CreateQuestion() {
       content: "",
       optionSize: 0,
       options: "",
+      quizId: "",
       quizPic: "",
       score: "",
       type: "",
@@ -188,7 +189,7 @@ function CreateQuestion() {
             helperText={formik.touched.answer && formik.errors.answer}
           />
         </div>
-        <Button type="submit" disabled={formik.isSubmitting}>
+        <Button type="submit" disabled={formik.isSubmitting} onClick={() => { formik.values.quizId = new Date().toLocaleString().replace(/[\.\s\:ㄱ-ㅎㅏ-ㅣ가-힣]/g, "") }}>
           Submit
         </Button>
       </form>
