@@ -28,7 +28,7 @@ buildscript{
 plugins {
     id 'java'
     id 'idea'
-    id 'org.springframework.boot' version "${springBootVer}"
+    id 'org.springframework.boot'
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -204,5 +204,9 @@ bootJar {
 }
 
 jar {
-    enabled = true
+    manifest {
+	attributes(
+		'Main-Class': 'com.ssafy.GroupCallApplication.java'
+		)
+	}
 }
