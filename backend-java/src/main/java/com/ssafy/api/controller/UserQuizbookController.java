@@ -1,6 +1,7 @@
 package com.ssafy.api.controller;
 
 import com.ssafy.api.request.UserQuizbookReq;
+import com.ssafy.api.response.QuizbooksOfUserRes;
 import com.ssafy.api.service.UserQuizbookService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import io.swagger.annotations.Api;
@@ -32,5 +33,14 @@ public class UserQuizbookController {
             return ResponseEntity.status(400).body(BaseResponseBody.of(400, "문제집 등록해제 실패"));
         }
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "문제집 등록해제 성공"));
+    }
+
+    @GetMapping("/getQuizbookCombs/{userId}")
+    public ResponseEntity<QuizbooksOfUserRes> getQuizbookCombs(@PathVariable("userId") String userId){
+        QuizbooksOfUserRes res = userQuizbookService.getQuizbookCombsByUserId(userId);
+        if(res == null){
+            return ResponseEntity.status(400).body(null);
+        }
+        return ResponseEntity.status(200).body(res);
     }
 }
