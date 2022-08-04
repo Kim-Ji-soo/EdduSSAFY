@@ -7,9 +7,7 @@ import React from 'react';
    const accessToken = useSelector(state =>(state.token.value));
    console.log(accessToken);
    return (
-        accessToken?
-        Component:
-        <Navigate to='/' {...alert("접근할 수 없는 페이지.")}/>
+        accessToken.accessToken?Component:<Navigate to='/' {...alert("접근할 수 없는 페이지.")}/>
       
    )
  }

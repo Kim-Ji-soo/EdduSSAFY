@@ -6,5 +6,6 @@ const users = {
   signup: () => HOST + USERS + "signup/",
   login: () => HOST + USERS + "login/",
   me: () => HOST + USERS + "me/",
+  update :() =>HOST + USERS + "update/",
 };
 export default users;

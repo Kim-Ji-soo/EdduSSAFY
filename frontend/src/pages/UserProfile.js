@@ -7,6 +7,7 @@ import {
 import * as yup from "yup";
 import users from "../api/api";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 
 const validationSchema = yup.object({
   email: yup
@@ -26,20 +27,23 @@ const validationSchema = yup.object({
 });
 
 function UserProfile() {
+  const user = useSelector(state => state.user.value);
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
-      name : "",
-      nickname : "",
-      userId : "",
-      email: "",
-      tel: "",
+      name : user.name,
+      nickname : user.nickName, // api/me 로 받아올때 nickName으로 받음
+      userId : user.userId,
+      email: user.email,
+      tel: user.tel,
 
     },
     validationSchema: validationSchema,
     onSubmit: (data, { setSubmitting }) => {
+      console.log(data);
       setSubmitting(true);
       console.log(formik.values);
-      console.log(users.update());
+      
       setSubmitting(false);
       axios({
         method: "put",
@@ -48,7 +52,6 @@ function UserProfile() {
       })
         .then((res) => {
           console.log(res.data);
-
         })
         .catch((e) => {
           console.log(e);
@@ -66,6 +69,7 @@ function UserProfile() {
       >
         <div>
           <TextField
+            disabled
             name="name"
             label="name"
             value={formik.values.name}
@@ -86,6 +90,7 @@ function UserProfile() {
         </div>
         <div>
           <TextField
+            disabled
             name="userId"
             label="userId"
             value={formik.values.userId}

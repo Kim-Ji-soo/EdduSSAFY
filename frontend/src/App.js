@@ -46,8 +46,8 @@ function App() {
               <Route
                 path="/userprofile"
                 element={
-                  <PrivateRoute>
-                  component={<UserProfile></UserProfile>}
+                  <PrivateRoute
+                  component={<UserProfile></UserProfile>}>
                   </PrivateRoute>
                 }
               ></Route>
