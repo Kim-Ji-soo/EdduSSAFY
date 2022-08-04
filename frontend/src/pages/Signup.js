@@ -55,7 +55,7 @@ function Signup() {
     initialValues: {
       name: "",
       nickname: "",
-      id: "",
+      userId: "",
       password: "",
       passwordCheck: "",
       email: "",
@@ -122,21 +122,21 @@ function Signup() {
         </div>
         <div id="inputId">
           <TextField
-            name="id"
-            label="id"
-            value={formik.values.id}
+            name="userId"
+            label="userId"
+            value={formik.values.userId}
             onChange={formik.handleChange}
-            error={formik.touched.id && Boolean(formik.errors.id)}
-            helperText={formik.touched.id && formik.errors.id}
+            error={formik.touched.userId && Boolean(formik.errors.userId)}
+            helperText={formik.touched.userId && formik.errors.userId}
           />
           <Button
             id="inputButton"
             onClick={() => {
-              const id = formik.values.id;
-              console.log(users.idcheck() + id);
+              const userId = formik.values.userId;
+              console.log(users.idcheck() + userId);
               axios({
                 method: "get",
-                url: users.idcheck() + id,
+                url: users.idcheck() + userId,
               }).then((res) => {
                 if (res.data === true) {
                   alert("중복된 아이디입니다.");
