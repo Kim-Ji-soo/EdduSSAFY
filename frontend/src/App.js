@@ -27,13 +27,12 @@ function App() {
             justifyContent="center"
             direction="column"
           >
-            <Grid item xs={12} sm={12}>
-              <Navbar></Navbar>
-            </Grid>
+            
 
           <Routes>
-              <Route path="/" element={<Login></Login>}></Route>
-              <Route path="/signup" element={<Signup></Signup>}></Route>
+          <Route element={<Grid item xs={12} sm={12}>
+              <Navbar></Navbar>
+            </Grid>}>
               <Route path="/homepage" element={<Homepage></Homepage>}></Route>
               <Route
                 path="/problemlist"
@@ -55,6 +54,9 @@ function App() {
               path="/logout"
               element={<Logout></Logout>}
             ></Route>
+            </Route>
+              <Route path="/" element={<Login></Login>}></Route>
+              <Route path="/signup" element={<Signup></Signup>}></Route>
             </Routes>
           </Grid>
         </PersistGate>

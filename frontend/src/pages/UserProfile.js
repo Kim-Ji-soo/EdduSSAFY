@@ -17,10 +17,6 @@ const validationSchema = yup.object({
     .required("Email is required"),
   name: yup.string("Enter your name").required("name is required"),
   nickname : yup.string("Enter your nickname").required("nickname is required"),
-  password: yup
-  .string("Enter your password")
-  .min(8, "Password should be of minimum 8 characters length")
-  .required("Password is required"),
   userId: yup
     .string("Enter your id")
     .min(5, "id should be of minimum 5 characters length")
@@ -38,7 +34,6 @@ function UserProfile() {
     initialValues: {
       name : user.name,
       nickname : user.nickName, // api/me 로 받아올때 nickName으로 받음
-      password : "",
       userId : user.userId,
       email: user.email,
       tel: user.tel,
@@ -93,17 +88,6 @@ function UserProfile() {
             onChange={formik.handleChange}
             error={formik.touched.nickname && Boolean(formik.errors.nickname)}
             helperText={formik.touched.nickname && formik.errors.nickname}
-          />
-        </div>
-        <div>
-          <TextField
-            name="password"
-            type="password"
-            label="password"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password}
           />
         </div>
         <div>

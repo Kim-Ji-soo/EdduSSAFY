@@ -144,7 +144,7 @@ public class UserController {
 
 	@PutMapping("/changePassword")
 	public ResponseEntity<Boolean> changePassword(@RequestBody UserChangePasswordReq userInfo){
-		if (!userService.changePassword(userInfo){
+		if (!userService.changePassword(userInfo)){
 			return ResponseEntity.status(400).body(false);
 		}
 		return ResponseEntity.status(200).body(true);
