@@ -3,6 +3,7 @@ import "./App.css";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Homepage from "./pages/Homepage";
+import Openvidu from "./pages/Openvidu";
 import ProblemList from "./pages/ProblemList";
 import CreateQuestion from "./pages/CreateQuestion";
 import UserProfile from "./pages/UserProfile";
@@ -46,10 +47,8 @@ function App() {
                 path="/userprofile"
                 element={<UserProfile></UserProfile>}
               ></Route>
-              <Route
-              path="/logout"
-              element={<Logout></Logout>}
-            ></Route>
+              <Route path="/logout" element={<Logout></Logout>}></Route>
+              <Route path="/openvidu" element={<Openvidu></Openvidu>}></Route>
             </Routes>
           </Grid>
         </PersistGate>
