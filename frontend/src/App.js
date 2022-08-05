@@ -15,6 +15,7 @@ import { Grid } from "@mui/material"; //contain
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor } from "./redux/store";
 import PrivateRoute from "./lib/PrivateRoute";
+import UpdateQuestion from "./pages/UpdateQuestion";
 
 function App() {
   return (
@@ -54,6 +55,11 @@ function App() {
               path="/logout"
               element={<Logout></Logout>}
             ></Route>
+            <Route
+                path="/updateQuestion"
+                element={<UpdateQuestion></UpdateQuestion>}
+            >
+            </Route>
             </Route>
               <Route path="/" element={<Login></Login>}></Route>
               <Route path="/signup" element={<Signup></Signup>}></Route>

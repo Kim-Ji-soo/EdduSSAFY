@@ -25,7 +25,7 @@ const validationSchema = yup.object({
   // answer: yup.mixed().required("필수 항목입니다."),
 });
 
-function CreateContent(props) {
+function UpdateContent(props) {
   const [result, setResult] = useState([]);
   const [number, setNumber] = useState(1);
   const [value, setValue] = useState({});
@@ -77,7 +77,7 @@ function CreateContent(props) {
   );
 }
 
-function CreateQuestion() {
+function UpdateQuestion() {
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -86,7 +86,7 @@ function CreateQuestion() {
       content: [],
       file: null,
       answer: "",
-      quizbookId : ""
+
     },
     validationSchema: validationSchema,
     onSubmit: (data, { setSubmitting }) => {
@@ -98,7 +98,7 @@ function CreateQuestion() {
   });
   return (
     <>
-      <h1>Create Question</h1>
+      <h1>Update Question</h1>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -150,11 +150,11 @@ function CreateQuestion() {
             </RadioGroup>
           </FormControl>
         </div>
-        <CreateContent
+        <UpdateContent
           onSubmit={(result) => {
             formik.values.content = result;
           }}
-        ></CreateContent>
+        ></UpdateContent>
         <div>
           <TextField
             name="answer"
@@ -173,4 +173,4 @@ function CreateQuestion() {
   );
 }
 
-export default CreateQuestion;
+export default UpdateQuestion;
