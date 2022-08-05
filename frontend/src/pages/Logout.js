@@ -9,14 +9,15 @@ function Logout(){
     const token = useSelector(state => state.token.value);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    dispatch(deleteToken());
+    
     axios.defaults.headers.common["Authorization"] = null;
-    localStorage.removeItem("token");
     useEffect(()=>{
+        dispatch(deleteToken());
         if(token.accessToken ===""){
             navigate("/", { replace: true });
         }
     })
+    return;
    
 }
 
