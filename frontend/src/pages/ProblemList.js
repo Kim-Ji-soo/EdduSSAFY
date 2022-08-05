@@ -21,6 +21,7 @@ import StarBorder from "@mui/icons-material/StarBorder";
 import DescriptionIcon from "@mui/icons-material/Description";
 import FolderIcon from "@mui/icons-material/Folder";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
+import Tooltip from '@mui/material/Tooltip';
 
 //
 import { useSelector } from "react-redux";
@@ -31,7 +32,17 @@ import { quizbookActions } from "../redux/quizbook";
 import { Button } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import DriveFileMoveIcon from '@mui/icons-material/DriveFileMove';
 import { ListItemSecondaryAction } from "@mui/material";
+import EditIcon from '@mui/icons-material/Edit';
+import BackspaceIcon from '@mui/icons-material/Backspace';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+
+//
+import Modal from '@mui/material/Modal';
+import TextField from '@mui/material/TextField';
+
+
 
 const CustomContainerComponent = forwardRef(function CustomContainerComponent(
   { children, extraSecondaryAction, ...other },
@@ -45,23 +56,34 @@ const CustomContainerComponent = forwardRef(function CustomContainerComponent(
   );
 });
 
+const CustomContainerComponent2 = forwardRef(function CustomContainerComponent(
+  { children, extraSecondaryAction, ...other },
+  ref
+) {
+  return (
+    <li ref={ref} {...other}>
+      {children}
+      {extraSecondaryAction}
+    </li>
+  );
+});
+
 function ProblemList() {
   const QUIZBOOK = useSelector((state) => state.quizbooks.quizbook);
-
+  console.log(QUIZBOOK);
   const dispatch = useDispatch();
 
   const handleCreateQuizbook = () => {
     const newID = new Date()
       .toLocaleString()
       .replace(/[\.\s\:ㄱ-ㅎㅏ-ㅣ가-힣]/g, "");
-    dispatch(quizbookActions.addquizbook(newID, false));
+    
+    
+    dispatch(quizbookActions.addquizbook(newID));
   };
 
   const [open, setOpen] = useState([]);
-
-  // const handleClick = () => {
-  //   setOpen(!open.index);
-  // };
+  const [mopen, setMopen] = useState([]);
 
   useEffect(() => {
     for (let i = 0; i < QUIZBOOK.length; i++) {
@@ -71,7 +93,15 @@ function ProblemList() {
         return newOpen;
       });
     }
-    console.log(open);
+
+    for (let i = 0; i < QUIZBOOK.length; i++) {
+      setMopen((mopen) => {
+        const newMopen = [...mopen];
+        newMopen.push(false);
+        return newMopen;
+      });
+    }
+
   }, []);
 
   return (
@@ -88,24 +118,88 @@ function ProblemList() {
                         ContainerComponent={CustomContainerComponent}
                         ContainerProps={{
                           extraSecondaryAction: (
-                            <ListItemSecondaryAction>
+                            <ListItemSecondaryAction sx={{ right: "100px" }}>
+                              <Tooltip title="문제 삭제하기">
                               <IconButton
                                 onClick={() => {
                                   dispatch(
                                     quizbookActions.removequizbook(item.id)
-                                  );
-                                }}
-                                aria-label="delete"
-                              >
+                                    );
+                                  }}
+                                  aria-label="delete"
+                                  >
                                 <DeleteForeverIcon />
                               </IconButton>
+                              </Tooltip>
+                              
+                              {/* 새페이지 버튼 시작 */}
+                              <Tooltip title="문제집 수정하기">
+                              <IconButton
+                                onClick={() => {
+                                setMopen((mopen) => {
+                                  const newMopen = [...mopen];
+                                  newMopen[index] = !newMopen[index];
+                                  return newMopen;
+                                });
+                              }}
+                                aria-label="hi"
+                                >
+                                <AppRegistrationIcon />
+                                </IconButton>
+                              </Tooltip>
+                                    <Modal
+                                open={mopen[index]}
+                                onClose={() => {
+                                  setMopen((mopen) => {
+                                    const newMopen = [...mopen];
+                                    newMopen[index] = !newMopen[index];
+                                    return newMopen;
+                                  })}
+                                }
+        aria-labelledby="parent-modal-title"
+        aria-describedby="parent-modal-description"
+      >
+                <Box sx={{
+                  position: "absolute",
+                  display: "flex",
+                  flexDirection:"column",
+                  minWidth:"200px",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  width: "20vw",
+                  bgcolor: "background.paper",
+                  border: "2px solid #000",
+                  boxShadow: 24,
+                  pt: 2,
+                  px: 4,
+                  pb: 3,
+                  }}>
+          <TextField id="outlined-basic" label="Outlined" variant="outlined" defaultValue={item.id} sx={{}}/>                    
+          <Button sx={{display:"block", }}>change</Button>
+          <Button sx={{display:"block"}}>cancel</Button>
+        </Box>
+      </Modal>
+                              {/* 새페이지 버튼 끝 */}
                             </ListItemSecondaryAction>
                           ),
                         }}
                       >
                         <ListItemButton
+                          sx={{
+                                "&.MuiListItemButton-root": {
+                                ":hover": {
+                                backgroundColor: "yellow",
+                                color: "gray"
+                                },
+                                ":active": {
+                                backgroundColor: "red",
+                                color: "blue"
+                                },
+                              },
+                            }}
+
                           onClick={() => {
-                            console.log(index, open);
                             setOpen((open) => {
                               const newOpen = [...open];
                               newOpen[index] = !newOpen[index];
@@ -114,31 +208,67 @@ function ProblemList() {
                           }}
                         >
                           <ListItemIcon>
-                            {open ? <FolderOpenIcon /> : <FolderIcon />}
+                            {open[index] ? <FolderOpenIcon /> : <FolderIcon />}
                           </ListItemIcon>
 
                           <ListItemText primary={item.id} />
 
-                          {open ? <ExpandLess /> : <ExpandMore />}
+                          {open[index] ? <ExpandLess /> : <ExpandMore />}
                         </ListItemButton>
 
                         <ListItemSecondaryAction> </ListItemSecondaryAction>
                       </ListItem>
-                      {open ? <Divider variant="middle" /> : null}
-                      <Collapse in={open} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding>
-                          <ListItem sx={{ pl: 4 }}>
-                            <ListItemIcon>
-                              <DescriptionIcon />
-                            </ListItemIcon>
+                      
+
+                      {open[index] ? <Divider variant="middle" /> : null}
+
+                      {/* 하위 시작 */}                 
+                      <Collapse in={open[index]} timeout="auto" unmountOnExit>
+                        {/* 하위 리스트 시작 */}
+
+
+                          <List component="div" disablePadding>
+                            <ListItem sx={{ pl: 10 }}>
+                              <ListItemIcon>
+                                <DescriptionIcon />
+                              </ListItemIcon>
 
                             <ListItemText primary={"happy"} />
-                          </ListItem>
-                        </List>
-                      </Collapse>
-                      <Divider />
+                            
+                            <Tooltip title="문제 수정하기">
+                            <IconButton sx={{mr: 1}}>
+                              <EditIcon />
+                            </IconButton>
+                            </Tooltip>
+                            <Tooltip title="문제 삭제하기">
+                            <IconButton sx={{ mr: 10 }}>
+                              <BackspaceIcon/>
+                            </IconButton>
+                            </Tooltip>
+
+                            </ListItem>
+                          </List>
+
+                        
+                        {/* 하위 리스트 끝 */}
+                        {/* 문제 추가하기 시작 */}
+                        <Divider variant="middle" />
+                        <ListItemButton
+                          onClick={() => {
+                            console.log("문제 추가하기" + index)
+                          }}
+                        >
+                          <ListItemText primary={"문제 추가하기"} sx={{ textAlign: 'center', m: 1 }} />
+                        </ListItemButton>
+                        {/* 문제 추가하기 끝 */ }
+                        </Collapse>
+
+                        <Divider />
+                        {/* 하위 끝 */ }
+
                     </List>
                   </Collapse>
+                  
                 );
               })}
             </TransitionGroup>

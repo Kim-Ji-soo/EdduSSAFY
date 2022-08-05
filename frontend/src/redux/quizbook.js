@@ -12,6 +12,9 @@ export const quizbookSlice = createSlice({
       id : newquizbook,
       })
       },
+      changequizbook: (state, action) => {
+        
+      },
       removequizbook: (state, action) => {
         const id = action.payload;
         state.quizbook = state.quizbook.filter((item) => item.id !== id);
