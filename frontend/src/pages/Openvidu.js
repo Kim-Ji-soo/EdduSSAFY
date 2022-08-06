@@ -3,7 +3,7 @@ import { OpenVidu } from "openvidu-browser";
 import React, { Component } from "react";
 import UserVideoComponent from "../components/UserVideoComponent";
 
-const OPENVIDU_SERVER_URL = "https://i7c111.p.ssafy.io:8080";
+const OPENVIDU_SERVER_URL = "http://i7c111.p.ssafy.io:8080";
 const OPENVIDU_SERVER_SECRET = "7c111";
 
 class Openvidu extends Component {
