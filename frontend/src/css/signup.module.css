@@ -1,0 +1,77 @@
+
+.inputButton {
+  height: 100%;
+  padding-top: 3%;
+}
+
+.signupBody{
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  width: 20vw;
+  min-width: 400px;
+}
+.toplinks{
+  display: flex;
+  flex-direction: row-reverse;
+}
+.link{
+  background-color: white;
+  text-decoration: none;
+  border: none;
+  border-radius: 70px 70px;
+  padding: 10px 10px;
+}
+.link:hover{
+  background-color: #FDDD6D;
+}
+.buttons{
+  color: blue;
+}
+.buttons:hover{
+  color: #4C3657;
+}
+.h2{
+  font-size: 6vmin;
+  margin: 10px;
+}
+.span{
+  display: inline-block;
+  font-size: 1vmin;
+  margin-bottom: 20px;
+}
+.textcon{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.textfield{
+  width: 100%;
+}
+
+.radio{
+  display: flex;
+  flex-direction: row;
+  gap:20px;
+}
+
+.subcon{
+  margin-top: 30px;
+}
+.linktext{
+  text-decoration: none;
+}
+.linkbtn{
+  width: 100%;
+  color: white;
+}
