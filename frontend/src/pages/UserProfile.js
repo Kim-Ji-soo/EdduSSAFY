@@ -7,7 +7,9 @@ import {
 import * as yup from "yup";
 import users from "../api/api";
 import axios from "axios";
-
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { me } from '../redux/user';
 const validationSchema = yup.object({
   email: yup
     .string("Enter your email")
@@ -15,7 +17,7 @@ const validationSchema = yup.object({
     .required("Email is required"),
   name: yup.string("Enter your name").required("name is required"),
   nickname : yup.string("Enter your nickname").required("nickname is required"),
-  id: yup
+  userId: yup
     .string("Enter your id")
     .min(5, "id should be of minimum 5 characters length")
     .required("id is required"),
@@ -26,20 +28,23 @@ const validationSchema = yup.object({
 });
 
 function UserProfile() {
+  const user = useSelector(state => state.user.value);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
-      name : "",
-      nickname : "",
-      id : "",
-      email: "",
-      tel: "",
-
+      name : user.name,
+      nickname : user.nickName, // api/me 로 받아올때 nickName으로 받음
+      userId : user.userId,
+      email: user.email,
+      tel: user.tel,
     },
     validationSchema: validationSchema,
     onSubmit: (data, { setSubmitting }) => {
+      console.log(data);
       setSubmitting(true);
       console.log(formik.values);
-      console.log(users.update());
+      
       setSubmitting(false);
       axios({
         method: "put",
@@ -48,11 +53,21 @@ function UserProfile() {
       })
         .then((res) => {
           console.log(res.data);
-
+          alert("회원정보 수정완료!");
+          axios({
+            method: "get",
+            url: users.me(),
+          }).then((res) => {
+            console.log(res.data);
+            dispatch(me(res.data));
+          });
+          navigate("/homepage", { replace: true });
         })
         .catch((e) => {
           console.log(e);
         });
+      
+
     },
   });
   return (
@@ -66,6 +81,7 @@ function UserProfile() {
       >
         <div>
           <TextField
+            disabled
             name="name"
             label="name"
             value={formik.values.name}
@@ -86,16 +102,18 @@ function UserProfile() {
         </div>
         <div>
           <TextField
-            name="id"
-            label="id"
-            value={formik.values.id}
+            disabled
+            name="userId"
+            label="userId"
+            value={formik.values.userId}
             onChange={formik.handleChange}
-            error={formik.touched.id && Boolean(formik.errors.id)}
-            helperText={formik.touched.id && formik.errors.id}
+            error={formik.touched.userId && Boolean(formik.errors.userId)}
+            helperText={formik.touched.userId && formik.errors.userId}
           />
         </div>
         <div>
           <TextField
+            disabled
             name="email"
             label="email"
             value={formik.values.email}
@@ -116,8 +134,9 @@ function UserProfile() {
             helperText={formik.touched.tel && formik.errors.tel}
           />
         </div>
-        <Button type="submit" disabled={formik.isSubmitting}>
-          Submit
+        <Button type="submit" disabled={formik.isSubmitting}
+        >
+          정보수정
         </Button>
       </form>
     </>

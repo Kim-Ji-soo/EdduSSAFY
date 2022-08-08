@@ -94,6 +94,11 @@ function CreateQuestion() {
       quizPic: "",
       score: "",
       type: "",
+      content: [],
+      file: null,
+      answer: "",
+      quizbookId : ""
+
     },
     validationSchema: validationSchema,
     onSubmit: (data, { setSubmitting }) => {

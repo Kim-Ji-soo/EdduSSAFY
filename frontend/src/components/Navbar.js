@@ -16,6 +16,7 @@ import { useSelector, useDispatch } from "react-redux";
 import users from "../api/api";
 import { me } from "../redux/user";
 import { useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 export default function Navbar() {
   const theme = useTheme();
@@ -25,6 +26,7 @@ export default function Navbar() {
   const [value, setValue] = React.useState(0);
   const token = useSelector((state) => state.token.value);
   return (
+    <>
     <AppBar>
       <Toolbar className={classes.toolbar}>
         <Typography
@@ -39,12 +41,6 @@ export default function Navbar() {
           <DrawerComponent></DrawerComponent>
         ) : (
           <div className={classes.navlinks}>
-            <Link to="/" className={classes.link}>
-              로그인
-            </Link>
-            <Link to="/signup" className={classes.link}>
-              회원가입
-            </Link>
             <Link to="/problemlist" className={classes.link}>
               문제 목록
             </Link>
@@ -53,7 +49,8 @@ export default function Navbar() {
             </Link>
             <Link
               to="/userprofile"
-              onClick={(e) => {
+/*
+                onClick={(e) => {
                 e.preventDefault();
                 console.log(token);
                 axios({
@@ -68,6 +65,7 @@ export default function Navbar() {
                   navigate("/userprofile", { replace: true });
                 });
               }}
+*/
               className={classes.link}
             >
               개인정보 수정
@@ -80,5 +78,7 @@ export default function Navbar() {
         )}
       </Toolbar>
     </AppBar>
+    <Outlet />
+    </>
   );
 }

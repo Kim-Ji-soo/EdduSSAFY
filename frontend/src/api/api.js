@@ -8,7 +8,11 @@ const users = {
   signup: () => HOST + USERS + "signup/",
   login: () => HOST + USERS + "login/",
   me: () => HOST + USERS + "me/",
+<<<<<<< HEAD
   idcheck: () => HOST + USERS + "idcheck/",
+=======
+  update :() =>HOST + USERS + "update/",
+>>>>>>> feature/FE-logout-update
 };
 
 const email = {
