@@ -2,6 +2,7 @@ package com.ssafy.api.service;
 
 import com.ssafy.api.request.RoomAlterReq;
 import com.ssafy.api.request.RoomCreateReq;
+import com.ssafy.api.request.UserRoomReq;
 import com.ssafy.db.entity.Room;
 import com.ssafy.db.entity.User;
 import com.ssafy.db.entity.UserRoom;
@@ -44,6 +45,38 @@ public class RoomServiceImpl implements  RoomService{
             Room room = roomAlterReq.toEntity();
             roomRepository.save(room);
         } catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean startRoom(UserRoomReq userRoomReq) {
+        try{
+            Room room = roomRepository.findById(userRoomReq.getRoomId()).get();
+            if(room == null || !room.getHost().getUserId().equals(userRoomReq)  ){
+                throw new Exception("호스트 아님");
+            }
+            room.setActive(true);
+            roomRepository.save(room);
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean endRoom(UserRoomReq userRoomReq) {
+        try{
+            Room room = roomRepository.findById(userRoomReq.getRoomId()).get();
+            if(room == null || !room.getHost().getUserId().equals(userRoomReq)  ){
+                throw new Exception("호스트 아님");
+            }
+            room.setActive(false);
+            roomRepository.save(room);
+        }catch (Exception e){
             e.printStackTrace();
             return false;
         }
