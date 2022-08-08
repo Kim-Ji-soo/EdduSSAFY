@@ -1,57 +1,289 @@
 /** @format */
 import * as React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Button from "@mui/material/Button";
-import { Grid } from "@mui/material"; //contain
+import { useState, forwardRef, useEffect } from "react";
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-const rows = [
-  createData("1....", 159, 6.0, 24, 4.0),
-  createData("2....", 237, 9.0, 37, 4.3),
-  createData("3....", 262, 16.0, 24, 6.0),
-  createData("4....", 305, 3.7, 67, 4.3),
-  createData("5....", 356, 16.0, 49, 3.9),
-];
+//contain
+import Box from "@mui/material/Box";
+import Collapse from "@mui/material/Collapse";
+import List from "@mui/material/List";
+import ListItemText from "@mui/material/ListItemText";
+import { TransitionGroup } from "react-transition-group";
+import { Grid, Divider, ListItem } from "@mui/material";
+//
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import StarBorder from "@mui/icons-material/StarBorder";
+
+//
+import DescriptionIcon from "@mui/icons-material/Description";
+import FolderIcon from "@mui/icons-material/Folder";
+import FolderOpenIcon from "@mui/icons-material/FolderOpen";
+import Tooltip from '@mui/material/Tooltip';
+
+//
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { quizbookActions } from "../redux/quizbook";
+
+//
+import { Button } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import DriveFileMoveIcon from '@mui/icons-material/DriveFileMove';
+import { ListItemSecondaryAction } from "@mui/material";
+import EditIcon from '@mui/icons-material/Edit';
+import BackspaceIcon from '@mui/icons-material/Backspace';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+
+//
+import Modal from '@mui/material/Modal';
+import TextField from '@mui/material/TextField';
+
+
+
+const CustomContainerComponent = forwardRef(function CustomContainerComponent(
+  { children, extraSecondaryAction, ...other },
+  ref
+) {
+  return (
+    <li ref={ref} {...other}>
+      {children}
+      {extraSecondaryAction}
+    </li>
+  );
+});
+
+const CustomContainerComponent2 = forwardRef(function CustomContainerComponent(
+  { children, extraSecondaryAction, ...other },
+  ref
+) {
+  return (
+    <li ref={ref} {...other}>
+      {children}
+      {extraSecondaryAction}
+    </li>
+  );
+});
 
 function ProblemList() {
+  const QUIZBOOK = useSelector((state) => state.quizbooks.quizbook);
+  console.log(QUIZBOOK);
+  const dispatch = useDispatch();
+
+  const handleCreateQuizbook = () => {
+    const newID = new Date()
+      .toLocaleString()
+      .replace(/[\.\s\:ㄱ-ㅎㅏ-ㅣ가-힣]/g, "");
+    
+    
+    dispatch(quizbookActions.addquizbook(newID));
+  };
+
+  const [open, setOpen] = useState([]);
+  const [mopen, setMopen] = useState([]);
+
+  useEffect(() => {
+    for (let i = 0; i < QUIZBOOK.length; i++) {
+      setOpen((open) => {
+        const newOpen = [...open];
+        newOpen.push(false);
+        return newOpen;
+      });
+    }
+
+    for (let i = 0; i < QUIZBOOK.length; i++) {
+      setMopen((mopen) => {
+        const newMopen = [...mopen];
+        newMopen.push(false);
+        return newMopen;
+      });
+    }
+
+  }, []);
+
   return (
     <>
-      <Grid item container spacing={2}>
-        <Grid item xs={12} md={12}>
-          <Button>문제 생성</Button>
-        </Grid>
+      <Grid item xs={12} md={12}>
+        <Box sx={{ mt: 1 }}>
+          <List>
+            <TransitionGroup>
+              {QUIZBOOK.map((item, index) => {
+                return (
+                  <Collapse key={index}>
+                    <List>
+                      <ListItem
+                        ContainerComponent={CustomContainerComponent}
+                        ContainerProps={{
+                          extraSecondaryAction: (
+                            <ListItemSecondaryAction sx={{ right: "100px" }}>
+                              <Tooltip title="문제 삭제하기">
+                              <IconButton
+                                onClick={() => {
+                                  dispatch(
+                                    quizbookActions.removequizbook(item.id)
+                                    );
+                                  }}
+                                  aria-label="delete"
+                                  >
+                                <DeleteForeverIcon />
+                              </IconButton>
+                              </Tooltip>
+                              
+                              {/* 새페이지 버튼 시작 */}
+                              <Tooltip title="문제집 수정하기">
+                              <IconButton
+                                onClick={() => {
+                                setMopen((mopen) => {
+                                  const newMopen = [...mopen];
+                                  newMopen[index] = !newMopen[index];
+                                  return newMopen;
+                                });
+                              }}
+                                aria-label="hi"
+                                >
+                                <AppRegistrationIcon />
+                                </IconButton>
+                              </Tooltip>
+                                    <Modal
+                                open={mopen[index]}
+                                onClose={() => {
+                                  setMopen((mopen) => {
+                                    const newMopen = [...mopen];
+                                    newMopen[index] = !newMopen[index];
+                                    return newMopen;
+                                  })}
+                                }
+        aria-labelledby="parent-modal-title"
+        aria-describedby="parent-modal-description"
+      >
+                <Box sx={{
+                  position: "absolute",
+                  display: "flex",
+                  flexDirection:"column",
+                  minWidth:"200px",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  width: "20vw",
+                  bgcolor: "background.paper",
+                  border: "2px solid #000",
+                  boxShadow: 24,
+                  pt: 2,
+                  px: 4,
+                  pb: 3,
+                  }}>
+          <TextField id="outlined-basic" label="Outlined" variant="outlined" defaultValue={item.id} sx={{}}/>                    
+          <Button sx={{display:"block", }}>change</Button>
+          <Button sx={{display:"block"}}>cancel</Button>
+        </Box>
+      </Modal>
+                              {/* 새페이지 버튼 끝 */}
+                            </ListItemSecondaryAction>
+                          ),
+                        }}
+                      >
+                        <ListItemButton
+                          sx={{
+                                "&.MuiListItemButton-root": {
+                                ":hover": {
+                                backgroundColor: "yellow",
+                                color: "gray"
+                                },
+                                ":active": {
+                                backgroundColor: "red",
+                                color: "blue"
+                                },
+                              },
+                            }}
 
-        <Grid item xs={12} md={12}>
-          <TableContainer sx={{ maxWidth: 1200 }} component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <TableHead>문제 리스트</TableHead>
-              <TableBody>
-                {rows.map((row) => (
-                  <TableRow
-                    key={row.name}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell sx={{ minWidth: 1000 }} component="th" scope="row">
-                      {row.name}
-                    </TableCell>
-                    <TableCell align="right">
-                      <Button>삭제</Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Grid>
-        
+                          onClick={() => {
+                            setOpen((open) => {
+                              const newOpen = [...open];
+                              newOpen[index] = !newOpen[index];
+                              return newOpen;
+                            });
+                          }}
+                        >
+                          <ListItemIcon>
+                            {open[index] ? <FolderOpenIcon /> : <FolderIcon />}
+                          </ListItemIcon>
+
+                          <ListItemText primary={item.id} />
+
+                          {open[index] ? <ExpandLess /> : <ExpandMore />}
+                        </ListItemButton>
+
+                        <ListItemSecondaryAction> </ListItemSecondaryAction>
+                      </ListItem>
+                      
+
+                      {open[index] ? <Divider variant="middle" /> : null}
+
+                      {/* 하위 시작 */}                 
+                      <Collapse in={open[index]} timeout="auto" unmountOnExit>
+                        {/* 하위 리스트 시작 */}
+
+
+                          <List component="div" disablePadding>
+                            <ListItem sx={{ pl: 10 }}>
+                              <ListItemIcon>
+                                <DescriptionIcon />
+                              </ListItemIcon>
+
+                            <ListItemText primary={"happy"} />
+                            
+                            <Tooltip title="문제 수정하기">
+                            <IconButton sx={{mr: 1}}>
+                              <EditIcon />
+                            </IconButton>
+                            </Tooltip>
+                            <Tooltip title="문제 삭제하기">
+                            <IconButton sx={{ mr: 10 }}>
+                              <BackspaceIcon/>
+                            </IconButton>
+                            </Tooltip>
+
+                            </ListItem>
+                          </List>
+
+                        
+                        {/* 하위 리스트 끝 */}
+                        {/* 문제 추가하기 시작 */}
+                        <Divider variant="middle" />
+                        <ListItemButton
+                          onClick={() => {
+                            console.log("문제 추가하기" + index)
+                          }}
+                        >
+                          <ListItemText primary={"문제 추가하기"} sx={{ textAlign: 'center', m: 1 }} />
+                        </ListItemButton>
+                        {/* 문제 추가하기 끝 */ }
+                        </Collapse>
+
+                        <Divider />
+                        {/* 하위 끝 */ }
+
+                    </List>
+                  </Collapse>
+                  
+                );
+              })}
+            </TransitionGroup>
+          </List>
+        </Box>
+      </Grid>
+
+      <Grid item container spacing={2}>
+        <Button
+          onClick={() => {
+            handleCreateQuizbook();
+          }}
+        >
+          문제집 생성하기
+        </Button>
       </Grid>
     </>
   );
