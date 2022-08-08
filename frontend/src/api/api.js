@@ -3,13 +3,14 @@ const HOST = "http://localhost:8080/api/v1/";
 const USERS = "users/";
 const EMAIL = "email/";
 const QUIZ = "quiz/";
+const QUIZBOOK = "quizbook/";
 
 const users = {
   signup: () => HOST + USERS + "signup/",
   login: () => HOST + USERS + "login/",
   me: () => HOST + USERS + "me/",
   idcheck: () => HOST + USERS + "idcheck/",
-  update :() =>HOST + USERS + "update/",
+  update: () => HOST + USERS + "update/",
 };
 
 const email = {
@@ -18,7 +19,10 @@ const email = {
 
 const quiz = {
   createQuiz: () => HOST + QUIZ + "createQuiz/",
-}
+};
 
-export { email };
+const quizbook = {
+  createQuizbook: () => HOST + QUIZBOOK + "create/",
+};
+export { email, quiz, quizbook };
 export default users;

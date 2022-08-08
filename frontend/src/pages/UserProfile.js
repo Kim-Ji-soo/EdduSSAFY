@@ -1,22 +1,19 @@
 import React from "react";
 import { useFormik } from "formik";
-import {
-  TextField,
-  Button,
-} from "@mui/material";
+import { TextField, Button } from "@mui/material";
 import * as yup from "yup";
 import users from "../api/api";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { me } from '../redux/user';
+import { me } from "../redux/user";
 const validationSchema = yup.object({
   email: yup
     .string("Enter your email")
     .email("Enter a valid email")
     .required("Email is required"),
   name: yup.string("Enter your name").required("name is required"),
-  nickname : yup.string("Enter your nickname").required("nickname is required"),
+  nickname: yup.string("Enter your nickname").required("nickname is required"),
   userId: yup
     .string("Enter your id")
     .min(5, "id should be of minimum 5 characters length")
@@ -28,14 +25,14 @@ const validationSchema = yup.object({
 });
 
 function UserProfile() {
-  const user = useSelector(state => state.user.value);
+  const user = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
-      name : user.name,
-      nickname : user.nickName, // api/me 로 받아올때 nickName으로 받음
-      userId : user.userId,
+      name: user.name,
+      nickname: user.nickName, // api/me 로 받아올때 nickName으로 받음
+      userId: user.userId,
       email: user.email,
       tel: user.tel,
     },
@@ -44,7 +41,7 @@ function UserProfile() {
       console.log(data);
       setSubmitting(true);
       console.log(formik.values);
-      
+
       setSubmitting(false);
       axios({
         method: "put",
@@ -61,13 +58,11 @@ function UserProfile() {
             console.log(res.data);
             dispatch(me(res.data));
           });
-          navigate("/homepage", { replace: true });
+          navigate("/", { replace: true });
         })
         .catch((e) => {
           console.log(e);
         });
-      
-
     },
   });
   return (
@@ -128,14 +123,11 @@ function UserProfile() {
             label="tel"
             value={formik.values.tel}
             onChange={formik.handleChange}
-            error={
-              formik.touched.tel && Boolean(formik.errors.tel)
-            }
+            error={formik.touched.tel && Boolean(formik.errors.tel)}
             helperText={formik.touched.tel && formik.errors.tel}
           />
         </div>
-        <Button type="submit" disabled={formik.isSubmitting}
-        >
+        <Button type="submit" disabled={formik.isSubmitting}>
           정보수정
         </Button>
       </form>
