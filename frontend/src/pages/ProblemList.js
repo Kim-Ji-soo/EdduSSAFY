@@ -27,6 +27,7 @@ import Tooltip from "@mui/material/Tooltip";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { quizbookActions } from "../redux/quizbook";
+import { useNavigate } from "react-router-dom";
 
 //
 import { Button } from "@mui/material";
@@ -42,6 +43,7 @@ import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
 
 const CustomContainerComponent = forwardRef(function CustomContainerComponent(
   { children, extraSecondaryAction, ...other },
@@ -56,10 +58,13 @@ const CustomContainerComponent = forwardRef(function CustomContainerComponent(
 });
 
 function ProblemList() {
-  const QUIZBOOK = useSelector((state) => state.quizbooks.quizbook);
+  const QUIZBOOK = useSelector((state) => state.quizbooks.quizbooks);
+  const QUIZ = useSelector((state) => state.quizbooks.quizsInQuizbooks);
+  console.log(QUIZ);
   const USERID = useSelector((state) => state.user.value.userId);
   const booktitle = useRef();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const Bar = forwardRef((props: any, ref: any) => (
     <span {...props} ref={ref}>
       {props.children}
@@ -74,14 +79,13 @@ function ProblemList() {
         userId: USERID,
       },
     }).then((res) => {
-      console.log(res.data);
-      dispatch(
-        quizbookActions.addquizbook({
-          title: booktitle.current.value,
-          userId: USERID,
-          quizbookId: res.data.quizbookId,
-        })
-      );
+      axios({
+        method: "get",
+        url: quizbook.getQuizbook() + USERID,
+      }).then((res) => {
+        console.log(res.data);
+        dispatch(quizbookActions.getquizbook(res.data));
+      });
     });
   };
 
@@ -89,9 +93,14 @@ function ProblemList() {
   const [mopen, setMopen] = useState([]);
   const [cqopen, setCQopen] = useState(false);
 
-  console.log(QUIZBOOK);
   useEffect(() => {
-    setCQopen(false);
+    axios({
+      method: "get",
+      url: quizbook.getQuizbook() + USERID,
+    }).then((res) => {
+      console.log(res.data);
+      dispatch(quizbookActions.getquizbook(res.data));
+    });
     for (let i in QUIZBOOK) {
       setOpen((open) => {
         const newOpen = [...open];
@@ -154,7 +163,7 @@ function ProblemList() {
                                   <AppRegistrationIcon />
                                 </IconButton>
                               </Tooltip>
-                              <Modal
+                              {/* <Modal
                                 open={mopen[index]}
                                 onClose={() => {
                                   setMopen((mopen) => {
@@ -198,7 +207,7 @@ function ProblemList() {
                                     cancel
                                   </Button>
                                 </Box>
-                              </Modal>
+                              </Modal> */}
                               {/* 새페이지 버튼 끝 */}
                             </ListItemSecondaryAction>
                           ),
@@ -269,7 +278,10 @@ function ProblemList() {
                         <Divider variant="middle" />
                         <ListItemButton
                           onClick={() => {
-                            console.log("문제 추가하기" + index);
+                            navigate("/createquestion", {
+                              replace: true,
+                              state: QUIZBOOK[index].quizbookId,
+                            });
                           }}
                         >
                           <ListItemText

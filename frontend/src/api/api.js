@@ -23,6 +23,7 @@ const quiz = {
 
 const quizbook = {
   createQuizbook: () => HOST + QUIZBOOK + "create/",
+  getQuizbook: () => HOST + QUIZBOOK + "getQuizbookCombs/",
 };
 export { email, quiz, quizbook };
 export default users;
