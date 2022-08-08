@@ -1,11 +1,8 @@
 package com.ssafy.api.controller;
 
-import com.ssafy.api.request.QuizBookCreateGetReq;
 import com.ssafy.api.request.QuizCreateReq;
-import com.ssafy.api.response.QuizBookCreateGetRes;
 import com.ssafy.api.service.QuizService;
 import com.ssafy.db.entity.Quiz;
-import com.ssafy.db.entity.Quizbook;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +43,7 @@ public class QuizController {
     @PutMapping("/alterQuiz")
     public ResponseEntity<Boolean> alterQuiz(@RequestBody Quiz quiz){
 
-        if(quizService.alterQuiz(quiz)){
+        if(!quizService.alterQuiz(quiz)){
             return ResponseEntity.status(400).body(false);
         }
         return ResponseEntity.status(200).body(true);
