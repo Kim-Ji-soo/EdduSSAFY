@@ -9,7 +9,7 @@ import users from "../api/api";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
+import { me } from '../redux/user';
 const validationSchema = yup.object({
   email: yup
     .string("Enter your email")
@@ -29,6 +29,7 @@ const validationSchema = yup.object({
 
 function UserProfile() {
   const user = useSelector(state => state.user.value);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
@@ -53,11 +54,20 @@ function UserProfile() {
         .then((res) => {
           console.log(res.data);
           alert("회원정보 수정완료!");
+          axios({
+            method: "get",
+            url: users.me(),
+          }).then((res) => {
+            console.log(res.data);
+            dispatch(me(res.data));
+          });
           navigate("/homepage", { replace: true });
         })
         .catch((e) => {
           console.log(e);
         });
+      
+
     },
   });
   return (
@@ -124,7 +134,8 @@ function UserProfile() {
             helperText={formik.touched.tel && formik.errors.tel}
           />
         </div>
-        <Button type="submit" disabled={formik.isSubmitting}>
+        <Button type="submit" disabled={formik.isSubmitting}
+        >
           정보수정
         </Button>
       </form>

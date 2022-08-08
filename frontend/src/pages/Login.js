@@ -10,6 +10,7 @@ import axios from "axios";
 import users from "../api/api";
 import { useDispatch } from "react-redux";
 import { setToken } from "../redux/token";
+import { me } from "../redux/user";
 
 const validationSchema = yup.object({
   password: yup.string("Enter your password").required("Password is required"),
@@ -43,6 +44,13 @@ function Login() {
         // dispatch(setToken(res.data.accessToken));
         //localStorage.setItem("token", token);
         //console.log(localStorage.getItem("token"));
+        axios({
+          method: "get",
+          url: users.me(),
+        }).then((res) => {
+          console.log(res.data);
+          dispatch(me(res.data));
+        });
         navigate("/homepage", { replace: true });
       });
     },
