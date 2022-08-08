@@ -34,7 +34,7 @@ const validationSchema = yup.object({
   }),
   name: yup.string("Enter your name").required("name is required"),
   nickname: yup.string("Enter your nickname").required("nickname is required"),
-  id: yup
+  userId: yup
     .string("Enter your id")
     .min(5, "id should be of minimum 5 characters length")
     .required("id is required"),
@@ -56,7 +56,7 @@ function Signup() {
     initialValues: {
       name: "",
       nickname: "",
-      id: "",
+      userId: "",
       password: "",
       passwordCheck: "",
       email: "",
@@ -210,25 +210,25 @@ function Signup() {
                   sx={Textfieldsx}
                 />
               </div>
-              <div id={styles.inputId}>
+              <div userId={styles.inputId}>
                 <TextField
-                  name="id"
-                  label="id"
-                  value={formik.values.id}
+                  name="userId"
+                  label="userId"
+                  value={formik.values.userId}
                   onChange={formik.handleChange}
-                  error={formik.touched.id && Boolean(formik.errors.id)}
-                  helperText={formik.touched.id && formik.errors.id}
+                  error={formik.touched.userId && Boolean(formik.errors.userId)}
+                  helperText={formik.touched.userId && formik.errors.userId}
                   sx={Textbtnfieldsx}
                 />
                 <Button
-                  id="inputButton"
+                  userId="inputButton"
                   className={styles.inputButton}
                   onClick={() => {
-                    const id = formik.values.id;
-                    console.log(users.idcheck() + id);
+                    const userId = formik.values.userId;
+                    console.log(users.idcheck() + userId);
                     axios({
                       method: "get",
-                      url: users.idcheck() + id,
+                      url: users.idcheck() + userId,
                     }).then((res) => {
                       if (res.data === true) {
                         alert("중복된 아이디입니다.");
@@ -285,8 +285,8 @@ function Signup() {
                 <Button
                   className={styles.inputButton}
                   onClick={() => {
-                    const id = formik.values.id;
-                    console.log(users.idcheck() + id);
+                    const userId = formik.values.userId;
+                    console.log(users.idcheck() + userId);
                     console.log(formik.values.email);
                     axios({
                       method: "post",
@@ -343,7 +343,7 @@ function Signup() {
             </div>
             <div>
               <FormControl>
-                <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
+                <FormLabel userId="demo-radio-buttons-group-label"></FormLabel>
                 <RadioGroup
                   aria-labelledby="demo-controlled-radio-buttons-group"
                   name="position"

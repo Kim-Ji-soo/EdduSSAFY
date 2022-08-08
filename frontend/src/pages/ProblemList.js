@@ -1,6 +1,6 @@
 /** @format */
 import * as React from "react";
-import { useState, forwardRef, useEffect } from "react";
+import { useState, forwardRef, useEffect, useRef } from "react";
 
 //contain
 import Box from "@mui/material/Box";
@@ -70,20 +70,20 @@ const CustomContainerComponent2 = forwardRef(function CustomContainerComponent(
 
 function ProblemList() {
   const QUIZBOOK = useSelector((state) => state.quizbooks.quizbook);
-  console.log(QUIZBOOK);
+  const USERID = useSelector((state) => state.user.value.userId);
+  const booktitle = useRef();
   const dispatch = useDispatch();
 
   const handleCreateQuizbook = () => {
-    const newID = new Date()
-      .toLocaleString()
-      .replace(/[\.\s\:ㄱ-ㅎㅏ-ㅣ가-힣]/g, "");
-    
-    
-    dispatch(quizbookActions.addquizbook(newID));
+    // const newID = new Date()
+    //   .toLocaleString()
+    //   .replace(/[\.\s\:ㄱ-ㅎㅏ-ㅣ가-힣]/g, "");
+    dispatch(quizbookActions.addquizbook({title:booktitle.current.value,userId:USERID}));
   };
 
   const [open, setOpen] = useState([]);
   const [mopen, setMopen] = useState([]);
+  const [cqopen, setCQopen] = useState(false);
 
   useEffect(() => {
     for (let i = 0; i < QUIZBOOK.length; i++) {
@@ -120,66 +120,67 @@ function ProblemList() {
                           extraSecondaryAction: (
                             <ListItemSecondaryAction sx={{ right: "100px" }}>
                               <Tooltip title="문제 삭제하기">
-                              <IconButton
-                                onClick={() => {
-                                  dispatch(
-                                    quizbookActions.removequizbook(item.id)
+                                <IconButton
+                                  onClick={() => {
+                                    dispatch(
+                                      quizbookActions.removequizbook(item.id)
                                     );
                                   }}
                                   aria-label="delete"
-                                  >
-                                <DeleteForeverIcon />
-                              </IconButton>
-                              </Tooltip>
-                              
-                              {/* 새페이지 버튼 시작 */}
-                              <Tooltip title="문제집 수정하기">
-                              <IconButton
-                                onClick={() => {
-                                setMopen((mopen) => {
-                                  const newMopen = [...mopen];
-                                  newMopen[index] = !newMopen[index];
-                                  return newMopen;
-                                });
-                              }}
-                                aria-label="hi"
                                 >
-                                <AppRegistrationIcon />
+                                  <DeleteForeverIcon />
                                 </IconButton>
                               </Tooltip>
-                                    <Modal
+
+                              {/* 새페이지 버튼 시작 */}
+                              <Tooltip title="문제집 수정하기">
+                                <IconButton
+                                  onClick={() => {
+                                    setMopen((mopen) => {
+                                      const newMopen = [...mopen];
+                                      newMopen[index] = !newMopen[index];
+                                      return newMopen;
+                                    });
+                                  }}
+                                  aria-label="hi"
+                                >
+                                  <AppRegistrationIcon />
+                                </IconButton>
+                              </Tooltip>
+                              <Modal
                                 open={mopen[index]}
                                 onClose={() => {
                                   setMopen((mopen) => {
                                     const newMopen = [...mopen];
                                     newMopen[index] = !newMopen[index];
                                     return newMopen;
-                                  })}
+                                  })
                                 }
-        aria-labelledby="parent-modal-title"
-        aria-describedby="parent-modal-description"
-      >
-                <Box sx={{
-                  position: "absolute",
-                  display: "flex",
-                  flexDirection:"column",
-                  minWidth:"200px",
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                  width: "20vw",
-                  bgcolor: "background.paper",
-                  border: "2px solid #000",
-                  boxShadow: 24,
-                  pt: 2,
-                  px: 4,
-                  pb: 3,
-                  }}>
-          <TextField id="outlined-basic" label="Outlined" variant="outlined" defaultValue={item.id} sx={{}}/>                    
-          <Button sx={{display:"block", }}>change</Button>
-          <Button sx={{display:"block"}}>cancel</Button>
-        </Box>
-      </Modal>
+                                }
+                                aria-labelledby="parent-modal-title"
+                                aria-describedby="parent-modal-description"
+                              >
+                                <Box sx={{
+                                  position: "absolute",
+                                  display: "flex",
+                                  flexDirection: "column",
+                                  minWidth: "200px",
+                                  top: "50%",
+                                  left: "50%",
+                                  transform: "translate(-50%, -50%)",
+                                  width: "20vw",
+                                  bgcolor: "background.paper",
+                                  border: "2px solid #000",
+                                  boxShadow: 24,
+                                  pt: 2,
+                                  px: 4,
+                                  pb: 3,
+                                }}>
+                                  <TextField id="outlined-basic" label="Outlined" variant="outlined" defaultValue={item.id} sx={{}} />
+                                  <Button sx={{ display: "block", }}>change</Button>
+                                  <Button sx={{ display: "block" }}>cancel</Button>
+                                </Box>
+                              </Modal>
                               {/* 새페이지 버튼 끝 */}
                             </ListItemSecondaryAction>
                           ),
@@ -187,17 +188,17 @@ function ProblemList() {
                       >
                         <ListItemButton
                           sx={{
-                                "&.MuiListItemButton-root": {
-                                ":hover": {
+                            "&.MuiListItemButton-root": {
+                              ":hover": {
                                 backgroundColor: "yellow",
                                 color: "gray"
-                                },
-                                ":active": {
+                              },
+                              ":active": {
                                 backgroundColor: "red",
                                 color: "blue"
-                                },
                               },
-                            }}
+                            },
+                          }}
 
                           onClick={() => {
                             setOpen((open) => {
@@ -218,38 +219,38 @@ function ProblemList() {
 
                         <ListItemSecondaryAction> </ListItemSecondaryAction>
                       </ListItem>
-                      
+
 
                       {open[index] ? <Divider variant="middle" /> : null}
 
-                      {/* 하위 시작 */}                 
+                      {/* 하위 시작 */}
                       <Collapse in={open[index]} timeout="auto" unmountOnExit>
                         {/* 하위 리스트 시작 */}
 
 
-                          <List component="div" disablePadding>
-                            <ListItem sx={{ pl: 10 }}>
-                              <ListItemIcon>
-                                <DescriptionIcon />
-                              </ListItemIcon>
+                        <List component="div" disablePadding>
+                          <ListItem sx={{ pl: 10 }}>
+                            <ListItemIcon>
+                              <DescriptionIcon />
+                            </ListItemIcon>
 
                             <ListItemText primary={"happy"} />
-                            
+
                             <Tooltip title="문제 수정하기">
-                            <IconButton sx={{mr: 1}}>
-                              <EditIcon />
-                            </IconButton>
+                              <IconButton sx={{ mr: 1 }}>
+                                <EditIcon />
+                              </IconButton>
                             </Tooltip>
                             <Tooltip title="문제 삭제하기">
-                            <IconButton sx={{ mr: 10 }}>
-                              <BackspaceIcon/>
-                            </IconButton>
+                              <IconButton sx={{ mr: 10 }}>
+                                <BackspaceIcon />
+                              </IconButton>
                             </Tooltip>
 
-                            </ListItem>
-                          </List>
+                          </ListItem>
+                        </List>
 
-                        
+
                         {/* 하위 리스트 끝 */}
                         {/* 문제 추가하기 시작 */}
                         <Divider variant="middle" />
@@ -260,15 +261,15 @@ function ProblemList() {
                         >
                           <ListItemText primary={"문제 추가하기"} sx={{ textAlign: 'center', m: 1 }} />
                         </ListItemButton>
-                        {/* 문제 추가하기 끝 */ }
-                        </Collapse>
+                        {/* 문제 추가하기 끝 */}
+                      </Collapse>
 
-                        <Divider />
-                        {/* 하위 끝 */ }
+                      <Divider />
+                      {/* 하위 끝 */}
 
                     </List>
                   </Collapse>
-                  
+
                 );
               })}
             </TransitionGroup>
@@ -279,11 +280,49 @@ function ProblemList() {
       <Grid item container spacing={2}>
         <Button
           onClick={() => {
-            handleCreateQuizbook();
+            setCQopen((cqopen) => {
+              let newcqopen = cqopen;
+              newcqopen = !newcqopen;
+              return newcqopen;
+            })
           }}
         >
           문제집 생성하기
         </Button>
+        <Modal
+                                open={cqopen}
+                                onClose={() => {
+                                  setCQopen((cqopen) => {
+                                    let newcqopen = cqopen;
+                                    newcqopen = !newcqopen;
+                                    return newcqopen;
+                                  })
+                                }
+                                }
+                                aria-labelledby="parent-modal-title"
+                                aria-describedby="parent-modal-description"
+                              >
+                                <Box sx={{
+                                  position: "absolute",
+                                  display: "flex",
+                                  flexDirection: "column",
+                                  minWidth: "200px",
+                                  top: "50%",
+                                  left: "50%",
+                                  transform: "translate(-50%, -50%)",
+                                  width: "20vw",
+                                  bgcolor: "background.paper",
+                                  border: "2px solid #000",
+                                  boxShadow: 24,
+                                  pt: 2,
+                                  px: 4,
+                                  pb: 3,
+                                }}>
+                                  <TextField id="outlined-basic" label="Outlined" variant="outlined" defaultValue="" sx={{}} inputRef={booktitle}/>
+                                  <Button sx={{ display: "block", }} onClick={()=>{handleCreateQuizbook('here')}}>change</Button>
+                                  <Button sx={{ display: "block" }}>cancel</Button>
+                                </Box>
+                              </Modal>
       </Grid>
     </>
   );
