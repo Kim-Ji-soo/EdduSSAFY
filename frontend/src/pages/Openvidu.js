@@ -227,7 +227,21 @@ class Openvidu extends Component {
   render() {
     const mySessionId = this.state.mySessionId;
     const myUserName = this.state.myUserName;
-
+    const getWebcam = (callback) => {
+      try {
+        const constraints = {
+          video: true,
+          audio: true,
+        };
+        navigator.mediaDevices.getUserMedia(constraints).then(callback);
+      } catch (err) {
+        console.log(err);
+        return undefined;
+      }
+    };
+    this.componentDidMount(() => {
+      getWebcam();
+    });
     return (
       <div className="container">
         {this.state.session === undefined ? (
@@ -269,23 +283,6 @@ class Openvidu extends Component {
                     name="commit"
                     type="submit"
                     value="JOIN"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      const getWebcam = (callback) => {
-                        try {
-                          const constraints = {
-                            video: true,
-                            audio: true,
-                          };
-                          navigator.mediaDevices
-                            .getUserMedia(constraints)
-                            .then(callback);
-                        } catch (err) {
-                          console.log(err);
-                          return undefined;
-                        }
-                      };
-                    }}
                   />
                 </p>
               </form>
