@@ -3,7 +3,7 @@ import { OpenVidu } from "openvidu-browser";
 import React, { Component } from "react";
 import UserVideoComponent from "../components/UserVideoComponent";
 
-const OPENVIDU_SERVER_URL = "http://i7c111.p.ssafy.io:8080";
+const OPENVIDU_SERVER_URL = "https://i7c111.p.ssafy.io:8443";
 const OPENVIDU_SERVER_SECRET = "7c111";
 
 class Openvidu extends Component {
@@ -269,6 +269,23 @@ class Openvidu extends Component {
                     name="commit"
                     type="submit"
                     value="JOIN"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const getWebcam = (callback) => {
+                        try {
+                          const constraints = {
+                            video: true,
+                            audio: true,
+                          };
+                          navigator.mediaDevices
+                            .getUserMedia(constraints)
+                            .then(callback);
+                        } catch (err) {
+                          console.log(err);
+                          return undefined;
+                        }
+                      };
+                    }}
                   />
                 </p>
               </form>
