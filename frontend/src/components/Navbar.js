@@ -49,7 +49,8 @@ export default function Navbar() {
             </Link>
             <Link
               to="/userprofile"
-              onClick={(e) => {
+/*
+                onClick={(e) => {
                 e.preventDefault();
                 console.log(token);
                 axios({
@@ -62,9 +63,9 @@ export default function Navbar() {
                   console.log(res.data);
                   dispatch(me(res.data));
                   navigate("/userprofile", { replace: true });
-
                 });
               }}
+*/
               className={classes.link}
             >
               개인정보 수정
