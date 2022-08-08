@@ -66,8 +66,6 @@ function ProblemList() {
     </span>
   ));
   const handleCreateQuizbook = () => {
-    console.log(booktitle.current.value);
-    console.log(USERID);
     axios({
       method: "post",
       url: quizbook.createQuizbook(),
@@ -253,7 +251,7 @@ function ProblemList() {
 
                             <ListItemText primary={"happy"} />
 
-                            <Tooltip title="문제 수정하기">
+                            <Tooltip title="문제 수정하기" onClick={(e) => {}}>
                               <IconButton sx={{ mr: 1 }}>
                                 <EditIcon />
                               </IconButton>
