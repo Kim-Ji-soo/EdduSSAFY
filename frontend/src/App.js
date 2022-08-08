@@ -8,6 +8,7 @@ import CreateQuestion from "./pages/CreateQuestion";
 import UserProfile from "./pages/UserProfile";
 import Navbar from "./components/Navbar";
 import Logout from "./pages/Logout";
+import QuizList from "./pages/QuizList"; //contain
 import { Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/store";
@@ -49,6 +50,10 @@ function App() {
               <Route
               path="/logout"
               element={<Logout></Logout>}
+              ></Route>
+              <Route
+              path="/quizlist/:id"
+              element={<QuizList></QuizList>}
             ></Route>
             </Routes>
           </Grid>
