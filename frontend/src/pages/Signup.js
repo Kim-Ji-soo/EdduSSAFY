@@ -15,7 +15,7 @@ import { email } from "../api/api";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import styles from "../css/signup.module.css"
+import styles from "../css/signup.module.css";
 
 const validationSchema = yup.object({
   email: yup
@@ -96,40 +96,50 @@ function Signup() {
   const Textfieldsx = {
     width: "70%",
     height: "100%",
-    "& .MuiInputLabel-root": { color: "black", fontSize: "0.8vmax", },
+    "& .MuiInputLabel-root": { color: "black", fontSize: "0.8vmax" },
     "& .MuiOutlinedInput-root": {
-      "& > fieldset": { width: "100%", height: "100%", border: "3px solid blue", borderRadius: "20px 20px" },
+      "& > fieldset": {
+        width: "100%",
+        height: "100%",
+        border: "3px solid blue",
+        borderRadius: "20px 20px",
+      },
     },
     "& .MuiOutlinedInput-root:hover": {
       "& > fieldset": {
-        borderColor: "blue"
-      }
+        borderColor: "blue",
+      },
     },
     "& .MuiOutlinedInput-root.Mui-focused": {
       "& > fieldset": {
-        borderColor: "blue"
-      }
-    }
-  }
+        borderColor: "blue",
+      },
+    },
+  };
 
   const Textbtnfieldsx = {
     width: "52%",
     height: "100%",
-    "& .MuiInputLabel-root": { color: "black", fontSize: "0.8vmax", },
+    "& .MuiInputLabel-root": { color: "black", fontSize: "0.8vmax" },
     "& .MuiOutlinedInput-root": {
-      "& > fieldset": { width: "90%", height: "100%", border: "3px solid blue", borderRadius: "20px 20px" },
+      "& > fieldset": {
+        width: "90%",
+        height: "100%",
+        border: "3px solid blue",
+        borderRadius: "20px 20px",
+      },
     },
     "& .MuiOutlinedInput-root:hover": {
       "& > fieldset": {
-        borderColor: "blue"
-      }
+        borderColor: "blue",
+      },
     },
     "& .MuiOutlinedInput-root.Mui-focused": {
       "& > fieldset": {
-        borderColor: "blue"
-      }
-    }
-  }
+        borderColor: "blue",
+      },
+    },
+  };
 
   const Buttonsx = {
     "&.MuiButton-root": {
@@ -151,19 +161,19 @@ function Signup() {
       left: "10px",
       zIndex: "-1",
     },
-  }
+  };
 
   const radiosx = {
     color: "#FDDD6D",
-    '&.Mui-checked': {
+    "&.Mui-checked": {
       color: "#FDDD6D",
     },
-  }
+  };
 
   return (
     <>
       <div className={styles.signupBody}>
-        <div className={styles.container} >
+        <div className={styles.container}>
           <div className={styles.toplinks}>
             <form
               onSubmit={(event) => {
@@ -172,14 +182,18 @@ function Signup() {
             >
               <div>
                 <Link to="/" className={styles.link}>
-                  <Button type="submit" className={styles.buttons}>Sign in</Button>
+                  <Button type="submit" className={styles.buttons}>
+                    Sign in
+                  </Button>
                 </Link>
               </div>
             </form>
           </div>
           <div>
             <h2 className={styles.h2}>Sign Up</h2>
-            <span className={styles.span}>Make our Eddu SSAFY community register </span>
+            <span className={styles.span}>
+              Make our Eddu SSAFY community register{" "}
+            </span>
           </div>
           <form
             onSubmit={(e) => {
@@ -205,19 +219,21 @@ function Signup() {
                   label="nickname"
                   value={formik.values.nickname}
                   onChange={formik.handleChange}
-                  error={formik.touched.nickname && Boolean(formik.errors.nickname)}
+                  error={
+                    formik.touched.nickname && Boolean(formik.errors.nickname)
+                  }
                   helperText={formik.touched.nickname && formik.errors.nickname}
                   sx={Textfieldsx}
                 />
               </div>
               <div id={styles.inputId}>
                 <TextField
-                  name="id"
-                  label="id"
-                  value={formik.values.id}
+                  name="userId"
+                  label="userId"
+                  value={formik.values.userId}
                   onChange={formik.handleChange}
-                  error={formik.touched.id && Boolean(formik.errors.id)}
-                  helperText={formik.touched.id && formik.errors.id}
+                  error={formik.touched.userId && Boolean(formik.errors.userId)}
+                  helperText={formik.touched.userId && formik.errors.userId}
                   sx={Textbtnfieldsx}
                 />
                 <Button
@@ -250,7 +266,9 @@ function Signup() {
                   label="password"
                   value={formik.values.password}
                   onChange={formik.handleChange}
-                  error={formik.touched.password && Boolean(formik.errors.password)}
+                  error={
+                    formik.touched.password && Boolean(formik.errors.password)
+                  }
                   helperText={formik.touched.password && formik.errors.password}
                   sx={Textfieldsx}
                 />
@@ -378,7 +396,9 @@ function Signup() {
                 </RadioGroup>
               </FormControl>
             </div>
-            <Button type="submit" sx={Buttonsx}>Submit</Button>
+            <Button type="submit" sx={Buttonsx}>
+              Submit
+            </Button>
           </form>
         </div>
       </div>
