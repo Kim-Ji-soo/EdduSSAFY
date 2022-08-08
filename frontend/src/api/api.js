@@ -1,4 +1,4 @@
-const HOST = "http://localhost:8080/api/v1/";
+const HOST = "http://i7c111.p.ssafy.io:8080/api/v1/";
 
 const USERS = "users/";
 const EMAIL = "email/";
@@ -9,7 +9,7 @@ const users = {
   login: () => HOST + USERS + "login/",
   me: () => HOST + USERS + "me/",
   idcheck: () => HOST + USERS + "idcheck/",
-  update :() =>HOST + USERS + "update/",
+  update: () => HOST + USERS + "update/",
 };
 
 const email = {
@@ -18,7 +18,7 @@ const email = {
 
 const quiz = {
   createQuiz: () => HOST + QUIZ + "createQuiz/",
-}
+};
 
 export { email };
 export default users;
