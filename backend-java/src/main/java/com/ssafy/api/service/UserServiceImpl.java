@@ -1,6 +1,8 @@
 package com.ssafy.api.service;
 
-import com.ssafy.api.request.UserUpdateDto;
+import com.ssafy.api.request.UserChangePasswordReq;
+import com.ssafy.api.request.UserLoginPostReq;
+import com.ssafy.api.request.UserUpdateReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,7 @@ import com.ssafy.db.repository.UserRepository;
 import com.ssafy.db.repository.UserRepositorySupport;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 /**
  *	유저 관련 비즈니스 로직 처리를 위한 서비스 구현 정의.
  */
@@ -70,12 +73,45 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean deleteByUserId(User user) {
-		userRepository.delete(user);
+		try {
+			userRepository.delete(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 		return true;
 	}
 
 	@Override
-	public void updateUser(UserUpdateDto updateUserDto) {
+	public boolean updateUser(UserUpdateReq updateUserDto, User user) {
+		user.setName(updateUserDto.getName());
+		user.setNickname(updateUserDto.getNickname());
+		user.setPosition(updateUserDto.getPosition());
+		user.setTel(updateUserDto.getTel());
+		//user.setPassword(passwordEncoder.encode(updateUserDto.getPassword()));
 
+		try{
+			userRepository.save(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean changePassword(UserChangePasswordReq userInfo) {
+		try{
+			User user = userRepository.findById(userInfo.getUserId()).get();
+			if(!passwordEncoder.matches(userInfo.getOldPassword(), user.getPassword())){
+				throw new Exception("비밀번호 틀림");
+			}
+			user.setPassword(passwordEncoder.encode(userInfo.getNewPassword()));
+			userRepository.save(user);
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 }

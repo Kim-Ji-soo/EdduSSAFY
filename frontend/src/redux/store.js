@@ -1,6 +1,7 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import userReducer from "./user";
 import tokenReducer from "./token";
+import quizbookReducer from "./quizbook"
 import storage from "redux-persist/lib/storage";
 import {
   persistStore,
@@ -22,6 +23,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   user: userReducer,
   token: tokenReducer,
+  quizbooks: quizbookReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -1,7 +1,9 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.request.UserChangePasswordReq;
+import com.ssafy.api.request.UserLoginPostReq;
 import com.ssafy.api.request.UserRegisterPostReq;
-import com.ssafy.api.request.UserUpdateDto;
+import com.ssafy.api.request.UserUpdateReq;
 import com.ssafy.db.entity.User;
 
 /**
@@ -14,5 +16,7 @@ public interface UserService {
 	boolean checkUserId(String userid);
 
 	boolean deleteByUserId(User user);
-	void updateUser(UserUpdateDto updateUserDto);
+	boolean updateUser(UserUpdateReq updateUserDto, User user);
+
+	boolean changePassword(UserChangePasswordReq userInfo);
 }
