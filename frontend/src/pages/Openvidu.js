@@ -3,7 +3,7 @@ import "./App.css";
 import axios from "axios";
 import OpenViduSession from "openvidu-react";
 
-class App extends Component {
+class Openvidu extends Component {
   constructor(props) {
     super(props);
     this.OPENVIDU_SERVER_URL = "https://i7c111.p.ssafy.io:8443";
@@ -206,4 +206,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Openvidu;
