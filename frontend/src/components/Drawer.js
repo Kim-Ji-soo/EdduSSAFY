@@ -65,27 +65,28 @@ function DrawerComponent() {
           <Divider />
           <ListItem onClick={() => setOpenDrawer(false)}>
             <ListItemText>
-              <Link
-                to="/userprofile"
-                onClick={(e) => {
-                  e.preventDefault();
-                  console.log(token);
-                  axios({
-                    method: "get",
-                    url: users.me(),
-                    headers: {
-                      Authorization: `Bearer ${token}`,
-                    },
-                  }).then((res) => {
-                    console.log(res.data);
-                    dispatch(me(res.data));
-                    navigate("/userprofile", { replace: true });
-                  });
-                }}
-                className={classes.link}
-              >
-                개인정보 수정
-              </Link>
+            <Link
+              to="/userprofile"
+              onClick={(e) => {
+                e.preventDefault();
+                console.log(token);
+                axios({
+                  method: "get",
+                  url: users.me(),
+                  // headers: {
+                  //   Authorization: `Bearer ${token}`,
+                  // },
+                }).then((res) => {
+                  console.log(res.data);
+                  dispatch(me(res.data));
+                  navigate("/userprofile", { replace: true });
+
+                });
+              }}
+              className={classes.link}
+            >
+              개인정보 수정
+            </Link>
             </ListItemText>
           </ListItem>
           <Divider />

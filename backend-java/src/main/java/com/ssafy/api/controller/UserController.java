@@ -1,6 +1,8 @@
 package com.ssafy.api.controller;
 
-import com.ssafy.api.request.UserUpdateDto;
+import com.ssafy.api.request.UserChangePasswordReq;
+import com.ssafy.api.request.UserLoginPostReq;
+import com.ssafy.api.request.UserUpdateReq;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,16 +12,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import com.ssafy.api.request.UserLoginPostReq;
 import com.ssafy.api.request.UserRegisterPostReq;
-import com.ssafy.api.response.UserLoginPostRes;
 import com.ssafy.api.response.UserRes;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.auth.SsafyUserDetails;
 import com.ssafy.common.model.response.BaseResponseBody;
-import com.ssafy.common.util.JwtTokenUtil;
 import com.ssafy.db.entity.User;
-import com.ssafy.db.repository.UserRepositorySupport;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -107,17 +105,19 @@ public class UserController {
 	// 회원 정보 수정 (비밀번호 수정)
 	@ApiOperation(value = "회원 정보 수정", notes = "회원 정보 수정")
 	@PutMapping("/update")
-	public ResponseEntity<String> update(@RequestBody UserUpdateDto updateUserDto) throws Exception {
+	public ResponseEntity<String> update(@RequestBody UserUpdateReq updateUserReq) throws Exception {
 		User user;
 		try {
-			user = userService.getUserByUserId(updateUserDto.getUser_id());
+			user = userService.getUserByUserId(updateUserReq.getUserId());
 		}catch(NoSuchElementException E) {
 			System.out.println("회원 수정 실패");
 			return  ResponseEntity.status(500).body("해당 회원 없어서 회원 수정 실패");
 		}
-		userService.updateUser(updateUserDto);
+		if(!userService.updateUser(updateUserReq, user)){
+			return ResponseEntity.status(400).body("업데이트 실패");
+		}
 		System.out.println("업데이트 됨");
-		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		return ResponseEntity.status(200).body("업데이트 성공");
 	}
 
 
@@ -141,4 +141,13 @@ public class UserController {
 		logger.debug("회원 탈퇴 성공");
 		return ResponseEntity.status(200).body("회원 탈퇴 성공");
 	}
+
+	@PutMapping("/changePassword")
+	public ResponseEntity<Boolean> changePassword(@RequestBody UserChangePasswordReq userInfo){
+		if (!userService.changePassword(userInfo)){
+			return ResponseEntity.status(400).body(false);
+		}
+		return ResponseEntity.status(200).body(true);
+	}
 }
+
