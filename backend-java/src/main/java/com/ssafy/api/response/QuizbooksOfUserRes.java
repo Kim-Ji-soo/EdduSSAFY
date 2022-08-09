@@ -8,7 +8,6 @@ import java.util.List;
 
 @Data
 public class QuizbooksOfUserRes {
-    String userID;
-    List<Quizbook> quizbooks;
-    List<List<Quiz>> quizsInQuizbooks;
+    List<QuizbookRes> quizbooks;
+    List<List<QuizRes>> quizsInQuizbooks;
 }

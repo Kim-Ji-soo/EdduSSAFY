@@ -1,7 +1,9 @@
 package com.ssafy.api.controller;
 
 import com.ssafy.api.request.QuizbookCreateReq;
+import com.ssafy.api.request.QuizbookUpdateReq;
 import com.ssafy.api.response.QuizbookCreateRes;
+import com.ssafy.api.response.QuizbookRes;
 import com.ssafy.api.response.QuizbooksOfUserRes;
 import com.ssafy.api.service.QuizbookService;
 import com.ssafy.db.entity.Quizbook;
@@ -32,13 +34,13 @@ public class QuizbookController {
     };
 
     @GetMapping("/search/{quizbookId}")
-    public ResponseEntity<Quizbook> searchQuizBookById(@PathVariable("quizbookId") Long quizbookId){
+    public ResponseEntity<QuizbookRes> searchQuizBookById(@PathVariable("quizbookId") Long quizbookId){
         Optional<Quizbook> quizbookOptional = quizbookService.getQuizBookById(quizbookId);
 
         if(!quizbookOptional.isPresent()){
             ResponseEntity.status(400).body(null);
         }
-        return ResponseEntity.status(200).body(quizbookOptional.get());
+        return ResponseEntity.status(200).body(new QuizbookRes(quizbookOptional.get()));
     }
 
     @DeleteMapping("/delete/{quizbookId}")
@@ -58,6 +60,14 @@ public class QuizbookController {
             return ResponseEntity.status(400).body(null);
         }
         return ResponseEntity.status(200).body(res);
+    }
+
+    @PutMapping("/alter")
+    public ResponseEntity<Boolean> alterQuizbook(@RequestBody QuizbookUpdateReq quizbookUpdateReq){
+        if(!quizbookService.alterQuizbook(quizbookUpdateReq)){
+            return ResponseEntity.status(400).body(false);
+        }
+        return ResponseEntity.status(200).body(true);
     }
 
 //    @GetMapping("/quizList/{quizbookId}")

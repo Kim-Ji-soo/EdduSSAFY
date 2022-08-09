@@ -1,6 +1,7 @@
 package com.ssafy.api.controller;
 
 import com.ssafy.api.request.QuizCreateReq;
+import com.ssafy.api.response.QuizRes;
 import com.ssafy.api.service.QuizService;
 import com.ssafy.db.entity.Quiz;
 import io.swagger.annotations.Api;
@@ -30,9 +31,9 @@ public class QuizController {
 
     //나중에 response 만들자.
     @PostMapping("/createQuiz")
-    public ResponseEntity<Quiz> createQuiz(@RequestBody QuizCreateReq quizCreateReq){
+    public ResponseEntity<QuizRes> createQuiz(@RequestBody QuizCreateReq quizCreateReq){
 
-        Quiz quiz = quizService.createQuiz(quizCreateReq);
+        QuizRes quiz = quizService.createQuiz(quizCreateReq);
        if( quiz == null){
            return ResponseEntity.status(400).body(null);
        }
@@ -59,8 +60,8 @@ public class QuizController {
     }
     
     @GetMapping("/searchByQuizbook/{quizbookId}")
-    public ResponseEntity<List<Quiz>> searchByQuizbookId (@PathVariable("quizbookId") Long quizbookId){
-        List<Quiz> quizs = quizService.searchByQuizbookId(quizbookId);
+    public ResponseEntity<List<QuizRes>> searchByQuizbookId (@PathVariable("quizbookId") Long quizbookId){
+        List<QuizRes> quizs = quizService.searchByQuizbookId(quizbookId);
         if(quizs == null ){
             return ResponseEntity.status(400).body(null);
         }

@@ -13,8 +13,8 @@ public class QuizCreateReq {
     @ApiModelProperty(name="소속 문제집 아이디", example="0")
     private Long quizbookId;
 
-    @ApiModelProperty(name="객관식 = true 주관식 = false", example="true")
-    private boolean isChoice;
+    @ApiModelProperty(name="객관식 = choice 주관식 = subjective", example="choice")
+    private String type;
 
     @ApiModelProperty(name="이미지 주소", example="")
     private String quizPic;
@@ -22,7 +22,7 @@ public class QuizCreateReq {
     @ApiModelProperty(name="선택지 갯수(주관식은 1)", example="2")
     private int optionSize;
 
-    @ApiModelProperty(name="선택지, /로 구분", example="라이츄/파이리")
+    @ApiModelProperty(name="선택지, |로 구분", example="라이츄|파이리")
     private String options;
 
     @ApiModelProperty(name="객관식은 답 번호(0부터 시작), 주관식은 정답", example="1")
@@ -34,11 +34,11 @@ public class QuizCreateReq {
     public Quiz toEntity(){
         return Quiz.builder()
                 .content(getContent())
-                .isChoice(isChoice())
+                .type(getType())
                 .quizPic(getQuizPic())
                 .optionSize(getOptionSize())
                 .options(getOptions())
-                .answer(getOptions())
+                .answer(getAnswer())
                 .quizbook(Quizbook.builder().quizbookId(getQuizbookId()).build())
                 .score(getScore())
                 .build();
