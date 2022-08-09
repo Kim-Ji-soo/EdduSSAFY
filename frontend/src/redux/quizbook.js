@@ -8,6 +8,12 @@ export const quizbookSlice = createSlice({
   reducers: {
     getquizbook: (state, action) => {
       state.quizbooks = action.payload.quizbooks;
+      for (let i of action.payload.quizsInQuizbooks) {
+        for (let j in i) {
+          const arr = i[j].options.split("|");
+          i[j].options = arr;
+        }
+      }
       state.quizsInQuizbooks = action.payload.quizsInQuizbooks;
     },
     changequizbook: (state, action) => {},
