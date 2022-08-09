@@ -12,10 +12,8 @@ import { Grid, Divider, ListItem } from "@mui/material";
 //
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import StarBorder from "@mui/icons-material/StarBorder";
 
 //
 import DescriptionIcon from "@mui/icons-material/Description";
@@ -33,7 +31,6 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import DriveFileMoveIcon from "@mui/icons-material/DriveFileMove";
 import { ListItemSecondaryAction } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import BackspaceIcon from "@mui/icons-material/Backspace";
@@ -43,7 +40,6 @@ import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
 
 const CustomContainerComponent = forwardRef(function CustomContainerComponent(
   { children, extraSecondaryAction, ...other },
@@ -64,11 +60,6 @@ function ProblemList() {
   const booktitle = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const Bar = forwardRef((props: any, ref: any) => (
-    <span {...props} ref={ref}>
-      {props.children}
-    </span>
-  ));
   const handleCreateQuizbook = () => {
     axios({
       method: "post",
@@ -322,56 +313,54 @@ function ProblemList() {
           aria-labelledby="parent-modal-title"
           aria-describedby="parent-modal-description"
         >
-          <Bar>
-            <Box
-              sx={{
-                position: "absolute",
-                display: "flex",
-                flexDirection: "column",
-                minWidth: "200px",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                width: "20vw",
-                bgcolor: "background.paper",
-                border: "2px solid #000",
-                boxShadow: 24,
-                pt: 2,
-                px: 4,
-                pb: 3,
+          <Box
+            sx={{
+              position: "absolute",
+              display: "flex",
+              flexDirection: "column",
+              minWidth: "200px",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: "20vw",
+              bgcolor: "background.paper",
+              border: "2px solid #000",
+              boxShadow: 24,
+              pt: 2,
+              px: 4,
+              pb: 3,
+            }}
+          >
+            <TextField
+              id="outlined-basic"
+              label="Outlined"
+              variant="outlined"
+              defaultValue=""
+              sx={{}}
+              inputRef={booktitle}
+            />
+            <Button
+              sx={{ display: "block" }}
+              onClick={() => {
+                handleCreateQuizbook("here");
+                setCQopen((cqopen) => {
+                  return !cqopen;
+                });
               }}
             >
-              <TextField
-                id="outlined-basic"
-                label="Outlined"
-                variant="outlined"
-                defaultValue=""
-                sx={{}}
-                inputRef={booktitle}
-              />
-              <Button
-                sx={{ display: "block" }}
-                onClick={() => {
-                  handleCreateQuizbook("here");
-                  setCQopen((cqopen) => {
-                    return !cqopen;
-                  });
-                }}
-              >
-                change
-              </Button>
-              <Button
-                sx={{ display: "block" }}
-                onClick={(e) => {
-                  setCQopen((cqopen) => {
-                    return !cqopen;
-                  });
-                }}
-              >
-                cancel
-              </Button>
-            </Box>
-          </Bar>
+              change
+            </Button>
+            <Button
+              sx={{ display: "block" }}
+              onClick={(e) => {
+                setCQopen((cqopen) => {
+                  return !cqopen;
+                });
+              }}
+            >
+              cancel
+            </Button>
+          </Box>
         </Modal>
       </Grid>
     </>

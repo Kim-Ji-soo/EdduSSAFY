@@ -11,20 +11,11 @@ import {
 } from "@mui/material";
 import DrawerComponent from "./Drawer";
 import classes from "../css/navbar.module.css";
-import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
-import users from "../api/api";
-import { me } from "../redux/user";
-import { useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 
 export default function Navbar() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [value, setValue] = React.useState(0);
-  const token = useSelector((state) => state.token.value);
   return (
     <>
       <AppBar>
@@ -47,27 +38,7 @@ export default function Navbar() {
               <Link to="/createquestion" className={classes.link}>
                 문제 생성
               </Link>
-              <Link
-                to="/userprofile"
-                /*
-                onClick={(e) => {
-                e.preventDefault();
-                console.log(token);
-                axios({
-                  method: "get",
-                  url: users.me(),
-                  // headers: {
-                  //   Authorization: `Bearer ${token}`,
-                  // },
-                }).then((res) => {
-                  console.log(res.data);
-                  dispatch(me(res.data));
-                  navigate("/userprofile", { replace: true });
-                });
-              }}
-*/
-                className={classes.link}
-              >
+              <Link to="/userprofile" className={classes.link}>
                 개인정보 수정
               </Link>
               <Link to="/logout" className={classes.link}>
