@@ -61,7 +61,7 @@ function Signup() {
       passwordCheck: "",
       email: "",
       tel: "",
-      position: "",
+      position: "professor",
     },
     validationSchema: validationSchema,
     onSubmit: (data, { setSubmitting }) => {
