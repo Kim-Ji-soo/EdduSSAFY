@@ -25,7 +25,7 @@ const validationSchema = yup.object({
   type: yup.string("Enter your type").required("type is required"),
   options: yup.string(),
   file: yup.mixed(),
-  // answer: yup.mixed().required("필수 항목입니다."),
+  answer: yup.mixed().required("필수 항목입니다."),
 });
 
 //
@@ -91,11 +91,9 @@ function CreateQuestion() {
       content: "",
       optionSize: 0,
       options: "",
-      quizId: "",
       quizPic: "",
       score: "",
       type: "",
-      file: null,
       quizbookId: state,
     },
     validationSchema: validationSchema,
