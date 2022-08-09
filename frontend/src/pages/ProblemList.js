@@ -12,10 +12,8 @@ import { Grid, Divider, ListItem } from "@mui/material";
 //
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import StarBorder from "@mui/icons-material/StarBorder";
 
 //
 import DescriptionIcon from "@mui/icons-material/Description";
@@ -33,7 +31,6 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import DriveFileMoveIcon from "@mui/icons-material/DriveFileMove";
 import { ListItemSecondaryAction } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import BackspaceIcon from "@mui/icons-material/Backspace";
@@ -159,7 +156,7 @@ function ProblemList() {
                                 </IconButton>
                               </Tooltip>
 
-                              {mopen[index]? (<Modal
+                              {mopen[index] ? (<Modal
                                 open={mopen[index]}
                                 onClose={() => {
                                   setMopen((mopen) => {
@@ -200,23 +197,23 @@ function ProblemList() {
                                     change
                                   </Button>
                                   <Button sx={{ display: "block" }} onClick={() => {
-                                  setMopen((mopen) => {
-                                    const newMopen = [...mopen];
-                                    newMopen[index] = !newMopen[index];
-                                    return newMopen;
-                                  });
-                                }}>
+                                    setMopen((mopen) => {
+                                      const newMopen = [...mopen];
+                                      newMopen[index] = !newMopen[index];
+                                      return newMopen;
+                                    });
+                                  }}>
                                     cancel
                                   </Button>
                                 </Box>
-                              </Modal>):null}
+                              </Modal>) : null}
 
                               {/* 새페이지 버튼 끝 */}
                             </ListItemSecondaryAction>
                           ),
                         }}
                       >
-                        
+
                         <ListItemButton
                           sx={{
                             "&.MuiListItemButton-root": {
@@ -257,25 +254,28 @@ function ProblemList() {
                         {/* 하위 리스트 시작 */}
 
                         <List component="div" disablePadding>
-                          {QUIZ.map((biq, ins) => {return(console.log(biq))})}
-                          <ListItem sx={{ pl: 10 }}>
-                            <ListItemIcon>
-                              <DescriptionIcon />
-                            </ListItemIcon>
+                          {QUIZ.map((biq, ind) => {
+                            return (
+                              <ListItem sx={{ pl: 10 }}>
+                                <ListItemIcon>
+                                  <DescriptionIcon />
+                                </ListItemIcon>
 
-                            <ListItemText primary={"happy"} />
+                                <ListItemText primary={biq.content} />
 
-                            <Tooltip title="문제 수정하기" onClick={(e) => {}}>
-                              <IconButton sx={{ mr: 1 }}>
-                                <EditIcon />
-                              </IconButton>
-                            </Tooltip>
-                            <Tooltip title="문제 삭제하기">
-                              <IconButton sx={{ mr: 10 }}>
-                                <BackspaceIcon />
-                              </IconButton>
-                            </Tooltip>
-                          </ListItem>
+                                <Tooltip title="문제 수정하기" onClick={(e) => { }}>
+                                  <IconButton sx={{ mr: 1 }}>
+                                    <EditIcon />
+                                  </IconButton>
+                                </Tooltip>
+                                <Tooltip title="문제 삭제하기">
+                                  <IconButton sx={{ mr: 10 }}>
+                                    <BackspaceIcon />
+                                  </IconButton>
+                                </Tooltip>
+                              </ListItem>
+                            )
+                          })}
                         </List>
 
                         {/* 하위 리스트 끝 */}
@@ -328,51 +328,51 @@ function ProblemList() {
           aria-labelledby="parent-modal-title"
           aria-describedby="parent-modal-description"
         >
-            <Box
-              sx={{
-                position: "absolute",
-                display: "flex",
-                flexDirection: "column",
-                minWidth: "200px",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                width: "20vw",
-                bgcolor: "background.paper",
-                border: "2px solid #000",
-                boxShadow: 24,
-                pt: 2,
-                px: 4,
-                pb: 3,
+          <Box
+            sx={{
+              position: "absolute",
+              display: "flex",
+              flexDirection: "column",
+              minWidth: "200px",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: "20vw",
+              bgcolor: "background.paper",
+              border: "2px solid #000",
+              boxShadow: 24,
+              pt: 2,
+              px: 4,
+              pb: 3,
+            }}
+          >
+            <TextField
+              id="outlined-basic2"
+              label="Outlined"
+              variant="outlined"
+              defaultValue=""
+              sx={{}}
+              inputRef={booktitle}
+            />
+            <Button
+              sx={{ display: "block" }}
+              onClick={() => {
+                handleCreateQuizbook("here");
               }}
             >
-              <TextField
-                id="outlined-basic2"
-                label="Outlined"
-                variant="outlined"
-                defaultValue=""
-                sx={{}}
-                inputRef={booktitle}
-              />
-              <Button
-                sx={{ display: "block" }}
-                onClick={() => {
-                  handleCreateQuizbook("here");
-                }}
-              >
-                change
-              </Button>
-              <Button
-                sx={{ display: "block" }}
-                onClick={(e) => {
-                  setCQopen((cqopen) => {
-                    return !cqopen;
-                  });
-                }}
-              >
-                cancel
-              </Button>
-            </Box>
+              change
+            </Button>
+            <Button
+              sx={{ display: "block" }}
+              onClick={(e) => {
+                setCQopen((cqopen) => {
+                  return !cqopen;
+                });
+              }}
+            >
+              cancel
+            </Button>
+          </Box>
         </Modal>
       </Grid>
     </>
