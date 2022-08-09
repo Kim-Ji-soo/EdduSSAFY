@@ -26,7 +26,7 @@ public class QuizbookServiceImpl implements QuizbookService {
 
     @Autowired
     QuizService quizService;
-    
+
     @Override
     public Quizbook createQuizBook(QuizbookCreateReq quizbookCreateReq) {
         Quizbook quizBook = new Quizbook();
