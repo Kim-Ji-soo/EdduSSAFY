@@ -65,7 +65,8 @@ BACKEND
 <br>
 SERVER??? -> 뭐라 쓰지
 <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
-<img src="https://img.shields.io/badge/amazonaws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white">  
+<img src="https://img.shields.io/badge/amazonaws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white">
+<img src="https://img.shields.io/badge/apache tomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=white">
 <img src="https://img.shields.io/badge/linux-FCC624?style=for-the-badge&logo=linux&logoColor=black">  
 <br> 
 FRONTEND
@@ -91,4 +92,77 @@ Collaboration? -> 얘는 뭐라고 할까
     - 기존 화상 회의 서비스에 여러 기능들을 더해 선생님과 학생 모두 만족할 수 있는 교육용 플랫폼을 목표로 합니다.
     - 서비스를 사용하는 학생들에게 공부에 집중할 수 있는 요소들을 추가하여 공부에 흥미를 잃지 않게 만드는 서비스를 제공합니다.
 - 🗺**와이어프레임**(figma)
+![image](/uploads/f8b950f63c157ff6f686f34a81eceb63/image.png)
+
+- **ERD**
+사진 첨부
+- **화면정의서**
+다 넣을 것인지?
+- **시퀀스 다이어그램**
+다 넣을 것인지?
+
+## 프로젝트 소개
+### 기획 배경
+### 기획 의도
+### 대상 사용자
+### 기대 효과
+
+## 주요 기능
+완성되면 사진이나 영상 넣기
+### 방 리스트, 방 선택
+### 화면 공유 (선생님 강의) 학생도?
+- 카메라
+- 마이크
+- 채팅?
+
+### 문제집 선택 (선생님)
+### 학생 문제 풀이 (문제 화면, 문제 풀이 화면)
+### 학생 점수 표시 & 순위 표시 기능
+### 학생 칭호 표시
+### 학생 상벌점 기능?
+
+## 설치 가이드
+- Frontend
+```
+$ cd frontend
+$ npm i
+$ npm run serve
+```
+- Backend
+```
+# API server 
+$ cd Backend
+$ gradle wrap # gradle wrapper 없을 경우 실행
+$ ./gradlew clean build
+$ sudo java -jar "/home/ubuntu/S07P12C111/backend-java/ssafy-web-project-1.0-SNAPSHOT.jar"
+
+# openvidu KMS
+$ docker run -p 4443:4443 --rm -e OPENVIDU_SECRET=MY_SECRET openvidu/openvidu-server-kms:2.22.0
+```
+
+## 🛠프로젝트 빌드
+- 
+
+## ⚙ 시스템 환경 및 구성
+- OS: Windows10, Linux
+- Backend Framework: Spring Boot 2.7.1
+- Frontend Framework: React 18.2.0
+- DB: mysql Ver 8.0.30-0ubuntu0.20.04.2 (Ubuntu)
+- WAS: Gradle
+- JVM: openJDK (1.8.0_192)
+- Node.js: 16.13.1
+- WebRTC: openVidu 2.20.0
+- Docker: 20.10.12
+- WEB: Nginx (1.18.0)
+
+## 프로젝트 후기
+- 최진욱:
+- 남현우:
+- 강석민:
+- 최영선:
+- 김지수:
+- 박무창: 
+
+## 🎞최종산출물(시연 영상)
+영상 링크?
 
