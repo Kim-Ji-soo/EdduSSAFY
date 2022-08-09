@@ -32,6 +32,7 @@
 - 
 - WebRTC
 
+<br/><br/><br/>
 ## Git 컨벤션 개요
 Conflict를 방지하고, 효과적이고 명확한 협업을 진행하고자 Git-Flow 브랜치 전략을 도입하여 계층별 브랜치를 관리했습니다.
 
@@ -54,22 +55,21 @@ feature- 이후에 어떤 기능을 개발하는지를 붙여주었습니다.
 ### Commit Convention
 커밋컨벤션...? 우리 이거 어케하실? 걍 삭제할까
 
-## 프로젝트 개요
-<div align=center><h1>📚 STACKS</h1></div>
+<br/><br/><br/>
+
+## 프로젝트
+<div align=center><h3>📚 STACKS</h3></div>
 
 <div align=center>
-BACKEND
 <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">
 <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white">
 <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
 <br>
-SERVER??? -> 뭐라 쓰지
 <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
 <img src="https://img.shields.io/badge/amazonaws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white">
 <img src="https://img.shields.io/badge/apache tomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=white">
 <img src="https://img.shields.io/badge/linux-FCC624?style=for-the-badge&logo=linux&logoColor=black">  
 <br> 
-FRONTEND
 <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> 
   <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> 
   <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> 
@@ -77,16 +77,39 @@ FRONTEND
   <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> 
   <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white">
 <br>
-Collaboration? -> 얘는 뭐라고 할까
   <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
   <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
-<br>
-
-아님 걍 한글은 다 빼던가
 </div>
 
+<br/><br/><br/>
 
-- **진행기간** : 2022.07.11 ~ 2022.08.19 (6주)
+### 개발 환경
+- **Frontend**
+  - HTML5, CSS3, JS(ES6)
+  - MUI
+  - React, Redux
+  - Visual Studio Code
+- **Backend**
+  - Java
+  - Spring Boot, Spring MVC, Spring Data JPA
+  - JPA
+  - Gradle
+  - MySQL
+  - Intellij
+- **DevOps**
+  - AWS EC2
+  - Apache Tomcat
+- **Collaboration**
+  - Jira
+  - Gitlab
+  - Mattermost
+  - [Notion](https://quilted-crime-a4d.notion.site/4bc0f997b5c74a5586f0d43661a7eef8?v=9c866b20939a440fb16084d06b0d2f60)
+
+<br/><br/><br/>
+
+### 프로젝트 개요
+- **진행기간**
+  - 2022.07.11 ~ 2022.08.19 (6주)
 - **목표**
     - WebRTC 기술을 사용하여 비대면 화상 교육 플랫폼을 만듭니다.
     - 기존 화상 회의 서비스에 여러 기능들을 더해 선생님과 학생 모두 만족할 수 있는 교육용 플랫폼을 목표로 합니다.
@@ -101,11 +124,15 @@ Collaboration? -> 얘는 뭐라고 할까
 - **시퀀스 다이어그램**
 다 넣을 것인지?
 
+<br/><br/><br/>
+
 ## 프로젝트 소개
 ### 기획 배경
 ### 기획 의도
 ### 대상 사용자
 ### 기대 효과
+
+<br/><br/><br/>
 
 ## 주요 기능
 완성되면 사진이나 영상 넣기
@@ -120,6 +147,8 @@ Collaboration? -> 얘는 뭐라고 할까
 ### 학생 점수 표시 & 순위 표시 기능
 ### 학생 칭호 표시
 ### 학생 상벌점 기능?
+
+<br/><br/><br/>
 
 ## 설치 가이드
 - Frontend
@@ -140,10 +169,14 @@ $ sudo java -jar "/home/ubuntu/S07P12C111/backend-java/ssafy-web-project-1.0-SNA
 $ docker run -p 4443:4443 --rm -e OPENVIDU_SECRET=MY_SECRET openvidu/openvidu-server-kms:2.22.0
 ```
 
+<br/><br/><br/>
+
 ## 🛠프로젝트 빌드
 - 
 
-## ⚙ 시스템 환경 및 구성
+<br/><br/><br/>
+
+## ⚙시스템 환경 및 구성
 - OS: Windows10, Linux
 - Backend Framework: Spring Boot 2.7.1
 - Frontend Framework: React 18.2.0
@@ -155,13 +188,17 @@ $ docker run -p 4443:4443 --rm -e OPENVIDU_SECRET=MY_SECRET openvidu/openvidu-se
 - Docker: 20.10.12
 - WEB: Nginx (1.18.0)
 
-## 프로젝트 후기
+<br/><br/><br/>
+
+## 📑프로젝트 후기
 - 최진욱:
 - 남현우:
 - 강석민:
 - 최영선:
 - 김지수:
 - 박무창: 
+
+<br/><br/><br/>
 
 ## 🎞최종산출물(시연 영상)
 영상 링크?
