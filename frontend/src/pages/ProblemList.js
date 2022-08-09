@@ -60,7 +60,6 @@ const CustomContainerComponent = forwardRef(function CustomContainerComponent(
 function ProblemList() {
   const QUIZBOOK = useSelector((state) => state.quizbooks.quizbooks);
   const QUIZ = useSelector((state) => state.quizbooks.quizsInQuizbooks);
-  console.log(QUIZ);
   const USERID = useSelector((state) => state.user.value.userId);
   const booktitle = useRef();
   const dispatch = useDispatch();
@@ -79,7 +78,7 @@ function ProblemList() {
         method: "get",
         url: quizbook.getQuizbook() + USERID,
       }).then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         dispatch(quizbookActions.getquizbook(res.data));
       });
     });
@@ -194,7 +193,7 @@ function ProblemList() {
                                     id="outlined-basic"
                                     label="Outlined"
                                     variant="outlined"
-                                    defaultValue={item}
+                                    defaultValue={item.title}
                                     sx={{}}
                                   />
                                   <Button sx={{ display: "block" }}>
@@ -218,7 +217,6 @@ function ProblemList() {
                         }}
                       >
                         
-
                         <ListItemButton
                           sx={{
                             "&.MuiListItemButton-root": {
@@ -259,6 +257,7 @@ function ProblemList() {
                         {/* 하위 리스트 시작 */}
 
                         <List component="div" disablePadding>
+                          {QUIZ.map((biq, ins) => {return(console.log(biq))})}
                           <ListItem sx={{ pl: 10 }}>
                             <ListItemIcon>
                               <DescriptionIcon />
