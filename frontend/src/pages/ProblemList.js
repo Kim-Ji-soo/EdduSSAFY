@@ -65,11 +65,7 @@ function ProblemList() {
   const booktitle = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const Bar = forwardRef((props: any, ref: any) => (
-    <span {...props} ref={ref}>
-      {props.children}
-    </span>
-  ));
+
   const handleCreateQuizbook = () => {
     axios({
       method: "post",
@@ -163,7 +159,8 @@ function ProblemList() {
                                   <AppRegistrationIcon />
                                 </IconButton>
                               </Tooltip>
-                              {/* <Modal
+
+                              {mopen[index]? (<Modal
                                 open={mopen[index]}
                                 onClose={() => {
                                   setMopen((mopen) => {
@@ -203,16 +200,25 @@ function ProblemList() {
                                   <Button sx={{ display: "block" }}>
                                     change
                                   </Button>
-                                  <Button sx={{ display: "block" }}>
+                                  <Button sx={{ display: "block" }} onClick={() => {
+                                  setMopen((mopen) => {
+                                    const newMopen = [...mopen];
+                                    newMopen[index] = !newMopen[index];
+                                    return newMopen;
+                                  });
+                                }}>
                                     cancel
                                   </Button>
                                 </Box>
-                              </Modal> */}
+                              </Modal>):null}
+
                               {/* 새페이지 버튼 끝 */}
                             </ListItemSecondaryAction>
                           ),
                         }}
                       >
+                        
+
                         <ListItemButton
                           sx={{
                             "&.MuiListItemButton-root": {
@@ -323,7 +329,6 @@ function ProblemList() {
           aria-labelledby="parent-modal-title"
           aria-describedby="parent-modal-description"
         >
-          <Bar>
             <Box
               sx={{
                 position: "absolute",
@@ -343,7 +348,7 @@ function ProblemList() {
               }}
             >
               <TextField
-                id="outlined-basic"
+                id="outlined-basic2"
                 label="Outlined"
                 variant="outlined"
                 defaultValue=""
@@ -369,7 +374,6 @@ function ProblemList() {
                 cancel
               </Button>
             </Box>
-          </Bar>
         </Modal>
       </Grid>
     </>
