@@ -82,7 +82,7 @@ function ProblemList() {
   const [open, setOpen] = useState([]);
   const [mopen, setMopen] = useState([]);
   const [cqopen, setCQopen] = useState(false);
-
+  const [value, setValue] = useState({});
   useEffect(() => {
     axios({
       method: "get",
@@ -257,9 +257,9 @@ function ProblemList() {
                         {/* 하위 리스트 시작 */}
 
                         <List component="div" disablePadding>
-                          {QUIZ.map((biq, ind) => {
+                          {QUIZ[index].map((biq, ind) => {
                             return (
-                              <ListItem sx={{ pl: 10 }}>
+                              <ListItem sx={{ pl: 10 }} key={ind}>
                                 <ListItemIcon>
                                   <DescriptionIcon />
                                 </ListItemIcon>
@@ -268,7 +268,21 @@ function ProblemList() {
 
                                 <Tooltip
                                   title="문제 수정하기"
-                                  onClick={(e) => {}}
+                                  onClick={(e) => {
+                                    const newBiq = { ...biq };
+                                    // newBiq.options = {};
+                                    // for (
+                                    //   let i = 1;
+                                    //   i < biq.options.length + 1;
+                                    //   i++
+                                    // ) {
+                                    //   newBiq.options[i] = biq.options[i - 1];
+                                    // }
+                                    navigate("/updatequestion", {
+                                      replace: true,
+                                      state: newBiq,
+                                    });
+                                  }}
                                 >
                                   <IconButton sx={{ mr: 1 }}>
                                     <EditIcon />
