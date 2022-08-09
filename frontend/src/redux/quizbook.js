@@ -1,19 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { quizbook: [] };
+const initialState = { quizbooks: [], quizsInQuizbooks: [] };
 
 export const quizbookSlice = createSlice({
   name: "quizbooklist",
   initialState,
   reducers: {
-    addquizbook: (state, action) => {
-      const newquizbook = action.payload;
-      state.quizbook.push(newquizbook);
+    getquizbook: (state, action) => {
+      state.quizbooks = action.payload.quizbooks;
+      state.quizsInQuizbooks = action.payload.quizsInQuizbooks;
     },
     changequizbook: (state, action) => {},
     removequizbook: (state, action) => {
       const id = action.payload;
-      state.quizbook = state.quizbook.filter((item) => item.quizbookId !== id);
+      state.quizbooks = state.quizbooks.filter(
+        (item) => item.quizbookId !== id
+      );
     },
   },
 });
