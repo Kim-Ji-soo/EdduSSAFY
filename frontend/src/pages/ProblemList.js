@@ -60,7 +60,6 @@ const CustomContainerComponent = forwardRef(function CustomContainerComponent(
 function ProblemList() {
   const QUIZBOOK = useSelector((state) => state.quizbooks.quizbooks);
   const QUIZ = useSelector((state) => state.quizbooks.quizsInQuizbooks);
-  console.log(QUIZ);
   const USERID = useSelector((state) => state.user.value.userId);
   const booktitle = useRef();
   const dispatch = useDispatch();
@@ -354,6 +353,9 @@ function ProblemList() {
                 sx={{ display: "block" }}
                 onClick={() => {
                   handleCreateQuizbook("here");
+                  setCQopen((cqopen) => {
+                    return !cqopen;
+                  });
                 }}
               >
                 change

@@ -93,7 +93,7 @@ function CreateQuestion() {
       options: "",
       quizPic: "",
       score: "",
-      type: "",
+      type: "choice",
       quizbookId: state,
     },
     validationSchema: validationSchema,
@@ -149,13 +149,13 @@ function CreateQuestion() {
             <RadioGroup
               aria-labelledby="demo-controlled-radio-buttons-group"
               name="type"
-              defaultValue="multiple"
+              defaultValue="choice"
               value={formik.values.type}
               onChange={formik.handleChange}
             >
               <FormControlLabel
-                checked={formik.values.type === "multiple"}
-                value="multiple"
+                checked={formik.values.type === "choice"}
+                value="choice"
                 control={<Radio />}
                 label="객관식"
                 onClick={() => {
@@ -176,7 +176,7 @@ function CreateQuestion() {
             </RadioGroup>
           </FormControl>
         </div>
-        {formik.values.type === "multiple" && (
+        {formik.values.type === "choice" && (
           <CreateContent
             onSubmit={(result) => {
               const newResultCount = result.filter(
