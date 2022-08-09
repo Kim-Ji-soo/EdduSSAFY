@@ -24,7 +24,7 @@ public class Quiz {
 
     private String content;
 
-    private boolean isChoice; //true : 객관식, false : 주관식
+    private String type; //choice : 객관식, subjective : 주관식
 
     private String quizPic;
 

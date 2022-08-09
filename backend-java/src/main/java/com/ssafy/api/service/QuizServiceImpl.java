@@ -1,14 +1,15 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.QuizCreateReq;
+import com.ssafy.api.response.QuizRes;
 import com.ssafy.db.entity.Quiz;
 import com.ssafy.db.repository.QuizRepository;
 import com.ssafy.db.repository.QuizbookRepository;
-import com.ssafy.db.repository.UserQuizbookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,13 +19,10 @@ public class    QuizServiceImpl implements  QuizService{
     QuizbookRepository quizBookRepository;
 
     @Autowired
-    UserQuizbookRepository userQuizBookRepository;
-
-    @Autowired
     QuizRepository quizRepository;
 
     @Override
-    public Quiz createQuiz(QuizCreateReq quizCreateReq) {
+    public QuizRes createQuiz(QuizCreateReq quizCreateReq) {
         Quiz quiz = quizCreateReq.toEntity();
         try {
             quizRepository.save(quiz);
@@ -33,7 +31,7 @@ public class    QuizServiceImpl implements  QuizService{
             e.printStackTrace();
             return null;
         }
-        return quiz;
+        return new QuizRes(quiz);
     }
 
     @Override
@@ -59,7 +57,7 @@ public class    QuizServiceImpl implements  QuizService{
     }
 
     @Override
-    public List<Quiz> searchByQuizbookId(Long quizbookId) {
+    public List<QuizRes> searchByQuizbookId(Long quizbookId) {
         List<Quiz> quizs;
         try{
             quizs = quizRepository.findByQuizbookQuizbookId(quizbookId);
@@ -67,6 +65,10 @@ public class    QuizServiceImpl implements  QuizService{
             e.printStackTrace();
             return null;
         }
-        return quizs;
+        List<QuizRes> quizResList = new ArrayList<>();
+        for(Quiz q : quizs){
+            quizResList.add(new QuizRes(q));
+        }
+        return quizResList;
     }
 }
