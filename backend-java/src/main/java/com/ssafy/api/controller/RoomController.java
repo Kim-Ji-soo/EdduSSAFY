@@ -3,6 +3,7 @@ package com.ssafy.api.controller;
 import com.ssafy.api.request.RoomAlterReq;
 import com.ssafy.api.request.RoomCreateReq;
 import com.ssafy.api.request.UserRoomReq;
+import com.ssafy.api.response.RoomRes;
 import com.ssafy.api.service.RoomService;
 import com.ssafy.db.entity.Room;
 import io.swagger.annotations.Api;
@@ -19,12 +20,12 @@ public class RoomController {
     RoomService roomService;
 
     @PostMapping("/create")
-    public ResponseEntity<Room> createRoom(@RequestBody RoomCreateReq roomCreateReq){
+    public ResponseEntity<RoomRes> createRoom(@RequestBody RoomCreateReq roomCreateReq){
         Room room = roomService.createRoom(roomCreateReq);
         if(room == null){
            return ResponseEntity.status(400).body(null);
         }
-        return ResponseEntity.status(200).body(room);
+        return ResponseEntity.status(200).body(new RoomRes(room));
     };
 
     @PutMapping("/alterRoom")

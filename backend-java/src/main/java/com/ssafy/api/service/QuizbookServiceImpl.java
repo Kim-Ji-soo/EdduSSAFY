@@ -1,6 +1,9 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.QuizbookCreateReq;
+import com.ssafy.api.request.QuizbookUpdateReq;
+import com.ssafy.api.response.QuizRes;
+import com.ssafy.api.response.QuizbookRes;
 import com.ssafy.api.response.QuizbooksOfUserRes;
 import com.ssafy.api.response.RoomRes;
 import com.ssafy.db.entity.*;
@@ -23,7 +26,7 @@ public class QuizbookServiceImpl implements QuizbookService {
 
     @Autowired
     QuizService quizService;
-
+    
     @Override
     public Quizbook createQuizBook(QuizbookCreateReq quizbookCreateReq) {
         Quizbook quizBook = new Quizbook();
@@ -62,23 +65,41 @@ public class QuizbookServiceImpl implements QuizbookService {
     public QuizbooksOfUserRes getQuizbookCombsByUserId(String userId) {
 
         List<Quizbook> quizbooks;
-        List<List<Quiz>> quizsList;
+        List<QuizbookRes>quizbookResList = new ArrayList<>();
+        List<List<QuizRes>> quizResListList = new ArrayList<>();
         try{
-            quizsList = new ArrayList<>();
             quizbooks = quizbookRepository.findAllByUserUserId(userId);
             for(Quizbook qb : quizbooks){
-                quizsList.add(quizService.searchByQuizbookId(qb.getQuizbookId()));
+                quizbookResList.add(new QuizbookRes(qb));
+                quizResListList.add( quizService.searchByQuizbookId(qb.getQuizbookId()));
             }
 
         }catch(Exception e){
             e.printStackTrace();
             return null;
         }
+        if(quizbookResList.size() != quizResListList.size()){
+            System.out.println("뭔가 오류");
+            return null;
+        }
         QuizbooksOfUserRes res = new QuizbooksOfUserRes();
-        res.setUserID(userId);
-        res.setQuizbooks(quizbooks);
-        res.setQuizsInQuizbooks(quizsList);
+        res.setQuizbooks(quizbookResList);
+        res.setQuizsInQuizbooks(quizResListList);
+
         return res;
+    }
+
+    @Override
+    public boolean alterQuizbook(QuizbookUpdateReq quizbookUpdateReq) {
+        try{
+            Quizbook qb = quizbookUpdateReq.toEntity();
+            qb.setUser (quizbookRepository.findById(quizbookUpdateReq.getQuizbookId()).get().getUser());
+            quizbookRepository.save(qb);
+        } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 //    @Override
 //    public List<Quiz> getQuizList(long quizbookId) {
