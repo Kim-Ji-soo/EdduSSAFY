@@ -26,9 +26,10 @@ public class UserUpdateReq {
 //        return User.builder()
 //                .userId(getUserId())
 //                .password(getPassword())
-//                .name(getName())
-//                .password(getNickname())
-//                .password(getTel())
+
+//				.name(getName())
+//				.nickname((getNickname()))
+//				.tel(getTel())
 //                .build();
 //    }
 }

@@ -3,6 +3,7 @@ const HOST = "https://i7c111.p.ssafy.io/api/v1/";
 const USERS = "users/";
 const EMAIL = "email/";
 const QUIZ = "quiz/";
+const QUIZBOOK = "quizbook/";
 
 const users = {
   signup: () => HOST + USERS + "signup/",
@@ -20,5 +21,9 @@ const quiz = {
   createQuiz: () => HOST + QUIZ + "createQuiz/",
 };
 
-export { email };
+const quizbook = {
+  createQuizbook: () => HOST + QUIZBOOK + "create/",
+  getQuizbook: () => HOST + QUIZBOOK + "getQuizbookCombs/",
+};
+export { email, quiz, quizbook };
 export default users;

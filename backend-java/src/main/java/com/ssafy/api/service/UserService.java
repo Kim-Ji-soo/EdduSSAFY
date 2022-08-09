@@ -18,5 +18,6 @@ public interface UserService {
 	boolean deleteByUserId(User user);
 	boolean updateUser(UserUpdateReq updateUserDto, User user);
 
-	boolean changePassword(UserChangePasswordReq userInfo);
+
+    boolean changePassword(UserChangePasswordReq userInfo);
 }

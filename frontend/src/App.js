@@ -21,8 +21,8 @@ import UpdateQuestion from "./pages/UpdateQuestion";
 
 function App() {
   return (
-  <div className="App">
-    <Provider store={store}>
+    <div className="App">
+      <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <Grid
             container
@@ -30,50 +30,70 @@ function App() {
             justifyContent="center"
             direction="column"
           >
-            
-
-          <Routes>
-          <Route element={<Grid item xs={12} sm={12}>
-              <Navbar></Navbar>
-            </Grid>}>
-              <Route path="/homepage" element={<Homepage></Homepage>}></Route>
+            <Routes>
               <Route
-                path="/problemlist"
-                element={<ProblemList></ProblemList>}
-              ></Route>
-              <Route
-                path="/createquestion"
-                element={<CreateQuestion></CreateQuestion>}
-              ></Route>
-              <Route
-                path="/userprofile"
                 element={
-                  <PrivateRoute
-                  component={<UserProfile></UserProfile>}>
-                  </PrivateRoute>
+                  <Grid item xs={12} sm={12}>
+                    <Navbar></Navbar>
+                  </Grid>
                 }
-              ></Route>
-              <Route path="/openvidu" element={<Openvidu></Openvidu>}></Route>
-              <Route
-              path="/logout"
-              element={<Logout></Logout>}
-              ></Route>
-              <Route
-              path="/quizlist/:id"
-              element={<QuizList></QuizList>}
-            ></Route>
-            <Route
-                path="/updateQuestion"
-                element={<UpdateQuestion></UpdateQuestion>}
-            >
-            </Route>
-            </Route>
-              <Route path="/" element={<Login></Login>}></Route>
+              >
+                <Route
+                  path="/"
+                  element={
+                    <PrivateRoute
+                      component={<Homepage></Homepage>}
+                    ></PrivateRoute>
+                  }
+                ></Route>
+                <Route
+                  path="/problemlist"
+                  element={
+                    <PrivateRoute
+                      component={<ProblemList></ProblemList>}
+                    ></PrivateRoute>
+                  }
+                ></Route>
+                <Route
+                  path="/createquestion"
+                  element={
+                    <PrivateRoute
+                      component={<CreateQuestion></CreateQuestion>}
+                    ></PrivateRoute>
+                  }
+                ></Route>
+                <Route
+                  path="/userprofile"
+                  element={
+                    <PrivateRoute
+                      component={<UserProfile></UserProfile>}
+                    ></PrivateRoute>
+                  }
+                ></Route>
+                <Route path="/logout" element={<Logout></Logout>}></Route>
+                <Route
+                  path="/quizlist/:id"
+                  element={
+                    <PrivateRoute
+                      component={<QuizList></QuizList>}
+                    ></PrivateRoute>
+                  }
+                ></Route>
+                <Route
+                  path="/updateQuestion"
+                  element={
+                    <PrivateRoute
+                      component={<UpdateQuestion></UpdateQuestion>}
+                    ></PrivateRoute>
+                  }
+                ></Route>
+              </Route>
+              <Route path="/login" element={<Login></Login>}></Route>
               <Route path="/signup" element={<Signup></Signup>}></Route>
             </Routes>
           </Grid>
         </PersistGate>
-        </Provider>
+      </Provider>
     </div>
   );
 }

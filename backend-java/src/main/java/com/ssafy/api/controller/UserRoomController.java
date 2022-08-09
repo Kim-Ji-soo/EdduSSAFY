@@ -1,12 +1,16 @@
 package com.ssafy.api.controller;
 
 import com.ssafy.api.request.UserRoomReq;
+import com.ssafy.api.response.RoomRes;
 import com.ssafy.api.service.UserRoomService;
 import com.ssafy.common.model.response.BaseResponseBody;
+import com.ssafy.db.entity.Room;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Api(value ="유저-방 API", tags = {"UserRoom"})
 @RestController
@@ -30,5 +34,15 @@ public class UserRoomController {
             return ResponseEntity.status(400).body(BaseResponseBody.of(400, "유저-방 등록해제 실패"));
         }
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "유저-방 등록해제 성공"));
+    }
+
+    @GetMapping("/roomList/{userId}")
+    public ResponseEntity<List<RoomRes>> getRoomsByUserId(@PathVariable("userId") String userId) {
+        List<RoomRes> rooms = userRoomService.getRoomsByUserId(userId);
+
+        if (rooms == null) {
+            return ResponseEntity.status(400).body(null);
+        }
+        return ResponseEntity.status(200).body(rooms);
     }
 }

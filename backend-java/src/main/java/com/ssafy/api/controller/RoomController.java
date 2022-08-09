@@ -2,6 +2,7 @@ package com.ssafy.api.controller;
 
 import com.ssafy.api.request.RoomAlterReq;
 import com.ssafy.api.request.RoomCreateReq;
+import com.ssafy.api.request.UserRoomReq;
 import com.ssafy.api.service.RoomService;
 import com.ssafy.db.entity.Room;
 import io.swagger.annotations.Api;
@@ -35,8 +36,9 @@ public class RoomController {
         return ResponseEntity.status(200).body(true);
     };
 
+
     @DeleteMapping("/delete/{roomId}")
-    public ResponseEntity<Boolean> deleteRoom(@PathVariable("roomId") Long roomId){
+    public ResponseEntity<Boolean> deleteRoom(@PathVariable("roomId") long roomId){
 
         if(!roomService.deleteRoom(roomId)){
             return ResponseEntity.status(400).body(false);
@@ -44,6 +46,34 @@ public class RoomController {
 
         return ResponseEntity.status(200).body(true);
     }
+
+    @PutMapping("/start")
+    public ResponseEntity<Boolean> startRoom(@RequestBody UserRoomReq userRoomReq){
+        if(!roomService.startRoom(userRoomReq)){
+            return ResponseEntity.status(400).body(false);
+        }
+
+        return ResponseEntity.status(200).body(true);
+    }
+
+    @PutMapping("/end")
+    public ResponseEntity<Boolean> endRoom(@RequestBody UserRoomReq userRoomReq){
+        if(!roomService.endRoom(userRoomReq)){
+            return ResponseEntity.status(400).body(false);
+        }
+
+        return ResponseEntity.status(200).body(true);
+    }
+
+
+//   @PostMapping("/enter")
+//    public ResponseEntity<Boolean> enterRoom(@RequestBody RoomEnterReq roomEnterReq){
+//        if(!roomService.enterRoom(roomEnterReq)){
+//            return ResponseEntity.status(400).body(false);
+//        }
+//
+//       return ResponseEntity.status(200).body(true);
+//   }
 
 
 }
