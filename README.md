@@ -140,7 +140,7 @@ feature : 세부 기능을 개발하는 브랜치
 <br/><br/><br/>
 
 ## 📌주요 기능
-완성되면 사진이나 영상 넣기
+완성되면 사진이나 영상(gif) 넣기
 ### 방 리스트, 방 선택
 
 ### 화면 공유 (선생님 강의) 학생도?
@@ -170,7 +170,7 @@ $ npm run serve
 - Backend
 ```
 # API server 
-$ cd Backend
+$ cd backend
 $ gradle wrap # gradle wrapper 없을 경우 실행
 $ ./gradlew clean build
 $ sudo java -jar "/home/ubuntu/S07P12C111/backend-java/ssafy-web-project-1.0-SNAPSHOT.jar"
