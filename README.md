@@ -196,8 +196,9 @@ $ docker run -p 4443:4443 --rm -e OPENVIDU_SECRET=MY_SECRET openvidu/openvidu-se
 - DB: mysql Ver 8.0.30-0ubuntu0.20.04.2 (Ubuntu)
 - WAS: Gradle
 - JVM: openJDK (1.8.0_192)
-- Node.js: 16.13.1
-- WebRTC: openVidu 2.20.0
+- Node.js: 16.16.0
+- npm: 8.5.5
+- WebRTC: openVidu 2.22.0
 - Docker: 20.10.12
 - WEB: Nginx (1.18.0)
 
