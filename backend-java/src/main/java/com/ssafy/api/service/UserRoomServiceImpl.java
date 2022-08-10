@@ -31,6 +31,10 @@ public class UserRoomServiceImpl implements UserRoomService{
             if(hostId.equals(userRoomReq.getUserId())){
                 roomService.startRoom(userRoomReq);
             }
+            // 호스트가 아니고 방이 비활성화 되있는 경우 못들어감.
+            else if(!roomService.isRoomActive(userRoomReq.getRoomId())){
+                throw new Exception("방이 활성화 상태가 아닙니다.");
+            }
             userRoomRepository.save(userRoomReq.toEntity());
         } catch(Exception e){
             e.printStackTrace();

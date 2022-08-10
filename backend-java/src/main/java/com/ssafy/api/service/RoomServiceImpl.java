@@ -128,6 +128,16 @@ public class RoomServiceImpl implements  RoomService{
     }
 
     @Override
+    public boolean isRoomActive(long roomId) {
+        try{
+            return roomRepository.findById(roomId).get().isActive();
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
     public boolean deleteRoom(Long roomId) {
         try{
             roomRepository.deleteById(roomId);

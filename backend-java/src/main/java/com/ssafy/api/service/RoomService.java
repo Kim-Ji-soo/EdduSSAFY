@@ -19,4 +19,6 @@ public interface RoomService {
     boolean endRoom(UserRoomReq userRoomReq);
 
     RoomRes getRoomById(long roomId);
+
+    boolean isRoomActive(long roomId);
 }
