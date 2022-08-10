@@ -4,35 +4,15 @@
 <br/><br/>
 
 ## 🧑팀원 소개
-**최진욱** (팀장)
-- BACKEND
-- JWT
-- WebRTC
+|<center>최진욱(팀장)</center>|<center>남현우</center>|<center>강석민</center>|
+|:---:|:---:|:---:|
+|<center>BACKEND</center>|<center>BACKEND</center>|<center>BACKEND</center>|
 
-**남현우**
-- BACKEND
-- API
-- WebRTC
+|<center>최영선</center>|<center>김지수</center>|<center>박무창</center>|
+|:---:|:---:|:---:|
+|<center>FRONTEND</center>|<center>FRONTEND</center>|<center>FRONTEND</center>|
 
-**강석민**
-- BACKEND
-- AWS
-- WebRTC
 
-**최영선**
-- FRONTEND
-- 
-- WebRTC
-
-**김지수**
-- FRONTEND
-- 
-- WebRTC
-
-**박무창**
-- FRONTEND
-- 
-- WebRTC
 
 <br/><br/><br/>
 ## 🧭Git 컨벤션 개요
