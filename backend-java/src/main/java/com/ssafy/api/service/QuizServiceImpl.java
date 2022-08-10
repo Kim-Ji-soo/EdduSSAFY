@@ -1,8 +1,10 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.request.QuizAlterReq;
 import com.ssafy.api.request.QuizCreateReq;
 import com.ssafy.api.response.QuizRes;
 import com.ssafy.db.entity.Quiz;
+import com.ssafy.db.entity.Quizbook;
 import com.ssafy.db.repository.QuizRepository;
 import com.ssafy.db.repository.QuizbookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +37,19 @@ public class    QuizServiceImpl implements  QuizService{
     }
 
     @Override
-    public boolean alterQuiz(Quiz quiz) {
+    public boolean alterQuiz(QuizAlterReq quizAlterReq) {
         try{
-            quizRepository.save(quiz);
+            Quiz quiz = quizRepository.findById(quizAlterReq.getQuizId()).get();
+
+            quiz.setQuizPic(quizAlterReq.getQuizPic());
+            quiz.setAnswer(quizAlterReq.getAnswer());
+            quiz.setContent(quizAlterReq.getContent());
+            quiz.setOptions(quizAlterReq.getOptions());
+            quiz.setOptionSize(quizAlterReq.getOptionSize());
+            quiz.setScore(quizAlterReq.getScore());
+            quiz.setType(quizAlterReq.getType());
+
+            quizRepository.save( quiz);
         }catch(Exception e){
             e.printStackTrace();
             return false;

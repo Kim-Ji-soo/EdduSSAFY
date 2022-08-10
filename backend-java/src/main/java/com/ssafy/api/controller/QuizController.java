@@ -1,9 +1,9 @@
 package com.ssafy.api.controller;
 
+import com.ssafy.api.request.QuizAlterReq;
 import com.ssafy.api.request.QuizCreateReq;
 import com.ssafy.api.response.QuizRes;
 import com.ssafy.api.service.QuizService;
-import com.ssafy.db.entity.Quiz;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,9 +42,9 @@ public class QuizController {
 
     //굳이 필요할까 리퀘스트가?
     @PutMapping("/alterQuiz")
-    public ResponseEntity<Boolean> alterQuiz(@RequestBody Quiz quiz){
+    public ResponseEntity<Boolean> alterQuiz(@RequestBody QuizAlterReq quizAlterReq){
 
-        if(!quizService.alterQuiz(quiz)){
+        if(!quizService.alterQuiz(quizAlterReq)){
             return ResponseEntity.status(400).body(false);
         }
         return ResponseEntity.status(200).body(true);
