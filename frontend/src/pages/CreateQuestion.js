@@ -13,6 +13,7 @@ import * as yup from "yup";
 import axios from "axios";
 import { quiz } from "../api/api";
 import { useNavigate, useLocation } from "react-router-dom";
+import styles from "../css/CreateQuestion.module.css";
 
 const validationSchema = yup.object({
   content: yup.string("Enter your content").required("content is required"),
@@ -85,6 +86,17 @@ function CreateContent(props) {
 function CreateQuestion() {
   const navigate = useNavigate();
   const { state } = useLocation();
+  const [imageSrc, setImageSrc] = useState('');
+  const encodeFileToBase64 = (fileBlob) => {
+  const reader = new FileReader();
+    reader.readAsDataURL(fileBlob);
+    return new Promise((resolve) => {
+    reader.onload = () => {
+    setImageSrc(reader.result);
+    resolve();
+      };
+    });
+  };
   const formik = useFormik({
     initialValues: {
       answer: "",
@@ -117,6 +129,18 @@ function CreateQuestion() {
   return (
     <>
       <h1>Create Question</h1>
+
+      <input 
+        type="file"
+        onChange={(e)=>{
+          encodeFileToBase64(e.target.files[0]);
+          formik.values.quizPic = e.target.files[0].name;
+          console.log(formik.values);
+        }}
+        />
+        <div className={styles.preview}>
+          {imageSrc && <img src={imageSrc} alt="preview-img"/>}
+        </div>
       <form
         onSubmit={(e) => {
           e.preventDefault();
