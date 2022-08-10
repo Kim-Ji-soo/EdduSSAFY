@@ -54,10 +54,12 @@ function UserProfile() {
           axios({
             method: "get",
             url: users.me(),
-          }).then((res) => {
-            console.log(res.data);
-            dispatch(me(res.data));
-          });
+          })
+            .then((res) => {
+              console.log(res.data);
+              dispatch(me(res.data));
+            })
+            .catch((e) => console.log(e));
           navigate("/", { replace: true });
         })
         .catch((e) => {
