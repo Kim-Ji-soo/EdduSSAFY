@@ -87,27 +87,40 @@ feature : 세부 기능을 개발하는 브랜치
 ### 프로젝트 개요
 - **진행기간**
   - 2022.07.11 ~ 2022.08.19 (6주)
+
+<br/>
+
 - **목표**
     - WebRTC 기술을 사용하여 비대면 화상 교육 플랫폼을 만듭니다.
     - 기존 화상 회의 서비스에 여러 기능들을 더해 선생님과 학생 모두 만족할 수 있는 교육용 플랫폼을 목표로 합니다.
     - 서비스를 사용하는 학생들에게 공부에 집중할 수 있는 요소들을 추가하여 공부에 흥미를 잃지 않게 만드는 서비스를 제공합니다.
 
+<br/>
+
 - **와이어프레임**(figma)
 
 ![image](/uploads/fef3c172a69813a46ec8e44c7afea670/image.png)
 
+<br/>
+
 - **ERD**
 
 ![image](/uploads/5b20fd3e0259ce47136e939d85d5f1fb/image.png)
-       
+
+<br/>
+
 - **화면정의서**
 
 <img src="/uploads/17028b920dfb76d79d4f25ac38f2e5c7/image.png" width="45%"> <img src="/uploads/88ce51527c0d7d02181a6cc210c85a8c/image.png" width="45%">
 <img src="/uploads/07d3045d7c2c95165181bf8541b3d3e3/image.png" width="45%"> <img src="/uploads/6ba5be1bcdd1e14a3bef9a918cf2de0d/image.png" width="45%">
 <img src="/uploads/4a466c788d73adb7a2ec93b17f838a2a/image.png" width="45%">
 
+<br/>
+
 <img src="/uploads/f530e8f431395ad1d73d72bdf5db4d85/image.png" width="45%"> <img src="/uploads/d6d7718c53f86086e75fd6de0eb78886/image.png" width="45%">
 <img src="/uploads/6fe31aab8ca622964259fb8ff651c9fa/image.png" width="45%">
+
+<br/>
 
 - **시퀀스 다이어그램**
 
