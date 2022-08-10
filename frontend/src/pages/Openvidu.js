@@ -3,6 +3,8 @@ import { OpenVidu } from "openvidu-browser";
 import React, { Component } from "react";
 import UserVideoComponent from "../components/UserVideoComponent";
 import { connect } from "react-redux";
+import { Navigate } from "react-router-dom";
+import { ChatComponent } from "openvidu-react";
 
 const OPENVIDU_SERVER_URL = "https://localhost:4443";
 const OPENVIDU_SERVER_SECRET = "MY_SECRET";
@@ -15,16 +17,20 @@ class Openvidu extends Component {
   constructor(props) {
     super(props);
     const nickName = this.props.store.user.value.nickName;
-    console.log(nickName);
+    const roomTitle = this.props.store.room.roomTitle;
+    const roomId = this.props.store.room.roomId;
     this.state = {
-      mySessionId: "SessionA",
+      // sessionId 를 roomId로 변경
+      // roomTitle 추가
+      roomTitle: roomTitle,
+      mySessionId: String(roomId),
       myUserName: nickName,
       session: undefined,
       mainStreamManager: undefined,
       publisher: undefined,
       subscribers: [],
+      isActive: false,
     };
-
     this.leaveSession = this.leaveSession.bind(this);
     this.joinSession = this.joinSession.bind(this);
     this.switchCamera = this.switchCamera.bind(this);
@@ -36,6 +42,7 @@ class Openvidu extends Component {
 
   componentDidMount() {
     window.addEventListener("beforeunload", this.onbeforeunload);
+    this.joinSession();
   }
 
   componentWillUnmount() {
@@ -170,31 +177,34 @@ class Openvidu extends Component {
       }
     );
   }
-
   leaveSession() {
     // --- 7) Leave the session by calling 'disconnect' method over the Session object ---
-
     const mySession = this.state.session;
-
     if (mySession) {
       mySession.disconnect();
     }
 
     // Empty all properties...
     const nickName = this.props.store.user.value.nickName;
+    const roomTitle = this.props.store.room.roomTitle;
+    const roomId = this.props.store.room.roomId;
     this.OV = null;
     this.setState({
+      // mySessionId 변경 및 title 추가
+      roomTitle: roomTitle,
       session: undefined,
       subscribers: [],
-      mySessionId: "SessionA",
+      mySessionId: String(roomId),
       myUserName: nickName,
       mainStreamManager: undefined,
       publisher: undefined,
+      isActive: true,
     });
   }
 
   async switchCamera() {
     try {
+      console.log(this.state.publisher);
       const devices = await this.OV.getDevices();
       var videoDevices = devices.filter(
         (device) => device.kind === "videoinput"
@@ -237,6 +247,7 @@ class Openvidu extends Component {
 
     return (
       <div className="container">
+        {this.state.isActive && <Navigate to="/" replace={true} />}
         {this.state.session === undefined ? (
           <div id="join">
             <div id="img-div">
@@ -282,9 +293,9 @@ class Openvidu extends Component {
             </div>
           </div>
         ) : null}
-
         {this.state.session !== undefined ? (
           <div id="session">
+            <ChatComponent></ChatComponent>
             <div id="session-header">
               <h1 id="session-title">{mySessionId}</h1>
               <input
@@ -295,7 +306,6 @@ class Openvidu extends Component {
                 value="Leave session"
               />
             </div>
-
             {this.state.mainStreamManager !== undefined ? (
               <div id="main-video" className="col-md-6">
                 <UserVideoComponent
@@ -305,7 +315,9 @@ class Openvidu extends Component {
                   className="btn btn-large btn-success"
                   type="button"
                   id="buttonSwitchCamera"
-                  onClick={this.switchCamera}
+                  onClick={() => {
+                    this.switchCamera();
+                  }}
                   value="Switch Camera"
                 />
               </div>
