@@ -8,8 +8,8 @@ import ProblemList from "./pages/ProblemList";
 import CreateQuestion from "./pages/CreateQuestion";
 import UserProfile from "./pages/UserProfile";
 import Navbar from "./components/Navbar";
-import Logout from "./pages/Logout";
 import QuizList from "./pages/QuizList"; //contain
+import Logout from "./pages/Logout";
 import { Routes, Route } from "react-router-dom";
 import { Provider, useSelector } from "react-redux";
 import store from "./redux/store";
@@ -43,6 +43,14 @@ function App() {
                   element={
                     <PrivateRoute
                       component={<Homepage></Homepage>}
+                    ></PrivateRoute>
+                  }
+                ></Route>
+                <Route
+                  path="/openvidu"
+                  element={
+                    <PrivateRoute
+                      component={<Openvidu></Openvidu>}
                     ></PrivateRoute>
                   }
                 ></Route>

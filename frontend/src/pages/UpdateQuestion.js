@@ -34,6 +34,9 @@ function CreateContent(props) {
   const [number, setNumber] = useState(props.state.optionSize + 1);
   const [value, setValue] = useState(props.state.options);
   const arr = props.state;
+  useEffect(() => {
+    props.onSubmit(value);
+  });
   return (
     <>
       {arr.options.map((option, index) => {
@@ -45,7 +48,7 @@ function CreateContent(props) {
               value={value[index] || ""}
               onChange={(e) => {
                 setValue((value) => {
-                  const newValue = { ...value };
+                  const newValue = [...value];
                   newValue[index] = e.target.value;
                   return newValue;
                 });
@@ -63,19 +66,6 @@ function CreateContent(props) {
         }}
       >
         보기추가
-      </Button>
-      <Button
-        onClick={async (e) => {
-          e.preventDefault();
-          const newResult = [];
-          for (const i in value) {
-            newResult.push(value[i]);
-          }
-          await setResult(newResult);
-          props.onSubmit(newResult); //보기 배열 넘기기
-        }}
-      >
-        보기 확정
       </Button>
     </>
   );
@@ -98,13 +88,15 @@ function CreateQuestion() {
         method: "put",
         url: quiz.updateQuiz(),
         data: formik.values,
-      }).then((res) => {
-        console.log(res.data);
-        navigate("/problemlist", { replace: true });
-      });
+      })
+        .then((res) => {
+          console.log(res.data);
+          navigate("/problemlist", { replace: true });
+        })
+        .catch((e) => console.log(e));
     },
   });
-
+  console.log(formik.values);
   return (
     <>
       <h1>update Question</h1>
@@ -189,18 +181,17 @@ function CreateQuestion() {
             helperText={formik.touched.answer && formik.errors.answer}
           />
         </div>
-        <Button
-          type="submit"
-          disabled={formik.isSubmitting}
-          // onClick={() => {
-          //   formik.values.quizId = new Date()
-          //     .toLocaleString()
-          //     .replace(/[\.\s\:ㄱ-ㅎㅏ-ㅣ가-힣]/g, "");
-          // }}
-        >
+        <Button type="submit" disabled={formik.isSubmitting}>
           Submit
         </Button>
       </form>
+      <Button
+        onClick={() => {
+          navigate("/problemlist", { replace: true });
+        }}
+      >
+        뒤로 가기
+      </Button>
     </>
   );
 }

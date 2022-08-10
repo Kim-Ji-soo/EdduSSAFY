@@ -5,7 +5,6 @@ import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 function PrivateRoute({ component: Component }) {
   const accessToken = useSelector((state) => state.token.value);
-  console.log(accessToken);
   return accessToken.accessToken ? Component : <Navigate to="/login" />;
 }
 

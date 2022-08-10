@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService {
 	public boolean updateUser(UserUpdateReq updateUserDto, User user) {
 		user.setName(updateUserDto.getName());
 		user.setNickname(updateUserDto.getNickname());
-		user.setPosition(updateUserDto.getPosition());
+		//user.setPosition(updateUserDto.getPosition());
 		user.setTel(updateUserDto.getTel());
 		//user.setPassword(passwordEncoder.encode(updateUserDto.getPassword()));
 
