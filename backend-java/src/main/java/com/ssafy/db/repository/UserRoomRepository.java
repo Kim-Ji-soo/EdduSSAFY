@@ -12,4 +12,5 @@ public interface UserRoomRepository extends JpaRepository<UserRoom, Long> {
     long deleteByRoomRoomIdAndUserUserId(long roomId, String userId);
 
     List<UserRoom> findByUserUserId(String userId);
+    List<UserRoom> findByRoomRoomId(long roomId);
 }
