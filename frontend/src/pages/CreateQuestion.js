@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Formik, useFormik} from "formik";
+import {useFormik} from "formik";
 import {
   TextField,
   Button,
@@ -13,9 +13,7 @@ import * as yup from "yup";
 import axios from "axios";
 import { quiz } from "../api/api";
 import { useNavigate, useLocation } from "react-router-dom";
-import { render } from 'react-dom';
-import Dropzone from "react-dropzone";
-import Thumb from "./Thumb";
+import styles from "../css/createQuestion.module.css";
 
 const validationSchema = yup.object({
   content: yup.string("Enter your content").required("content is required"),
@@ -83,27 +81,30 @@ function CreateContent(props) {
     </>
   );
 }
-//
-
 function CreateQuestion() {
   
   const navigate = useNavigate();
   const { state } = useLocation();
-  const dropzoneStyle = {
-    width: "100%",
-    height: "auto",
-    borderWidth: 2,
-    borderColor: "rgb(102, 102, 102)",
-    borderStyle: "dashed",
-    borderRadius: 5,
-  }
+  const [imageSrc, setImageSrc] = useState('');
+  
+  const encodeFileToBase64 = (fileBlob) => {
+  const reader = new FileReader();
+    reader.readAsDataURL(fileBlob);
+    return new Promise((resolve) => {
+    reader.onload = () => {
+    setImageSrc(reader.result);
+    resolve();
+      };
+    });
+  };
+
   const formik = useFormik({
     initialValues: {
       answer: "",
       content: "",
       optionSize: 0,
       options: "",
-      quizPic: [],
+      quizPic: "",
       score: "",
       type: "",
       quizbookId: state,
@@ -129,6 +130,22 @@ function CreateQuestion() {
   return (
     <>
       <h1>Create Question</h1>
+
+        <input 
+          type="file" 
+          name ='quizPic'
+          accept = 'image/*'
+          onChange={(e) => { 
+            encodeFileToBase64(e.target.files[0]);
+            formik.values.quizPic = e.target.files[0].name;
+            console.log(formik.values);
+          
+          }}
+                />
+        <div className={styles.preview}>
+          {imageSrc && <img src={imageSrc}  alt="preview-img" />}
+        </div>
+      
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -145,62 +162,7 @@ function CreateQuestion() {
             helperText={formik.touched.content && formik.errors.content}
           />
         </div>
-    <div className="container">
-    <Formik
-     initialValues={{
-       quizPic: [],
-     }}
-      onSubmit={(values) => {
-        console.log("..");
-        alert(
-          JSON.stringify(
-            {
-              quizPic: values.quizPic.map(file => ({
-                fileName: file.name,
-                type: file.type,
-                size: `${file.size} bytes`
-              })),
-            },
-            null,
-            2
-          )
-        );
-      }}
-      validationSchema={yup.object().shape({
-        recaptcha: yup.array(),
-      })}
-      render={({ values, handleSubmit, setFieldValue }) => (
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>Multiple files</label>
-            <Dropzone style={dropzoneStyle} accept="image/*" onDrop={(acceptedFiles) => {
-              // do nothing if no files
-              if (acceptedFiles.length === 0) { return; }
-
-              // on drop we add to the existing files
-              setFieldValue("quizPic", values.quizPic.concat(acceptedFiles));
-            }}>
-              {({ isDragActive, isDragReject, acceptedFiles, rejectedFiles }) => {
-                if (isDragActive) {
-                  return "This file is authorized";
-                }
-
-                if (isDragReject) {
-                  return "This file is not authorized";
-                }
-
-                if (values.quizPic.length === 0) { 
-                  return <p>Try dragging a file here!</p>
-                }
-
-                return values.quizPic.map((file, i) => (<Thumb key={i} file={file} />));
-              }}
-            </Dropzone>
-          </div>
-          <button type="submit" className="btn btn-primary">submit</button>
-        </form>
-      )} />
-  </div>
+ 
         <div>
           <TextField
             name="score"
@@ -255,6 +217,7 @@ function CreateQuestion() {
             }}
           ></CreateContent>
         )}
+      
         <div>
           <TextField
             name="answer"
