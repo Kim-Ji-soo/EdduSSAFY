@@ -4,17 +4,7 @@
 <br/><br/>
 
 ## 🧑팀원 소개
-이거?
-|<center>최진욱(팀장)</center>|<center>남현우</center>|<center>강석민</center>|
-|:---:|:---:|:---:|
-|<center>BACKEND</center>|<center>BACKEND</center>|<center>BACKEND</center>|
 
-|<center>최영선</center>|<center>김지수</center>|<center>박무창</center>|
-|:---:|:---:|:---:|
-|<center>FRONTEND</center>|<center>FRONTEND</center>|<center>FRONTEND</center>|
-
-
-아님 이거?
 |<center>최진욱(팀장)</center>|<center>남현우</center>|<center>강석민</center>|<center>최영선</center>|<center>김지수</center>|<center>박무창</center>|
 |:---:|:---:|:---:|:---:|:---:|:---:|
 |<center>BACKEND</center>|<center>BACKEND</center>|<center>BACKEND</center>|<center>FRONTEND</center>|<center>FRONTEND</center>|<center>FRONTEND</center>|
@@ -41,8 +31,6 @@ feature : 세부 기능을 개발하는 브랜치
 
 `feature-` 이후에 어떤 기능을 개발하는지를 붙여주었습니다.
 
-### Commit Convention
-커밋컨벤션...? 우리 이거 어케하실? 걍 삭제할까
 
 <br/><br/><br/>
 
@@ -207,6 +195,7 @@ $ docker run -p 4443:4443 --rm -e OPENVIDU_SECRET=MY_SECRET openvidu/openvidu-se
 - WebRTC: openVidu 2.20.0
 - Docker: 20.10.12
 - WEB: Nginx (1.18.0)
+
 
 <br/><br/><br/>
 
