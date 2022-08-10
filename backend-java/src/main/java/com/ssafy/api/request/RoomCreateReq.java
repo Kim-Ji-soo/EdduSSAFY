@@ -20,6 +20,7 @@ public class RoomCreateReq {
                 .title(getTitle())
                 .password(getPassword())
                 .host(User.builder().userId(getUserId()).build())
+                .isActive(false)
                 .build();
     }
 }
