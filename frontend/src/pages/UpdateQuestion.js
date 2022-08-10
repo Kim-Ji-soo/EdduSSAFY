@@ -98,10 +98,12 @@ function CreateQuestion() {
         method: "put",
         url: quiz.updateQuiz(),
         data: formik.values,
-      }).then((res) => {
-        console.log(res.data);
-        navigate("/problemlist", { replace: true });
-      });
+      })
+        .then((res) => {
+          console.log(res.data);
+          navigate("/problemlist", { replace: true });
+        })
+        .catch((e) => console.log(e));
     },
   });
 
@@ -189,18 +191,17 @@ function CreateQuestion() {
             helperText={formik.touched.answer && formik.errors.answer}
           />
         </div>
-        <Button
-          type="submit"
-          disabled={formik.isSubmitting}
-          // onClick={() => {
-          //   formik.values.quizId = new Date()
-          //     .toLocaleString()
-          //     .replace(/[\.\s\:ㄱ-ㅎㅏ-ㅣ가-힣]/g, "");
-          // }}
-        >
+        <Button type="submit" disabled={formik.isSubmitting}>
           Submit
         </Button>
       </form>
+      <Button
+        onClick={() => {
+          navigate("/problemlist", { replace: true });
+        }}
+      >
+        뒤로 가기
+      </Button>
     </>
   );
 }

@@ -2,25 +2,31 @@ import axios from "axios";
 import { OpenVidu } from "openvidu-browser";
 import React, { Component } from "react";
 import UserVideoComponent from "../components/UserVideoComponent";
+import { connect } from "react-redux";
 
-const OPENVIDU_SERVER_URL = "https://i7c111.p.ssafy.io:8443";
-const OPENVIDU_SERVER_SECRET = "7c111";
+const OPENVIDU_SERVER_URL = "https://localhost:4443";
+const OPENVIDU_SERVER_SECRET = "MY_SECRET";
+
+const mapStateToProps = (state) => ({
+  store: state,
+});
 
 class Openvidu extends Component {
   constructor(props) {
     super(props);
-    console.log(this);
+    const nickName = this.props.store.user.value.nickName;
+    console.log(nickName);
     this.state = {
       mySessionId: "SessionA",
-      myUserName: "Participant" + Math.floor(Math.random() * 100),
+      myUserName: nickName,
       session: undefined,
       mainStreamManager: undefined,
       publisher: undefined,
       subscribers: [],
     };
 
-    this.joinSession = this.joinSession.bind(this);
     this.leaveSession = this.leaveSession.bind(this);
+    this.joinSession = this.joinSession.bind(this);
     this.switchCamera = this.switchCamera.bind(this);
     this.handleChangeSessionId = this.handleChangeSessionId.bind(this);
     this.handleChangeUserName = this.handleChangeUserName.bind(this);
@@ -175,12 +181,13 @@ class Openvidu extends Component {
     }
 
     // Empty all properties...
+    const nickName = this.props.store.user.value.nickName;
     this.OV = null;
     this.setState({
       session: undefined,
       subscribers: [],
       mySessionId: "SessionA",
-      myUserName: "Participant" + Math.floor(Math.random() * 100),
+      myUserName: nickName,
       mainStreamManager: undefined,
       publisher: undefined,
     });
@@ -419,4 +426,4 @@ class Openvidu extends Component {
   }
 }
 
-export default Openvidu;
+export default connect(mapStateToProps)(Openvidu);
