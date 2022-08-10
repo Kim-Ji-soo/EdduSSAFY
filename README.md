@@ -186,7 +186,7 @@ $ docker run -p 4443:4443 --rm -e OPENVIDU_SECRET=MY_SECRET openvidu/openvidu-se
 
 ## ⚙시스템 환경 및 구성
 
-![image](/uploads/61b8b7aac65c085a41e268d90b869d47/image.png)
+![image](/uploads/c271cc0aa503d666f571a68c4ddfe544/image.png)
 
 - OS: Windows10, Linux
 - Backend Framework: Spring Boot 2.7.1
