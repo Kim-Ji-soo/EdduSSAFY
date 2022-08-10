@@ -1,4 +1,4 @@
-# ![favicon-32x32](/uploads/0065b79aaeec8b89d0386770bf08fcb7/favicon-32x32.png) EDDU SSAFY(에뜌 사피)
+# ![favicon-32x32](/uploads/0065b79aaeec8b89d0386770bf08fcb7/favicon-32x32.png) EDDU SSAFY(에뜌 싸피)
 비대면 수업을 위한 화상회의 사이트
 
 <br/>
