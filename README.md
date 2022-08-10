@@ -181,8 +181,8 @@ $ docker run -p 4443:4443 --rm -e OPENVIDU_SECRET=MY_SECRET openvidu/openvidu-se
 
 <br/><br/><br/>
 
-## 🛠프로젝트 빌드
-- 
+## 🛠프로젝트 빌드 및 배포
+- [프로젝트 빌드 및 배포](https://lab.ssafy.com/s07-webmobile1-sub2/S07P12C111/-/blob/master/output/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8_%EB%B0%B0%ED%8F%AC.md)
 
 <br/><br/><br/>
 
