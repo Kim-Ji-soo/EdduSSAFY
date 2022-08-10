@@ -105,13 +105,21 @@ feature : 세부 기능을 개발하는 브랜치
 
 ![image](/uploads/5b20fd3e0259ce47136e939d85d5f1fb/image.png)
        
-- **화면정의서** 예시
+- **화면정의서**
 
-다 넣을 것인지?
+<img src="/uploads/17028b920dfb76d79d4f25ac38f2e5c7/image.png" width="45%"> <img src="/uploads/88ce51527c0d7d02181a6cc210c85a8c/image.png" width="45%">
+<img src="/uploads/07d3045d7c2c95165181bf8541b3d3e3/image.png" width="45%"> <img src="/uploads/6ba5be1bcdd1e14a3bef9a918cf2de0d/image.png" width="45%">
+<img src="/uploads/4a466c788d73adb7a2ec93b17f838a2a/image.png" width="45%">
+
+<img src="/uploads/f530e8f431395ad1d73d72bdf5db4d85/image.png" width="45%"> <img src="/uploads/d6d7718c53f86086e75fd6de0eb78886/image.png" width="45%">
+<img src="/uploads/6fe31aab8ca622964259fb8ff651c9fa/image.png" width="45%">
 
 - **시퀀스 다이어그램**
 
-다 넣을 것인지?
+<img src="/uploads/174558e5e0ad665433136461962f2adc/image.png" width="45%"> <img src="/uploads/6dd1c4a71dd68df28d9655548b462d9e/image.png" width="45%">
+<img src="/uploads/71855836f707b1c0e8f07b42ab90fa63/image.png" width="45%"> <img src="/uploads/b83155f8fa963d9d3e774aaa12cfda49/image.png" width="45%">
+<img src="/uploads/f9dcee540d384403ea660dff248fd6e3/image.png" width="45%"> <img src="/uploads/54ba1d146c6d84c83a8aa632b89ade6f/image.png" width="45%">
+
 
 <br/><br/><br/>
 
