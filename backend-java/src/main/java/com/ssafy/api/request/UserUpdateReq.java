@@ -13,7 +13,7 @@ import lombok.Setter;
 public class UserUpdateReq {
 	private String userId;
 
-	private String position;
+	//private String position;
 
 	private String name;
 
