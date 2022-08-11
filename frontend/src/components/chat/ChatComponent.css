@@ -159,7 +159,7 @@
     border-bottom-right-radius: 6px;
   }
   #messageInput .messageInput {
-    width: 80%;
+    width: 75%;
     height: 100%;
     border: none;
     outline: none;
@@ -168,10 +168,15 @@
     color: #000000;
   }
   #messageInput .anonymous {
-    width: 10%;
+    width:5%;
     height: 100%;
+    margin-left : 1%;
     float:left;
-
+  }
+  #messageInput label{
+    font-size : 20px;
+    margin-left : 1%;
+    float:left;
   }
   #sendButton {
     background-color: #81e9b0;
