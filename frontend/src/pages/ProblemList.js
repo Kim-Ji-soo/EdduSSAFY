@@ -110,7 +110,14 @@ function ProblemList() {
 
   return (
     <>
-      <Grid item xs={12} md={12}>
+      <Grid
+        sx={{
+          margin: 5,
+        }}
+        item
+        xs={12}
+        md={12}
+      >
         <Box sx={{ mt: 1 }}>
           <List>
             <TransitionGroup>
