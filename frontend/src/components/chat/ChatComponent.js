@@ -13,6 +13,7 @@ export default class ChatComponent extends Component {
     this.state = {
       messageList: [],
       message: "",
+      isNickname: false,
     };
     this.chatScroll = React.createRef();
 

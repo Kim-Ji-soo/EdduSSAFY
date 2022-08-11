@@ -12,8 +12,9 @@ import { useDispatch } from "react-redux";
 import { setToken } from "../redux/token";
 import styles from "../css/login.module.css";
 import { me } from "../redux/user";
-import { quizbook } from "../api/api";
+import { quizbook, room } from "../api/api";
 import { quizbookActions } from "../redux/quizbook";
+import { roomActions } from "../redux/room";
 const validationSchema = yup.object({
   password: yup.string("Enter your password").required("Password is required"),
   userId: yup
@@ -59,6 +60,13 @@ function Login() {
         }).then((res) => {
           console.log(res.data);
           dispatch(quizbookActions.getquizbook(res.data));
+        });
+        axios({
+          method: "get",
+          url: room.getRoom(),
+        }).then((res) => {
+          console.log(res.data);
+          dispatch(roomActions.getRooms(res.data));
         });
         navigate("/", { replace: true });
       });

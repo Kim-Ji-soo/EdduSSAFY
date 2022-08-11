@@ -226,7 +226,7 @@ function Signup() {
                   sx={Textfieldsx}
                 />
               </div>
-              <div userId={styles.inputId}>
+              <div className={styles.inputId}>
                 <TextField
                   name="userId"
                   label="userId"
@@ -237,7 +237,6 @@ function Signup() {
                   sx={Textbtnfieldsx}
                 />
                 <Button
-                  userId="inputButton"
                   className={styles.inputButton}
                   onClick={() => {
                     const userId = formik.values.userId;
@@ -361,7 +360,7 @@ function Signup() {
             </div>
             <div>
               <FormControl>
-                <FormLabel userId="demo-radio-buttons-group-label"></FormLabel>
+                <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
                 <RadioGroup
                   aria-labelledby="demo-controlled-radio-buttons-group"
                   name="position"
