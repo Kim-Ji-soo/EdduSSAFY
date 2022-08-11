@@ -8,11 +8,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @ApiModel("QuizBookCreateGetRes")
-public class QuizBookCreateGetRes {
+public class QuizbookCreateRes {
     private long quizbookId;
 
-    public static QuizBookCreateGetRes of(Quizbook quizBook){
-        QuizBookCreateGetRes res = new QuizBookCreateGetRes();
+    public static QuizbookCreateRes of(Quizbook quizBook){
+        QuizbookCreateRes res = new QuizbookCreateRes();
         res.setQuizbookId(quizBook.getQuizbookId());
         return res;
     }
