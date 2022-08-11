@@ -3,7 +3,7 @@ import "./App.css";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Homepage from "./pages/Homepage";
-import Openvidu from "./pages/Openvidu";
+import VideoRoomComponent from "./pages/VideoRoomComponent";
 import ProblemList from "./pages/ProblemList";
 import CreateQuestion from "./pages/CreateQuestion";
 import UserProfile from "./pages/UserProfile";
@@ -43,14 +43,6 @@ function App() {
                   element={
                     <PrivateRoute
                       component={<Homepage></Homepage>}
-                    ></PrivateRoute>
-                  }
-                ></Route>
-                <Route
-                  path="/openvidu"
-                  element={
-                    <PrivateRoute
-                      component={<Openvidu></Openvidu>}
                     ></PrivateRoute>
                   }
                 ></Route>
@@ -98,6 +90,14 @@ function App() {
               </Route>
               <Route path="/login" element={<Login></Login>}></Route>
               <Route path="/signup" element={<Signup></Signup>}></Route>
+              <Route
+                path="/openvidu"
+                element={
+                  <PrivateRoute
+                    component={<VideoRoomComponent></VideoRoomComponent>}
+                  ></PrivateRoute>
+                }
+              ></Route>
             </Routes>
           </Grid>
         </PersistGate>
