@@ -7,6 +7,9 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { me } from "../redux/user";
+
+import { Box } from "@mui/material";
+
 const validationSchema = yup.object({
   email: yup
     .string("Enter your email")
@@ -69,70 +72,76 @@ function UserProfile() {
   });
   return (
     <>
-      <h1>User Profile</h1>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          formik.handleSubmit(e);
+      <Box
+        sx={{
+          margin: 10,
         }}
       >
-        <div>
-          <TextField
-            disabled
-            name="name"
-            label="name"
-            value={formik.values.name}
-            onChange={formik.handleChange}
-            error={formik.touched.name && Boolean(formik.errors.name)}
-            helperText={formik.touched.name && formik.errors.name}
-          />
-        </div>
-        <div>
-          <TextField
-            name="nickname"
-            label="nickname"
-            value={formik.values.nickname}
-            onChange={formik.handleChange}
-            error={formik.touched.nickname && Boolean(formik.errors.nickname)}
-            helperText={formik.touched.nickname && formik.errors.nickname}
-          />
-        </div>
-        <div>
-          <TextField
-            disabled
-            name="userId"
-            label="userId"
-            value={formik.values.userId}
-            onChange={formik.handleChange}
-            error={formik.touched.userId && Boolean(formik.errors.userId)}
-            helperText={formik.touched.userId && formik.errors.userId}
-          />
-        </div>
-        <div>
-          <TextField
-            disabled
-            name="email"
-            label="email"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            error={formik.touched.email && Boolean(formik.errors.email)}
-            helperText={formik.touched.email && formik.errors.email}
-          />
-        </div>
-        <div>
-          <TextField
-            name="tel"
-            label="tel"
-            value={formik.values.tel}
-            onChange={formik.handleChange}
-            error={formik.touched.tel && Boolean(formik.errors.tel)}
-            helperText={formik.touched.tel && formik.errors.tel}
-          />
-        </div>
-        <Button type="submit" disabled={formik.isSubmitting}>
-          정보수정
-        </Button>
-      </form>
+        <h1>User Profile</h1>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            formik.handleSubmit(e);
+          }}
+        >
+          <div>
+            <TextField
+              disabled
+              name="name"
+              label="name"
+              value={formik.values.name}
+              onChange={formik.handleChange}
+              error={formik.touched.name && Boolean(formik.errors.name)}
+              helperText={formik.touched.name && formik.errors.name}
+            />
+          </div>
+          <div>
+            <TextField
+              name="nickname"
+              label="nickname"
+              value={formik.values.nickname}
+              onChange={formik.handleChange}
+              error={formik.touched.nickname && Boolean(formik.errors.nickname)}
+              helperText={formik.touched.nickname && formik.errors.nickname}
+            />
+          </div>
+          <div>
+            <TextField
+              disabled
+              name="userId"
+              label="userId"
+              value={formik.values.userId}
+              onChange={formik.handleChange}
+              error={formik.touched.userId && Boolean(formik.errors.userId)}
+              helperText={formik.touched.userId && formik.errors.userId}
+            />
+          </div>
+          <div>
+            <TextField
+              disabled
+              name="email"
+              label="email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
+            />
+          </div>
+          <div>
+            <TextField
+              name="tel"
+              label="tel"
+              value={formik.values.tel}
+              onChange={formik.handleChange}
+              error={formik.touched.tel && Boolean(formik.errors.tel)}
+              helperText={formik.touched.tel && formik.errors.tel}
+            />
+          </div>
+          <Button type="submit" disabled={formik.isSubmitting}>
+            정보수정
+          </Button>
+        </form>
+      </Box>
     </>
   );
 }

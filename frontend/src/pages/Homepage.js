@@ -47,7 +47,16 @@ function Homepage(props) {
     });
   };
   return (
-    <Grid item container spacing={2}>
+    <Grid
+      sx={{
+        margin: 5,
+      }}
+      item
+      container
+      direction="row"
+      justifyContent="space-evenly"
+      spacing={2}
+    >
       <Grid item xs={12} md={9}>
         <RoomList></RoomList>
       </Grid>
