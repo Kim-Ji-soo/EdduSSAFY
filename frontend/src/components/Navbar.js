@@ -12,10 +12,11 @@ import {
 import DrawerComponent from "./Drawer";
 import classes from "../css/navbar.module.css";
 import { Outlet } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 export default function Navbar() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const position = useSelector((state)=>state.user.value.position);
   return (
     <>
       <AppBar>
@@ -32,9 +33,11 @@ export default function Navbar() {
             <DrawerComponent></DrawerComponent>
           ) : (
             <div className={classes.navlinks}>
+              {position ==="professor" &&
               <Link to="/problemlist" className={classes.link}>
                 문제 목록
               </Link>
+              }
               <Link to="/userprofile" className={classes.link}>
                 개인정보 수정
               </Link>
