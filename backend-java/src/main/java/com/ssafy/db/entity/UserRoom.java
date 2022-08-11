@@ -14,6 +14,15 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(
+        name="user_room",
+        uniqueConstraints={
+                @UniqueConstraint(
+                        name= "constraint_one_user_in_one_room",
+                        columnNames={"user_id", "room_id"}
+                )
+        }
+)
 public class UserRoom {
     @Id @GeneratedValue
     private long pk;
