@@ -1,5 +1,5 @@
 /** @format */
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { roomActions } from "../redux/room";
@@ -34,6 +34,7 @@ function Homepage(props) {
   };
   const handleCreateRoom = () => {
     //axios 추가 유저아이디, 타이틀
+    console.log(roomTitle.current.value, userId);
     axios({
       url: room.createRoom(),
       method: "post",
@@ -46,8 +47,26 @@ function Homepage(props) {
       handleJoinRoom(res.data.roomId);
     });
   };
+
+  useEffect(() => {
+    axios({
+      method: "get",
+      url: room.getRoom(),
+    }).then((res) => {
+      dispatch(roomActions.getRooms(res.data));
+    });
+  });
   return (
-    <Grid item container spacing={2}>
+    <Grid
+      sx={{
+        margin: 5,
+      }}
+      item
+      container
+      direction="row"
+      justifyContent="space-evenly"
+      spacing={2}
+    >
       <Grid item xs={12} md={9}>
         <RoomList></RoomList>
       </Grid>

@@ -7,6 +7,7 @@ import DialogExtensionComponent from "../components/dialog-extension/DialogExten
 import ChatComponent from "../components/chat/ChatComponent";
 import { Navigate } from "react-router-dom";
 import { connect } from "react-redux";
+import { room } from "../api/api";
 
 import OpenViduLayout from "../layout/openvidu-layout";
 import UserModel from "../models/user-model";
@@ -47,8 +48,8 @@ class VideoRoomComponent extends Component {
       subscribers: [],
       chatDisplay: "none",
       currentVideoDevice: undefined,
+      publisher: undefined,
     };
-
     this.joinSession = this.joinSession.bind(this);
     this.leaveSession = this.leaveSession.bind(this);
     this.onbeforeunload = this.onbeforeunload.bind(this);
@@ -64,6 +65,7 @@ class VideoRoomComponent extends Component {
     this.toggleChat = this.toggleChat.bind(this);
     this.checkNotification = this.checkNotification.bind(this);
     this.checkSize = this.checkSize.bind(this);
+    this.setPublisher = this.setPublisher.bind(this);
   }
 
   componentDidMount() {
@@ -180,7 +182,7 @@ class VideoRoomComponent extends Component {
       resolution: "640x480",
       frameRate: 30,
       insertMode: "APPEND",
-      mirror : false,
+      mirror: false,
     });
 
     if (this.state.session.capabilities.publish) {
@@ -203,9 +205,13 @@ class VideoRoomComponent extends Component {
     this.sendSignalUserChanged({
       isScreenShareActive: localUser.isScreenShareActive(),
     });
-
+    this.remotes.push(localUser);
     this.setState(
-      { currentVideoDevice: videoDevices[0], localUser: localUser },
+      {
+        currentVideoDevice: videoDevices[0],
+        localUser: localUser,
+        subscribers: [],
+      },
       () => {
         this.state.localUser.getStreamManager().on("streamPlaying", (e) => {
           this.updateLayout();
@@ -243,12 +249,19 @@ class VideoRoomComponent extends Component {
     if (mySession) {
       mySession.disconnect();
     }
-
     // Empty all properties...
     this.OV = null;
     const nickName = this.props.store.user.value.nickName;
     const roomTitle = this.props.store.room.roomTitle;
     const roomId = this.props.store.room.roomId;
+    axios({
+      url: room.leaveRoom(),
+      method: "delete",
+      data: {
+        roomId: roomId,
+        userId: this.props.store.user.value.userId,
+      },
+    });
     this.setState({
       isActive: true,
       session: undefined,
@@ -459,6 +472,7 @@ class VideoRoomComponent extends Component {
         videoSource: videoSource,
         publishAudio: localUser.isAudioActive(),
         publishVideo: localUser.isVideoActive(),
+        resoulution: "1280*720",
         mirror: false,
       },
       (error) => {
@@ -489,6 +503,12 @@ class VideoRoomComponent extends Component {
     publisher.on("streamPlaying", () => {
       this.updateLayout();
       publisher.videos[0].video.parentElement.classList.remove("custom-class");
+    });
+  }
+
+  setPublisher(i) {
+    this.setState({
+      publisher: i,
     });
   }
 
@@ -560,11 +580,11 @@ class VideoRoomComponent extends Component {
   }
 
   render() {
-    const mySessionId = this.state.mySessionId;
+    // const mySessionId = this.state.mySessionId;
     const roomTitle = this.state.roomTitle;
     const localUser = this.state.localUser;
+    console.log(this.state.subscribers);
     var chatDisplay = { display: this.state.chatDisplay };
-
     return (
       <div className="container" id="container">
         {this.state.isActive && <Navigate to="/" replace={true} />}
@@ -590,7 +610,7 @@ class VideoRoomComponent extends Component {
         <div id="layout" className="bounds">
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (
-              <div className="OT_root OT_publisher custom-class" id="localUser">
+              <div className="OT_root OT_publisher custom-class" id="publisher">
                 <StreamComponent
                   user={localUser}
                   handleNickname={this.nicknameChanged}

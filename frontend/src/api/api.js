@@ -10,6 +10,8 @@ const USER_ROOM = "user_room/";
 const room = {
   createRoom: () => HOST + ROOM + "create/",
   joinRoom: () => HOST + USER_ROOM + "enter/",
+  leaveRoom: () => HOST + USER_ROOM + "quit/",
+  getRoom: () => HOST + ROOM + "allrooms/",
 };
 
 const users = {

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -131,6 +132,22 @@ public class RoomServiceImpl implements  RoomService{
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public List<RoomRes> getAllRooms() {
+        List<RoomRes> allRooms = new ArrayList<>();
+        try{
+            List<Room> rooms = roomRepository.findAll();
+            for(Room r : rooms){
+                allRooms.add(new RoomRes(r));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+        return allRooms;
     }
 
     @Override
