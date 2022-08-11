@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,18 +43,12 @@ public class RoomServiceImpl implements  RoomService{
             }
 
             room = roomRepository.save(roomCreateReq.toEntity());
-//            UserRoom userRoom = UserRoom.builder()
-//                    .user(User.builder().userId(roomCreateReq.getUserId()).build())
-//                    .room(Room.builder().roomId(room.getRoomId()).build())
-//                    .build();
-            //userRoomRepository.save(userRoom);
 
-
-            //방 생성하면 호스트는 바로 들어가는 걸로.
-            UserRoomReq userRoomReq = new UserRoomReq();
-            userRoomReq.setRoomId(room.getRoomId());
-            userRoomReq.setUserId(room.getHost().getUserId());
-            userRoomService.enterRoom(userRoomReq);
+//            //방 생성하면 호스트는 바로 들어가는 걸로.-> 취소
+//            UserRoomReq userRoomReq = new UserRoomReq();
+//            userRoomReq.setRoomId(room.getRoomId());
+//            userRoomReq.setUserId(room.getHost().getUserId());
+//            userRoomService.enterRoom(userRoomReq);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -80,6 +76,7 @@ public class RoomServiceImpl implements  RoomService{
                 throw new Exception("호스트 아님");
             }
             room.setActive(true);
+            room.setRoomStartTime(LocalDateTime.now());
             roomRepository.save(room);
         }catch (Exception e){
             e.printStackTrace();
@@ -107,7 +104,7 @@ public class RoomServiceImpl implements  RoomService{
                 userRoomService.quitRoom(urq);
             }
             room.setActive(false);
-
+            room.setRoomEndTime(LocalDateTime.now());
             roomRepository.save(room);
         }catch (Exception e){
             e.printStackTrace();
@@ -135,6 +132,22 @@ public class RoomServiceImpl implements  RoomService{
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public List<RoomRes> getAllRooms() {
+        List<RoomRes> allRooms = new ArrayList<>();
+        try{
+            List<Room> rooms = roomRepository.findAll();
+            for(Room r : rooms){
+                allRooms.add(new RoomRes(r));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+        return allRooms;
     }
 
     @Override

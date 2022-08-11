@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Api(value ="방 API", tags = {"Room"})
 @RestController
 @RequestMapping("/api/v1/room")
@@ -66,6 +68,15 @@ public class RoomController {
         return ResponseEntity.status(200).body(true);
     }
 
+    @GetMapping("/allrooms")
+    public ResponseEntity<List<RoomRes>> allRooms(){
+        List<RoomRes> allRooms = roomService.getAllRooms();
+        if(allRooms == null){
+            return ResponseEntity.status(400).body(null);
+        }
+
+        return ResponseEntity.status(200).body(allRooms);
+    }
 
 //   @PostMapping("/enter")
 //    public ResponseEntity<Boolean> enterRoom(@RequestBody RoomEnterReq roomEnterReq){

@@ -6,6 +6,8 @@ import com.ssafy.api.request.UserRoomReq;
 import com.ssafy.api.response.RoomRes;
 import com.ssafy.db.entity.Room;
 
+import java.util.List;
+
 public interface RoomService {
     Room createRoom(RoomCreateReq roomCreateReq);
 
@@ -21,4 +23,6 @@ public interface RoomService {
     RoomRes getRoomById(long roomId);
 
     boolean isRoomActive(long roomId);
+
+    List<RoomRes> getAllRooms();
 }

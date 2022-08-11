@@ -39,14 +39,6 @@ function DrawerComponent() {
           <Divider />
           <ListItem onClick={() => setOpenDrawer(false)}>
             <ListItemText>
-              <Link to="/createquestion" className={classes.link}>
-                문제 생성
-              </Link>
-            </ListItemText>
-          </ListItem>
-          <Divider />
-          <ListItem onClick={() => setOpenDrawer(false)}>
-            <ListItemText>
               <Link to="/userprofile" className={classes.link}>
                 개인정보 수정
               </Link>

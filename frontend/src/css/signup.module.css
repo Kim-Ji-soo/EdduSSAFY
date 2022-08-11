@@ -33,7 +33,7 @@
   background-color: #FDDD6D;
 }
 .buttons{
-  color: blue;
+  color: rgb(54, 54, 255);
 }
 .buttons:hover{
   color: #4C3657;
@@ -74,4 +74,18 @@
 .linkbtn{
   width: 100%;
   color: white;
+}
+.background {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: url(../assets/로그인_회원가입_배경_logo_small.png);
+  margin: 0;
+  padding: 0;
+  left: 0;
+  top: 0;
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+  background-attachment: fixed;
 }

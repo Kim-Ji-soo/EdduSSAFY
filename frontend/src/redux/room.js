@@ -5,11 +5,15 @@ export const roomSlice = createSlice({
   initialState: {
     roomTitle: "",
     roomId: "",
+    rooms: [],
   },
   reducers: {
     setRoom: (state, action) => {
       state.roomTitle = action.payload.title;
       state.roomId = action.payload.roomId;
+    },
+    getRooms: (state, action) => {
+      state.rooms = action.payload;
     },
   },
 });
