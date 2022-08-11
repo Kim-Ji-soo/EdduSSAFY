@@ -15,6 +15,8 @@ import { quiz } from "../api/api";
 import { useNavigate, useLocation } from "react-router-dom";
 import styles from "../css/CreateQuestion.module.css";
 
+import { Box } from "@mui/material";
+
 const validationSchema = yup.object({
   content: yup.string("Enter your content").required("content is required"),
   score: yup
@@ -86,14 +88,14 @@ function CreateContent(props) {
 function CreateQuestion() {
   const navigate = useNavigate();
   const { state } = useLocation();
-  const [imageSrc, setImageSrc] = useState('');
+  const [imageSrc, setImageSrc] = useState("");
   const encodeFileToBase64 = (fileBlob) => {
-  const reader = new FileReader();
+    const reader = new FileReader();
     reader.readAsDataURL(fileBlob);
     return new Promise((resolve) => {
-    reader.onload = () => {
-    setImageSrc(reader.result);
-    resolve();
+      reader.onload = () => {
+        setImageSrc(reader.result);
+        resolve();
       };
     });
   };
@@ -128,111 +130,117 @@ function CreateQuestion() {
 
   return (
     <>
-      <h1>Create Question</h1>
-
-      <input 
-        type="file"
-        onChange={(e)=>{
-          encodeFileToBase64(e.target.files[0]);
-          formik.values.quizPic = e.target.files[0].name;
-          console.log(formik.values);
-        }}
-        />
-        <div className={styles.preview}>
-          {imageSrc && <img src={imageSrc} alt="preview-img"/>}
-        </div>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          formik.handleSubmit(e);
+      <Box
+        sx={{
+          margin: 10,
         }}
       >
-        <div>
-          <TextField
-            name="content"
-            label="content"
-            value={formik.values.content}
-            onChange={formik.handleChange}
-            error={formik.touched.content && Boolean(formik.errors.content)}
-            helperText={formik.touched.content && formik.errors.content}
-          />
+        <h1>Create Question</h1>
+
+        <input
+          type="file"
+          onChange={(e) => {
+            encodeFileToBase64(e.target.files[0]);
+            formik.values.quizPic = e.target.files[0].name;
+            console.log(formik.values);
+          }}
+        />
+        <div className={styles.preview}>
+          {imageSrc && <img src={imageSrc} alt="preview-img" />}
         </div>
-        <div>
-          <TextField
-            name="score"
-            label="score"
-            value={formik.values.score}
-            onChange={formik.handleChange}
-            error={formik.touched.score && Boolean(formik.errors.score)}
-            helperText={formik.touched.score && formik.errors.score}
-          />
-        </div>
-        <div>
-          <FormControl>
-            <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
-            <RadioGroup
-              aria-labelledby="demo-controlled-radio-buttons-group"
-              name="type"
-              defaultValue="choice"
-              value={formik.values.type}
-              onChange={formik.handleChange}
-            >
-              <FormControlLabel
-                checked={formik.values.type === "choice"}
-                value="choice"
-                control={<Radio />}
-                label="객관식"
-                onClick={() => {
-                  formik.values.options = "";
-                  formik.values.optionSize = 0;
-                }}
-              ></FormControlLabel>
-              <FormControlLabel
-                checked={formik.values.type === "subjective"}
-                value="subjective"
-                control={<Radio />}
-                label="주관식"
-                onClick={() => {
-                  formik.values.options = "";
-                  formik.values.optionSize = 0;
-                }}
-              ></FormControlLabel>
-            </RadioGroup>
-          </FormControl>
-        </div>
-        {formik.values.type === "choice" && (
-          <CreateContent
-            onSubmit={(result) => {
-              const newResultCount = result.filter(
-                (element) => "" !== element
-              ).length;
-              formik.values.optionSize = newResultCount;
-              formik.values.options = result.join("|");
-            }}
-          ></CreateContent>
-        )}
-        <div>
-          <TextField
-            name="answer"
-            label="answer"
-            value={formik.values.answer}
-            onChange={formik.handleChange}
-            error={formik.touched.answer && Boolean(formik.errors.answer)}
-            helperText={formik.touched.answer && formik.errors.answer}
-          />
-        </div>
-        <Button
-          type="submit"
-          disabled={formik.isSubmitting}
-          // onClick={() => {
-          //   formik.values.quizId = new Date()
-          //     .toLocaleString()
-          //     .replace(/[\.\s\:ㄱ-ㅎㅏ-ㅣ가-힣]/g, "");
-          // }}
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            formik.handleSubmit(e);
+          }}
         >
-          Submit
-        </Button>
-      </form>
+          <div>
+            <TextField
+              name="content"
+              label="content"
+              value={formik.values.content}
+              onChange={formik.handleChange}
+              error={formik.touched.content && Boolean(formik.errors.content)}
+              helperText={formik.touched.content && formik.errors.content}
+            />
+          </div>
+          <div>
+            <TextField
+              name="score"
+              label="score"
+              value={formik.values.score}
+              onChange={formik.handleChange}
+              error={formik.touched.score && Boolean(formik.errors.score)}
+              helperText={formik.touched.score && formik.errors.score}
+            />
+          </div>
+          <div>
+            <FormControl>
+              <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
+              <RadioGroup
+                aria-labelledby="demo-controlled-radio-buttons-group"
+                name="type"
+                defaultValue="choice"
+                value={formik.values.type}
+                onChange={formik.handleChange}
+              >
+                <FormControlLabel
+                  checked={formik.values.type === "choice"}
+                  value="choice"
+                  control={<Radio />}
+                  label="객관식"
+                  onClick={() => {
+                    formik.values.options = "";
+                    formik.values.optionSize = 0;
+                  }}
+                ></FormControlLabel>
+                <FormControlLabel
+                  checked={formik.values.type === "subjective"}
+                  value="subjective"
+                  control={<Radio />}
+                  label="주관식"
+                  onClick={() => {
+                    formik.values.options = "";
+                    formik.values.optionSize = 0;
+                  }}
+                ></FormControlLabel>
+              </RadioGroup>
+            </FormControl>
+          </div>
+          {formik.values.type === "choice" && (
+            <CreateContent
+              onSubmit={(result) => {
+                const newResultCount = result.filter(
+                  (element) => "" !== element
+                ).length;
+                formik.values.optionSize = newResultCount;
+                formik.values.options = result.join("|");
+              }}
+            ></CreateContent>
+          )}
+          <div>
+            <TextField
+              name="answer"
+              label="answer"
+              value={formik.values.answer}
+              onChange={formik.handleChange}
+              error={formik.touched.answer && Boolean(formik.errors.answer)}
+              helperText={formik.touched.answer && formik.errors.answer}
+            />
+          </div>
+          <Button
+            type="submit"
+            disabled={formik.isSubmitting}
+            // onClick={() => {
+            //   formik.values.quizId = new Date()
+            //     .toLocaleString()
+            //     .replace(/[\.\s\:ㄱ-ㅎㅏ-ㅣ가-힣]/g, "");
+            // }}
+          >
+            Submit
+          </Button>
+        </form>
+      </Box>
     </>
   );
 }
