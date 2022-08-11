@@ -13,9 +13,12 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { room } from "../../api/api";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { roomActions } from "../../redux/room";
 
 function RoomList() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const userId = useSelector((state) => {
     return state.user.value.userId;
   });
@@ -55,6 +58,11 @@ function RoomList() {
                         userId: userId,
                       },
                     }).then((res) => {
+                      dispatch(
+                        roomActions.setRoom({
+                          roomId: row.roomId,
+                        })
+                      );
                       navigate("/openvidu", { replace: true });
                     });
                   }}
