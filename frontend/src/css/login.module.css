@@ -1,3 +1,14 @@
+.background{
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: url(../assets/로그인_회원가입_배경.png);
+  margin: 0;
+  padding: 0;
+  left: 0;
+  top: 0;
+}
+
 .container{
   position: absolute;
   display: flex;

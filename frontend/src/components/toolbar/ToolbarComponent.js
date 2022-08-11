@@ -129,14 +129,6 @@ export default class ToolbarComponent extends Component {
                 <StopScreenShare color="secondary" />
               </IconButton>
             )}
-
-            <IconButton
-              color="inherit"
-              className="navButton"
-              onClick={this.switchCamera}
-            >
-              <SwitchVideoIcon />
-            </IconButton>
             <IconButton
               color="inherit"
               className="navButton"

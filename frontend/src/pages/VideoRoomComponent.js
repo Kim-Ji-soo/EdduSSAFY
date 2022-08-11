@@ -597,7 +597,6 @@ class VideoRoomComponent extends Component {
           screenShare={this.screenShare}
           stopScreenShare={this.stopScreenShare}
           toggleFullscreen={this.toggleFullscreen}
-          switchCamera={this.switchCamera}
           leaveSession={this.leaveSession}
           toggleChat={this.toggleChat}
         />

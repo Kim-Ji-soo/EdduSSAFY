@@ -19,9 +19,21 @@ import { persistor } from "./redux/store";
 import PrivateRoute from "./lib/PrivateRoute";
 import UpdateQuestion from "./pages/UpdateQuestion";
 
+import {createTheme, ThemeProvider} from "@mui/material/styles"
+
 function App() {
+
+  const theme = createTheme({
+    typography:{
+      allVariants:{
+      fontFamily:["Single Day","cursive"].join(','),
+      },
+    },
+  });
+
   return (
     <div className="App">
+      <ThemeProvider theme={theme}>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <Grid
@@ -102,6 +114,7 @@ function App() {
           </Grid>
         </PersistGate>
       </Provider>
+      </ThemeProvider>
     </div>
   );
 }
