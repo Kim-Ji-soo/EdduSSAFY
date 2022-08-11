@@ -226,7 +226,7 @@ function Signup() {
                   sx={Textfieldsx}
                 />
               </div>
-              <div userId={styles.inputId}>
+              <div className={styles.inputId}>
                 <TextField
                   name="userId"
                   label="userId"

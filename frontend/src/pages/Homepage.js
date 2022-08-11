@@ -46,18 +46,43 @@ function Homepage(props) {
       handleJoinRoom(res.data.roomId);
     });
   };
+
+  const Buttonsx = {
+    "&.MuiButton-root": {
+      marginTop: "10px",
+      width: "10%",
+      textDecoration: "none",
+      borderRadius: "70px 70px",
+      padding: "5px 0px",
+      background: "#11b683",
+
+    },
+    "&.MuiButton-root:hover": {
+      background: "#0bac7a",
+      transform: "translateY(-2px)",
+    },
+  };
+
+  const Gridsx = {
+    "&.MuiGrid-root":{
+      marginTop: "20px",
+    },
+    "&.MuiGrid-item":{
+      padding: 0,
+    }
+  }
+
   return (
     <Grid item container spacing={2}>
-      <Grid item xs={12} md={9}>
+      <Grid item  xs={12} md={12} sx={Gridsx} >
+      <p>RoomList</p>
         <RoomList></RoomList>
-      </Grid>
-      <Grid item xs={12} md={3}>
-        <UserList></UserList>
       </Grid>
       <Button
         onClick={() => {
           setCropen((cropen) => !cropen);
         }}
+        sx = {Buttonsx}
       >
         방 생성
       </Button>

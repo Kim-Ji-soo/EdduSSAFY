@@ -117,8 +117,8 @@ function ProblemList() {
               {QUIZBOOK.map((item, index) => {
                 return (
                   <Collapse key={index}>
-                    <List>
-                      <ListItem
+                    <List  sx={{border:"1px solid #7bc4fc", borderRadius: "10px 10px" ,marginBottom: "10px", padding:0,}}>
+                      <ListItem  sx={{padding: 0, paddingTop: "8px", paddingBottom: "8px",}}
                         ContainerComponent={CustomContainerComponent}
                         ContainerProps={{
                           extraSecondaryAction: (
@@ -220,14 +220,13 @@ function ProblemList() {
                         <ListItemButton
                           sx={{
                             "&.MuiListItemButton-root": {
-                              ":hover": {
-                                backgroundColor: "yellow",
-                                color: "gray",
+                              padding:"8px, 0px",
+                              "&:hover": {
+                               background:"none",
                               },
-                              ":active": {
-                                backgroundColor: "red",
-                                color: "blue",
-                              },
+                              "&:child": {
+                                backgroundColor:"#e2f0ff",
+                               },
                             },
                           }}
                           onClick={() => {
@@ -317,7 +316,7 @@ function ProblemList() {
                         {/* 문제 추가하기 끝 */}
                       </Collapse>
 
-                      <Divider />
+                      {/* <Divider /> */}
                       {/* 하위 끝 */}
                     </List>
                   </Collapse>

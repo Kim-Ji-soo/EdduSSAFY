@@ -180,6 +180,7 @@ class VideoRoomComponent extends Component {
       resolution: "640x480",
       frameRate: 30,
       insertMode: "APPEND",
+      mirror: false
     });
 
     if (this.state.session.capabilities.publish) {
@@ -576,7 +577,6 @@ class VideoRoomComponent extends Component {
           screenShare={this.screenShare}
           stopScreenShare={this.stopScreenShare}
           toggleFullscreen={this.toggleFullscreen}
-          switchCamera={this.switchCamera}
           leaveSession={this.leaveSession}
           toggleChat={this.toggleChat}
         />

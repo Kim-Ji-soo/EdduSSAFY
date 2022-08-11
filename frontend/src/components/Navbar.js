@@ -12,22 +12,16 @@ import {
 import DrawerComponent from "./Drawer";
 import classes from "../css/navbar.module.css";
 import { Outlet } from "react-router-dom";
+import Logo from "../assets/EDDUSSAFY_배경x.png"
 
 export default function Navbar() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <>
-      <AppBar>
+      <AppBar sx={{background: "#2ea2f8"}}>
         <Toolbar className={classes.toolbar}>
-          <Typography
-            variant="h5"
-            component={Link}
-            to="/"
-            className={classes.logo}
-          >
-            Eddu SSAFY
-          </Typography>
+          <img src={Logo} alt="logo" className={classes.logo}></img>
           {isMobile ? (
             <DrawerComponent></DrawerComponent>
           ) : (

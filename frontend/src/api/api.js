@@ -9,7 +9,7 @@ const USER_ROOM = "user_room/";
 
 const room = {
   createRoom: () => HOST + ROOM + "create/",
-  joinRoom: () => HOST + USER_ROOM + "register/",
+  joinRoom: () => HOST + USER_ROOM + "enter/",
 };
 
 const users = {

@@ -22,6 +22,11 @@ function DrawerComponent() {
         open={openDrawer}
         anchor="right"
         onClose={() => setOpenDrawer(false)}
+        PaperProps={{
+          sx: {
+            backgroundColor: "#2ea2f8",
+          }
+        }}
       >
         <List>
           <ListItem onClick={() => setOpenDrawer(false)}>
@@ -61,6 +66,9 @@ function DrawerComponent() {
       <IconButton
         onClick={() => setOpenDrawer(!openDrawer)}
         className={classes.icon}
+        sx={{color: "#c4e5fd"}}
+        disableFocusRipple
+        disableRipple
       >
         <MenuIcon />
       </IconButton>
