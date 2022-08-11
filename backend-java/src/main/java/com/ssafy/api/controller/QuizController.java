@@ -1,11 +1,9 @@
 package com.ssafy.api.controller;
 
-import com.ssafy.api.request.QuizBookCreateGetReq;
+import com.ssafy.api.request.QuizAlterReq;
 import com.ssafy.api.request.QuizCreateReq;
-import com.ssafy.api.response.QuizBookCreateGetRes;
+import com.ssafy.api.response.QuizRes;
 import com.ssafy.api.service.QuizService;
-import com.ssafy.db.entity.Quiz;
-import com.ssafy.db.entity.Quizbook;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,9 +31,9 @@ public class QuizController {
 
     //나중에 response 만들자.
     @PostMapping("/createQuiz")
-    public ResponseEntity<Quiz> createQuiz(@RequestBody QuizCreateReq quizCreateReq){
+    public ResponseEntity<QuizRes> createQuiz(@RequestBody QuizCreateReq quizCreateReq){
 
-        Quiz quiz = quizService.createQuiz(quizCreateReq);
+        QuizRes quiz = quizService.createQuiz(quizCreateReq);
        if( quiz == null){
            return ResponseEntity.status(400).body(null);
        }
@@ -44,9 +42,9 @@ public class QuizController {
 
     //굳이 필요할까 리퀘스트가?
     @PutMapping("/alterQuiz")
-    public ResponseEntity<Boolean> alterQuiz(@RequestBody Quiz quiz){
+    public ResponseEntity<Boolean> alterQuiz(@RequestBody QuizAlterReq quizAlterReq){
 
-        if(quizService.alterQuiz(quiz)){
+        if(!quizService.alterQuiz(quizAlterReq)){
             return ResponseEntity.status(400).body(false);
         }
         return ResponseEntity.status(200).body(true);
@@ -62,8 +60,8 @@ public class QuizController {
     }
     
     @GetMapping("/searchByQuizbook/{quizbookId}")
-    public ResponseEntity<List<Quiz>> searchByQuizbookId (@PathVariable("quizbookId") Long quizbookId){
-        List<Quiz> quizs = quizService.searchByQuizbookId(quizbookId);
+    public ResponseEntity<List<QuizRes>> searchByQuizbookId (@PathVariable("quizbookId") Long quizbookId){
+        List<QuizRes> quizs = quizService.searchByQuizbookId(quizbookId);
         if(quizs == null ){
             return ResponseEntity.status(400).body(null);
         }

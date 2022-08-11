@@ -48,7 +48,7 @@ public class QUserRoom extends EntityPathBase<UserRoom> {
 
     public QUserRoom(Class<? extends UserRoom> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.room = inits.isInitialized("room") ? new QRoom(forProperty("room")) : null;
+        this.room = inits.isInitialized("room") ? new QRoom(forProperty("room"), inits.get("room")) : null;
         this.user = inits.isInitialized("user") ? new QUser(forProperty("user")) : null;
     }
 

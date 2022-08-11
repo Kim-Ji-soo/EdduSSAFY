@@ -1,17 +1,17 @@
 package com.ssafy.api.controller;
 
-import com.ssafy.api.request.QuizBookCreateGetReq;
-import com.ssafy.api.response.QuizBookCreateGetRes;
+import com.ssafy.api.request.QuizbookCreateReq;
+import com.ssafy.api.request.QuizbookUpdateReq;
+import com.ssafy.api.response.QuizbookCreateRes;
+import com.ssafy.api.response.QuizbookRes;
+import com.ssafy.api.response.QuizbooksOfUserRes;
 import com.ssafy.api.service.QuizbookService;
-import com.ssafy.db.entity.Quiz;
 import com.ssafy.db.entity.Quizbook;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @Api(value ="문제집 API", tags = {"Quizbook"})
@@ -23,22 +23,24 @@ public class QuizbookController {
     QuizbookService quizbookService;
 
     @PostMapping("/create")
-    public ResponseEntity<QuizBookCreateGetRes> createQuizBook(@RequestBody QuizBookCreateGetReq quizBookCreateGetReq){
-        Quizbook quizBook = new Quizbook();
-        quizBook = quizbookService.createQuizBook(quizBookCreateGetReq);
+    public ResponseEntity<QuizbookCreateRes> createQuizBook(@RequestBody QuizbookCreateReq quizbookCreateReq){
+        Quizbook quizbook = quizbookService.createQuizBook(quizbookCreateReq);
+        if(quizbook == null){
+            return ResponseEntity.status(400).body(null);
+        }
 
-        QuizBookCreateGetRes  quizBookCreateGetRes= new QuizBookCreateGetRes();
-        return ResponseEntity.status(200).body(quizBookCreateGetRes.of(quizBook));
+        QuizbookCreateRes quizbookCreateRes = new QuizbookCreateRes();
+        return ResponseEntity.status(200).body(quizbookCreateRes.of(quizbook));
     };
 
     @GetMapping("/search/{quizbookId}")
-    public ResponseEntity<Quizbook> searchQuizBookById(@PathVariable("quizbookId") Long quizbookId){
+    public ResponseEntity<QuizbookRes> searchQuizBookById(@PathVariable("quizbookId") Long quizbookId){
         Optional<Quizbook> quizbookOptional = quizbookService.getQuizBookById(quizbookId);
 
         if(!quizbookOptional.isPresent()){
             ResponseEntity.status(400).body(null);
         }
-        return ResponseEntity.status(200).body(quizbookOptional.get());
+        return ResponseEntity.status(200).body(new QuizbookRes(quizbookOptional.get()));
     }
 
     @DeleteMapping("/delete/{quizbookId}")
@@ -48,6 +50,23 @@ public class QuizbookController {
             return ResponseEntity.status(400).body(false);
         }
 
+        return ResponseEntity.status(200).body(true);
+    }
+
+    @GetMapping("/getQuizbookCombs/{userId}")
+    public ResponseEntity<QuizbooksOfUserRes> getQuizbookCombs(@PathVariable("userId") String userId){
+        QuizbooksOfUserRes res = quizbookService.getQuizbookCombsByUserId(userId);
+        if(res == null){
+            return ResponseEntity.status(400).body(null);
+        }
+        return ResponseEntity.status(200).body(res);
+    }
+
+    @PutMapping("/alter")
+    public ResponseEntity<Boolean> alterQuizbook(@RequestBody QuizbookUpdateReq quizbookUpdateReq){
+        if(!quizbookService.alterQuizbook(quizbookUpdateReq)){
+            return ResponseEntity.status(400).body(false);
+        }
         return ResponseEntity.status(200).body(true);
     }
 

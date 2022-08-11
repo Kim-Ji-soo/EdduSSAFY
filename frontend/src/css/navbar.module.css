@@ -8,6 +8,7 @@
     cursor: pointer;
     text-decoration: none;
     color: white;
+    width: 3vw;
 }
 .navlinks {
     margin-left: 5px;
@@ -15,12 +16,12 @@
   }
 .link{
     text-decoration: none;
-    color: white;
+    color: #c4e5fd;
     font-size: 20px;
     margin-left: 20px;
 }
 
 .link:hover{
-    color: yellow;
-    border-bottom: 1px solid white;
+    color: white;
+    transform: translateY(-2px);
 }

@@ -16,13 +16,13 @@ public class Quizbook {
 
     @Id
     @GeneratedValue
-    @Column(name="quizbook_id")
     private long quizbookId;
 
-    @Column(name="quizbook_size")
-    private int quizbookSize;
-
     private String title;
+
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
 //
 //    @OneToMany(mappedBy = "quizbook")
 //    List<Quiz> quizs = new ArrayList<>();

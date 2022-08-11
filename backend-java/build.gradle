@@ -28,7 +28,7 @@ buildscript{
 plugins {
     id 'java'
     id 'idea'
-    id 'org.springframework.boot' version "${springBootVer}"
+    id 'org.springframework.boot'
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -200,7 +200,7 @@ test {
 }
 
 bootJar {
-    enabled = false
+    enabled = true
 }
 
 jar {

@@ -9,12 +9,11 @@ export const tokenSlice = createSlice({
   },
   reducers: {
     setToken: (state, action) => {
-      state.value = action.payload;
+      state.value.accessToken = action.payload.accessToken;
     },
-    deleteToken : (state)=>{
-      state.value = "";
-    }
-
+    deleteToken: (state) => {
+      state.value.accessToken = "";
+    },
   },
 });
 
