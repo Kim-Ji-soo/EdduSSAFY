@@ -105,7 +105,7 @@ public class UserController {
 	// 회원 정보 수정 (비밀번호 수정)
 	@ApiOperation(value = "회원 정보 수정", notes = "회원 정보 수정")
 	@PutMapping("/update")
-	public ResponseEntity<String> update(@RequestBody UserUpdateReq updateUserReq) throws Exception {
+	public ResponseEntity<String> updateUser(@RequestBody UserUpdateReq updateUserReq) throws Exception {
 		User user;
 		try {
 			user = userService.getUserByUserId(updateUserReq.getUserId());
@@ -144,10 +144,12 @@ public class UserController {
 
 	@PutMapping("/changePassword")
 	public ResponseEntity<Boolean> changePassword(@RequestBody UserChangePasswordReq userInfo){
-		if (!userService.changePassword(userInfo)){
-			return ResponseEntity.status(400).body(false);
+
+		if(!userService.changePassword(userInfo)){
+			return  ResponseEntity.status(400).body(false);
 		}
 		return ResponseEntity.status(200).body(true);
 	}
+
 }
 

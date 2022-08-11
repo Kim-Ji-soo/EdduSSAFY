@@ -26,6 +26,8 @@ public class UserRes{
 
 	String email;
 
+	String position;
+
 	public static UserRes of(User user) {
 		UserRes res = new UserRes();
 		res.setUserId(user.getUserId());
@@ -33,6 +35,7 @@ public class UserRes{
 		res.setNickName(user.getNickname());
 		res.setTel(user.getTel());
 		res.setEmail(user.getEmail());
+		res.setPosition(user.getPosition());
 		return res;
 	}
 }

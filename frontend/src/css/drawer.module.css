@@ -1,9 +1,13 @@
 .link{
     text-decoration: none;
-    color: black;
+    color: #c4e5fd;
     font-size: large;
 }
-
-.icon{
+.link:hover{
     color: white;
+}
+
+.icon:hover{
+    color :white;
+    
 }

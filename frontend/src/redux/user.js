@@ -9,6 +9,7 @@ export const userSlice = createSlice({
       nickName: "",
       tel: "",
       email: "",
+      position : "",
     },
   },
   reducers: {
@@ -24,6 +25,7 @@ export const userSlice = createSlice({
       state.value.nickName = "";
       state.value.tel = "";
       state.value.email = "";
+      state.value.position ="";
     }
   },
 });
