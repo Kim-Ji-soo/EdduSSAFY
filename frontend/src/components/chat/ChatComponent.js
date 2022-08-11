@@ -13,13 +13,14 @@ export default class ChatComponent extends Component {
     this.state = {
       messageList: [],
       message: "",
+      isNickname : false,
     };
     this.chatScroll = React.createRef();
-
     this.handleChange = this.handleChange.bind(this);
     this.handlePressKey = this.handlePressKey.bind(this);
     this.close = this.close.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
+    this.toggleButton = this.toggleButton.bind(this);
   }
 
   componentDidMount() {
@@ -61,12 +62,20 @@ export default class ChatComponent extends Component {
 
   sendMessage() {
     console.log(this.state.message);
+    let nickname;
+    if(this.state.isNickname === false){
+      nickname = this.props.user.getNickname();
+    }
+    else{
+      nickname = "익명";
+    }
+
     if (this.props.user && this.state.message) {
       let message = this.state.message.replace(/ +(?= )/g, "");
       if (message !== "" && message !== " ") {
         const data = {
           message: message,
-          nickname: this.props.user.getNickname(),
+          nickname: nickname,
           streamId: this.props.user.getStreamManager().stream.streamId,
         };
         this.props.user.getStreamManager().stream.session.signal({
@@ -89,6 +98,15 @@ export default class ChatComponent extends Component {
 
   close() {
     this.props.close(undefined);
+  }
+
+  toggleButton(){
+    if(this.state.isNickname === true){
+      this.setState({isNickname : false});
+    }
+    else{
+      this.setState({isNickname : true});
+    }
   }
 
   render() {
@@ -135,19 +153,24 @@ export default class ChatComponent extends Component {
               </div>
             ))}
           </div>
-
+         
           <div id="messageInput">
-            <input
+          <input id="anonymous" className="anonymous" type="checkbox" 
+          onChange={this.toggleButton}
+          />
+            <input className="messageInput"
               placeholder="Send a messge"
               id="chatInput"
               value={this.state.message}
               onChange={this.handleChange}
               onKeyPress={this.handlePressKey}
-            />
-            <Tooltip title="Send message">
-              <Fab size="small" id="sendButton" onClick={this.sendMessage}>
-                <Send />
-              </Fab>
+              />
+
+            
+              <Tooltip title="Send message">
+                <Fab size="small" id="sendButton" onClick={this.sendMessage}>
+                  <Send />
+                </Fab>
             </Tooltip>
           </div>
         </div>

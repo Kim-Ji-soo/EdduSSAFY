@@ -180,6 +180,7 @@ class VideoRoomComponent extends Component {
       resolution: "640x480",
       frameRate: 30,
       insertMode: "APPEND",
+      mirror : false,
     });
 
     if (this.state.session.capabilities.publish) {
@@ -429,7 +430,7 @@ class VideoRoomComponent extends Component {
             videoSource: newVideoDevice[0].deviceId,
             publishAudio: localUser.isAudioActive(),
             publishVideo: localUser.isVideoActive(),
-            mirror: true,
+            mirror: false,
           });
 
           //newPublisher.once("accessAllowed", () => {

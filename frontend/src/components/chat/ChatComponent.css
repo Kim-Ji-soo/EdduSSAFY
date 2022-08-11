@@ -147,7 +147,6 @@
   }
   
   /* End my messages */
-  
   #messageInput {
     position: absolute;
     bottom: 0px;
@@ -159,8 +158,8 @@
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
   }
-  #messageInput input {
-    width: 90%;
+  #messageInput .messageInput {
+    width: 80%;
     height: 100%;
     border: none;
     outline: none;
@@ -168,7 +167,12 @@
     margin-left: -6%;
     color: #000000;
   }
-  
+  #messageInput .anonymous {
+    width: 10%;
+    height: 100%;
+    float:left;
+
+  }
   #sendButton {
     background-color: #81e9b0;
     position: absolute;
