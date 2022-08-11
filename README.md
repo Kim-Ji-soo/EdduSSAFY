@@ -66,6 +66,9 @@ feature : 세부 기능을 개발하는 브랜치
   - MUI
   - React, Redux
   - Visual Studio Code
+  
+  <br/>
+
 - **Backend**
   - Java
   - Spring Boot, Spring MVC, Spring Data JPA
@@ -73,9 +76,15 @@ feature : 세부 기능을 개발하는 브랜치
   - Gradle
   - MySQL
   - Intellij
+
+  <br/>
+  
 - **DevOps**
   - AWS EC2
   - Apache Tomcat
+
+  <br/>
+
 - **Collaboration**
   - Jira
   - Gitlab
@@ -173,7 +182,7 @@ feature : 세부 기능을 개발하는 브랜치
 
 <br/><br/><br/>
 
-## 📃설치 가이드
+## 📃설치 및 실행 가이드
 - Frontend
 ```
 $ cd frontend
