@@ -15,6 +15,7 @@ import { room } from "../../api/api";
 import { useNavigate } from "react-router-dom";
 import { quizbook } from "../../api/api";
 import { quizbookActions } from "../../redux/quizbook";
+import { roomActions } from "../../redux/room";
 
 function RoomList() {
   const navigate = useNavigate();
@@ -64,6 +65,18 @@ function RoomList() {
                     }).then((res) => {
                       console.log(res.data);
                       dispatch(quizbookActions.getquizbook(res.data));
+                      axios({
+                        method: "get",
+                        url: quizbook.getQuizbook() + userId,
+                      }).then((res) => {
+                        console.log(res.data);
+                        dispatch(quizbookActions.getquizbook(res.data));
+                      });
+                      dispatch(
+                        roomActions.setRoom({
+                          roomId: row.roomId,
+                        })
+                      );
                       navigate("/openvidu", { replace: true });
                     });
                   }}
