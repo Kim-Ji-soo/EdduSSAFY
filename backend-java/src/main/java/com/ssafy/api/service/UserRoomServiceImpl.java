@@ -2,6 +2,7 @@ package com.ssafy.api.service;
 
 import com.ssafy.api.request.UserRoomReq;
 import com.ssafy.api.response.RoomRes;
+import com.ssafy.api.response.UserInRoomRes;
 import com.ssafy.api.response.UserRes;
 import com.ssafy.db.entity.UserRoom;
 import com.ssafy.db.repository.RoomRepository;
@@ -77,16 +78,18 @@ public class UserRoomServiceImpl implements UserRoomService{
 
     @Override
     public List<UserRes> getUsersByRoomId(long roomId) {
-        List<UserRes> users = new ArrayList<>();
+        List<UserRes> infos = new ArrayList<>();
         try{
             List<UserRoom> userRooms = userRoomRepository.findByRoomRoomId(roomId);
             for(UserRoom ur : userRooms){
-                users.add(UserRes.of(ur.getUser()));
+                UserInRoomRes info = UserInRoomRes.of(ur.getUser());
+                info.setScore(ur.getScore());
+                infos.add(info);
             }
         }catch(Exception e){
             e.printStackTrace();
             return null;
         }
-        return users;
+        return infos;
     }
 }
