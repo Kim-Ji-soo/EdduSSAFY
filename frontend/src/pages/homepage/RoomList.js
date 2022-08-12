@@ -15,7 +15,6 @@ import { room } from "../../api/api";
 import { useNavigate } from "react-router-dom";
 import { quizbook } from "../../api/api";
 import { quizbookActions } from "../../redux/quizbook";
-import { useDispatch } from "react-redux";
 import { roomActions } from "../../redux/room";
 
 function RoomList() {
@@ -57,9 +56,15 @@ function RoomList() {
                       method: "post",
                       data: {
                         roomId: row.roomId,
-                        userId: userId,
+                        userId: row.hostId,
                       },
+                    }).then((res) => {});
+                    axios({
+                      method: "get",
+                      url: quizbook.getQuizbook() + row.hostId,
                     }).then((res) => {
+                      console.log(res.data);
+                      dispatch(quizbookActions.getquizbook(res.data));
                       axios({
                         method: "get",
                         url: quizbook.getQuizbook() + userId,
