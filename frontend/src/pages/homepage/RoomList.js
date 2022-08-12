@@ -55,12 +55,12 @@ function RoomList() {
                       method: "post",
                       data: {
                         roomId: row.roomId,
-                        userId: userId,
+                        userId: row.hostId,
                       },
                     }).then((res) => {});
                     axios({
                       method: "get",
-                      url: quizbook.getQuizbook() + userId,
+                      url: quizbook.getQuizbook() + row.hostId,
                     }).then((res) => {
                       console.log(res.data);
                       dispatch(quizbookActions.getquizbook(res.data));
