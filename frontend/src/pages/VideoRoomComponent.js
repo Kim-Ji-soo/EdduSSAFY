@@ -5,6 +5,7 @@ import { OpenVidu } from "openvidu-browser";
 import StreamComponent from "../components/stream/StreamComponent";
 import DialogExtensionComponent from "../components/dialog-extension/DialogExtension";
 import ChatComponent from "../components/chat/ChatComponent";
+import QuizComponent from "../components/quiz/QuizComponent";
 import { Navigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { room } from "../api/api";
@@ -49,6 +50,7 @@ class VideoRoomComponent extends Component {
       chatDisplay: "none",
       currentVideoDevice: undefined,
       publisher: undefined,
+      quizDisplay: "none",
     };
     this.joinSession = this.joinSession.bind(this);
     this.leaveSession = this.leaveSession.bind(this);
@@ -63,6 +65,7 @@ class VideoRoomComponent extends Component {
     this.stopScreenShare = this.stopScreenShare.bind(this);
     this.closeDialogExtension = this.closeDialogExtension.bind(this);
     this.toggleChat = this.toggleChat.bind(this);
+    this.toggleQuiz = this.toggleQuiz.bind(this);
     this.checkNotification = this.checkNotification.bind(this);
     this.checkSize = this.checkSize.bind(this);
     this.setPublisher = this.setPublisher.bind(this);
@@ -557,6 +560,20 @@ class VideoRoomComponent extends Component {
     }
     this.updateLayout();
   }
+  toggleQuiz(property) {
+    let display = property;
+
+    if (display === undefined) {
+      display = this.state.quizDisplay === "none" ? "block" : "none";
+    }
+    if (display === "block") {
+      this.setState({ quizDisplay: display, messageReceived: false });
+    } else {
+      console.log("quiz", display);
+      this.setState({ quizDisplay: display });
+    }
+    this.updateLayout();
+  }
 
   checkNotification(event) {
     this.setState({
@@ -585,6 +602,8 @@ class VideoRoomComponent extends Component {
     const localUser = this.state.localUser;
     console.log(this.state.subscribers);
     var chatDisplay = { display: this.state.chatDisplay };
+    const quizDisplay = { display: this.state.quizDisplay };
+    console.log(quizDisplay);
     return (
       <div className="container" id="container">
         {this.state.isActive && <Navigate to="/" replace={true} />}
@@ -599,6 +618,7 @@ class VideoRoomComponent extends Component {
           toggleFullscreen={this.toggleFullscreen}
           leaveSession={this.leaveSession}
           toggleChat={this.toggleChat}
+          toggleQuiz={this.toggleQuiz}
         />
 
         <DialogExtensionComponent
@@ -638,6 +658,20 @@ class VideoRoomComponent extends Component {
                   user={localUser}
                   chatDisplay={this.state.chatDisplay}
                   close={this.toggleChat}
+                  messageReceived={this.checkNotification}
+                />
+              </div>
+            )}
+          {localUser !== undefined &&
+            localUser.getStreamManager() !== undefined && (
+              <div
+                className="OT_root OT_publisher custom-class"
+                style={quizDisplay}
+              >
+                <QuizComponent
+                  user={localUser}
+                  quizDisplay={this.state.quizDisplay}
+                  close={this.toggleQuiz}
                   messageReceived={this.checkNotification}
                 />
               </div>

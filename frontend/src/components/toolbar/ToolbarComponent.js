@@ -12,7 +12,7 @@ import Fullscreen from "@material-ui/icons/Fullscreen";
 import FullscreenExit from "@material-ui/icons/FullscreenExit";
 import SwitchVideoIcon from "@material-ui/icons/SwitchVideo";
 import PictureInPicture from "@material-ui/icons/PictureInPicture";
-import PostAddIcon from '@mui/icons-material/PostAdd';
+import PostAddIcon from "@mui/icons-material/PostAdd";
 import ScreenShare from "@material-ui/icons/ScreenShare";
 import StopScreenShare from "@material-ui/icons/StopScreenShare";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -35,6 +35,7 @@ export default class ToolbarComponent extends Component {
     this.switchCamera = this.switchCamera.bind(this);
     this.leaveSession = this.leaveSession.bind(this);
     this.toggleChat = this.toggleChat.bind(this);
+    this.toggleQuiz = this.toggleQuiz.bind(this);
   }
 
   micStatusChanged() {
@@ -68,6 +69,9 @@ export default class ToolbarComponent extends Component {
 
   toggleChat() {
     this.props.toggleChat();
+  }
+  toggleQuiz() {
+    this.props.toggleQuiz();
   }
 
   render() {
@@ -160,10 +164,10 @@ export default class ToolbarComponent extends Component {
                 <QuestionAnswer />
               </Tooltip>
             </IconButton>
-            
+
             <IconButton
               color="inherit"
-              onClick={this.toggleChat}
+              onClick={this.toggleQuiz}
               id="navQuizButton"
             >
               {this.props.showNotification && <div id="point" className="" />}

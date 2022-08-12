@@ -9,13 +9,16 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { room } from "../../api/api";
 import { useNavigate } from "react-router-dom";
+import { quizbook } from "../../api/api";
+import { quizbookActions } from "../../redux/quizbook";
 
 function RoomList() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const userId = useSelector((state) => {
     return state.user.value.userId;
   });
@@ -55,6 +58,13 @@ function RoomList() {
                         userId: userId,
                       },
                     }).then((res) => {
+                      axios({
+                        method: "get",
+                        url: quizbook.getQuizbook() + userId,
+                      }).then((res) => {
+                        console.log(res.data);
+                        dispatch(quizbookActions.getquizbook(res.data));
+                      });
                       navigate("/openvidu", { replace: true });
                     });
                   }}
