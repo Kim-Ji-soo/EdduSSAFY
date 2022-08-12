@@ -12,6 +12,7 @@ import Fullscreen from "@material-ui/icons/Fullscreen";
 import FullscreenExit from "@material-ui/icons/FullscreenExit";
 import SwitchVideoIcon from "@material-ui/icons/SwitchVideo";
 import PictureInPicture from "@material-ui/icons/PictureInPicture";
+import PostAddIcon from '@mui/icons-material/PostAdd';
 import ScreenShare from "@material-ui/icons/ScreenShare";
 import StopScreenShare from "@material-ui/icons/StopScreenShare";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -148,6 +149,7 @@ export default class ToolbarComponent extends Component {
             >
               <PowerSettingsNew />
             </IconButton>
+
             <IconButton
               color="inherit"
               onClick={this.toggleChat}
@@ -156,6 +158,17 @@ export default class ToolbarComponent extends Component {
               {this.props.showNotification && <div id="point" className="" />}
               <Tooltip title="Chat">
                 <QuestionAnswer />
+              </Tooltip>
+            </IconButton>
+            
+            <IconButton
+              color="inherit"
+              onClick={this.toggleChat}
+              id="navQuizButton"
+            >
+              {this.props.showNotification && <div id="point" className="" />}
+              <Tooltip title="Quiz">
+                <PostAddIcon />
               </Tooltip>
             </IconButton>
           </div>
