@@ -57,14 +57,13 @@ function RoomList() {
                         roomId: row.roomId,
                         userId: userId,
                       },
+                    }).then((res) => {});
+                    axios({
+                      method: "get",
+                      url: quizbook.getQuizbook() + userId,
                     }).then((res) => {
-                      axios({
-                        method: "get",
-                        url: quizbook.getQuizbook() + userId,
-                      }).then((res) => {
-                        console.log(res.data);
-                        dispatch(quizbookActions.getquizbook(res.data));
-                      });
+                      console.log(res.data);
+                      dispatch(quizbookActions.getquizbook(res.data));
                       navigate("/openvidu", { replace: true });
                     });
                   }}
