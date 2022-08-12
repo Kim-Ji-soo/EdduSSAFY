@@ -41,7 +41,7 @@
   .message-wrap {
     padding: 0 15px;
     height: calc(100% - 80px);
-    overflow: auto;
+    overflow:scroll;
   }
   
   .message {

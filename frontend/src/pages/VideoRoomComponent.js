@@ -74,7 +74,7 @@ class VideoRoomComponent extends Component {
       minRatio: 9 / 16, // The widest ratio that will be used (default 16x9)
       fixedRatio: false, // If this is true then the aspect ratio of the video is maintained and minRatio and maxRatio are ignored (default false)
       bigClass: "OV_big", // The class to add to elements that should be sized bigger
-      bigPercentage: 0.2, // The maximum percentage of space the big ones should take up
+      bigPercentage: 0.8, // The maximum percentage of space the big ones should take up
       bigFixedRatio: false, // fixedRatio for the big ones
       bigMaxRatio: 3 / 2, // The narrowest ratio to use for the big elements (default 2x3)
       bigMinRatio: 9 / 16, // The widest ratio to use for the big elements (default 16x9)
@@ -533,7 +533,7 @@ class VideoRoomComponent extends Component {
       fixedRatio: isScreenShared,
       bigClass: "OV_big",
       bigPercentage: 0.8,
-      bigFixedRatio: true,
+      bigFixedRatio: false,
       bigMaxRatio: 3 / 2,
       bigMinRatio: 9 / 16,
       bigFirst: true,
@@ -606,10 +606,13 @@ class VideoRoomComponent extends Component {
           cancelClicked={this.closeDialogExtension}
         />
 
-        <div id="layout" className="bounds">
+          {/* <div id="layout" className="bounds"> */}
+          <div className="bounds">
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (
-              <div className="OT_root OT_publisher custom-class" id="publisher">
+              <div className="OT_root OT_publisher custom-class" id="publisher"
+              style={{position: "absolute", left: "50%", top: "50%", transform:"translate(-50%,-40%)", width: "70vw", height: "70vh"}}
+              >
                 <StreamComponent
                   user={localUser}
                   handleNickname={this.nicknameChanged}
@@ -617,15 +620,18 @@ class VideoRoomComponent extends Component {
               </div>
             )}
           {this.state.subscribers.map((sub, i) => (
+            <div style={{display:"flex"}}>
             <div
               key={i}
               className="OT_root OT_publisher custom-class"
               id="remoteUsers"
+              style={{position: "absolute", left: `${11 * i}vw`, top: "5%", transform:"translateY(-10%)", width: "10vw", height: "13vh"}}
             >
               <StreamComponent
                 user={sub}
                 streamId={sub.streamManager.stream.streamId}
               />
+            </div>
             </div>
           ))}
           {localUser !== undefined &&
