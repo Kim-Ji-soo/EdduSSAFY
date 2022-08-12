@@ -15,7 +15,6 @@ import { room } from "../../api/api";
 import { useNavigate } from "react-router-dom";
 import { quizbook } from "../../api/api";
 import { quizbookActions } from "../../redux/quizbook";
-import { useDispatch } from "react-redux";
 import { roomActions } from "../../redux/room";
 
 function RoomList() {
