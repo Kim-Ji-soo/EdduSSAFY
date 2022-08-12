@@ -1,7 +1,7 @@
 #header {
     color: #ffffff;
     height: 40px;
-    background-color: #333333;
+    background-color: #7bc4fc;
     padding: 0 14px 0 0;
     position: absolute;
     top: 0;
@@ -36,14 +36,14 @@
   
   #titleContent{
     max-width: 100px;
-    background-color: #494949;
+    background-color: #36a7fc;
     margin: 5px -18px;
     padding: 0px 15px;
     font-size: 16px;
     overflow: hidden;
     text-overflow: ellipsis;
     float: right;
-    margin-top: 20px;
+    margin-top: 15px;
   }
   
   .titleContentLight{
@@ -58,7 +58,7 @@
   }
 
   #session-title{
-    font-family: 'Open Sans', sans-serif; 
+
   }
 
 

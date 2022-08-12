@@ -67,6 +67,9 @@ function Homepage(props) {
   const Gridsx = {
     "&.MuiGrid-root":{
       marginTop: "20px",
+      display:"flex",
+      justifyContent:"center",
+
     },
     "&.MuiGrid-item":{
       padding: 0,

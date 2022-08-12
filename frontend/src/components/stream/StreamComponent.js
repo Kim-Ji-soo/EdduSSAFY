@@ -21,6 +21,7 @@ export default class StreamComponent extends Component {
         this.handlePressKey = this.handlePressKey.bind(this);
         this.toggleNicknameForm = this.toggleNicknameForm.bind(this);
         this.toggleSound = this.toggleSound.bind(this);
+        
     }
 
     handleChange(event) {
