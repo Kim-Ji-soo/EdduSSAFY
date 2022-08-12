@@ -103,7 +103,11 @@ class QuizComponent extends Component {
       .getStreamManager()
       .stream.session.on("signal:quiz", (event) => {
         const data = JSON.parse(event.data);
-        console.log(data);
+        console.log(
+          this.props.store.quizbooks.quizsInQuizbooks[data.quizbookId][
+            data.index
+          ]
+        );
         this.setState({
           index: data.index,
           quizbookId: data.quizbookId,
