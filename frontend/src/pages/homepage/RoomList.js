@@ -65,18 +65,12 @@ function RoomList() {
                     }).then((res) => {
                       console.log(res.data);
                       dispatch(quizbookActions.getquizbook(res.data));
-                      axios({
-                        method: "get",
-                        url: quizbook.getQuizbook() + userId,
-                      }).then((res) => {
-                        console.log(res.data);
-                        dispatch(quizbookActions.getquizbook(res.data));
-                      });
                       dispatch(
                         roomActions.setRoom({
                           roomId: row.roomId,
                         })
                       );
+
                       navigate("/openvidu", { replace: true });
                     });
                   }}
