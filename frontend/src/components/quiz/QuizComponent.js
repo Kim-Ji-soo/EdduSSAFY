@@ -38,7 +38,7 @@ const Quiz = function (props) {
   useEffect(() => {
     setIsSubmit(props.isSubmit);
     setQuiz(props.quiz);
-    if (props.isTimeOut && answer === "") {
+    if (props.isTimeOut && isSubmit === false) {
       checkAnswer();
     }
   }, [props.isSubmit, props.quiz, props.isTimeOut]);

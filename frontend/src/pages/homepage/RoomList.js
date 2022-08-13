@@ -56,7 +56,7 @@ function RoomList() {
                       method: "post",
                       data: {
                         roomId: row.roomId,
-                        userId: row.userId,
+                        userId: userId,
                       },
                     }).then((res) => {});
                     axios({
