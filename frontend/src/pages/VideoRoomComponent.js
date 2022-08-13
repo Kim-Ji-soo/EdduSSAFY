@@ -92,11 +92,6 @@ class VideoRoomComponent extends Component {
     window.addEventListener("beforeunload", this.onbeforeunload);
     window.addEventListener("resize", this.updateLayout);
     window.addEventListener("resize", this.checkSize);
-    if (this.state.localuser !== undefined) {
-      this.state.session.on("signal:endRoom", (event) => {
-        this.leaveSession();
-      });
-    }
     this.joinSession();
   }
 
@@ -402,6 +397,14 @@ class VideoRoomComponent extends Component {
       type: "userChanged",
     };
     this.state.session.signal(signalOptions);
+    console.log(1);
+    if (this.state.localuser !== undefined) {
+      console.log(2);
+      this.state.session.on("signal:endRoom", (event) => {
+        console.log(3);
+        this.leaveSession();
+      });
+    }
   }
 
   toggleFullscreen() {

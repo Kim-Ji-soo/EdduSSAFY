@@ -65,15 +65,15 @@ const Quiz = function (props) {
       const newResult = { ...oldResult };
       newResult.result = result;
       newResult.score = newResult.score + score;
-      console.log(newResult.score);
+      const data = {
+        roomId: roomId,
+        userId: userId,
+        score: newResult.score,
+      };
       axios({
         method: "put",
         url: room.updateScore(),
-        data: {
-          roomId: roomId,
-          userId: userId,
-          score: newResult.score,
-        },
+        data: data,
       }).catch((e) => {
         console.log(e);
       });
