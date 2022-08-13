@@ -74,6 +74,8 @@ const Quiz = function (props) {
           userId: userId,
           score: newResult.score,
         },
+      }).catch((e) => {
+        console.log(e);
       });
       return newResult;
     });

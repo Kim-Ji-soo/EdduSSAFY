@@ -93,7 +93,7 @@ class VideoRoomComponent extends Component {
     window.addEventListener("resize", this.updateLayout);
     window.addEventListener("resize", this.checkSize);
     if (this.state.localuser !== undefined) {
-      this.state.session.on("endRoom", (event) => {
+      this.state.session.on("signal:endRoom", (event) => {
         this.leaveSession();
       });
     }
