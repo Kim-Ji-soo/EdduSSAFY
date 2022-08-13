@@ -142,7 +142,6 @@ function CreateQuestion() {
           onChange={(e) => {
             encodeFileToBase64(e.target.files[0]);
             formik.values.quizPic = e.target.files[0].name;
-            console.log(formik.values);
           }}
         />
         <div className={styles.preview}>
