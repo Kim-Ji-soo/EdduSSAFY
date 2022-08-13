@@ -19,6 +19,9 @@ function Homepage(props) {
   const userId = useSelector((state) => {
     return state.user.value.userId;
   });
+  const position = useSelector((state) => {
+    return state.user.value.position;
+  });
   const handleJoinRoom = (roomId) => {
     //axios register
     axios({
@@ -98,14 +101,16 @@ function Homepage(props) {
       <Grid item xs={12} md={12} sx={Gridsx}>
         <RoomList></RoomList>
       </Grid>
-      <Button
-        onClick={() => {
-          setCropen((cropen) => !cropen);
-        }}
-        sx={Buttonsx}
-      >
-        방 생성
-      </Button>
+      {position === "professor" && (
+        <Button
+          onClick={() => {
+            setCropen((cropen) => !cropen);
+          }}
+          sx={Buttonsx}
+        >
+          방 생성
+        </Button>
+      )}
       <Modal
         open={cropen}
         onClose={() => {
