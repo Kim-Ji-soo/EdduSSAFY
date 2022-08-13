@@ -1,5 +1,6 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.request.ScoreReq;
 import com.ssafy.api.request.UserRoomReq;
 import com.ssafy.api.response.RoomRes;
 import com.ssafy.api.response.UserInRoomRes;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -91,5 +93,28 @@ public class UserRoomServiceImpl implements UserRoomService{
             return null;
         }
         return infos;
+    }
+
+    @Override
+    public UserInRoomRes updateScore(ScoreReq scoreReq) {
+        UserInRoomRes user;
+        try{
+            Optional<UserRoom> optionalUserRoom
+                    = userRoomRepository.findByRoomRoomIdAndUserUserId(scoreReq.getRoomId(), scoreReq.getUserId());
+            if(!optionalUserRoom.isPresent()){
+                throw new Exception("해당 방에 해당 유저가 없습니다.");
+            }
+
+            UserRoom ur = optionalUserRoom.get();
+            ur.setScore(scoreReq.getScore());
+
+            user = UserInRoomRes.of(userRoomRepository.save(ur).getUser());
+            user.setScore(ur.getScore());
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+        return user;
     }
 }

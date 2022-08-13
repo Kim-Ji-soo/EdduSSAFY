@@ -1,5 +1,6 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.request.ScoreReq;
 import com.ssafy.api.request.UserRoomReq;
 import com.ssafy.api.response.RoomRes;
 import com.ssafy.api.response.UserInRoomRes;
@@ -15,4 +16,6 @@ public interface UserRoomService {
     List<RoomRes> getRoomsByUserId(String userId);
 
     List<UserRes> getUsersByRoomId(long roomId);
+
+    UserInRoomRes updateScore(ScoreReq scoreReq);
 }
