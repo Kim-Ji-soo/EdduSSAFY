@@ -1,5 +1,6 @@
 package com.ssafy.api.controller;
 
+import com.ssafy.api.request.ScoreReq;
 import com.ssafy.api.request.UserRoomReq;
 import com.ssafy.api.response.RoomRes;
 import com.ssafy.api.response.UserInRoomRes;
@@ -56,5 +57,13 @@ public class UserRoomController {
         return ResponseEntity.status(200).body(infos);
     }
 
+    @PutMapping("/updateScore")
+    public ResponseEntity<UserInRoomRes> updateScore(@RequestBody ScoreReq scoreReq) {
+        UserInRoomRes user = userRoomService.updateScore(scoreReq);
+        if(user == null){
+            return ResponseEntity.status(400).body(null);
+        }
+        return ResponseEntity.status(200).body(user);
+    }
 
 }
