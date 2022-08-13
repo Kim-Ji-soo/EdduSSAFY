@@ -159,7 +159,7 @@ export default class ChatComponent extends Component {
               type="checkbox"
               onChange={this.toggleButton}
             />
-            <label for="anonymous">익명</label>
+            <label htmlFor="anonymous">익명</label>
             <input
               className="messageInput"
               placeholder="Send a messge"

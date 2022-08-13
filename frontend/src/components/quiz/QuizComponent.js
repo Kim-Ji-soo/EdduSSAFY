@@ -9,9 +9,23 @@ import "./QuizComponent.css";
 import { Tooltip } from "@material-ui/core";
 import { quiz } from "../../api/api";
 import { ThirtyFpsOutlined } from "@mui/icons-material";
+import axios from "axios";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import { roomActions } from "../../redux/room";
+import { room } from "../../api/api";
 
 const mapStateToProps = (state) => ({
   store: state,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getRoomResult: (e) => dispatch(roomActions.getRoomResult(e)),
 });
 
 const Quiz = function (props) {
@@ -19,13 +33,15 @@ const Quiz = function (props) {
   const [answer, setAnswer] = useState("");
   const [isSubmit, setIsSubmit] = useState(false);
   const [result, setResult] = useState({ result: "", score: 0 });
+  const roomId = useSelector((state) => state.room.roomId);
+  const userId = useSelector((state) => state.user.value.userId);
   useEffect(() => {
     setIsSubmit(props.isSubmit);
     setQuiz(props.quiz);
-    if (props.isTimeOut) {
+    if (props.isTimeOut && answer === "") {
       checkAnswer();
     }
-  }, [props.isSubmit, props.quiz]);
+  }, [props.isSubmit, props.quiz, props.isTimeOut]);
   const checkAnswer = function (e) {
     let result = "";
     let score = 0;
@@ -49,6 +65,15 @@ const Quiz = function (props) {
       const newResult = { ...oldResult };
       newResult.result = result;
       newResult.score = newResult.score + score;
+      axios({
+        method: "put",
+        url: room.updateScore(),
+        data: {
+          roomId: roomId,
+          userId: userId,
+          score: newResult.score,
+        },
+      });
       return newResult;
     });
     setAnswer("");
@@ -189,6 +214,9 @@ class QuizComponent extends Component {
       isSubmit: false,
       isTimeOut: false,
       isEnd: false,
+      isResult: false,
+      roomResult: [],
+      roomId: this.props.store.room.roomId,
     };
     this.chatScroll = React.createRef();
     this.handleChange = this.handleChange.bind(this);
@@ -198,6 +226,7 @@ class QuizComponent extends Component {
     this.toggleButton = this.toggleButton.bind(this);
     this.sendQuiz = this.sendQuiz.bind(this);
     this.endQuiz = this.endQuiz.bind(this);
+    this.toggleResult = this.toggleResult.bind(this);
   }
 
   componentDidMount() {
@@ -259,8 +288,14 @@ class QuizComponent extends Component {
     this.setState({
       isEnd: false,
     });
+    this.toggleResult();
   }
 
+  toggleResult() {
+    this.setState({
+      isResult: !this.state.isResult,
+    });
+  }
   sendMessage() {
     console.log(this.state.message);
     let nickname;
@@ -311,6 +346,8 @@ class QuizComponent extends Component {
   render() {
     const styleChat = { display: this.props.chatDisplay };
     const quizbook = this.state.quizbook;
+    const { getRoomResult } = this.props;
+    console.log(this.state.roomResult);
     return (
       <div id="chatContainer">
         <div id="chatComponent" style={styleChat}>
@@ -323,6 +360,7 @@ class QuizComponent extends Component {
             </div>
             {quizbook === undefined &&
               !this.state.isEnd &&
+              !this.state.isResult &&
               this.props.store.user.value.position === "professor" && (
                 <Quizbook
                   sendQuiz={(e) => {
@@ -340,14 +378,64 @@ class QuizComponent extends Component {
               )}
             {this.state.quiz !== undefined &&
               this.state.isEnd &&
+              !this.state.isResult &&
               this.props.store.user.value.position === "professor" && (
                 <Button
                   onClick={() => {
                     this.endQuiz();
+                    setTimeout(() => {
+                      axios({
+                        method: "get",
+                        url: room.getResult() + this.state.roomId + "/",
+                      }).then((res) => {
+                        console.log(room.getResult() + this.state.roomId + "/");
+                        getRoomResult(res.data);
+                        this.setState({
+                          roomResult: res.data,
+                        });
+                      });
+                    });
                   }}
                 >
                   종료
                 </Button>
+              )}
+            {this.state.isResult &&
+              this.props.store.user.value.position === "professor" && (
+                <>
+                  <TableContainer sx={{ maxWidth: 420 }} component={Paper}>
+                    <Table sx={{ minWidth: 420 }} aria-label="simple table">
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>이름</TableCell>
+                          <TableCell align="right">점수</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {this.state.roomResult.map((row) => (
+                          <TableRow
+                            key={row.nickName}
+                            sx={{
+                              "&:last-child td, &:last-child th": { border: 0 },
+                            }}
+                          >
+                            <TableCell component="th" scope="row">
+                              {row.nickName}
+                            </TableCell>
+                            <TableCell align="right">{row.score}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                  <Button
+                    onClick={() => {
+                      this.toggleResult();
+                    }}
+                  >
+                    문제 출제
+                  </Button>
+                </>
               )}
           </div>
         </div>
@@ -356,4 +444,4 @@ class QuizComponent extends Component {
   }
 }
 
-export default connect(mapStateToProps)(QuizComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(QuizComponent);

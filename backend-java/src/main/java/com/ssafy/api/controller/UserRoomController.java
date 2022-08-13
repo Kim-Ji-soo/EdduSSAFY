@@ -1,7 +1,9 @@
 package com.ssafy.api.controller;
 
+import com.ssafy.api.request.ScoreReq;
 import com.ssafy.api.request.UserRoomReq;
 import com.ssafy.api.response.RoomRes;
+import com.ssafy.api.response.UserInRoomRes;
 import com.ssafy.api.response.UserRes;
 import com.ssafy.api.service.UserRoomService;
 import com.ssafy.common.model.response.BaseResponseBody;
@@ -48,10 +50,20 @@ public class UserRoomController {
 
     @GetMapping("/userList/{roomId}")
     public ResponseEntity<List<UserRes>> getUsersByRoomId(@PathVariable("roomId") long roomId) {
-        List<UserRes> users = userRoomService.getUsersByRoomId(roomId);
-        if (users == null) {
+        List<UserRes> infos = userRoomService.getUsersByRoomId(roomId);
+        if (infos == null) {
             return ResponseEntity.status(400).body(null);
         }
-        return ResponseEntity.status(200).body(users);
+        return ResponseEntity.status(200).body(infos);
     }
+
+    @PutMapping("/updateScore")
+    public ResponseEntity<UserInRoomRes> updateScore(@RequestBody ScoreReq scoreReq) {
+        UserInRoomRes user = userRoomService.updateScore(scoreReq);
+        if(user == null){
+            return ResponseEntity.status(400).body(null);
+        }
+        return ResponseEntity.status(200).body(user);
+    }
+
 }

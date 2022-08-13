@@ -40,7 +40,7 @@ function RoomList() {
         <TableBody>
           {rows.map((row) => (
             <TableRow
-              key={row.title}
+              key={row.roomId}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
@@ -67,7 +67,9 @@ function RoomList() {
                       dispatch(quizbookActions.getquizbook(res.data));
                       dispatch(
                         roomActions.setRoom({
+                          roomTitle: row.title,
                           roomId: row.roomId,
+                          hostId: row.hostId,
                         })
                       );
 

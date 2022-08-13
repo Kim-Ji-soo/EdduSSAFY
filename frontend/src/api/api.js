@@ -12,6 +12,8 @@ const room = {
   joinRoom: () => HOST + USER_ROOM + "enter/",
   leaveRoom: () => HOST + USER_ROOM + "quit/",
   getRoom: () => HOST + ROOM + "allrooms/",
+  getResult: () => HOST + USER_ROOM + "userList/",
+  updateScore: () => HOST + USER_ROOM + "updateScore/",
 };
 
 const users = {
