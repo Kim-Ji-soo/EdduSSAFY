@@ -74,9 +74,13 @@ const Quiz = function (props) {
         method: "put",
         url: room.updateScore(),
         data: data,
-      }).catch((e) => {
-        console.log(e);
-      });
+      })
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
       return newResult;
     });
     setAnswer("");
