@@ -93,11 +93,9 @@ class VideoRoomComponent extends Component {
     window.addEventListener("resize", this.updateLayout);
     window.addEventListener("resize", this.checkSize);
     if (this.state.localuser !== undefined) {
-      this.state.localUser
-        .getStreamManager()
-        .stream.session.on("signal:endRoom", (event) => {
-          this.leaveSession();
-        });
+      this.state.session.on("endRoom", (event) => {
+        this.leaveSession();
+      });
     }
     this.joinSession();
   }
@@ -258,9 +256,7 @@ class VideoRoomComponent extends Component {
     const hostId = this.props.store.room.hostId;
     const userId = this.props.store.user.value.userId;
     if (hostId === userId) {
-      this.state.localUser
-        .getStreamManager()
-        .stream.session.signal({ type: "endRoom" });
+      this.state.session.signal({ type: "endRoom" });
     }
     if (mySession) {
       mySession.disconnect();

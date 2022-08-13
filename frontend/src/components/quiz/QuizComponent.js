@@ -65,6 +65,7 @@ const Quiz = function (props) {
       const newResult = { ...oldResult };
       newResult.result = result;
       newResult.score = newResult.score + score;
+      console.log(newResult.score);
       axios({
         method: "put",
         url: room.updateScore(),
