@@ -23,6 +23,7 @@ const users = {
   me: () => HOST + USERS + "me/",
   idcheck: () => HOST + USERS + "idcheck/",
   update: () => HOST + USERS + "update/",
+  delete: () => HOST + USERS + "delete/"
 };
 
 const email = {

@@ -6,8 +6,8 @@ import users from "../api/api";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { me } from "../redux/user";
-
+import { me, logout } from "../redux/user";
+import { deleteToken} from "../redux/token";
 import { Box } from "@mui/material";
 
 const validationSchema = yup.object({
@@ -26,6 +26,11 @@ const validationSchema = yup.object({
     .length(11, "phonenumber should be 11 characters length")
     .required("phonenumber is required"),
 });
+
+function DeleteUser(props) {
+  
+
+}
 
 function UserProfile() {
   const user = useSelector((state) => state.user.value);
@@ -141,6 +146,24 @@ function UserProfile() {
             정보수정
           </Button>
         </form>
+        <Button onClick={()=>{
+          axios({
+            method: "delete",
+            url: users.delete() + user.userId + "/",
+          })
+            .then((res) => {
+              console.log(res.data);
+              alert("회원 탈퇴가 완료되었습니다!");
+              dispatch(deleteToken());
+              dispatch(logout());
+              navigate("/login", { replace: true });
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+        }}>
+            회원탈퇴
+        </Button>
       </Box>
     </>
   );
