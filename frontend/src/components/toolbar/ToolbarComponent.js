@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./ToolbarComponent.css";
-
+import { connect } from "react-redux";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 
@@ -23,10 +23,17 @@ import IconButton from "@material-ui/core/IconButton";
 
 const logo = require("../../assets/favicon-32x32.png");
 
-export default class ToolbarComponent extends Component {
+const mapStateToProps = (state) => ({
+  store: state,
+});
+
+class ToolbarComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = { fullscreen: false };
+    this.state = {
+      fullscreen: false,
+      position: this.props.store.user.value.position,
+    };
     this.camStatusChanged = this.camStatusChanged.bind(this);
     this.micStatusChanged = this.micStatusChanged.bind(this);
     this.screenShare = this.screenShare.bind(this);
@@ -117,17 +124,19 @@ export default class ToolbarComponent extends Component {
               )}
             </IconButton>
 
-            <IconButton
-              color="inherit"
-              className="navButton"
-              onClick={this.screenShare}
-            >
-              {localUser !== undefined && localUser.isScreenShareActive() ? (
-                <PictureInPicture />
-              ) : (
-                <ScreenShare />
-              )}
-            </IconButton>
+            {this.state.position === "professor" && (
+              <IconButton
+                color="inherit"
+                className="navButton"
+                onClick={this.screenShare}
+              >
+                {localUser !== undefined && localUser.isScreenShareActive() ? (
+                  <PictureInPicture />
+                ) : (
+                  <ScreenShare />
+                )}
+              </IconButton>
+            )}
 
             {localUser !== undefined && localUser.isScreenShareActive() && (
               <IconButton onClick={this.stopScreenShare} id="navScreenButton">
@@ -181,3 +190,5 @@ export default class ToolbarComponent extends Component {
     );
   }
 }
+
+export default connect(mapStateToProps)(ToolbarComponent);

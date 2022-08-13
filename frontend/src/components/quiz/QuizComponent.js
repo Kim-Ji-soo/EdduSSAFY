@@ -4,15 +4,104 @@ import Fab from "@material-ui/core/Fab";
 import HighlightOff from "@material-ui/icons/HighlightOff";
 import Send from "@material-ui/icons/Send";
 import { connect, useSelector } from "react-redux";
-import { Button } from "@mui/material";
-
+import { Button, TextField } from "@mui/material";
 import "./QuizComponent.css";
 import { Tooltip } from "@material-ui/core";
 import { quiz } from "../../api/api";
+import { ThirtyFpsOutlined } from "@mui/icons-material";
 
 const mapStateToProps = (state) => ({
   store: state,
 });
+
+const Quiz = function (props) {
+  const [quiz, setQuiz] = useState(props.quiz);
+  const [answer, setAnswer] = useState("");
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [result, setResult] = useState({ result: "", score: 0 });
+  useEffect(() => {
+    setIsSubmit(props.isSubmit);
+    setQuiz(props.quiz);
+    if (props.isTimeOut) {
+      checkAnswer();
+    }
+  }, [props.isSubmit, props.quiz]);
+  const checkAnswer = function (e) {
+    let result = "";
+    let score = 0;
+    if (quiz.type === "subjective") {
+      if (quiz.answer === answer) {
+        result = "정답";
+        score = quiz.score;
+      } else {
+        result = "오답";
+      }
+    } else {
+      if (quiz.answer === String(e)) {
+        result = "정답";
+        score = quiz.score;
+      } else {
+        result = "오답";
+      }
+    }
+    setIsSubmit(true);
+    setResult((oldResult) => {
+      const newResult = { ...oldResult };
+      newResult.result = result;
+      newResult.score = newResult.score + score;
+      return newResult;
+    });
+    setAnswer("");
+  };
+  return (
+    <div>
+      <h1>{quiz.content}</h1>
+      {quiz.type === "choice" &&
+        isSubmit === false &&
+        quiz.options.map((option, index) => {
+          return (
+            <div key={index}>
+              <Button
+                onClick={() => {
+                  checkAnswer(index + 1);
+                }}
+              >
+                {option}
+              </Button>
+            </div>
+          );
+        })}
+      {quiz.type === "subjective" && isSubmit === false && (
+        <div>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              checkAnswer();
+            }}
+          >
+            <TextField
+              name="answer"
+              label="answer"
+              value={answer}
+              onChange={(e) => {
+                setAnswer((answer) => {
+                  return e.target.value;
+                });
+              }}
+            />
+            <Button type="submit">Submit</Button>
+          </form>
+        </div>
+      )}
+      {isSubmit === true && (
+        <>
+          <h2>{result.result}입니다.</h2>
+          <h3>총 점수는 {result.score}입니다.</h3>
+        </>
+      )}
+    </div>
+  );
+};
 
 const Quizbook = function (props) {
   const quizbooks = useSelector((state) => {
@@ -55,7 +144,7 @@ const Quizbook = function (props) {
           })}
         </div>
       )}
-      {position === "professor" && !isQuizbook && quiz.length > 0 && (
+      {position === "professor" && !isQuizbook && (
         <div>
           {quiz.map((quiz, index) => {
             return (
@@ -70,6 +159,15 @@ const Quizbook = function (props) {
               </div>
             );
           })}
+          <Button
+            onClick={() => {
+              setIsQuizbook((isQuizbook) => {
+                return !isQuizbook;
+              });
+            }}
+          >
+            뒤로 가기
+          </Button>
         </div>
       )}
     </div>
@@ -88,6 +186,9 @@ class QuizComponent extends Component {
       index: 0,
       quizbookId: 0,
       quiz: undefined,
+      isSubmit: false,
+      isTimeOut: false,
+      isEnd: false,
     };
     this.chatScroll = React.createRef();
     this.handleChange = this.handleChange.bind(this);
@@ -96,6 +197,7 @@ class QuizComponent extends Component {
     this.sendMessage = this.sendMessage.bind(this);
     this.toggleButton = this.toggleButton.bind(this);
     this.sendQuiz = this.sendQuiz.bind(this);
+    this.endQuiz = this.endQuiz.bind(this);
   }
 
   componentDidMount() {
@@ -114,8 +216,19 @@ class QuizComponent extends Component {
           quiz: this.props.store.quizbooks.quizsInQuizbooks[data.quizbookId][
             data.index
           ],
+          isSubmit: false,
+          isTimeOut: false,
         });
       });
+    this.props.user
+      .getStreamManager()
+      .stream.session.on("signal:endQuiz", (event) => {
+        this.setState({
+          isSubmit: true,
+          isTimeOut: true,
+        });
+      });
+    this.scrollToBottom();
   }
 
   handleChange(event) {
@@ -134,7 +247,20 @@ class QuizComponent extends Component {
       data: JSON.stringify(data),
       type: "quiz",
     });
+    this.setState({
+      isEnd: true,
+    });
   }
+
+  endQuiz(e) {
+    this.props.user.getStreamManager().stream.session.signal({
+      type: "endQuiz",
+    });
+    this.setState({
+      isEnd: false,
+    });
+  }
+
   sendMessage() {
     console.log(this.state.message);
     let nickname;
@@ -188,23 +314,42 @@ class QuizComponent extends Component {
     return (
       <div id="chatContainer">
         <div id="chatComponent" style={styleChat}>
-          <div id="chatToolbar">
-            <span>Quiz</span>
-            <IconButton id="closeButton" onClick={this.close}>
-              <HighlightOff color="secondary" />
-            </IconButton>
+          <div className="message-wrap" ref={this.chatScroll}>
+            <div id="chatToolbar">
+              <span>Quiz</span>
+              <IconButton id="closeButton" onClick={this.close}>
+                <HighlightOff color="secondary" />
+              </IconButton>
+            </div>
+            {quizbook === undefined &&
+              !this.state.isEnd &&
+              this.props.store.user.value.position === "professor" && (
+                <Quizbook
+                  sendQuiz={(e) => {
+                    this.sendQuiz(e);
+                  }}
+                ></Quizbook>
+              )}
+            {this.state.quiz !== undefined &&
+              this.props.store.user.value.position === "student" && (
+                <Quiz
+                  quiz={this.state.quiz}
+                  isSubmit={this.state.isSubmit}
+                  isTimeOut={this.state.isTimeOut}
+                ></Quiz>
+              )}
+            {this.state.quiz !== undefined &&
+              this.state.isEnd &&
+              this.props.store.user.value.position === "professor" && (
+                <Button
+                  onClick={() => {
+                    this.endQuiz();
+                  }}
+                >
+                  종료
+                </Button>
+              )}
           </div>
-          {quizbook === undefined && (
-            <Quizbook
-              sendQuiz={(e) => {
-                this.sendQuiz(e);
-              }}
-            ></Quizbook>
-          )}
-          {this.state.quiz !== undefined &&
-            this.props.store.user.value.position === "student" && (
-              <div>{this.state.quiz.content}</div>
-            )}
         </div>
       </div>
     );
