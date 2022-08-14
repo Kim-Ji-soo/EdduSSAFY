@@ -58,7 +58,13 @@ function RoomList() {
                         roomId: row.roomId,
                         userId: userId,
                       },
-                    }).then((res) => {});
+                    })
+                      .then((res) => {
+                        navigate("/openvidu", { replace: true });
+                      })
+                      .catch((e) => {
+                        console.log(e);
+                      });
                     axios({
                       method: "get",
                       url: quizbook.getQuizbook() + row.hostId,
@@ -72,8 +78,6 @@ function RoomList() {
                           hostId: row.hostId,
                         })
                       );
-
-                      navigate("/openvidu", { replace: true });
                     });
                   }}
                 >
