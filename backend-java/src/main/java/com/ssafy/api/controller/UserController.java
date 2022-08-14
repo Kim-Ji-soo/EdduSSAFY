@@ -1,8 +1,6 @@
 package com.ssafy.api.controller;
 
-import com.ssafy.api.request.UserChangePasswordReq;
-import com.ssafy.api.request.UserLoginPostReq;
-import com.ssafy.api.request.UserUpdateReq;
+import com.ssafy.api.request.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.api.response.UserRes;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.auth.SsafyUserDetails;
@@ -145,6 +142,14 @@ public class UserController {
 	@PutMapping("/changePassword")
 	public ResponseEntity<Boolean> changePassword(@RequestBody UserChangePasswordReq userInfo){
 		if(!userService.changePassword(userInfo)){
+			return  ResponseEntity.status(400).body(false);
+		}
+		return ResponseEntity.status(200).body(true);
+	}
+
+	@PutMapping("/resetPassword")
+	public ResponseEntity<Boolean> resetPassword(@RequestBody ResetPwdReq resetPwdReq){
+		if(!userService.resetPassword(resetPwdReq)){
 			return  ResponseEntity.status(400).body(false);
 		}
 		return ResponseEntity.status(200).body(true);

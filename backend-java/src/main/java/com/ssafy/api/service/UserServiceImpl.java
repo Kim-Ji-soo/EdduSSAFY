@@ -1,13 +1,10 @@
 package com.ssafy.api.service;
 
-import com.ssafy.api.request.UserChangePasswordReq;
-import com.ssafy.api.request.UserLoginPostReq;
-import com.ssafy.api.request.UserUpdateReq;
+import com.ssafy.api.request.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.db.entity.User;
 import com.ssafy.db.repository.UserRepository;
 import com.ssafy.db.repository.UserRepositorySupport;
@@ -29,11 +26,16 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
+
+	@Autowired
+	EmailService emailService;
 	
 	@Override
 	public User createUser(UserRegisterPostReq userRegisterInfo) {
-		//아이디 중복이면 null 리턴
-		if(checkUserId(userRegisterInfo.getUserId())){
+
+
+		//아이디, 혹은 이메일 중복이면 null 리턴
+		if(checkUserId(userRegisterInfo.getUserId()) || checkEmail(userRegisterInfo.getEmail())){
 			return null;
 		}
 
@@ -61,6 +63,20 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean checkUserId(String userid) {
 		if(userRepository.countUsersByUserId(userid) == 0) {
+			//
+			System.out.println("안겹침");
+			//
+			return false;
+		}
+		//
+		System.out.println("겹침");
+		//
+		return true;
+	}
+
+	@Override
+	public boolean checkEmail(String email) {
+		if(userRepository.countUsersByEmail(email) == 0) {
 			//
 			System.out.println("안겹침");
 			//
@@ -112,6 +128,31 @@ public class UserServiceImpl implements UserService {
 			userRepository.save(user);
 
 		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+
+	}
+
+	@Override
+	public boolean resetPassword(ResetPwdReq resetPwdReq) {
+
+		try {
+			EmailReq emailReq = new EmailReq();
+			emailReq.setEmail(resetPwdReq.getEmail());
+			emailReq.setAuthKey(resetPwdReq.getAuthKey());
+			if (!emailService.confirmCode(emailReq)) {
+				throw new Exception("이메일 인증 키 틀림");
+			}
+			Optional<User> optional = userRepository.findById(resetPwdReq.getUserId());
+			if(!optional.isPresent()){
+				throw new Exception("해당되는 유저 없음. 나오면 안되는 오류");
+			}
+			User user = optional.get();
+			user.setPassword(passwordEncoder.encode(resetPwdReq.getPassword()));
+			userRepository.save(user);
+		} catch (Exception e){
 			e.printStackTrace();
 			return false;
 		}
