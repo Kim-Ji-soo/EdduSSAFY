@@ -48,13 +48,14 @@ public class UserRoomServiceImpl implements UserRoomService{
 
     @Override
     public boolean quitRoom(UserRoomReq userRoomReq) {
-        try{ //퇴장하는 유저가 호스트라면 방 end.
-            String hostId = roomService.getRoomById(userRoomReq.getRoomId()).getHostId();
-            if(hostId.equals(userRoomReq.getUserId())){
-                System.out.println("꼬북이");
+        try{  //퇴장하는 유저가 마지막 유저면 방 end.
+
+            List<UserRes> users = getUsersByRoomId(userRoomReq.getRoomId());
+
+            if(users.size() == 1 && users.get(0).getUserId().equals(userRoomReq.getUserId())){
                 roomService.endRoom(userRoomReq);
             }
-            System.out.println("버터풀");
+
             userRoomRepository.deleteByRoomRoomIdAndUserUserId(userRoomReq.getRoomId(), userRoomReq.getUserId());
         } catch(Exception e){
             e.printStackTrace();
