@@ -7,6 +7,7 @@ import VideoRoomComponent from "./pages/VideoRoomComponent";
 import ProblemList from "./pages/ProblemList";
 import CreateQuestion from "./pages/CreateQuestion";
 import UserProfile from "./pages/UserProfile";
+import ChangePassword from "./pages/ChangePassword";
 import Navbar from "./components/Navbar";
 import QuizList from "./pages/QuizList"; //contain
 import Logout from "./pages/Logout";
@@ -81,6 +82,14 @@ function App() {
                   element={
                     <PrivateRoute
                       component={<UserProfile></UserProfile>}
+                    ></PrivateRoute>
+                  }
+                ></Route>
+                <Route
+                  path="/changepassword"
+                  element={
+                    <PrivateRoute
+                      component={<ChangePassword></ChangePassword>}
                     ></PrivateRoute>
                   }
                 ></Route>

@@ -5,7 +5,7 @@ import * as yup from "yup";
 import users from "../api/api";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import { me, logout } from "../redux/user";
 import { deleteToken} from "../redux/token";
 import { Box } from "@mui/material";
@@ -26,11 +26,6 @@ const validationSchema = yup.object({
     .length(11, "phonenumber should be 11 characters length")
     .required("phonenumber is required"),
 });
-
-function DeleteUser(props) {
-  
-
-}
 
 function UserProfile() {
   const user = useSelector((state) => state.user.value);
@@ -146,6 +141,13 @@ function UserProfile() {
             정보수정
           </Button>
         </form>
+        <Link to="/changepassword">
+        <div>
+        <Button>
+            비밀번호변경
+        </Button>
+        </div>
+        </Link>
         <Button onClick={()=>{
           axios({
             method: "delete",
