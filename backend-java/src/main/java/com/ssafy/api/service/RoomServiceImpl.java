@@ -89,13 +89,14 @@ public class RoomServiceImpl implements  RoomService{
     public boolean endRoom(UserRoomReq userRoomReq) {
         try{
             Room room = roomRepository.findById(userRoomReq.getRoomId()).get();
-            if(room == null || !room.getHost().getUserId().equals(userRoomReq.getUserId())  ){
-                throw new Exception("호스트 아님");
-            }
+            //최소 호스트 아니어도 .
+//            if(room == null || !room.getHost().getUserId().equals(userRoomReq.getUserId())  ){
+//                throw new Exception("호스트 아님");
+//            }
 
             List<UserRes> users = userRoomService.getUsersByRoomId(userRoomReq.getRoomId());
             for(UserRes ur : users){
-                if(ur.getUserId().equals(room.getHost().getUserId())){
+                if(ur.getUserId().equals(userRoomReq.getUserId())){
                     continue;
                 }
                 UserRoomReq urq = new UserRoomReq();
