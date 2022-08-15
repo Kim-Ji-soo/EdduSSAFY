@@ -5,9 +5,9 @@ import * as yup from "yup";
 import users from "../api/api";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { me } from "../redux/user";
-
+import { useNavigate,Link } from "react-router-dom";
+import { me, logout } from "../redux/user";
+import { deleteToken} from "../redux/token";
 import { Box } from "@mui/material";
 
 const validationSchema = yup.object({
@@ -141,6 +141,31 @@ function UserProfile() {
             정보수정
           </Button>
         </form>
+        <Link to="/changepassword">
+        <div>
+        <Button>
+            비밀번호변경
+        </Button>
+        </div>
+        </Link>
+        <Button onClick={()=>{
+          axios({
+            method: "delete",
+            url: users.delete() + user.userId + "/",
+          })
+            .then((res) => {
+              console.log(res.data);
+              alert("회원 탈퇴가 완료되었습니다!");
+              dispatch(deleteToken());
+              dispatch(logout());
+              navigate("/login", { replace: true });
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+        }}>
+            회원탈퇴
+        </Button>
       </Box>
     </>
   );

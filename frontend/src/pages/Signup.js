@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 import * as yup from "yup";
 import users from "../api/api";
-import { email } from "../api/api";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -50,9 +49,9 @@ function Signup() {
   const navigate = useNavigate();
   const [checkId, setCheckId] = useState(false);
   const [checkEmail, setCheckEmail] = useState(false);
-  const [message, setMessage] = useState("");
   const [messageValue, setMessageValue] = useState("");
   const [valid, setValid] = useState(false);
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -336,11 +335,10 @@ function Signup() {
                       console.log(formik.values.email);
                       axios({
                         method: "post",
-                        url: email.emailConfirm(),
-                        data: { email: formik.values.email },
+                        url: users.sendEmail(),
+                        data: { email: formik.values.email, reqType : "register" },
                       }).then((res) => {
                         console.log(res.data.message);
-                        setMessage(res.data.message);
                       });
                     }}
                   >
@@ -362,13 +360,20 @@ function Signup() {
                     className={styles.inputButton}
                     onClick={(e) => {
                       e.preventDefault();
-                      if (messageValue === message) {
+                      console.log(messageValue);
+                      console.log(formik.values.email);
+                      axios({
+                        method: "post",
+                        url: users.confirmCode(),
+                        data: { authKey : messageValue, email: formik.values.email, reqType : "register" },
+                      }).then((res) => {
                         setCheckEmail(true);
                         setValid(true && checkId);
                         alert("이메일 인증이 완료 되었습니다.");
-                      } else {
-                        alert("코드가 일치하지 않습니다.");
-                      }
+                      }).catch((e) => {
+                        console.log(e);
+                      });
+
                     }}
                   >
                     코드제출
