@@ -78,7 +78,7 @@ public class AuthController {
 	}
 
 	@PostMapping("/confirmCode")
-	public ResponseEntity<Boolean> confirmCode(EmailReq emailReq){
+	public ResponseEntity<Boolean> confirmCode(@RequestBody EmailReq emailReq){
 		if(!emailService.confirmCode(emailReq)){
 			return ResponseEntity.status(400).body(false);
 		}
