@@ -14,6 +14,7 @@ const room = {
   getRoom: () => HOST + ROOM + "allrooms/",
   getResult: () => HOST + USER_ROOM + "userList/",
   updateScore: () => HOST + USER_ROOM + "updateScore/",
+  search: () => HOST + ROOM + "search/",
 };
 
 const users = {
@@ -30,12 +31,14 @@ const email = {
 
 const quiz = {
   createQuiz: () => HOST + QUIZ + "createQuiz/",
-  updateQuiz: () => HOST + QUIZ + "alterQuiz",
+  updateQuiz: () => HOST + QUIZ + "alterQuiz/",
+  delete: () => HOST + QUIZ + "delete/",
 };
 
 const quizbook = {
   createQuizbook: () => HOST + QUIZBOOK + "create/",
   getQuizbook: () => HOST + QUIZBOOK + "getQuizbookCombs/",
+  delete: () => HOST + QUIZBOOK + "delete/",
 };
 export { email, quiz, quizbook, room };
 export default users;

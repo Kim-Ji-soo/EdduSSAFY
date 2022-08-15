@@ -257,11 +257,11 @@ class VideoRoomComponent extends Component {
     const mySession = this.state.session;
     const hostId = this.props.store.room.hostId;
     const userId = this.props.store.user.value.userId;
-    if (hostId === userId) {
-      this.state.localUser
-        .getStreamManager()
-        .stream.session.signal({ type: "endRoom" });
-    }
+    // if (hostId === userId) {
+    //   this.state.localUser
+    //     .getStreamManager()
+    //     .stream.session.signal({ type: "endRoom" });
+    // }
     if (mySession) {
       mySession.disconnect();
     }
