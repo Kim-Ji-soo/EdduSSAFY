@@ -141,8 +141,8 @@ function CreateQuestion() {
           type="file"
           onChange={(e) => {
             encodeFileToBase64(e.target.files[0]);
-            formik.values.quizPic = e.target.files[0].name;
-            console.log(formik.values);
+            formik.values.quizPic = e.target.files[0];
+            console.log(formik.values.quizPic);
           }}
         />
         <div className={styles.preview}>

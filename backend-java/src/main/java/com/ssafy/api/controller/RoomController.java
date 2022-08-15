@@ -87,5 +87,17 @@ public class RoomController {
 //       return ResponseEntity.status(200).body(true);
 //   }
 
+    //제목이나 방 생성자 아이디로 검색.
+    @GetMapping("/search/{word}")
+    public ResponseEntity<List<RoomRes>> searchRooms(@PathVariable("word") String word){
+        List<RoomRes> rooms = roomService.searchRooms(word);
+        if(rooms == null){
+            return ResponseEntity.status(400).body(null);
+        }
+
+        return ResponseEntity.status(200).body(rooms);
+    }
+
+
 
 }

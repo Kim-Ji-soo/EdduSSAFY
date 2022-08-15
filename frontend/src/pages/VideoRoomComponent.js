@@ -27,10 +27,12 @@ class VideoRoomComponent extends Component {
     const roomId = this.props.store.room.roomId;
     this.OPENVIDU_SERVER_URL = this.props.openviduServerUrl
       ? this.props.openviduServerUrl
-      : "https://i7c111.p.ssafy:8443";
+      : "https://" + window.location.hostname + ":4443";      
+//      : "https://i7c111.p.ssafy:8443";
     this.OPENVIDU_SERVER_SECRET = this.props.openviduSecret
       ? this.props.openviduSecret
-      : "7c111";
+      : "MY_SECRET";      
+//      : "7c111";
     this.hasBeenUpdated = false;
     this.layout = new OpenViduLayout();
     let sessionName = this.props.sessionName
