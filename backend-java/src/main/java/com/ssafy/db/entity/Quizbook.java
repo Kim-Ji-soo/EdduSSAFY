@@ -2,6 +2,8 @@ package com.ssafy.db.entity;
 
 
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ public class Quizbook {
 
     @ManyToOne
     @JoinColumn(name="user_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 //
 //    @OneToMany(mappedBy = "quizbook")

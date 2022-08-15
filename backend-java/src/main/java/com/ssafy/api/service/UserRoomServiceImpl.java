@@ -1,7 +1,9 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.request.ScoreReq;
 import com.ssafy.api.request.UserRoomReq;
 import com.ssafy.api.response.RoomRes;
+import com.ssafy.api.response.UserInRoomRes;
 import com.ssafy.api.response.UserRes;
 import com.ssafy.db.entity.UserRoom;
 import com.ssafy.db.repository.RoomRepository;
@@ -12,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -45,13 +48,14 @@ public class UserRoomServiceImpl implements UserRoomService{
 
     @Override
     public boolean quitRoom(UserRoomReq userRoomReq) {
-        try{ //퇴장하는 유저가 호스트라면 방 end.
-            String hostId = roomService.getRoomById(userRoomReq.getRoomId()).getHostId();
-            if(hostId.equals(userRoomReq.getUserId())){
-                System.out.println("꼬북이");
+        try{  //퇴장하는 유저가 마지막 유저면 방 end.
+
+            List<UserRes> users = getUsersByRoomId(userRoomReq.getRoomId());
+
+            if(users.size() == 1 && users.get(0).getUserId().equals(userRoomReq.getUserId())){
                 roomService.endRoom(userRoomReq);
             }
-            System.out.println("버터풀");
+
             userRoomRepository.deleteByRoomRoomIdAndUserUserId(userRoomReq.getRoomId(), userRoomReq.getUserId());
         } catch(Exception e){
             e.printStackTrace();
@@ -77,16 +81,41 @@ public class UserRoomServiceImpl implements UserRoomService{
 
     @Override
     public List<UserRes> getUsersByRoomId(long roomId) {
-        List<UserRes> users = new ArrayList<>();
+        List<UserRes> infos = new ArrayList<>();
         try{
             List<UserRoom> userRooms = userRoomRepository.findByRoomRoomId(roomId);
             for(UserRoom ur : userRooms){
-                users.add(UserRes.of(ur.getUser()));
+                UserInRoomRes info = UserInRoomRes.of(ur.getUser());
+                info.setScore(ur.getScore());
+                infos.add(info);
             }
         }catch(Exception e){
             e.printStackTrace();
             return null;
         }
-        return users;
+        return infos;
+    }
+
+    @Override
+    public UserInRoomRes updateScore(ScoreReq scoreReq) {
+        UserInRoomRes user;
+        try{
+            Optional<UserRoom> optionalUserRoom
+                    = userRoomRepository.findByRoomRoomIdAndUserUserId(scoreReq.getRoomId(), scoreReq.getUserId());
+            if(!optionalUserRoom.isPresent()){
+                throw new Exception("해당 방에 해당 유저가 없습니다.");
+            }
+
+            UserRoom ur = optionalUserRoom.get();
+            ur.setScore(scoreReq.getScore());
+
+            user = UserInRoomRes.of(userRoomRepository.save(ur).getUser());
+            user.setScore(ur.getScore());
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+        return user;
     }
 }
