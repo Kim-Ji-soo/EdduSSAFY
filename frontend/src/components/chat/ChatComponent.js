@@ -3,7 +3,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Fab from "@material-ui/core/Fab";
 import HighlightOff from "@material-ui/icons/HighlightOff";
 import Send from "@material-ui/icons/Send";
-
+import logo from "../../assets/EDDUSSAFY_얼굴만_동그라미.png";
 import "./ChatComponent.css";
 import { Tooltip } from "@material-ui/core";
 
@@ -27,7 +27,8 @@ export default class ChatComponent extends Component {
     this.props.user
       .getStreamManager()
       .stream.session.on("signal:chat", (event) => {
-        console.log(event.data);
+        const img = new Image();
+        img.src = logo;
         const data = JSON.parse(event.data);
         let messageList = this.state.messageList;
         messageList.push({
@@ -40,11 +41,16 @@ export default class ChatComponent extends Component {
           const userImg = document.getElementById(
             "userImg-" + (this.state.messageList.length - 1)
           );
-          const video = document.getElementById("video-" + data.streamId);
+          let video = img;
+          if (this.state.isNickname === true) {
+            video = img;
+          } else {
+            video = document.getElementById("video-" + data.streamId);
+          }
           const avatar = userImg.getContext("2d");
           avatar.drawImage(video, 200, 120, 285, 285, 0, 0, 60, 60);
           this.props.messageReceived();
-        }, 50);
+        }, 20);
         this.setState({ messageList: messageList });
         this.scrollToBottom();
       });
@@ -61,7 +67,6 @@ export default class ChatComponent extends Component {
   }
 
   sendMessage() {
-    console.log(this.state.message);
     let nickname;
     if (this.state.isNickname === false) {
       nickname = this.props.user.getNickname();
@@ -92,7 +97,7 @@ export default class ChatComponent extends Component {
         this.chatScroll.current.scrollTop =
           this.chatScroll.current.scrollHeight;
       } catch (err) {}
-    }, 20);
+    }, 0);
   }
 
   close() {

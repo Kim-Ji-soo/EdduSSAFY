@@ -7,7 +7,7 @@
   
   #chatToolbar {
     height: 30px;
-    background-color: #3d3d3d;
+    background-color: #36a7fc;
     box-sizing: border-box;
     font-weight: bold;
     font-size: 14px;
@@ -25,7 +25,7 @@
   }
   
   #chatComponent {
-    background-color: #b8b8b8;
+    background-color: #99d1fc;
     position: absolute;
     z-index: 99999;
     top: 0;
@@ -40,8 +40,8 @@
   
   .message-wrap {
     padding: 0 15px;
-    height: calc(100% - 80px);
-    overflow: auto;
+    height: calc(100% - 62px);
+    overflow:scroll;
   }
   
   .message {
@@ -51,9 +51,9 @@
   .user-img {
     position: absolute;
     border-radius: 45px;
-    width: 60px;
-    height: 60px;
-    top: 15px;
+    width: 40px;
+    height: 40px;
+    top: 25px;
   }
   
   .msg-detail {
@@ -68,8 +68,7 @@
   
   .msg-info p {
     font-size: 0.8em;
-    color: #000000;
-    font-style: italic;
+    color: #000;
   }
   
   .msg-content {
@@ -99,25 +98,21 @@
   
   /* Start message from other user */
   
-  .message > .left .msg-detail .msg-info {
+  .message.left .msg-detail .msg-info {
     text-align: left;
-  }
-  
-  .message.left .msg-detail {
-    padding-left: 65px;
   }
   
   .message.left .user-img {
     left: -5px;
-    border: 1px solid #f0f0f094;
+    border: 1px solid #b6dcfc;
   }
   
   .message.left .msg-detail .msg-content {
-    background-color: #f0f0f0;
+    background-color: #b6dcfc;
     float: left;
   }
   .message.left .msg-detail .msg-content span.triangle {
-    background-color: #f0f0f0;
+    background-color: #b6dcfc;
     border-bottom-width: 0;
     border-left-width: 0;
     left: -5px;
@@ -132,15 +127,15 @@
   }
   .message.right .user-img {
     right: -5px;
-    border: 1px solid #c8ffe8ab;
+    border: 1px solid #b6dcfc;
   }
   
   .message.right .msg-detail .msg-content {
-    background-color: #c8ffe8;
+    background-color: #b6dcfc;
     float: right;
   }
   .message.right .msg-detail .msg-content span.triangle {
-    background-color: #c8ffe8;
+    background-color: #b6dcfc;
     border-bottom-width: 0;
     border-left-width: 0;
     right: -5px;
@@ -179,13 +174,13 @@
     float:left;
   }
   #sendButton {
-    background-color: #81e9b0;
+    background-color: #7bc4fc;
     position: absolute;
     right: 10px;
     top: 0;
     bottom: 0;
     margin: auto;
-    border: 1px solid #7ae2a9;
+    border: 1px solid #7bc4fc;
     box-shadow: none !important;
   }
   #sendButton {
