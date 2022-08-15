@@ -25,4 +25,6 @@ public interface RoomService {
     boolean isRoomActive(long roomId);
 
     List<RoomRes> getAllRooms();
+
+    List<RoomRes> searchRooms(String word);
 }

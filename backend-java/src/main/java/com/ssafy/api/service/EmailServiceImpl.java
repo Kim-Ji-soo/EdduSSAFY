@@ -1,14 +1,21 @@
 package com.ssafy.api.service;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.Random;
 
 import javax.mail.Message.RecipientType;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import com.ssafy.api.request.EmailReq;
+import com.ssafy.db.entity.AuthCode;
+import com.ssafy.db.repository.AuthCodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,11 +23,18 @@ public class EmailServiceImpl implements EmailService{
     @Autowired
     JavaMailSender emailSender;
 
-    public static final String ePw = createKey();
+    @Autowired
+    AuthCodeRepository authCodeRepository;
 
-    private MimeMessage createMessage(String to)throws Exception{
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+    @Autowired
+    UserService userService;
+
+    private MimeMessage createMessage(String to,String authKey, String type)throws Exception{
         System.out.println("보내는 대상 : "+ to);
-        System.out.println("인증 번호 : "+ePw);
+        System.out.println("인증 번호 : "+ authKey);
         MimeMessage  message = emailSender.createMimeMessage();
 
         message.addRecipients(RecipientType.TO, to);//보내는 대상
@@ -30,15 +44,27 @@ public class EmailServiceImpl implements EmailService{
         msgg+= "<div style='margin:100px;'>";
         msgg+= "<h1> 안녕하세요 EDDU SSAFY입니다. </h1>";
         msgg+= "<br>";
-        msgg+= "<p>아래 코드를 회원가입 창으로 돌아가 입력해주세요<p>";
+        if(type.equals("register")){
+            msgg+= "<p>아래 코드를 회원가입 창으로 돌아가 입력해주세요<p>";
+        }
+        else if(type.equals("reset")){
+            msgg+= "<p>아래 코드를 비밀번호 찾기 창으로 돌아가 입력해주세요<p>";
+        }
+
         msgg+= "<br>";
         msgg+= "<p>감사합니다!<p>";
         msgg+= "<br>";
         msgg+= "<div align='center' style='border:1px solid black; font-family:verdana';>";
-        msgg+= "<h3 style='color:blue;'>회원가입 인증 코드입니다.</h3>";
+        if(type.equals("register")){
+            msgg+= "<h3 style='color:blue;'>회원가입 인증 코드입니다.</h3>";
+        }
+        else if(type.equals("reset")){
+            msgg+= "<h3 style='color:blue;'>비밀번호 찾기 인증 코드입니다.</h3>";
+        }
+
         msgg+= "<div style='font-size:130%'>";
         msgg+= "CODE : <strong>";
-        msgg+= ePw+"</strong><div><br/> ";
+        msgg+= authKey +"</strong><div><br/> ";
         msgg+= "</div>";
         message.setText(msgg, "utf-8", "html");//내용
         message.setFrom(new InternetAddress("chlwlsdnr1001@gmail.com","EDDU SSAFY"));//보내는 사람
@@ -72,15 +98,56 @@ public class EmailServiceImpl implements EmailService{
         return key.toString();
     }
     @Override
-    public String sendSimpleMessage(String to)throws Exception {
-        // TODO Auto-generated method stub
-        MimeMessage message = createMessage(to);
-        try{//예외처리
+    public Boolean sendSimpleMessage(EmailReq emailReq) {
+
+        try{
+            String email = emailReq.getEmail();
+            //회원가입 이메일 인증인데 해당 이메일이 이미 등록되었을 경우
+            if(emailReq.getReqType().equals("register") && userService.checkEmail(email)){
+                throw new Exception("이메일 중복됨");
+            }
+
+            String authKey = createKey();
+            MimeMessage message = createMessage(email, authKey, emailReq.getReqType());
             emailSender.send(message);
-        }catch(MailException es){
-            es.printStackTrace();
-            throw new IllegalArgumentException();
+
+            AuthCode authCode = AuthCode.builder()
+                    .email(email)
+                    .authKey(passwordEncoder.encode(authKey))
+                    .createdTime(LocalDateTime.now())
+                    .build();
+            authCodeRepository.save(authCode);
+
+        } catch(MailException es) {
+           es.printStackTrace();
+           return false;
+        } catch(Exception e){
+            e.printStackTrace();
+            return false;
         }
-        return ePw;
+
+        return true;
+    }
+
+    public Boolean confirmCode(EmailReq emailReq){
+        AuthCode authCode = new AuthCode();
+        try{
+            Optional<AuthCode> optionalAuthCode = authCodeRepository.findById(emailReq.getEmail());
+            if(!optionalAuthCode.isPresent()){
+                throw new Exception("이메일 발신한적 없음.");
+            }
+            authCode = optionalAuthCode.get();
+            if(!passwordEncoder.matches(emailReq.getAuthKey(),authCode.getAuthKey())){
+                throw new Exception("코드 틀림.");
+            }
+            if(Duration.between(authCode.getCreatedTime(), LocalDateTime.now()).getSeconds() > 300){
+                throw new Exception("코드 발송 후 5분 초과.");
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
     }
 }
