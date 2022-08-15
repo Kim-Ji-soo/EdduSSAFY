@@ -620,6 +620,8 @@ class VideoRoomComponent extends Component {
               </div>
             )}
           <div className="subscribersContainer">
+            <div className="subscribersMain">
+              <div className="subscribersMenu">
           {this.state.subscribers.map((sub, i) => (
             <div style={{display:"flex"}}>
             <div
@@ -627,6 +629,7 @@ class VideoRoomComponent extends Component {
               className="OT_root OT_publisher custom-class"
               id="remoteUsers"
               // style={{position: "absolute", left: `50% + ${11 * i}vw`, top: "5%", transform:"translateY(-10%)", width: "10vw", height: "13vh"}}
+              // style={{width: "10vw", height: "13vh"}}
               style={{width: "10vw", height: "13vh"}}
             >
               <StreamComponent
@@ -636,6 +639,8 @@ class VideoRoomComponent extends Component {
             </div>
             </div>
           ))}
+          </div>
+          </div>
           </div>
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (
