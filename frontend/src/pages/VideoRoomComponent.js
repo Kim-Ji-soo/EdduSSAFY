@@ -27,12 +27,12 @@ class VideoRoomComponent extends Component {
     const roomId = this.props.store.room.roomId;
     this.OPENVIDU_SERVER_URL = this.props.openviduServerUrl
       ? this.props.openviduServerUrl
-      : "https://" + window.location.hostname + ":4443";      
-//      : "https://i7c111.p.ssafy:8443";
+      : "https://" + window.location.hostname + ":4443";
+    //      : "https://i7c111.p.ssafy:8443";
     this.OPENVIDU_SERVER_SECRET = this.props.openviduSecret
       ? this.props.openviduSecret
-      : "MY_SECRET";      
-//      : "7c111";
+      : "MY_SECRET";
+    //      : "7c111";
     this.hasBeenUpdated = false;
     this.layout = new OpenViduLayout();
     let sessionName = this.props.sessionName
@@ -95,6 +95,16 @@ class VideoRoomComponent extends Component {
     window.addEventListener("resize", this.updateLayout);
     window.addEventListener("resize", this.checkSize);
     this.joinSession();
+    const roomId = this.props.store.room.roomId;
+    const userId = this.props.store.user.value.userId;
+    axios({
+      url: room.joinRoom(),
+      method: "post",
+      data: {
+        roomId: roomId,
+        userId: userId,
+      },
+    });
   }
 
   componentWillUnmount() {
@@ -102,6 +112,15 @@ class VideoRoomComponent extends Component {
     window.removeEventListener("resize", this.updateLayout);
     window.removeEventListener("resize", this.checkSize);
     this.leaveSession();
+    const roomId = this.props.store.room.roomId;
+    axios({
+      url: room.leaveRoom(),
+      method: "delete",
+      data: {
+        roomId: roomId,
+        userId: this.props.store.user.value.userId,
+      },
+    });
   }
 
   onbeforeunload(event) {
@@ -263,14 +282,6 @@ class VideoRoomComponent extends Component {
     const nickName = this.props.store.user.value.nickName;
     const roomTitle = this.props.store.room.roomTitle;
     const roomId = this.props.store.room.roomId;
-    axios({
-      url: room.leaveRoom(),
-      method: "delete",
-      data: {
-        roomId: roomId,
-        userId: this.props.store.user.value.userId,
-      },
-    });
     this.setState({
       isActive: true,
       session: undefined,

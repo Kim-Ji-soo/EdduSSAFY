@@ -29,117 +29,6 @@ const mapDispatchToProps = (dispatch) => ({
   getRoomResult: (e) => dispatch(roomActions.getRoomResult(e)),
 });
 
-const padNumber = (num, length) => {
-  return String(num).padStart(length, "0");
-};
-
-const Timer = (props) => {
-  const [timer, setTimer] = useState(0);
-  const [minute, setMinute] = useState("");
-  const [second, setSecond] = useState("");
-  const [milliSecond, setMilliSecond] = useState("");
-  const [toggleTimer, setToggleTimer] = useState(false);
-  const [toggleBtnName, setToggleBtnName] = useState("시작");
-  const [isTimerRunning, setIsTimerRunning] = useState(false);
-
-  // Refs
-  const startTimeRef = useRef(0);
-  const leftTimeRef = useRef(0);
-
-  // Hooks
-  useEffect(() => {
-    minuteCalculator();
-    if (timer <= 0) {
-      setToggleTimer(false);
-      setIsTimerRunning(false);
-      setTimer(0);
-    }
-  }, [timer]);
-
-  useEffect(() => {
-    if (toggleTimer) {
-      startTimeRef.current = Date.now();
-      leftTimeRef.current = timer;
-      setIsTimerRunning(true);
-    } else if (!toggleTimer || timer < 0) {
-      // setIsTimerRunning(false);
-    }
-  }, [toggleTimer]);
-
-  useEffect(() => {
-    if (!isTimerRunning) {
-      setToggleBtnName("시작");
-    } else if (isTimerRunning && !toggleTimer) {
-      setToggleBtnName("다시시작");
-    } else if (isTimerRunning && toggleTimer) {
-      setToggleBtnName("일시정지");
-    }
-  }, [isTimerRunning, toggleTimer]);
-
-  // Custom Hook
-  useInterval(
-    () => {
-      timeDecrement();
-    },
-    toggleTimer ? 10 : null
-  );
-
-  // Event Handlers
-  const addTime = (time) => {
-    setTimer((prev) => prev + time);
-    leftTimeRef.current += time;
-  };
-
-  const minuteCalculator = () => {
-    let toSecond = parseInt(timer / 1000);
-    let tempMinute = parseInt(toSecond / 60).toString();
-    let tempSecond = parseInt(toSecond % 60).toString();
-    let tempMilliSecond = parseInt((timer % 1000) / 10).toString();
-
-    setMinute(tempMinute);
-    setSecond(tempSecond);
-    setMilliSecond(tempMilliSecond);
-  };
-
-  const toggleTimerFunc = () => {
-    if (toggleTimer) {
-      setToggleTimer(false);
-    } else if (!toggleTimer && timer > 0) {
-      setToggleTimer(true);
-    }
-  };
-
-  const timeDecrement = () => {
-    const timePassed = Date.now() - startTimeRef.current;
-    setTimer(leftTimeRef.current - timePassed);
-  };
-
-  const clearTime = () => {
-    setTimer(0);
-  };
-
-  return <>{minute.padStart(2, "0")}</>;
-};
-
-// Custom Hooks
-const useInterval = (callback, delay) => {
-  const intervalRef = useRef();
-  const callbackRef = useRef(callback);
-
-  useEffect(() => {
-    callbackRef.current = callback;
-  }, [callback]);
-
-  useEffect(() => {
-    if (typeof delay === "number") {
-      intervalRef.current = setInterval(() => callbackRef.current(), delay);
-    }
-    return () => clearInterval(intervalRef.current);
-  }, [delay]);
-
-  return intervalRef;
-};
-
 const Quiz = function (props) {
   const [quiz, setQuiz] = useState(props.quiz);
   const [answer, setAnswer] = useState("");
@@ -215,7 +104,6 @@ const Quiz = function (props) {
   return (
     <div>
       <h1>{quiz.content}</h1>
-      <Timer hour={3} min={3} sec={3}></Timer>
       <div className={styles.preview}>
         {imageSrc && <img src={imageSrc} alt="preview-img" />}
       </div>
@@ -506,7 +394,7 @@ class QuizComponent extends Component {
                 ></Quizbook>
               )}
             {this.state.quiz !== undefined &&
-              this.props.store.user.value.position === "professor" && (
+              this.props.store.user.value.position === "student" && (
                 <Quiz
                   quiz={this.state.quiz}
                   isSubmit={this.state.isSubmit}
@@ -517,25 +405,27 @@ class QuizComponent extends Component {
               this.state.isEnd &&
               !this.state.isResult &&
               this.props.store.user.value.position === "professor" && (
-                <Button
-                  onClick={() => {
-                    this.endQuiz();
-                    setTimeout(() => {
-                      axios({
-                        method: "get",
-                        url: room.getResult() + this.state.roomId + "/",
-                      }).then((res) => {
-                        console.log(room.getResult() + this.state.roomId + "/");
-                        getRoomResult(res.data);
-                        this.setState({
-                          roomResult: res.data,
+                <>
+                  <div>{this.state.quiz.content}</div>
+                  <Button
+                    onClick={() => {
+                      this.endQuiz();
+                      setTimeout(() => {
+                        axios({
+                          method: "get",
+                          url: room.getResult() + this.state.roomId + "/",
+                        }).then((res) => {
+                          getRoomResult(res.data);
+                          this.setState({
+                            roomResult: res.data,
+                          });
                         });
                       });
-                    });
-                  }}
-                >
-                  종료
-                </Button>
+                    }}
+                  >
+                    종료
+                  </Button>
+                </>
               )}
             {this.state.isResult &&
               this.props.store.user.value.position === "professor" && (

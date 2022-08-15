@@ -21,15 +21,13 @@ import { persistor } from "./redux/store";
 import PrivateRoute from "./lib/PrivateRoute";
 import UpdateQuestion from "./pages/UpdateQuestion";
 
-import {createTheme, ThemeProvider} from "@mui/material/styles"
-
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 function App() {
-
   const theme = createTheme({
-    typography:{
-      allVariants:{
-      fontFamily:["Single Day","cursive"].join(','),
+    typography: {
+      allVariants: {
+        fontFamily: ["Single Day", "cursive"].join(","),
       },
     },
   });
@@ -37,103 +35,106 @@ function App() {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <Grid
-            container
-            spacing={2}
-            justifyContent="center"
-            direction="column"
-          >
-            <Routes>
-              <Route
-                element={
-                  <Grid item xs={10} sm={10}>
-                    <Navbar></Navbar>
-                  </Grid>
-                }
-              >
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <Grid
+              container
+              spacing={2}
+              justifyContent="center"
+              direction="column"
+            >
+              <Routes>
                 <Route
-                  path="/"
                   element={
-                    <PrivateRoute
-                      component={<Homepage></Homepage>}
-                    ></PrivateRoute>
+                    <Grid item xs={10} sm={10}>
+                      <Navbar></Navbar>
+                    </Grid>
                   }
-                ></Route>
-                <Route
-                  path="/problemlist"
-                  element={
-                    <PrivateRoute
-                      component={<ProblemList></ProblemList>}
-                    ></PrivateRoute>
-                  }
-                ></Route>
-                <Route
-                  path="/createquestion"
-                  element={
-                    <PrivateRoute
-                      component={<CreateQuestion></CreateQuestion>}
-                    ></PrivateRoute>
-                  }
-                ></Route>
-                <Route
-                  path="/userprofile"
-                  element={
-                    <PrivateRoute
-                      component={<UserProfile></UserProfile>}
-                    ></PrivateRoute>
-                  }
-                ></Route>
-                <Route
-                  path="/changepassword"
-                  element={
-                    <PrivateRoute
-                      component={<ChangePassword></ChangePassword>}
-                    ></PrivateRoute>
-                  }
-                ></Route>
-                <Route path="/logout" element={<Logout></Logout>}></Route>
-                <Route
-                  path="/quizlist/:id"
-                  element={
-                    <PrivateRoute
-                      component={<QuizList></QuizList>}
-                    ></PrivateRoute>
-                  }
-                ></Route>
-                <Route
-                  path="/updateQuestion"
-                  element={
-                    <PrivateRoute
-                      component={<UpdateQuestion></UpdateQuestion>}
-                    ></PrivateRoute>
-                  }
-                ></Route>
-                <Route
+                >
+                  <Route
+                    path="/"
+                    element={
+                      <PrivateRoute
+                        component={<Homepage></Homepage>}
+                      ></PrivateRoute>
+                    }
+                  ></Route>
+                  <Route
+                    path="/problemlist"
+                    element={
+                      <PrivateRoute
+                        component={<ProblemList></ProblemList>}
+                      ></PrivateRoute>
+                    }
+                  ></Route>
+                  <Route
+                    path="/createquestion"
+                    element={
+                      <PrivateRoute
+                        component={<CreateQuestion></CreateQuestion>}
+                      ></PrivateRoute>
+                    }
+                  ></Route>
+                  <Route
+                    path="/userprofile"
+                    element={
+                      <PrivateRoute
+                        component={<UserProfile></UserProfile>}
+                      ></PrivateRoute>
+                    }
+                  ></Route>
+                  <Route
+                    path="/changepassword"
+                    element={
+                      <PrivateRoute
+                        component={<ChangePassword></ChangePassword>}
+                      ></PrivateRoute>
+                    }
+                  ></Route>
+                  <Route path="/logout" element={<Logout></Logout>}></Route>
+                  <Route
+                    path="/quizlist/:id"
+                    element={
+                      <PrivateRoute
+                        component={<QuizList></QuizList>}
+                      ></PrivateRoute>
+                    }
+                  ></Route>
+                  <Route
+                    path="/updateQuestion"
+                    element={
+                      <PrivateRoute
+                        component={<UpdateQuestion></UpdateQuestion>}
+                      ></PrivateRoute>
+                    }
+                  ></Route>
+                  {/* <Route
                   path="/openvidu"
                   element={
                     <PrivateRoute
                       component={<Openvidu></Openvidu>}
                     ></PrivateRoute>
                   }
+                ></Route> */}
+                </Route>
+                <Route path="/login" element={<Login></Login>}></Route>
+                <Route path="/signup" element={<Signup></Signup>}></Route>
+                <Route
+                  path="/forgotpassword"
+                  element={<ForgotPassword></ForgotPassword>}
                 ></Route>
-              </Route>
-              <Route path="/login" element={<Login></Login>}></Route>
-              <Route path="/signup" element={<Signup></Signup>}></Route>
-              <Route path="/forgotpassword" element={<ForgotPassword></ForgotPassword>}></Route>
-              <Route
-                path="/openvidu"
-                element={
-                  <PrivateRoute
-                    component={<VideoRoomComponent></VideoRoomComponent>}
-                  ></PrivateRoute>
-                }
-              ></Route>
-            </Routes>
-          </Grid>
-        </PersistGate>
-      </Provider>
+                <Route
+                  path="/openvidu"
+                  element={
+                    <PrivateRoute
+                      component={<VideoRoomComponent></VideoRoomComponent>}
+                    ></PrivateRoute>
+                  }
+                ></Route>
+              </Routes>
+            </Grid>
+          </PersistGate>
+        </Provider>
       </ThemeProvider>
     </div>
   );

@@ -67,30 +67,12 @@ function RoomList() {
                           })
                         );
                         if (userId === row.hostId) {
-                          axios({
-                            url: room.joinRoom(),
-                            method: "post",
-                            data: {
-                              roomId: row.roomId,
-                              userId: row.hostId,
-                            },
-                          }).then((res) => {
-                            navigate("/openvidu", { replace: true });
-                          });
+                          navigate("/openvidu", { replace: true });
                         } else {
                           if (row.active === false) {
                             alert("방이 생성되지 않았습니다.");
                           } else {
-                            axios({
-                              url: room.joinRoom(),
-                              method: "post",
-                              data: {
-                                roomId: row.roomId,
-                                userId: userId,
-                              },
-                            }).then((res) => {
-                              navigate("/openvidu", { replace: true });
-                            });
+                            navigate("/openvidu", { replace: true });
                           }
                         }
                       });

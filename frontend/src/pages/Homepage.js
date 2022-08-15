@@ -86,6 +86,7 @@ function Homepage(props) {
     }).then((res) => {
       dispatch(roomActions.getRooms(res.data));
     });
+    navigator.mediaDevices.getUserMedia({ audio: true, video: true });
   });
   return (
     <Grid
