@@ -5,7 +5,7 @@ import * as yup from "yup";
 import users from "../api/api";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { me } from "../redux/user";
 import { Box } from "@mui/material";
 
@@ -70,7 +70,7 @@ function ChangePassword() {
           margin: 10,
         }}
       >
-        <h1>User Profile</h1>
+        <h1>Change Password</h1>
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -123,10 +123,14 @@ function ChangePassword() {
                 </div>
           
           <Button type="submit" disabled={formik.isSubmitting}>
-            정보수정
+            비밀번호변경
           </Button>
         </form>
-
+        <Link to="/userprofile">
+        <Button>
+            뒤로가기
+        </Button>
+        </Link>
       </Box>
     </>
   );
