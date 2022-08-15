@@ -8,14 +8,14 @@ import {
   ListItemText,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 import MenuIcon from "@mui/icons-material/Home";
 
 import classes from "../css/drawer.module.css";
 
 function DrawerComponent() {
   const [openDrawer, setOpenDrawer] = useState(false);
-
+  const position = useSelector((state) => state.user.value.position);
   return (
     <>
       <Drawer
@@ -25,17 +25,19 @@ function DrawerComponent() {
         PaperProps={{
           sx: {
             backgroundColor: "#2ea2f8",
-          }
+          },
         }}
       >
         <List>
-          <ListItem onClick={() => setOpenDrawer(false)}>
-            <ListItemText>
-              <Link to="/problemlist" className={classes.link}>
-                문제 목록
-              </Link>
-            </ListItemText>
-          </ListItem>
+          {position === "professor" && (
+            <ListItem onClick={() => setOpenDrawer(false)}>
+              <ListItemText>
+                <Link to="/problemlist" className={classes.link}>
+                  문제 목록
+                </Link>
+              </ListItemText>
+            </ListItem>
+          )}
           <Divider />
           <ListItem onClick={() => setOpenDrawer(false)}>
             <ListItemText>
@@ -58,7 +60,7 @@ function DrawerComponent() {
       <IconButton
         onClick={() => setOpenDrawer(!openDrawer)}
         className={classes.icon}
-        sx={{color: "#c4e5fd"}}
+        sx={{ color: "#c4e5fd" }}
         disableFocusRipple
         disableRipple
       >

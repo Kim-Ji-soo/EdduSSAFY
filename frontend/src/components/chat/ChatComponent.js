@@ -63,10 +63,9 @@ export default class ChatComponent extends Component {
   sendMessage() {
     console.log(this.state.message);
     let nickname;
-    if(this.state.isNickname === false){
+    if (this.state.isNickname === false) {
       nickname = this.props.user.getNickname();
-    }
-    else{
+    } else {
       nickname = "익명";
     }
 
@@ -100,12 +99,11 @@ export default class ChatComponent extends Component {
     this.props.close(undefined);
   }
 
-  toggleButton(){
-    if(this.state.isNickname === true){
-      this.setState({isNickname : false});
-    }
-    else{
-      this.setState({isNickname : true});
+  toggleButton() {
+    if (this.state.isNickname === true) {
+      this.setState({ isNickname: false });
+    } else {
+      this.setState({ isNickname: true });
     }
   }
 
@@ -153,25 +151,28 @@ export default class ChatComponent extends Component {
               </div>
             ))}
           </div>
-         
+
           <div id="messageInput">
-          <input id="anonymous" className="anonymous" type="checkbox" 
-          onChange={this.toggleButton}
-          />
-          <label for="anonymous">익명</label>
-            <input className="messageInput"
+            <input
+              id="anonymous"
+              className="anonymous"
+              type="checkbox"
+              onChange={this.toggleButton}
+            />
+            <label htmlFor="anonymous">익명</label>
+            <input
+              className="messageInput"
               placeholder="Send a messge"
               id="chatInput"
               value={this.state.message}
               onChange={this.handleChange}
               onKeyPress={this.handlePressKey}
-              />
+            />
 
-            
-              <Tooltip title="Send message">
-                <Fab size="small" id="sendButton" onClick={this.sendMessage}>
-                  <Send />
-                </Fab>
+            <Tooltip title="Send message">
+              <Fab size="small" id="sendButton" onClick={this.sendMessage}>
+                <Send />
+              </Fab>
             </Tooltip>
           </div>
         </div>

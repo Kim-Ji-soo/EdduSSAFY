@@ -1,4 +1,4 @@
-const HOST = "http://localhost:8080/api/v1/";
+const HOST = "https://i7c111.p.ssafy.io/api/v1/";
 
 const USERS = "users/";
 const EMAIL = "email/";
@@ -12,6 +12,8 @@ const room = {
   joinRoom: () => HOST + USER_ROOM + "enter/",
   leaveRoom: () => HOST + USER_ROOM + "quit/",
   getRoom: () => HOST + ROOM + "allrooms/",
+  getResult: () => HOST + USER_ROOM + "userList/",
+  updateScore: () => HOST + USER_ROOM + "updateScore/",
 };
 
 const users = {
