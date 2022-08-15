@@ -9,13 +9,17 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { room } from "../../api/api";
 import { useNavigate } from "react-router-dom";
+import { quizbook } from "../../api/api";
+import { quizbookActions } from "../../redux/quizbook";
+import { roomActions } from "../../redux/room";
 
 function RoomList() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const userId = useSelector((state) => {
     return state.user.value.userId;
   });
@@ -36,7 +40,7 @@ function RoomList() {
         <TableBody>
           {rows.map((row) => (
             <TableRow
-              key={row.title}
+              key={row.roomId}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
@@ -54,8 +58,26 @@ function RoomList() {
                         roomId: row.roomId,
                         userId: userId,
                       },
+                    })
+                      .then((res) => {
+                        navigate("/openvidu", { replace: true });
+                      })
+                      .catch((e) => {
+                        console.log(e);
+                      });
+                    axios({
+                      method: "get",
+                      url: quizbook.getQuizbook() + row.hostId,
                     }).then((res) => {
-                      navigate("/openvidu", { replace: true });
+                      console.log(res.data);
+                      dispatch(quizbookActions.getquizbook(res.data));
+                      dispatch(
+                        roomActions.setRoom({
+                          roomTitle: row.title,
+                          roomId: row.roomId,
+                          hostId: row.hostId,
+                        })
+                      );
                     });
                   }}
                 >

@@ -19,6 +19,9 @@ function Homepage(props) {
   const userId = useSelector((state) => {
     return state.user.value.userId;
   });
+  const position = useSelector((state) => {
+    return state.user.value.position;
+  });
   const handleJoinRoom = (roomId) => {
     //axios register
     axios({
@@ -29,6 +32,11 @@ function Homepage(props) {
         userId: userId,
       },
     }).then((res) => {
+      dispatch(
+        roomActions.setRoom({
+          roomId: roomId,
+        })
+      );
       navigate("/openvidu", { replace: true });
     });
   };
@@ -56,7 +64,6 @@ function Homepage(props) {
       borderRadius: "70px 70px",
       padding: "5px 0px",
       background: "#11b683",
-
     },
     "&.MuiButton-root:hover": {
       background: "#0bac7a",
@@ -65,13 +72,13 @@ function Homepage(props) {
   };
 
   const Gridsx = {
-    "&.MuiGrid-root":{
+    "&.MuiGrid-root": {
       marginTop: "20px",
     },
-    "&.MuiGrid-item":{
+    "&.MuiGrid-item": {
       padding: 0,
-    }
-  }
+    },
+  };
   useEffect(() => {
     axios({
       method: "get",
@@ -91,17 +98,19 @@ function Homepage(props) {
       justifyContent="space-evenly"
       spacing={2}
     >
-      <Grid item  xs={12} md={12} sx={Gridsx} >
+      <Grid item xs={12} md={12} sx={Gridsx}>
         <RoomList></RoomList>
       </Grid>
-      <Button
-        onClick={() => {
-          setCropen((cropen) => !cropen);
-        }}
-        sx = {Buttonsx}
-      >
-        방 생성
-      </Button>
+      {position === "professor" && (
+        <Button
+          onClick={() => {
+            setCropen((cropen) => !cropen);
+          }}
+          sx={Buttonsx}
+        >
+          방 생성
+        </Button>
+      )}
       <Modal
         open={cropen}
         onClose={() => {
