@@ -16,6 +16,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import styles from "../css/CreateQuestion.module.css";
 
 import { Box } from "@mui/material";
+import { Copyright } from "@material-ui/icons";
 
 const validationSchema = yup.object({
   content: yup.string("Enter your content").required("content is required"),
@@ -95,6 +96,7 @@ function CreateQuestion() {
     return new Promise((resolve) => {
       reader.onload = () => {
         setImageSrc(reader.result);
+        console.log(reader.result);
         resolve();
       };
     });
@@ -113,10 +115,8 @@ function CreateQuestion() {
     validationSchema: validationSchema,
     onSubmit: (data, { setSubmitting }) => {
       setSubmitting(true);
-      console.log(data);
       setSubmitting(false);
-      console.log(data);
-      console.log(quiz.createQuiz());
+      console.log(formik.values);
       axios({
         method: "post",
         url: quiz.createQuiz(),

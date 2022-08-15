@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { Component, useEffect, useState, useRef } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import Fab from "@material-ui/core/Fab";
 import HighlightOff from "@material-ui/icons/HighlightOff";
@@ -19,6 +19,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { roomActions } from "../../redux/room";
 import { room } from "../../api/api";
+import styles from "../../css/CreateQuestion.module.css";
 
 const mapStateToProps = (state) => ({
   store: state,
@@ -28,14 +29,140 @@ const mapDispatchToProps = (dispatch) => ({
   getRoomResult: (e) => dispatch(roomActions.getRoomResult(e)),
 });
 
+const padNumber = (num, length) => {
+  return String(num).padStart(length, "0");
+};
+
+const Timer = (props) => {
+  const [timer, setTimer] = useState(0);
+  const [minute, setMinute] = useState("");
+  const [second, setSecond] = useState("");
+  const [milliSecond, setMilliSecond] = useState("");
+  const [toggleTimer, setToggleTimer] = useState(false);
+  const [toggleBtnName, setToggleBtnName] = useState("시작");
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
+
+  // Refs
+  const startTimeRef = useRef(0);
+  const leftTimeRef = useRef(0);
+
+  // Hooks
+  useEffect(() => {
+    minuteCalculator();
+    if (timer <= 0) {
+      setToggleTimer(false);
+      setIsTimerRunning(false);
+      setTimer(0);
+    }
+  }, [timer]);
+
+  useEffect(() => {
+    if (toggleTimer) {
+      startTimeRef.current = Date.now();
+      leftTimeRef.current = timer;
+      setIsTimerRunning(true);
+    } else if (!toggleTimer || timer < 0) {
+      // setIsTimerRunning(false);
+    }
+  }, [toggleTimer]);
+
+  useEffect(() => {
+    if (!isTimerRunning) {
+      setToggleBtnName("시작");
+    } else if (isTimerRunning && !toggleTimer) {
+      setToggleBtnName("다시시작");
+    } else if (isTimerRunning && toggleTimer) {
+      setToggleBtnName("일시정지");
+    }
+  }, [isTimerRunning, toggleTimer]);
+
+  // Custom Hook
+  useInterval(
+    () => {
+      timeDecrement();
+    },
+    toggleTimer ? 10 : null
+  );
+
+  // Event Handlers
+  const addTime = (time) => {
+    setTimer((prev) => prev + time);
+    leftTimeRef.current += time;
+  };
+
+  const minuteCalculator = () => {
+    let toSecond = parseInt(timer / 1000);
+    let tempMinute = parseInt(toSecond / 60).toString();
+    let tempSecond = parseInt(toSecond % 60).toString();
+    let tempMilliSecond = parseInt((timer % 1000) / 10).toString();
+
+    setMinute(tempMinute);
+    setSecond(tempSecond);
+    setMilliSecond(tempMilliSecond);
+  };
+
+  const toggleTimerFunc = () => {
+    if (toggleTimer) {
+      setToggleTimer(false);
+    } else if (!toggleTimer && timer > 0) {
+      setToggleTimer(true);
+    }
+  };
+
+  const timeDecrement = () => {
+    const timePassed = Date.now() - startTimeRef.current;
+    setTimer(leftTimeRef.current - timePassed);
+  };
+
+  const clearTime = () => {
+    setTimer(0);
+  };
+
+  return <>{minute.padStart(2, "0")}</>;
+};
+
+// Custom Hooks
+const useInterval = (callback, delay) => {
+  const intervalRef = useRef();
+  const callbackRef = useRef(callback);
+
+  useEffect(() => {
+    callbackRef.current = callback;
+  }, [callback]);
+
+  useEffect(() => {
+    if (typeof delay === "number") {
+      intervalRef.current = setInterval(() => callbackRef.current(), delay);
+    }
+    return () => clearInterval(intervalRef.current);
+  }, [delay]);
+
+  return intervalRef;
+};
+
 const Quiz = function (props) {
   const [quiz, setQuiz] = useState(props.quiz);
   const [answer, setAnswer] = useState("");
   const [isSubmit, setIsSubmit] = useState(false);
   const [result, setResult] = useState({ result: "", score: 0 });
+  const [imageSrc, setImageSrc] = useState("");
   const roomId = useSelector((state) => state.room.roomId);
   const userId = useSelector((state) => state.user.value.userId);
+  const encodeFileToBase64 = (fileBlob) => {
+    console.log(fileBlob);
+    const reader = new FileReader();
+    reader.readAsDataURL(fileBlob);
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        setImageSrc(reader.result);
+        resolve();
+      };
+    });
+  };
+  // const img = JSON.parse(props.quiz.quizPic);
+  // console.log(img);
   useEffect(() => {
+    // encodeFileToBase64(img);
     setIsSubmit(props.isSubmit);
     setQuiz(props.quiz);
     if (props.isTimeOut && isSubmit === false) {
@@ -88,6 +215,10 @@ const Quiz = function (props) {
   return (
     <div>
       <h1>{quiz.content}</h1>
+      <Timer hour={3} min={3} sec={3}></Timer>
+      <div className={styles.preview}>
+        {imageSrc && <img src={imageSrc} alt="preview-img" />}
+      </div>
       {quiz.type === "choice" &&
         isSubmit === false &&
         quiz.options.map((option, index) => {
@@ -354,7 +485,6 @@ class QuizComponent extends Component {
     const styleChat = { display: this.props.chatDisplay };
     const quizbook = this.state.quizbook;
     const { getRoomResult } = this.props;
-    console.log(this.state.roomResult);
     return (
       <div id="chatContainer">
         <div id="chatComponent" style={styleChat}>
@@ -376,7 +506,7 @@ class QuizComponent extends Component {
                 ></Quizbook>
               )}
             {this.state.quiz !== undefined &&
-              this.props.store.user.value.position === "student" && (
+              this.props.store.user.value.position === "professor" && (
                 <Quiz
                   quiz={this.state.quiz}
                   isSubmit={this.state.isSubmit}
