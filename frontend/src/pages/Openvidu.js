@@ -5,13 +5,13 @@ import UserVideoComponent from "../components/UserVideoComponent";
 import { connect } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { ChatComponent } from "openvidu-react";
-
-const OPENVIDU_SERVER_URL = "https://localhost:4443";
-const OPENVIDU_SERVER_SECRET = "MY_SECRET";
-
+import styles from "../css/openvidu.module.css"
 const mapStateToProps = (state) => ({
   store: state,
 });
+
+const OPENVIDU_SERVER_URL = "https://localhost:4443";
+const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
 class Openvidu extends Component {
   constructor(props) {
@@ -39,10 +39,14 @@ class Openvidu extends Component {
     this.handleMainVideoStream = this.handleMainVideoStream.bind(this);
     this.onbeforeunload = this.onbeforeunload.bind(this);
   }
-
+  
   componentDidMount() {
     window.addEventListener("beforeunload", this.onbeforeunload);
+<<<<<<< HEAD
     this.joinSession();
+=======
+
+>>>>>>> feature/FE-cssUI
   }
 
   componentWillUnmount() {
@@ -245,6 +249,8 @@ class Openvidu extends Component {
     const mySessionId = this.state.mySessionId;
     const myUserName = this.state.myUserName;
 
+
+    // jsx 시작
     return (
       <div className="container">
         {this.state.isActive && <Navigate to="/" replace={true} />}
@@ -293,24 +299,75 @@ class Openvidu extends Component {
             </div>
           </div>
         ) : null}
+<<<<<<< HEAD
         {this.state.session !== undefined ? (
           <div id="session">
             <ChatComponent></ChatComponent>
             <div id="session-header">
+=======
+        {/* 참가 화면 끝 */}
+
+        {/* 방 화면 시작 */}
+        {/* session title과 exit button */}
+        {this.state.session !== undefined ? (
+          <div id="session">
+            <div id="session-header" className={styles.sessionHeader}>
+>>>>>>> feature/FE-cssUI
               <h1 id="session-title">{mySessionId}</h1>
               <input
-                className="btn btn-large btn-danger"
+                className={styles.btnLeaveSession}
                 type="button"
                 id="buttonLeaveSession"
                 onClick={this.leaveSession}
                 value="Leave session"
               />
             </div>
+<<<<<<< HEAD
+=======
+          </div>
+        ) : null}
+
+        <div className={styles.videoers}>
+        {/* main video */}
+        {this.state.session !== undefined ? (
+          <div id="mainvideo-container">
+            {this.state.publisher !== undefined ? (
+              <div
+                className={styles.publisherContainer}
+                onClick={() =>
+                  this.handleMainVideoStream(this.state.publisher)
+                }
+              >
+                <UserVideoComponent streamManager={this.state.publisher} />
+              </div>
+            ) : null}
+          </div>
+        ) : null}
+        {/* subscribers video*/}
+        {this.state.session !== undefined ? (
+          <div id="subscribers-container" className={styles.subMainContainer}>
+            {this.state.subscribers.map((sub, i) => (
+              <div
+                key={i}
+                className={styles.subscriberContainer}
+                onClick={() => this.handleMainVideoStream(sub)}
+              >
+                <UserVideoComponent streamManager={sub} />
+              </div>
+            ))}
+          </div>
+        ) : null}
+        </div>
+        {/* mainStreamManager */}
+        {this.state.session !== undefined ? (
+          <div id="main-container">
+>>>>>>> feature/FE-cssUI
             {this.state.mainStreamManager !== undefined ? (
-              <div id="main-video" className="col-md-6">
+              <div id="main-video" className={styles.MainVideo}>
                 <UserVideoComponent
                   streamManager={this.state.mainStreamManager}
                 />
+<<<<<<< HEAD
                 <input
                   className="btn btn-large btn-success"
                   type="button"
@@ -320,34 +377,17 @@ class Openvidu extends Component {
                   }}
                   value="Switch Camera"
                 />
+=======
+>>>>>>> feature/FE-cssUI
               </div>
             ) : null}
-            <div id="video-container" className="col-md-6">
-              {this.state.publisher !== undefined ? (
-                <div
-                  className="stream-container col-md-6 col-xs-6"
-                  onClick={() =>
-                    this.handleMainVideoStream(this.state.publisher)
-                  }
-                >
-                  <UserVideoComponent streamManager={this.state.publisher} />
-                </div>
-              ) : null}
-              {this.state.subscribers.map((sub, i) => (
-                <div
-                  key={i}
-                  className="stream-container col-md-6 col-xs-6"
-                  onClick={() => this.handleMainVideoStream(sub)}
-                >
-                  <UserVideoComponent streamManager={sub} />
-                </div>
-              ))}
-            </div>
           </div>
         ) : null}
       </div>
     );
   }
+  // jsx 끝
+
 
   /**
    * --------------------------
@@ -390,16 +430,16 @@ class Openvidu extends Component {
             console.log(error);
             console.warn(
               "No connection to OpenVidu Server. This may be a certificate error at " +
-                OPENVIDU_SERVER_URL
+              OPENVIDU_SERVER_URL
             );
             if (
               window.confirm(
                 'No connection to OpenVidu Server. This may be a certificate error at "' +
-                  OPENVIDU_SERVER_URL +
-                  '"\n\nClick OK to navigate and accept it. ' +
-                  'If no certificate warning is shown, then check that your OpenVidu Server is up and running at "' +
-                  OPENVIDU_SERVER_URL +
-                  '"'
+                OPENVIDU_SERVER_URL +
+                '"\n\nClick OK to navigate and accept it. ' +
+                'If no certificate warning is shown, then check that your OpenVidu Server is up and running at "' +
+                OPENVIDU_SERVER_URL +
+                '"'
               )
             ) {
               window.location.assign(
@@ -417,9 +457,9 @@ class Openvidu extends Component {
       axios
         .post(
           OPENVIDU_SERVER_URL +
-            "/openvidu/api/sessions/" +
-            sessionId +
-            "/connection",
+          "/openvidu/api/sessions/" +
+          sessionId +
+          "/connection",
           data,
           {
             headers: {

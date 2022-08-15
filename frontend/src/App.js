@@ -45,7 +45,7 @@ function App() {
             <Routes>
               <Route
                 element={
-                  <Grid item xs={12} sm={12}>
+                  <Grid item xs={10} sm={10}>
                     <Navbar></Navbar>
                   </Grid>
                 }
@@ -96,6 +96,14 @@ function App() {
                   element={
                     <PrivateRoute
                       component={<UpdateQuestion></UpdateQuestion>}
+                    ></PrivateRoute>
+                  }
+                ></Route>
+                <Route
+                  path="/openvidu"
+                  element={
+                    <PrivateRoute
+                      component={<Openvidu></Openvidu>}
                     ></PrivateRoute>
                   }
                 ></Route>
