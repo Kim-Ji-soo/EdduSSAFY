@@ -49,7 +49,6 @@ function Signup() {
   const navigate = useNavigate();
   const [checkId, setCheckId] = useState(false);
   const [checkEmail, setCheckEmail] = useState(false);
-  const [message, setMessage] = useState("");
   const [messageValue, setMessageValue] = useState("");
   const [valid, setValid] = useState(false);
 
@@ -340,7 +339,6 @@ function Signup() {
                         data: { email: formik.values.email, reqType : "register" },
                       }).then((res) => {
                         console.log(res.data.message);
-                        setMessage(res.data.message);
                       });
                     }}
                   >

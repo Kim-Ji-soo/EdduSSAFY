@@ -3,11 +3,6 @@ import { useFormik } from "formik";
 import {
   TextField,
   Button,
-  Radio,
-  RadioGroup,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
 } from "@mui/material";
 import * as yup from "yup";
 import users from "../api/api";
@@ -22,52 +17,55 @@ const validationSchema = yup.object({
     .string("Enter your email")
     .email("Enter a valid email")
     .required("Email is required"),
-  name: yup.string("Enter your name").required("name is required"),
   userId: yup
     .string("Enter your id")
     .min(5, "id should be of minimum 5 characters length")
     .required("id is required"),
+  password: yup
+    .string("Enter your password")
+    .min(8, "Password should be of minimum 8 characters length")
+    .required("Password is required"),
+    passwordCheck: yup.string().when("password", {
+      is: (val) => (val && val.length > 0 ? true : false),
+      then: yup
+        .string()
+        .oneOf([yup.ref("password")], "Both password need to be the same"),
+    }),
 });
 
 function ForgotPassword() {
   const navigate = useNavigate();
-  const [checkId, setCheckId] = useState(false);
   const [checkEmail, setCheckEmail] = useState(false);
-  const [message, setMessage] = useState("");
   const [messageValue, setMessageValue] = useState("");
-  const [valid, setValid] = useState(false);
   const formik = useFormik({
     initialValues: {
-      name: "",
       userId: "",
       email: "",
+      password : ""
     },
     validationSchema: validationSchema,
     onSubmit: (data, { setSubmitting }) => {
-      if (valid === true) {
+      if (checkEmail === true) {
         setSubmitting(true);
         console.log(formik.values);
-        console.log(users.signup());
+        console.log(users.resetPassword());
         setSubmitting(false);
 
         axios({
-          method: "post",
-          url: users.signup(),
-          data: formik.values,
+          method: "put",
+          url: users.resetPassword(),
+          data: {authKey:messageValue, email: formik.values.email, password: formik.values.password, userId : formik.values.userId},
         })
           .then((res) => {
             console.log(res.data);
             navigate("/login", { replace: true });
           })
           .catch((e) => {
+            alert('정보가 잘못 입력되었습니다!');
             console.log(e);
           });
       } else {
-        if (checkId === false) {
-          alert("아이디 중복체크 해주세요.");
-        } else {
           alert("이메일 인증 해주세요.");
-        }
       }
     },
   });
@@ -201,17 +199,6 @@ function ForgotPassword() {
               }}
             >
               <div className={styles.textcon}>
-                <div>
-                  <TextField
-                    name="name"
-                    label="name"
-                    value={formik.values.name}
-                    onChange={formik.handleChange}
-                    error={formik.touched.name && Boolean(formik.errors.name)}
-                    helperText={formik.touched.name && formik.errors.name}
-                    sx={Textfieldsx}
-                  />
-                </div>
                 
                 <div userId={styles.inputId}>
                   <TextField
@@ -225,32 +212,104 @@ function ForgotPassword() {
                     helperText={formik.touched.userId && formik.errors.userId}
                     sx={Textbtnfieldsx}
                   />
+                  </div>
+                <div className={styles.inputEmail}>
+                  <TextField
+                    name="email"
+                    label="email"
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    error={formik.touched.email && Boolean(formik.errors.email)}
+                    helperText={formik.touched.email && formik.errors.email}
+                    sx={Textbtnfieldsx}
+                  />
                   <Button
-                    userId="inputButton"
                     className={styles.inputButton}
                     onClick={() => {
                       const userId = formik.values.userId;
                       console.log(users.idcheck() + userId);
+                      console.log(formik.values.email);
                       axios({
-                        method: "get",
-                        url: users.idcheck() + userId,
+                        method: "post",
+                        url: users.sendEmail(),
+                        data: { email: formik.values.email, reqType : "reset" },
                       }).then((res) => {
-                        if (res.data === true) {
-                          alert("중복된 아이디입니다.");
-                        } else {
-                          setCheckId(true);
-                          setValid(checkEmail && checkId);
-                          alert("사용 가능한 아이디입니다.");
-                        }
+                        console.log(res.data.message);
                       });
                     }}
                   >
-                    중복체크
+                    코드발송
                   </Button>
                 </div>
 
+                <div className={styles.inputEmail}>
+                  <TextField
+                    name="message"
+                    label="message"
+                    value={messageValue}
+                    onChange={(e) => {
+                      setMessageValue(e.target.value);
+                    }}
+                    sx={Textbtnfieldsx}
+                  />
+                  <Button
+                    className={styles.inputButton}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      console.log(messageValue);
+                      console.log(formik.values.email);
+                      axios({
+                        method: "post",
+                        url: users.confirmCode(),
+                        data: { authKey : messageValue, email: formik.values.email, reqType : "reset" },
+                      }).then((res) => {
+                        setCheckEmail(true);
+                        alert("이메일 인증이 완료 되었습니다.");
+                      }).catch((e) => {
+                        console.log(e);
+                      });
+
+                    }}
+                  >
+                    코드제출
+                  </Button>
+                </div>
+                <div>
+                  <TextField
+                    name="password"
+                    type="password"
+                    label="New Password"
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    error={
+                      formik.touched.password && Boolean(formik.errors.password)
+                    }
+                    helperText={
+                      formik.touched.password && formik.errors.password
+                    }
+                    sx={Textfieldsx}
+                  />
+                </div>
+                <div>
+                  <TextField
+                    name="passwordCheck"
+                    type="password"
+                    label="passwordcheck"
+                    value={formik.values.passwordCheck}
+                    onChange={formik.handleChange}
+                    error={
+                      formik.touched.passwordCheck &&
+                      Boolean(formik.errors.passwordCheck)
+                    }
+                    helperText={
+                      formik.touched.passwordCheck &&
+                      formik.errors.passwordCheck
+                    }
+                    sx={Textfieldsx}
+                  />
+                </div>
               </div>
-            
+                    
               <Button type="submit" sx={Buttonsx}>
                 Submit
               </Button>
