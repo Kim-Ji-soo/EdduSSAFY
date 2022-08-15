@@ -16,6 +16,8 @@ public class RoomRes {
         setRoomStartTime(room.getRoomStartTime());
         setActive(room.isActive());
         setHostId(room.getHost().getUserId());
+
+//        if(room.getPassword())
     }
 
     private long roomId;
@@ -29,6 +31,8 @@ public class RoomRes {
     private boolean isActive;
 
     private String hostId;
+
+    private Boolean hasPassword;
 
 
 }

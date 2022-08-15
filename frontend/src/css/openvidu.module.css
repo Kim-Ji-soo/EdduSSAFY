@@ -1,0 +1,118 @@
+.sessionHeader{
+ margin: 0; 
+ margin-top: 20px; 
+ display: flex;
+ justify-content: space-between;
+}
+.sessionHeader h1{
+    margin: 0;
+}
+.sessionHeader input{
+    margin: 0;   
+}
+
+.btnLeaveSession{
+    border:none;
+    border-radius: 50px 50px;
+    padding: 10px 15px;
+    background-color: #e71f4a;
+    color: white;
+    cursor: pointer;
+
+}
+.btnLeaveSession:hover{
+    transform: translate(0px,-2px);
+    background-color: #cc3568;
+    box-shadow: 0px 0px 40px 15px rgba(0, 0, 0, 0.10);
+}
+
+.videoers{
+    display: inline-flex;
+    flex-direction: row;
+    resize: vertical;
+    top: 50%;
+    left: 25%;
+    transform: translate(-50% -25%);
+    gap: 2px;
+}
+
+.publisherContainer{
+    position: relative;
+    width: 11vw;
+    height: 100%;
+}
+
+.publisherContainer p{
+    position: absolute;
+    font-size: clamp(1px, 1vw, 3rem);
+    margin: 0;
+    color: white;
+    background:gray;
+    z-index: 2;
+    visibility: hidden;
+    padding-right: 5px;
+    padding-left: 5px;
+    left: 0;
+    border-bottom-right-radius: 4px;
+}
+.publisherContainer:hover p{
+    visibility: visible;
+}
+
+.subMainContainer{
+    display: flex;
+    flex-direction: row;
+}
+.subscriberContainer{
+    position: relative;
+    width: 11vw;
+    height: auto;
+}
+
+.subscriberContainer p{
+    position: absolute;
+    font-size: clamp(1px, 1vw, 3rem);
+    margin: 0;
+    color: white;
+    background:gray;
+    z-index: 2;
+    visibility: hidden;
+    padding-right: 5px;
+    padding-left: 5px;
+    left: 0;
+    border-bottom-right-radius: 4px;
+}
+
+.subscriberContainer:hover p{
+    visibility: visible;
+    block-size:min-content;
+    font-size: clamp(1px, 1vw, 3rem);
+}
+
+.MainVideo{
+    position: relative;
+    height: auto;
+    max-width: 41vw;
+    margin-top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.MainVideo p{
+    position: absolute;
+    font-size: clamp(1px, 1vw, 3rem);
+    margin: 0;
+    color: white;
+    background:gray;
+    z-index: 2;
+    visibility: hidden;
+    padding-right: 5px;
+    padding-left: 5px;
+    left: 0;
+    border-bottom-right-radius: 4px;
+}
+.MainVideo:hover p{
+    visibility: visible;
+    block-size:min-content;
+    font-size: clamp(1px, 1vw, 3rem);
+}

@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { Component, useEffect, useState, useRef } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import Fab from "@material-ui/core/Fab";
 import HighlightOff from "@material-ui/icons/HighlightOff";
@@ -19,6 +19,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { roomActions } from "../../redux/room";
 import { room } from "../../api/api";
+import styles from "../../css/CreateQuestion.module.css";
 
 const mapStateToProps = (state) => ({
   store: state,
@@ -33,9 +34,24 @@ const Quiz = function (props) {
   const [answer, setAnswer] = useState("");
   const [isSubmit, setIsSubmit] = useState(false);
   const [result, setResult] = useState({ result: "", score: 0 });
+  const [imageSrc, setImageSrc] = useState("");
   const roomId = useSelector((state) => state.room.roomId);
   const userId = useSelector((state) => state.user.value.userId);
+  const encodeFileToBase64 = (fileBlob) => {
+    console.log(fileBlob);
+    const reader = new FileReader();
+    reader.readAsDataURL(fileBlob);
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        setImageSrc(reader.result);
+        resolve();
+      };
+    });
+  };
+  // const img = JSON.parse(props.quiz.quizPic);
+  // console.log(img);
   useEffect(() => {
+    // encodeFileToBase64(img);
     setIsSubmit(props.isSubmit);
     setQuiz(props.quiz);
     if (props.isTimeOut && isSubmit === false) {
@@ -88,6 +104,9 @@ const Quiz = function (props) {
   return (
     <div>
       <h1>{quiz.content}</h1>
+      <div className={styles.preview}>
+        {imageSrc && <img src={imageSrc} alt="preview-img" />}
+      </div>
       {quiz.type === "choice" &&
         isSubmit === false &&
         quiz.options.map((option, index) => {
@@ -354,7 +373,6 @@ class QuizComponent extends Component {
     const styleChat = { display: this.props.chatDisplay };
     const quizbook = this.state.quizbook;
     const { getRoomResult } = this.props;
-    console.log(this.state.roomResult);
     return (
       <div id="chatContainer">
         <div id="chatComponent" style={styleChat}>
@@ -387,25 +405,27 @@ class QuizComponent extends Component {
               this.state.isEnd &&
               !this.state.isResult &&
               this.props.store.user.value.position === "professor" && (
-                <Button
-                  onClick={() => {
-                    this.endQuiz();
-                    setTimeout(() => {
-                      axios({
-                        method: "get",
-                        url: room.getResult() + this.state.roomId + "/",
-                      }).then((res) => {
-                        console.log(room.getResult() + this.state.roomId + "/");
-                        getRoomResult(res.data);
-                        this.setState({
-                          roomResult: res.data,
+                <>
+                  <div>{this.state.quiz.content}</div>
+                  <Button
+                    onClick={() => {
+                      this.endQuiz();
+                      setTimeout(() => {
+                        axios({
+                          method: "get",
+                          url: room.getResult() + this.state.roomId + "/",
+                        }).then((res) => {
+                          getRoomResult(res.data);
+                          this.setState({
+                            roomResult: res.data,
+                          });
                         });
                       });
-                    });
-                  }}
-                >
-                  종료
-                </Button>
+                    }}
+                  >
+                    종료
+                  </Button>
+                </>
               )}
             {this.state.isResult &&
               this.props.store.user.value.position === "professor" && (

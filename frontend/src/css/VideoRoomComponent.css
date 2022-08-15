@@ -9,6 +9,53 @@
   min-width: 400px !important;
 }
 
+.subscribersContainer{
+  position: absolute;
+  max-width: 70vw;
+  width: auto;
+  height: 15vh;
+  left: 50%;
+  top: 5%;
+  transform: translate( -50%, -10%);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+.subscribersContainer:hover{
+  overflow-x: auto;
+}
+.subscribersContainer::-webkit-scrollbar{
+  width: 10px;
+  height: 10px;
+}
+.subscribersContainer::-webkit-scrollbar-thumb{
+  background-color: #3ca8f9;
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+.subscribersContainer::-webkit-scrollbar-track{
+  background-color: #e2f0ff;
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 5px white;
+}
+.subscribersMain{
+  flex: 1 0 auto;
+  display: flex;
+}
+.subscribersMenu{
+  display: flex;
+  max-width: 70vw;
+  width: 100%;
+  height: 100%;
+  gap: 5px;
+}
+
 .toolbar{
   min-height: 40px !important;
 
@@ -45,7 +92,7 @@
 
 
 .bounds {
-  background-color: #494949;
+  background-color: #e2f0ff;
   overflow: hidden;
   position: absolute;
   left: 0;
@@ -79,7 +126,6 @@
   padding: 0;
   border: 0;
   font-size: 100%;
-  font-family: Arial, Helvetica, sans-serif;
   vertical-align: baseline;
 }
 

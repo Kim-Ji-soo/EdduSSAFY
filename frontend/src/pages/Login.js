@@ -231,7 +231,7 @@ function Login() {
               }}
             >
               <div>
-                <Link to="/signup" className={styles.linktext}>
+                <Link to="/forgotpassword" className={styles.linktext}>
                   <Button
                     type="submit"
                     sx={{
