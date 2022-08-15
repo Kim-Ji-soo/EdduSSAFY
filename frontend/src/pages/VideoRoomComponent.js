@@ -651,28 +651,42 @@ class VideoRoomComponent extends Component {
           cancelClicked={this.closeDialogExtension}
         />
 
-        <div id="layout" className="bounds">
+          {/* <div id="layout" className="bounds"> */}
+          <div className="bounds">
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (
-              <div className="OT_root OT_publisher custom-class" id="publisher">
+              <div className="OT_root OT_publisher custom-class" id="publisher"
+              style={{position: "absolute", left: "50%", top: "50%", transform:"translate(-50%,-40%)", width: "70vw", height: "70vh"}}
+              >
                 <StreamComponent
                   user={localUser}
                   handleNickname={this.nicknameChanged}
                 />
               </div>
             )}
+          <div className="subscribersContainer">
+            <div className="subscribersMain">
+              <div className="subscribersMenu">
           {this.state.subscribers.map((sub, i) => (
+            <div style={{display:"flex"}}>
             <div
               key={i}
               className="OT_root OT_publisher custom-class"
               id="remoteUsers"
+              // style={{position: "absolute", left: `50% + ${11 * i}vw`, top: "5%", transform:"translateY(-10%)", width: "10vw", height: "13vh"}}
+              // style={{width: "10vw", height: "13vh"}}
+              style={{width: "10vw", height: "13vh"}}
             >
               <StreamComponent
                 user={sub}
                 streamId={sub.streamManager.stream.streamId}
               />
             </div>
+            </div>
           ))}
+          </div>
+          </div>
+          </div>
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (
               <div
