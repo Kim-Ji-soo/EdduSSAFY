@@ -193,6 +193,14 @@ dependencies {
 
     // 오픈비두
     implementation 'io.openvidu:openvidu-java-client:2.20.0'
+
+
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+    implementation 'com.amazonaws:aws-java-sdk:1.11.404'
+//    // aws s3 이미지 업로드
+//    implementation 'com.amazonaws:aws-java-sdk-s3:1.11.475'
+//    implementation 'com.amazonaws:aws-java-sdk-secretsmanager:1.11.339'
+//    implementation 'com.amazonaws:aws-encryption-sdk-java:1.6.0'
 }
 
 test {

@@ -31,7 +31,7 @@ public class QuizController {
 
     //나중에 response 만들자.
     @PostMapping("/createQuiz")
-    public ResponseEntity<QuizRes> createQuiz(@RequestBody QuizCreateReq quizCreateReq){
+    public ResponseEntity<QuizRes> createQuiz(@ModelAttribute QuizCreateReq quizCreateReq){
 
         QuizRes quiz = quizService.createQuiz(quizCreateReq);
        if( quiz == null){
