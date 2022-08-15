@@ -1,12 +1,11 @@
 package com.ssafy.api.controller;
 
+import com.ssafy.api.request.EmailReq;
+import com.ssafy.api.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.ssafy.api.request.UserLoginPostReq;
 import com.ssafy.api.response.UserLoginPostRes;
@@ -30,6 +29,9 @@ import io.swagger.annotations.ApiResponse;
 public class AuthController {
 	@Autowired
 	UserService userService;
+
+	@Autowired
+	EmailService emailService;
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
@@ -55,4 +57,33 @@ public class AuthController {
 		// 유효하지 않는 패스워드인 경우, 로그인 실패로 응답.
 		return ResponseEntity.status(401).body(UserLoginPostRes.of(401, "Invalid Password", null));
 	}
+
+
+	@PostMapping("/sendEmail")
+	@ApiOperation(value = "회원 가입시 이메인 인증", notes = "기존사용하고 있는 이메일을 통해 인증")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<? extends BaseResponseBody> sendAuthKey(
+			@RequestBody @ApiParam(value="이메일정보 정보", required = true) EmailReq emailReq) throws Exception {
+		String email = emailReq.getEmail();
+		if(!emailService.sendSimpleMessage(emailReq)){
+			return ResponseEntity.status(400).body(BaseResponseBody.of(400, "이메일 발신 실패"));
+		}
+
+		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "이메일 발신 성공"));
+	}
+
+	@PostMapping("/confirmCode")
+	public ResponseEntity<Boolean> confirmCode(@RequestBody EmailReq emailReq){
+		if(!emailService.confirmCode(emailReq)){
+			return ResponseEntity.status(400).body(false);
+		}
+
+		return ResponseEntity.status(200).body(true);
+	}
+
 }

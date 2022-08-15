@@ -1,5 +1,8 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.request.EmailReq;
+
 public interface EmailService {
-    String sendSimpleMessage(String to) throws Exception;
+    Boolean sendSimpleMessage(EmailReq emailReq);
+    public Boolean confirmCode(EmailReq emailReq);
 }

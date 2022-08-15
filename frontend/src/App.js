@@ -7,9 +7,11 @@ import VideoRoomComponent from "./pages/VideoRoomComponent";
 import ProblemList from "./pages/ProblemList";
 import CreateQuestion from "./pages/CreateQuestion";
 import UserProfile from "./pages/UserProfile";
+import ChangePassword from "./pages/ChangePassword";
 import Navbar from "./components/Navbar";
 import QuizList from "./pages/QuizList"; //contain
 import Logout from "./pages/Logout";
+import ForgotPassword from "./pages/ForgotPassword";
 import { Routes, Route } from "react-router-dom";
 import { Provider, useSelector } from "react-redux";
 import store from "./redux/store";
@@ -20,6 +22,7 @@ import PrivateRoute from "./lib/PrivateRoute";
 import UpdateQuestion from "./pages/UpdateQuestion";
 
 import {createTheme, ThemeProvider} from "@mui/material/styles"
+
 
 function App() {
 
@@ -82,6 +85,14 @@ function App() {
                     ></PrivateRoute>
                   }
                 ></Route>
+                <Route
+                  path="/changepassword"
+                  element={
+                    <PrivateRoute
+                      component={<ChangePassword></ChangePassword>}
+                    ></PrivateRoute>
+                  }
+                ></Route>
                 <Route path="/logout" element={<Logout></Logout>}></Route>
                 <Route
                   path="/quizlist/:id"
@@ -102,6 +113,7 @@ function App() {
               </Route>
               <Route path="/login" element={<Login></Login>}></Route>
               <Route path="/signup" element={<Signup></Signup>}></Route>
+              <Route path="/forgotpassword" element={<ForgotPassword></ForgotPassword>}></Route>
               <Route
                 path="/openvidu"
                 element={
