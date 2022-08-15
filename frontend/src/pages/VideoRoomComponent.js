@@ -27,10 +27,12 @@ class VideoRoomComponent extends Component {
     const roomId = this.props.store.room.roomId;
     this.OPENVIDU_SERVER_URL = this.props.openviduServerUrl
       ? this.props.openviduServerUrl
-      : "https://i7c111.p.ssafy:8443";
+      : "https://" + window.location.hostname + ":4443";      
+//      : "https://i7c111.p.ssafy:8443";
     this.OPENVIDU_SERVER_SECRET = this.props.openviduSecret
       ? this.props.openviduSecret
-      : "7c111";
+      : "MY_SECRET";      
+//      : "7c111";
     this.hasBeenUpdated = false;
     this.layout = new OpenViduLayout();
     let sessionName = this.props.sessionName
@@ -92,13 +94,6 @@ class VideoRoomComponent extends Component {
     window.addEventListener("beforeunload", this.onbeforeunload);
     window.addEventListener("resize", this.updateLayout);
     window.addEventListener("resize", this.checkSize);
-    if (this.state.localuser !== undefined) {
-      this.state.localUser
-        .getStreamManager()
-        .stream.session.on("signal:endRoom", (event) => {
-          this.leaveSession();
-        });
-    }
     this.joinSession();
   }
 
@@ -257,11 +252,9 @@ class VideoRoomComponent extends Component {
     const mySession = this.state.session;
     const hostId = this.props.store.room.hostId;
     const userId = this.props.store.user.value.userId;
-    // if (hostId === userId) {
-    //   this.state.localUser
-    //     .getStreamManager()
-    //     .stream.session.signal({ type: "endRoom" });
-    // }
+    if (hostId === userId) {
+      this.state.session.signal({ type: "endRoom" });
+    }
     if (mySession) {
       mySession.disconnect();
     }
@@ -406,6 +399,14 @@ class VideoRoomComponent extends Component {
       type: "userChanged",
     };
     this.state.session.signal(signalOptions);
+    console.log(1);
+    if (this.state.localuser !== undefined) {
+      console.log(2);
+      this.state.session.on("signal:endRoom", (event) => {
+        console.log(3);
+        this.leaveSession();
+      });
+    }
   }
 
   toggleFullscreen() {
