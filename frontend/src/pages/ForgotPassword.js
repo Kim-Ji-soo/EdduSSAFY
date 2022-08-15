@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 import * as yup from "yup";
 import users from "../api/api";
-import { email } from "../api/api";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -247,63 +246,6 @@ function ForgotPassword() {
                     }}
                   >
                     중복체크
-                  </Button>
-                </div>
-
-                <div className={styles.inputEmail}>
-                  <TextField
-                    name="email"
-                    label="email"
-                    value={formik.values.email}
-                    onChange={formik.handleChange}
-                    error={formik.touched.email && Boolean(formik.errors.email)}
-                    helperText={formik.touched.email && formik.errors.email}
-                    sx={Textbtnfieldsx}
-                  />
-                  <Button
-                    className={styles.inputButton}
-                    onClick={() => {
-                      const userId = formik.values.userId;
-                      console.log(users.idcheck() + userId);
-                      console.log(formik.values.email);
-                      axios({
-                        method: "post",
-                        url: email.emailConfirm(),
-                        data: { email: formik.values.email },
-                      }).then((res) => {
-                        console.log(res.data.message);
-                        setMessage(res.data.message);
-                      });
-                    }}
-                  >
-                    코드발송
-                  </Button>
-                </div>
-
-                <div className={styles.inputEmail}>
-                  <TextField
-                    name="message"
-                    label="message"
-                    value={messageValue}
-                    onChange={(e) => {
-                      setMessageValue(e.target.value);
-                    }}
-                    sx={Textbtnfieldsx}
-                  />
-                  <Button
-                    className={styles.inputButton}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      if (messageValue === message) {
-                        setCheckEmail(true);
-                        setValid(true && checkId);
-                        alert("이메일 인증이 완료 되었습니다.");
-                      } else {
-                        alert("코드가 일치하지 않습니다.");
-                      }
-                    }}
-                  >
-                    코드제출
                   </Button>
                 </div>
 
