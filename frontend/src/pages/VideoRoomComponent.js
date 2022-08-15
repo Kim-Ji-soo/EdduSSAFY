@@ -9,6 +9,7 @@ import QuizComponent from "../components/quiz/QuizComponent";
 import { Navigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { room } from "../api/api";
+import { createBrowserHistory } from "history";
 
 import OpenViduLayout from "../layout/openvidu-layout";
 import UserModel from "../models/user-model";
@@ -97,6 +98,7 @@ class VideoRoomComponent extends Component {
     this.joinSession();
     const roomId = this.props.store.room.roomId;
     const userId = this.props.store.user.value.userId;
+    const history = createBrowserHistory(0);
     axios({
       url: room.joinRoom(),
       method: "post",

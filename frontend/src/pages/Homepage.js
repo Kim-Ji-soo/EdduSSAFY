@@ -79,7 +79,9 @@ function Homepage(props) {
       padding: 0,
     },
   };
+  const token = useSelector((state) => state.token.value.accessToken);
   useEffect(() => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     axios({
       method: "get",
       url: room.getRoom(),

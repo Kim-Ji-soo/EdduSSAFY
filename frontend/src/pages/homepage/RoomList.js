@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -28,6 +28,10 @@ function RoomList() {
     return state.room.rooms;
   });
   const [search, setSearch] = useState("");
+  const inputRef = useRef(null);
+  useEffect(() => {
+    inputRef.current.focus();
+  });
   return (
     <div>
       <TableContainer sx={{ maxWidth: 1200 }} component={Paper}>
@@ -91,6 +95,7 @@ function RoomList() {
           name="search"
           label="search"
           value={search}
+          ref={inputRef}
           onChange={(e) => {
             setSearch(e.target.value);
           }}
