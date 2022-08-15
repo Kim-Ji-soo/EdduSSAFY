@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./ToolbarComponent.css";
-
+import { connect } from "react-redux";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 
@@ -12,6 +12,7 @@ import Fullscreen from "@material-ui/icons/Fullscreen";
 import FullscreenExit from "@material-ui/icons/FullscreenExit";
 import SwitchVideoIcon from "@material-ui/icons/SwitchVideo";
 import PictureInPicture from "@material-ui/icons/PictureInPicture";
+import PostAddIcon from "@mui/icons-material/PostAdd";
 import ScreenShare from "@material-ui/icons/ScreenShare";
 import StopScreenShare from "@material-ui/icons/StopScreenShare";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -22,10 +23,17 @@ import IconButton from "@material-ui/core/IconButton";
 
 const logo = require("../../assets/favicon-32x32.png");
 
-export default class ToolbarComponent extends Component {
+const mapStateToProps = (state) => ({
+  store: state,
+});
+
+class ToolbarComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = { fullscreen: false };
+    this.state = {
+      fullscreen: false,
+      position: this.props.store.user.value.position,
+    };
     this.camStatusChanged = this.camStatusChanged.bind(this);
     this.micStatusChanged = this.micStatusChanged.bind(this);
     this.screenShare = this.screenShare.bind(this);
@@ -34,6 +42,7 @@ export default class ToolbarComponent extends Component {
     this.switchCamera = this.switchCamera.bind(this);
     this.leaveSession = this.leaveSession.bind(this);
     this.toggleChat = this.toggleChat.bind(this);
+    this.toggleQuiz = this.toggleQuiz.bind(this);
   }
 
   micStatusChanged() {
@@ -67,6 +76,9 @@ export default class ToolbarComponent extends Component {
 
   toggleChat() {
     this.props.toggleChat();
+  }
+  toggleQuiz() {
+    this.props.toggleQuiz();
   }
 
   render() {
@@ -112,17 +124,19 @@ export default class ToolbarComponent extends Component {
               )}
             </IconButton>
 
-            <IconButton
-              color="inherit"
-              className="navButton"
-              onClick={this.screenShare}
-            >
-              {localUser !== undefined && localUser.isScreenShareActive() ? (
-                <PictureInPicture />
-              ) : (
-                <ScreenShare />
-              )}
-            </IconButton>
+            {this.state.position === "professor" && (
+              <IconButton
+                color="inherit"
+                className="navButton"
+                onClick={this.screenShare}
+              >
+                {localUser !== undefined && localUser.isScreenShareActive() ? (
+                  <PictureInPicture />
+                ) : (
+                  <ScreenShare />
+                )}
+              </IconButton>
+            )}
 
             {localUser !== undefined && localUser.isScreenShareActive() && (
               <IconButton onClick={this.stopScreenShare} id="navScreenButton">
@@ -148,6 +162,7 @@ export default class ToolbarComponent extends Component {
             >
               <PowerSettingsNew />
             </IconButton>
+
             <IconButton
               color="inherit"
               onClick={this.toggleChat}
@@ -158,9 +173,22 @@ export default class ToolbarComponent extends Component {
                 <QuestionAnswer />
               </Tooltip>
             </IconButton>
+
+            <IconButton
+              color="inherit"
+              onClick={this.toggleQuiz}
+              id="navQuizButton"
+            >
+              {this.props.showNotification && <div id="point" className="" />}
+              <Tooltip title="Quiz">
+                <PostAddIcon />
+              </Tooltip>
+            </IconButton>
           </div>
         </Toolbar>
       </AppBar>
     );
   }
 }
+
+export default connect(mapStateToProps)(ToolbarComponent);
