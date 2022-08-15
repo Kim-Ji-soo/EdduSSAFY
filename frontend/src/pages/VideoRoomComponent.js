@@ -9,6 +9,7 @@ import QuizComponent from "../components/quiz/QuizComponent";
 import { Navigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { room } from "../api/api";
+import { createBrowserHistory } from "history";
 
 import OpenViduLayout from "../layout/openvidu-layout";
 import UserModel from "../models/user-model";
@@ -27,12 +28,12 @@ class VideoRoomComponent extends Component {
     const roomId = this.props.store.room.roomId;
     this.OPENVIDU_SERVER_URL = this.props.openviduServerUrl
       ? this.props.openviduServerUrl
-      : "https://" + window.location.hostname + ":4443";
-    //      : "https://i7c111.p.ssafy:8443";
+      : // : "https://" + window.location.hostname + ":4443";
+        "https://i7c111.p.ssafy:8443";
     this.OPENVIDU_SERVER_SECRET = this.props.openviduSecret
       ? this.props.openviduSecret
-      : "MY_SECRET";
-    //      : "7c111";
+      : // : "MY_SECRET";
+        "7c111";
     this.hasBeenUpdated = false;
     this.layout = new OpenViduLayout();
     let sessionName = this.props.sessionName
@@ -97,6 +98,8 @@ class VideoRoomComponent extends Component {
     this.joinSession();
     const roomId = this.props.store.room.roomId;
     const userId = this.props.store.user.value.userId;
+    const history = createBrowserHistory();
+
     axios({
       url: room.joinRoom(),
       method: "post",
@@ -651,42 +654,28 @@ class VideoRoomComponent extends Component {
           cancelClicked={this.closeDialogExtension}
         />
 
-          {/* <div id="layout" className="bounds"> */}
-          <div className="bounds">
+        <div id="layout" className="bounds">
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (
-              <div className="OT_root OT_publisher custom-class" id="publisher"
-              style={{position: "absolute", left: "50%", top: "50%", transform:"translate(-50%,-40%)", width: "70vw", height: "70vh"}}
-              >
+              <div className="OT_root OT_publisher custom-class" id="publisher">
                 <StreamComponent
                   user={localUser}
                   handleNickname={this.nicknameChanged}
                 />
               </div>
             )}
-          <div className="subscribersContainer">
-            <div className="subscribersMain">
-              <div className="subscribersMenu">
           {this.state.subscribers.map((sub, i) => (
-            <div style={{display:"flex"}}>
             <div
               key={i}
               className="OT_root OT_publisher custom-class"
               id="remoteUsers"
-              // style={{position: "absolute", left: `50% + ${11 * i}vw`, top: "5%", transform:"translateY(-10%)", width: "10vw", height: "13vh"}}
-              // style={{width: "10vw", height: "13vh"}}
-              style={{width: "10vw", height: "13vh"}}
             >
               <StreamComponent
                 user={sub}
                 streamId={sub.streamManager.stream.streamId}
               />
             </div>
-            </div>
           ))}
-          </div>
-          </div>
-          </div>
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (
               <div

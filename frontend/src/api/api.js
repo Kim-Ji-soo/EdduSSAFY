@@ -1,5 +1,5 @@
-const HOST = "http://localhost:8080/api/v1/";
-//const HOST = "https://i7c111.p.ssafy.io/api/v1/";
+// const HOST = "http://localhost:8080/api/v1/";
+const HOST = "https://i7c111.p.ssafy.io/api/v1/";
 
 const USERS = "users/";
 const QUIZ = "quiz/";
@@ -25,9 +25,9 @@ const users = {
   update: () => HOST + USERS + "update/",
   delete: () => HOST + USERS + "delete/",
   changePassword: () => HOST + USERS + "changePassword/",
-  sendEmail : () => HOST + USERS + "sendEmail/",
-  confirmCode : () => HOST + USERS + "confirmCode/",
-  resetPassword : () => HOST + USERS + "resetPassword"
+  sendEmail: () => HOST + USERS + "sendEmail/",
+  confirmCode: () => HOST + USERS + "confirmCode/",
+  resetPassword: () => HOST + USERS + "resetPassword",
 };
 
 const quiz = {
@@ -41,5 +41,5 @@ const quizbook = {
   getQuizbook: () => HOST + QUIZBOOK + "getQuizbookCombs/",
   delete: () => HOST + QUIZBOOK + "delete/",
 };
-export { quiz, quizbook, room};
+export { quiz, quizbook, room };
 export default users;
