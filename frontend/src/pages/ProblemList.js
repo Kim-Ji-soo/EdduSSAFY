@@ -1,7 +1,7 @@
 /** @format */
 import * as React from "react";
 import { useState, forwardRef, useEffect, useRef } from "react";
-import { quizbook } from "../api/api";
+import { quiz, quizbook } from "../api/api";
 //contain
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
@@ -60,6 +60,7 @@ function ProblemList() {
   const booktitle = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [re, setRe] = useState(false);
   const handleCreateQuizbook = () => {
     axios({
       method: "post",
@@ -106,7 +107,7 @@ function ProblemList() {
         return newMopen;
       });
     }
-  }, []);
+  }, [re]);
 
   return (
     <>
@@ -124,27 +125,24 @@ function ProblemList() {
               {QUIZBOOK.map((item, index) => {
                 return (
                   <Collapse key={index}>
-                    <List  sx={{border:"1px solid #7bc4fc", borderRadius: "10px 10px" ,marginBottom: "10px", padding:0,}}>
-                      <ListItem  sx={{padding: 0, paddingTop: "8px", paddingBottom: "8px",}}
+                    <List
+                      sx={{
+                        border: "1px solid #7bc4fc",
+                        borderRadius: "10px 10px",
+                        marginBottom: "10px",
+                        padding: 0,
+                      }}
+                    >
+                      <ListItem
+                        sx={{
+                          padding: 0,
+                          paddingTop: "8px",
+                          paddingBottom: "8px",
+                        }}
                         ContainerComponent={CustomContainerComponent}
                         ContainerProps={{
                           extraSecondaryAction: (
                             <ListItemSecondaryAction sx={{ right: "100px" }}>
-                              <Tooltip title="문제 삭제하기">
-                                <IconButton
-                                  onClick={() => {
-                                    dispatch(
-                                      quizbookActions.removequizbook(
-                                        item.quizbookId
-                                      )
-                                    );
-                                  }}
-                                  aria-label="delete"
-                                >
-                                  <DeleteForeverIcon />
-                                </IconButton>
-                              </Tooltip>
-
                               {/* 새페이지 버튼 시작 */}
                               <Tooltip title="문제집 수정하기">
                                 <IconButton
@@ -158,6 +156,23 @@ function ProblemList() {
                                   aria-label="hi"
                                 >
                                   <AppRegistrationIcon />
+                                </IconButton>
+                              </Tooltip>
+                              <Tooltip title="문제집 삭제하기">
+                                <IconButton
+                                  onClick={() => {
+                                    axios({
+                                      method: "delete",
+                                      url:
+                                        quizbook.delete() +
+                                        item.quizbookId +
+                                        "/",
+                                    });
+                                    setRe(!re);
+                                  }}
+                                  aria-label="delete"
+                                >
+                                  <DeleteForeverIcon />
                                 </IconButton>
                               </Tooltip>
 
@@ -227,13 +242,13 @@ function ProblemList() {
                         <ListItemButton
                           sx={{
                             "&.MuiListItemButton-root": {
-                              padding:"8px, 0px",
+                              padding: "8px, 0px",
                               "&:hover": {
-                               background:"none",
+                                background: "none",
                               },
                               "&:child": {
-                                backgroundColor:"#e2f0ff",
-                               },
+                                backgroundColor: "#e2f0ff",
+                              },
                             },
                           }}
                           onClick={() => {
@@ -295,7 +310,16 @@ function ProblemList() {
                                   </IconButton>
                                 </Tooltip>
                                 <Tooltip title="문제 삭제하기">
-                                  <IconButton sx={{ mr: 10 }}>
+                                  <IconButton
+                                    sx={{ mr: 10 }}
+                                    onClick={() => {
+                                      axios({
+                                        method: "delete",
+                                        url: quiz.delete() + biq.quizId + "/",
+                                      });
+                                      setRe(!re);
+                                    }}
+                                  >
                                     <BackspaceIcon />
                                   </IconButton>
                                 </Tooltip>
