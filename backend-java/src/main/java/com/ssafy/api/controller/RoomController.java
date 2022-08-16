@@ -108,6 +108,14 @@ public class RoomController {
         return ResponseEntity.status(200).body(rooms);
     }
 
+    @PostMapping("/check")
+    public ResponseEntity<Boolean> checkRoomPassword(@RequestBody UserRoomReq userRoomReq){
+
+        if(!roomService.checkRoomPassword(userRoomReq.getRoomId(), userRoomReq.getPassword())){
+            return ResponseEntity.status(400).body(false);
+        }
+        return ResponseEntity.status(200).body(true);
+    }
 
 
 }

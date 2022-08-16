@@ -40,11 +40,6 @@ public class UserRoomServiceImpl implements UserRoomService{
             else if(!roomService.isRoomActive(userRoomReq.getRoomId())){
                 throw new Exception("방이 활성화 상태가 아닙니다.");
             }
-            //호스트가 아니고 방 비밀번호가 틀렸을 경우엔.
-            if(!hostId.equals(userRoomReq.getUserId())&& !roomService.checkRoomPassword(userRoomReq.getRoomId(), userRoomReq.getPassword())){
-                throw ( new Exception("비밀번호 틀림"));
-            }
-
             userRoomRepository.save(userRoomReq.toEntity());
         } catch(Exception e){
             e.printStackTrace();
@@ -125,4 +120,6 @@ public class UserRoomServiceImpl implements UserRoomService{
 
         return user;
     }
+
+
 }

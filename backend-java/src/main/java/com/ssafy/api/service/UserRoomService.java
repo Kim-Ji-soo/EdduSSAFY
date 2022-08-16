@@ -18,4 +18,5 @@ public interface UserRoomService {
     List<UserRes> getUsersByRoomId(long roomId);
 
     UserInRoomRes updateScore(ScoreReq scoreReq);
+
 }
