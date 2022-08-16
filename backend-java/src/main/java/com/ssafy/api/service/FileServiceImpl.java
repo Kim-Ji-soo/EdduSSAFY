@@ -29,13 +29,18 @@ public class FileServiceImpl implements FileService {
 
     public String uploadQuizImg(UploadQuizImgReq uploadQuizImgReq) {
         MultipartFile file = uploadQuizImgReq.getImg();
-        String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+        String fileName = null;
+        if(file != null){
+            fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+        }
         try {
 
             Quiz quiz = quizService.findQuiz(uploadQuizImgReq.getQuizId());
             String oldPic = quiz.getQuizPic();
 
-            uploadFile(file, fileName);
+            if(file != null){
+                uploadFile(file, fileName);
+            }
 
             // 이미 퀴즈 사진이 있다면 삭제.
             if (oldPic != null && oldPic.length() > 0) {
@@ -49,7 +54,7 @@ public class FileServiceImpl implements FileService {
             e.printStackTrace();
             return "";
         }
-
+//
         return fileName;
     }
 

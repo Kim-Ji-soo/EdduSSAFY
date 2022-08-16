@@ -51,7 +51,14 @@ public class    QuizServiceImpl implements  QuizService{
         try{
             Quiz quiz = quizRepository.findById(quizAlterReq.getQuizId()).get();
 
-            quiz.setQuizPic(quizAlterReq.getQuizPic());
+            if(quizAlterReq.isImgChanged()){
+                UploadQuizImgReq req = new UploadQuizImgReq();
+                req.setImg(quizAlterReq.getQuizPic());
+                req.setQuizId(quiz.getQuizId());
+                fileService.uploadQuizImg(req);
+            }
+
+
             quiz.setAnswer(quizAlterReq.getAnswer());
             quiz.setContent(quizAlterReq.getContent());
             quiz.setOptions(quizAlterReq.getOptions());
