@@ -230,6 +230,7 @@ function Signup() {
                     onChange={formik.handleChange}
                     error={formik.touched.name && Boolean(formik.errors.name)}
                     helperText={formik.touched.name && formik.errors.name}
+                    autoComplete="off"
                     sx={Textfieldsx}
                   />
                 </div>
@@ -245,6 +246,7 @@ function Signup() {
                     helperText={
                       formik.touched.nickname && formik.errors.nickname
                     }
+                    autoComplete="off"
                     sx={Textfieldsx}
                   />
                 </div>
@@ -258,6 +260,7 @@ function Signup() {
                       formik.touched.userId && Boolean(formik.errors.userId)
                     }
                     helperText={formik.touched.userId && formik.errors.userId}
+                    autoComplete="off"
                     sx={Textbtnfieldsx}
                   />
                   <Button
@@ -279,6 +282,7 @@ function Signup() {
                         }
                       });
                     }}
+                    sx ={{marginTop: "2%"}}
                   >
                     중복체크
                   </Button>
@@ -296,6 +300,7 @@ function Signup() {
                     helperText={
                       formik.touched.password && formik.errors.password
                     }
+                    autoComplete="off"
                     sx={Textfieldsx}
                   />
                 </div>
@@ -314,6 +319,7 @@ function Signup() {
                       formik.touched.passwordCheck &&
                       formik.errors.passwordCheck
                     }
+                    autoComplete="off"
                     sx={Textfieldsx}
                   />
                 </div>
@@ -325,6 +331,7 @@ function Signup() {
                     onChange={formik.handleChange}
                     error={formik.touched.email && Boolean(formik.errors.email)}
                     helperText={formik.touched.email && formik.errors.email}
+                    autoComplete="off"
                     sx={Textbtnfieldsx}
                   />
                   <Button
@@ -341,6 +348,7 @@ function Signup() {
                         console.log(res.data.message);
                       });
                     }}
+                    sx ={{marginTop: "2%"}}
                   >
                     코드발송
                   </Button>
@@ -354,6 +362,7 @@ function Signup() {
                     onChange={(e) => {
                       setMessageValue(e.target.value);
                     }}
+                    autoComplete="off"
                     sx={Textbtnfieldsx}
                   />
                   <Button
@@ -375,6 +384,7 @@ function Signup() {
                       });
 
                     }}
+                    sx ={{marginTop: "2%"}}
                   >
                     코드제출
                   </Button>
@@ -388,6 +398,7 @@ function Signup() {
                     onChange={formik.handleChange}
                     error={formik.touched.tel && Boolean(formik.errors.tel)}
                     helperText={formik.touched.tel && formik.errors.tel}
+                    autoComplete="off"
                     sx={Textfieldsx}
                   />
                 </div>
