@@ -54,7 +54,7 @@ function App() {
                   }
                 >
                   <Route
-                    path="/"
+                    path="/roomlist"
                     element={
                       <PrivateRoute
                         component={<Homepage></Homepage>}
@@ -94,7 +94,7 @@ function App() {
                     }
                   ></Route>
                   <Route
-                    path="/mainpage"
+                    path="/"
                     element={
                       <PrivateRoute
                         component={<Mainpage></Mainpage>}

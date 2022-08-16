@@ -39,7 +39,7 @@ export default function Navbar() {
             <DrawerComponent></DrawerComponent>
           ) : (
             <div className={classes.navlinks}>
-              <Link to="/" className={classes.link}>
+              <Link to="/roomlist" className={classes.link}>
                 방 목록
               </Link>
               {position === "professor" && (
