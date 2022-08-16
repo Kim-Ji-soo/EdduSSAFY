@@ -40,20 +40,16 @@ function UserProfile() {
       tel: user.tel,
     },
     validationSchema: validationSchema,
-    onSubmit: (data, { setSubmitting }) => {
-      console.log(data);
+    onSubmit: async (data, { setSubmitting }) => {
       setSubmitting(true);
-      console.log(formik.values);
-
       setSubmitting(false);
-      axios({
+      await axios({
         method: "put",
         url: users.update(),
         data: formik.values,
       })
         .then((res) => {
-          console.log(res.data);
-          alert("회원정보 수정완료!");
+          alert("회원정보 수정완료!")
         })
         .catch((e) => {
           console.log(e);
@@ -63,11 +59,10 @@ function UserProfile() {
         url: users.me(),
       })
         .then((res) => {
-          console.log(res.data);
           dispatch(me(res.data));
         })
         .catch((e) => console.log(e));
-      navigate("/", { replace: true });
+        navigate("/", { replace: true });
     },
   });
   return (

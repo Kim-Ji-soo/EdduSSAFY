@@ -71,6 +71,7 @@ function Homepage(props) {
       borderRadius: "70px 70px",
       padding: "5px 0px",
       background: "#11b683",
+      color: "white",
     },
     "&.MuiButton-root:hover": {
       background: "#0bac7a",
@@ -81,6 +82,9 @@ function Homepage(props) {
   const Gridsx = {
     "&.MuiGrid-root": {
       marginTop: "20px",
+      display:"flex",
+      justifyContent:"center",
+
     },
     "&.MuiGrid-item": {
       padding: 0,
@@ -151,11 +155,12 @@ function Homepage(props) {
         >
           <TextField
             id="outlined-basic2"
-            label="title"
+            label="방 이름"
             variant="outlined"
             defaultValue=""
             sx={{}}
             inputRef={roomTitle}
+            autoComplete="off"
           />
 
           <TextField
@@ -175,7 +180,7 @@ function Homepage(props) {
               });
             }}
           >
-            change
+            생성하기
           </Button>
           <Button
             sx={{ display: "block" }}
@@ -185,7 +190,7 @@ function Homepage(props) {
               });
             }}
           >
-            cancel
+            돌아가기
           </Button>
         </Box>
       </Modal>

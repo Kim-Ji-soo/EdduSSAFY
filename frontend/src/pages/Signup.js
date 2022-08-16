@@ -230,6 +230,7 @@ function Signup() {
                     onChange={formik.handleChange}
                     error={formik.touched.name && Boolean(formik.errors.name)}
                     helperText={formik.touched.name && formik.errors.name}
+                    autoComplete="off"
                     sx={Textfieldsx}
                   />
                 </div>
@@ -245,10 +246,11 @@ function Signup() {
                     helperText={
                       formik.touched.nickname && formik.errors.nickname
                     }
+                    autoComplete="off"
                     sx={Textfieldsx}
                   />
                 </div>
-                <div userId={styles.inputId}>
+                <div className={styles.inputId}>
                   <TextField
                     name="userId"
                     label="userId"
@@ -258,10 +260,10 @@ function Signup() {
                       formik.touched.userId && Boolean(formik.errors.userId)
                     }
                     helperText={formik.touched.userId && formik.errors.userId}
+                    autoComplete="off"
                     sx={Textbtnfieldsx}
                   />
                   <Button
-                    userId="inputButton"
                     className={styles.inputButton}
                     onClick={() => {
                       const userId = formik.values.userId;
@@ -282,6 +284,7 @@ function Signup() {
                         });
                       }
                     }}
+                    sx ={{marginTop: "2%"}}
                   >
                     중복체크
                   </Button>
@@ -299,6 +302,7 @@ function Signup() {
                     helperText={
                       formik.touched.password && formik.errors.password
                     }
+                    autoComplete="off"
                     sx={Textfieldsx}
                   />
                 </div>
@@ -317,6 +321,7 @@ function Signup() {
                       formik.touched.passwordCheck &&
                       formik.errors.passwordCheck
                     }
+                    autoComplete="off"
                     sx={Textfieldsx}
                   />
                 </div>
@@ -328,6 +333,7 @@ function Signup() {
                     onChange={formik.handleChange}
                     error={formik.touched.email && Boolean(formik.errors.email)}
                     helperText={formik.touched.email && formik.errors.email}
+                    autoComplete="off"
                     sx={Textbtnfieldsx}
                   />
                   <Button
@@ -348,6 +354,7 @@ function Signup() {
                         console.log(e);
                       });
                     }}
+                    sx ={{marginTop: "2%"}}
                   >
                     코드발송
                   </Button>
@@ -361,27 +368,32 @@ function Signup() {
                     onChange={(e) => {
                       setMessageValue(e.target.value);
                     }}
+                    autoComplete="off"
                     sx={Textbtnfieldsx}
                   />
                   <Button
                     className={styles.inputButton}
                     onClick={(e) => {
                       e.preventDefault();
-                      console.log(messageValue);
-                      console.log(formik.values.email);
                       axios({
                         method: "post",
                         url: users.confirmCode(),
-                        data: { authKey : messageValue, email: formik.values.email, reqType : "register" },
-                      }).then((res) => {
-                        setCheckEmail(true);
-                        setValid(true && checkId);
-                        alert("이메일 인증이 완료 되었습니다.");
-                      }).catch((e) => {
-                        console.log(e);
-                      });
-
+                        data: {
+                          authKey: messageValue,
+                          email: formik.values.email,
+                          reqType: "register",
+                        },
+                      })
+                        .then((res) => {
+                          setCheckEmail(true);
+                          setValid(true && checkId);
+                          alert("이메일 인증이 완료 되었습니다.");
+                        })
+                        .catch((e) => {
+                          console.log(e);
+                        });
                     }}
+                    sx ={{marginTop: "2%"}}
                   >
                     코드제출
                   </Button>
@@ -395,13 +407,14 @@ function Signup() {
                     onChange={formik.handleChange}
                     error={formik.touched.tel && Boolean(formik.errors.tel)}
                     helperText={formik.touched.tel && formik.errors.tel}
+                    autoComplete="off"
                     sx={Textfieldsx}
                   />
                 </div>
               </div>
               <div>
                 <FormControl>
-                  <FormLabel userId="demo-radio-buttons-group-label"></FormLabel>
+                  <FormLabel className="demo-radio-buttons-group-label"></FormLabel>
                   <RadioGroup
                     aria-labelledby="demo-controlled-radio-buttons-group"
                     name="position"

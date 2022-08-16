@@ -142,7 +142,7 @@ function ProblemList() {
                         ContainerComponent={CustomContainerComponent}
                         ContainerProps={{
                           extraSecondaryAction: (
-                            <ListItemSecondaryAction sx={{ right: "100px" }}>
+                            <ListItemSecondaryAction sx={{ right: "50px" }}>
                               {/* 새페이지 버튼 시작 */}
                               <Tooltip title="문제집 수정하기">
                                 <IconButton
@@ -209,13 +209,13 @@ function ProblemList() {
                                   >
                                     <TextField
                                       id="outlined-basic"
-                                      label="Outlined"
+                                      label="문제집 이름"
                                       variant="outlined"
                                       defaultValue={item.title}
-                                      sx={{}}
+                                      autoComplete="off"
                                     />
                                     <Button sx={{ display: "block" }}>
-                                      change
+                                      이름 변경하기
                                     </Button>
 
                                     <Button
@@ -228,7 +228,7 @@ function ProblemList() {
                                         });
                                       }}
                                     >
-                                      cancel
+                                      뒤로가기
                                     </Button>
                                   </Box>
                                 </Modal>
@@ -403,6 +403,7 @@ function ProblemList() {
               defaultValue=""
               sx={{}}
               inputRef={booktitle}
+              autoComplete="off"
             />
             <Button
               sx={{ display: "block" }}
@@ -413,7 +414,7 @@ function ProblemList() {
                 });
               }}
             >
-              change
+              문제집 생성하기
             </Button>
             <Button
               sx={{ display: "block" }}
@@ -423,7 +424,7 @@ function ProblemList() {
                 });
               }}
             >
-              cancel
+              취소하기
             </Button>
           </Box>
         </Modal>

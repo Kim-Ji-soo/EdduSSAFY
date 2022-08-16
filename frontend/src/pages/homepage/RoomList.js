@@ -126,16 +126,24 @@ function RoomList() {
           </TableBody>
         </Table>
       </TableContainer>
-      <div>
+      <div style={{display:"flex", justifyContent:"center", alignItems:"center", marginTop:"10px"}}>
         <TextField
+            sx={{
+              "& .MuiFormLabel-root": {
+                fontFamily: "Single Day, cursive"
+              },
+          }}
           name="search"
-          label="search"
+          label="방 제목"
           value={search}
           ref={inputRef}
           onChange={(e) => {
             setSearch(e.target.value);
           }}
+          autoComplete="off"  
+          variant="standard"
         />
+
         <Button
           onClick={() => {
             if (search === "") {
@@ -149,6 +157,7 @@ function RoomList() {
               });
             }
           }}
+          sx={{marginTop:"2%"}}
         >
           검색
         </Button>
