@@ -265,19 +265,22 @@ function Signup() {
                     className={styles.inputButton}
                     onClick={() => {
                       const userId = formik.values.userId;
-                      console.log(users.idcheck() + userId);
-                      axios({
-                        method: "get",
-                        url: users.idcheck() + userId,
-                      }).then((res) => {
-                        if (res.data === true) {
-                          alert("중복된 아이디입니다.");
-                        } else {
-                          setCheckId(true);
-                          setValid(checkEmail && checkId);
-                          alert("사용 가능한 아이디입니다.");
-                        }
-                      });
+                      if(userId.length<5){
+                        alert('아이디 길이는 5자 이상이어야 합니다!')
+                      }else{
+                        axios({
+                          method: "get",
+                          url: users.idcheck() + userId,
+                        }).then((res) => {
+                          if (res.data === true) {
+                            alert("중복된 아이디입니다.");
+                          } else {
+                            setCheckId(true);
+                            setValid(checkEmail && checkId);
+                            alert("사용 가능한 아이디입니다.");
+                          }
+                        });
+                      }
                     }}
                   >
                     중복체크
@@ -338,7 +341,11 @@ function Signup() {
                         url: users.sendEmail(),
                         data: { email: formik.values.email, reqType : "register" },
                       }).then((res) => {
+                        alert('이메일 발신 성공!');
                         console.log(res.data.message);
+                      }).catch((e) => {
+                        alert('이미 존재하는 이메일입니다!');
+                        console.log(e);
                       });
                     }}
                   >

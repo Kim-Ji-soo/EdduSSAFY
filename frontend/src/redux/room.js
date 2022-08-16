@@ -20,6 +20,7 @@ export const roomSlice = createSlice({
     },
     getRoomResult: (state, action) => {
       console.log(action.payload);
+      state.roomResult = action.payload;
     },
   },
 });
