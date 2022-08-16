@@ -22,9 +22,11 @@ import Box from "@mui/material/Box";
 
 function RoomList() {
   const [cropen, setCropen] = useState(false);
+  const [roomId, setRoomId] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const password = useRef();
+
   const userId = useSelector((state) => {
     return state.user.value.userId;
   });
@@ -36,6 +38,29 @@ function RoomList() {
   useEffect(() => {
     inputRef.current.focus();
   });
+
+  const handleJoinRoom = () => {
+    //axios register
+    axios({
+      url: room.check(),
+      method: "post",
+      data: {
+        password : password.current.value,
+        roomId : roomId,
+        userId : userId,
+      },
+    }).then((res) => {
+      dispatch(
+        roomActions.setRoom({
+          roomId: roomId,
+        })
+      );
+      navigate("/openvidu", { replace: true });
+    }).catch((e) => {
+      alert('정보가 잘못 입력되었습니다!');
+      console.log(e);
+    });
+  };
 
   return (
     <div>
@@ -85,6 +110,7 @@ function RoomList() {
                               navigate("/openvidu", { replace: true });
                             }
                             else{
+                              setRoomId(row.roomId);
                               setCropen((cropen) => !cropen);
                             } 
                           }
@@ -168,6 +194,7 @@ function RoomList() {
           <Button
             sx={{ display: "block" }}
             onClick={() => {
+              handleJoinRoom();
               setCropen((cropen) => {
                 return !cropen;
               });
@@ -178,16 +205,6 @@ function RoomList() {
           <Button
             sx={{ display: "block" }}
             onClick={(e) => {
-             /* axios({
-                url: room.checkPassword(),
-                method: "post",
-                data: {
-                  password : password.current.value,
-                },
-              }).then((res) => {
-                navigate("/openvidu", { replace: true });
-              });
-              */
               setCropen((cropen) => {
                 return !cropen;
               });
