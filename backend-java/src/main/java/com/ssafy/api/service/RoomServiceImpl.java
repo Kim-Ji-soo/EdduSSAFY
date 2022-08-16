@@ -153,6 +153,26 @@ public class RoomServiceImpl implements  RoomService{
     }
 
     @Override
+    public List<RoomRes> getActiveRooms() {
+        List<RoomRes> activeRooms = new ArrayList<>();
+        try{
+            List<Room> rooms = roomRepository.findAll();
+            for(Room r : rooms){
+                if(!r.isActive()){
+                    continue;
+                }
+                activeRooms.add(new RoomRes(r));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+        return activeRooms;
+    }
+
+
+    @Override
     public List<RoomRes> searchRooms(String word) {
         List<RoomRes> rooms = new ArrayList<>();
         try{
@@ -185,6 +205,7 @@ public class RoomServiceImpl implements  RoomService{
         }
         return true;
     }
+
 
     @Override
     public boolean deleteRoom(Long roomId) {

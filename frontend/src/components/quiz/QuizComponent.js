@@ -444,7 +444,7 @@ class QuizComponent extends Component {
                         </TableRow>
                       </TableHead>
                       <TableBody sx={{background:"#FFFFCC"}}>
-                        {this.state.roomResult.map((row) => (
+                        {this.state.roomResult.filter((row)=>row.position !=='professor').map((row) => (
                           <TableRow
                             key={row.nickName}
                             sx={{
