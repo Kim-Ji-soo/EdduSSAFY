@@ -248,7 +248,7 @@ function Signup() {
                     sx={Textfieldsx}
                   />
                 </div>
-                <div userId={styles.inputId}>
+                <div className={styles.inputId}>
                   <TextField
                     name="userId"
                     label="userId"
@@ -261,11 +261,9 @@ function Signup() {
                     sx={Textbtnfieldsx}
                   />
                   <Button
-                    userId="inputButton"
                     className={styles.inputButton}
                     onClick={() => {
                       const userId = formik.values.userId;
-                      console.log(users.idcheck() + userId);
                       axios({
                         method: "get",
                         url: users.idcheck() + userId,
@@ -336,10 +334,11 @@ function Signup() {
                       axios({
                         method: "post",
                         url: users.sendEmail(),
-                        data: { email: formik.values.email, reqType : "register" },
-                      }).then((res) => {
-                        console.log(res.data.message);
-                      });
+                        data: {
+                          email: formik.values.email,
+                          reqType: "register",
+                        },
+                      }).then((res) => {});
                     }}
                   >
                     코드발송
@@ -360,20 +359,23 @@ function Signup() {
                     className={styles.inputButton}
                     onClick={(e) => {
                       e.preventDefault();
-                      console.log(messageValue);
-                      console.log(formik.values.email);
                       axios({
                         method: "post",
                         url: users.confirmCode(),
-                        data: { authKey : messageValue, email: formik.values.email, reqType : "register" },
-                      }).then((res) => {
-                        setCheckEmail(true);
-                        setValid(true && checkId);
-                        alert("이메일 인증이 완료 되었습니다.");
-                      }).catch((e) => {
-                        console.log(e);
-                      });
-
+                        data: {
+                          authKey: messageValue,
+                          email: formik.values.email,
+                          reqType: "register",
+                        },
+                      })
+                        .then((res) => {
+                          setCheckEmail(true);
+                          setValid(true && checkId);
+                          alert("이메일 인증이 완료 되었습니다.");
+                        })
+                        .catch((e) => {
+                          console.log(e);
+                        });
                     }}
                   >
                     코드제출
@@ -394,7 +396,7 @@ function Signup() {
               </div>
               <div>
                 <FormControl>
-                  <FormLabel userId="demo-radio-buttons-group-label"></FormLabel>
+                  <FormLabel className="demo-radio-buttons-group-label"></FormLabel>
                   <RadioGroup
                     aria-labelledby="demo-controlled-radio-buttons-group"
                     name="position"

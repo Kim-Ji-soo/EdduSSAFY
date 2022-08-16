@@ -41,6 +41,14 @@ function DrawerComponent() {
           <Divider />
           <ListItem onClick={() => setOpenDrawer(false)}>
             <ListItemText>
+              <Link to="/roomlist" className={classes.link}>
+                방 목록
+              </Link>
+            </ListItemText>
+          </ListItem>
+          <Divider />
+          <ListItem onClick={() => setOpenDrawer(false)}>
+            <ListItemText>
               <Link to="/userprofile" className={classes.link}>
                 개인정보 수정
               </Link>
