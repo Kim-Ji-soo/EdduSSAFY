@@ -14,9 +14,12 @@ import { Grid, Button } from "@mui/material"; //contain
 
 import stylecss from "../css/styles.css";
 import logo from "../assets/EDDUSSAFY_얼굴만_동그라미.png";
-import image1 from "../assets/cabin.png";
-import image2 from "../assets/cake.png";
-import image3 from "../assets/circus.png";
+import image1 from "../assets/img1.png";
+import image2 from "../assets/img2.png";
+import image3 from "../assets/img3.png";
+// import image1 from "../assets/cabin.png";
+// import image2 from "../assets/cake.png";
+// import image3 from "../assets/circus.png";
 // import image1 from "../assets/EDDUSSAFY_slogan포함_동그라미.png";
 // import image2 from "../assets/EDDUSSAFY_slogan포함_동그라미.png";
 // import image3 from "../assets/EDDUSSAFY_slogan포함_동그라미.png";
@@ -26,6 +29,9 @@ import {
   faHandshake,
   faLightbulb,
   faQuestionCircle,
+  faPlus,
+  faPlusCircle,
+  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 
 import scripts from "../components/scripts";
@@ -122,10 +128,16 @@ function Mainpage(props) {
               >
                 <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                   <div class="portfolio-item-caption-content text-center text-white">
-                    <i class="fas fa-plus fa-3x"></i>
+                    <FontAwesomeIcon icon={faPlus} size="3x" />
                   </div>
                 </div>
-                <img class="img-fluid" src={image1} alt="..." />
+                <img
+                  class="img-fluid"
+                  src={image1}
+                  alt="..."
+                  width="100%"
+                  height="100%"
+                />
               </div>
             </div>
             {/* <!-- Portfolio Item 2--> */}
@@ -137,10 +149,16 @@ function Mainpage(props) {
               >
                 <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                   <div class="portfolio-item-caption-content text-center text-white">
-                    <i class="fas fa-plus fa-3x"></i>
+                    <FontAwesomeIcon icon={faPlus} size="3x" />
                   </div>
                 </div>
-                <img class="img-fluid" src={image2} alt="..." />
+                <img
+                  class="img-fluid"
+                  src={image2}
+                  alt="..."
+                  width="100%"
+                  height="100%"
+                />
               </div>
             </div>
             {/* <!-- Portfolio Item 3--> */}
@@ -152,10 +170,16 @@ function Mainpage(props) {
               >
                 <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                   <div class="portfolio-item-caption-content text-center text-white">
-                    <i class="fas fa-plus fa-3x"></i>
+                    <FontAwesomeIcon icon={faPlus} size="3x" />
                   </div>
                 </div>
-                <img class="img-fluid" src={image3} alt="..." />
+                <img
+                  class="img-fluid"
+                  src={image3}
+                  alt="..."
+                  width="100%"
+                  height="100%"
+                />
               </div>
             </div>
           </div>
@@ -222,7 +246,7 @@ function Mainpage(props) {
         aria-labelledby="portfolioModal1"
         aria-hidden="true"
       >
-        <div class="modal-dialog modal-xl">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header border-0">
               <button
@@ -244,7 +268,7 @@ function Mainpage(props) {
                     <div class="divider-custom">
                       <div class="divider-custom-line"></div>
                       <div class="divider-custom-icon">
-                        <i class="fas fa-star"></i>
+                        <FontAwesomeIcon icon={faLightbulb} />
                       </div>
                       <div class="divider-custom-line"></div>
                     </div>
@@ -263,6 +287,7 @@ function Mainpage(props) {
                       Nam.
                     </p>
                     <button class="btn btn-primary" data-bs-dismiss="modal">
+                      <FontAwesomeIcon icon={faXmark} layers="fw" />
                       <i class="fas fa-xmark fa-fw"></i>
                       Close Window
                     </button>
@@ -281,7 +306,7 @@ function Mainpage(props) {
         aria-labelledby="portfolioModal2"
         aria-hidden="true"
       >
-        <div class="modal-dialog modal-xl">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header border-0">
               <button
@@ -303,7 +328,7 @@ function Mainpage(props) {
                     <div class="divider-custom">
                       <div class="divider-custom-line"></div>
                       <div class="divider-custom-icon">
-                        <i class="fas fa-star"></i>
+                        <FontAwesomeIcon icon={faLightbulb} />
                       </div>
                       <div class="divider-custom-line"></div>
                     </div>
@@ -322,6 +347,7 @@ function Mainpage(props) {
                       Nam.
                     </p>
                     <button class="btn btn-primary" data-bs-dismiss="modal">
+                      <FontAwesomeIcon icon={faXmark} layers="fw" />
                       <i class="fas fa-xmark fa-fw"></i>
                       Close Window
                     </button>
@@ -340,7 +366,7 @@ function Mainpage(props) {
         aria-labelledby="portfolioModal3"
         aria-hidden="true"
       >
-        <div class="modal-dialog modal-xl">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header border-0">
               <button
@@ -362,7 +388,7 @@ function Mainpage(props) {
                     <div class="divider-custom">
                       <div class="divider-custom-line"></div>
                       <div class="divider-custom-icon">
-                        <i class="fas fa-star"></i>
+                        <FontAwesomeIcon icon={faLightbulb} />
                       </div>
                       <div class="divider-custom-line"></div>
                     </div>
@@ -381,6 +407,7 @@ function Mainpage(props) {
                       Nam.
                     </p>
                     <button class="btn btn-primary" data-bs-dismiss="modal">
+                      <FontAwesomeIcon icon={faXmark} layers="fw" />
                       <i class="fas fa-xmark fa-fw"></i>
                       Close Window
                     </button>
