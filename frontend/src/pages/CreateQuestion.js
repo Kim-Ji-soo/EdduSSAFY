@@ -38,6 +38,32 @@ function CreateContent(props) {
   const [number, setNumber] = useState(1);
   const [value, setValue] = useState({});
   const [content, setContent] = useState([]);
+
+  const Textfieldsx = {
+    width: "70%",
+    height: "100%",
+    marginTop:"10px",
+    "& .MuiInputLabel-root": { color: "black", fontSize: "0.8vmax" },
+    "& .MuiOutlinedInput-root": {
+      "& > fieldset": {
+        width: "100%",
+        height: "100%",
+        border: "3px solid blue",
+        borderRadius: "20px 20px",
+      },
+    },
+    "& .MuiOutlinedInput-root:hover": {
+      "& > fieldset": {
+        borderColor: "blue",
+      },
+    },
+    "& .MuiOutlinedInput-root.Mui-focused": {
+      "& > fieldset": {
+        borderColor: "blue",
+      },
+    },
+  };
+
   return (
     <>
       {content}
@@ -60,11 +86,14 @@ function CreateContent(props) {
                     return newValue;
                   });
                 }}
+                autoComplete="off"
+                sx={Textfieldsx}
               />
             </div>
           );
           setContent(newContent);
         }}
+        className={styles.buttons}
       >
         보기추가
       </Button>
@@ -78,6 +107,7 @@ function CreateContent(props) {
           await setResult(newResult);
           props.onSubmit(newResult); //보기 배열 넘기기
         }}
+        className={styles.buttons}
       >
         보기 확정
       </Button>
@@ -128,32 +158,102 @@ function CreateQuestion() {
     },
   });
 
+  const Textfieldsx = {
+    width: "70%",
+    height: "100%",
+    marginTop:"10px",
+    "& .MuiInputLabel-root": { color: "black", fontSize: "0.8vmax" },
+    "& .MuiOutlinedInput-root": {
+      "& > fieldset": {
+        width: "100%",
+        height: "100%",
+        border: "3px solid blue",
+        borderRadius: "20px 20px",
+      },
+    },
+    "& .MuiOutlinedInput-root:hover": {
+      "& > fieldset": {
+        borderColor: "blue",
+      },
+    },
+    "& .MuiOutlinedInput-root.Mui-focused": {
+      "& > fieldset": {
+        borderColor: "blue",
+      },
+    },
+  };
+
+  const Buttonsx = {
+    marginTop:"20px",
+    "&.MuiButton-root": {
+      border: "3px blue solid",
+      width: "80%",
+      textDecoration: "none",
+      borderRadius: "70px 70px",
+      padding: "10px 0px",
+      color: "#4C3657",
+    },
+    "&.MuiButton-root::before": {
+      content: "''",
+      position: "absolute",
+      width: "100%",
+      height: "100%",
+      borderRadius: "70px 70px",
+      backgroundColor: "#FDDD6D",
+      top: "-10px",
+      left: "10px",
+      zIndex: "-1",
+    },
+  };
+
   return (
     <>
       <Box
         sx={{
-          margin: 10,
+          position: "absolute",
+          display: "flex",
+          justifyContent:"center",
+          flexDirection: "column",
+          minWidth: "400px",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "20vw",
+          bgcolor: "background.paper",
+          // bgcolor: "#f8f7fc",
+          border: "2px #000",
+          borderRadius: 10,
+          boxShadow: 10,
+          pt: 2,
+          px: 4,
+          pb: 3,
+          mt: 4,
         }}
       >
         <h1>Create Question</h1>
 
-        <input
-          type="file"
-          onChange={(e) => {
-            encodeFileToBase64(e.target.files[0]);
-            formik.values.quizPic = e.target.files[0];
-            console.log(formik.values.quizPic);
-          }}
-        />
-        <div className={styles.preview}>
-          {imageSrc && <img src={imageSrc} alt="preview-img" />}
-        </div>
+        
         <form
           onSubmit={(e) => {
             e.preventDefault();
             formik.handleSubmit(e);
           }}
         >
+          <label className="inputFileBtn" htmlFor="inputFile" style={{cursor:"pointer", width:"20vw"}}>이미지 넣기</label>
+        <input
+          id="inputFile"
+          type="file"
+          onChange={(e) => {
+            encodeFileToBase64(e.target.files[0]);
+            formik.values.quizPic = e.target.files[0];
+            console.log(formik.values.quizPic);
+          }}
+          style={{display:"none"}}
+        />
+        <div className={styles.preview}>
+          {imageSrc && <img src={imageSrc} alt="preview-img" />}
+        </div>
+
           <div>
             <TextField
               name="content"
@@ -162,6 +262,8 @@ function CreateQuestion() {
               onChange={formik.handleChange}
               error={formik.touched.content && Boolean(formik.errors.content)}
               helperText={formik.touched.content && formik.errors.content}
+              autoComplete="off"
+              sx={Textfieldsx}
             />
           </div>
           <div>
@@ -172,6 +274,8 @@ function CreateQuestion() {
               onChange={formik.handleChange}
               error={formik.touched.score && Boolean(formik.errors.score)}
               helperText={formik.touched.score && formik.errors.score}
+              autoComplete="off"
+              sx={Textfieldsx}
             />
           </div>
           <div>
@@ -183,6 +287,12 @@ function CreateQuestion() {
                 defaultValue="choice"
                 value={formik.values.type}
                 onChange={formik.handleChange}
+                row
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  marginTop:"10px",
+                }}
               >
                 <FormControlLabel
                   checked={formik.values.type === "choice"}
@@ -226,16 +336,14 @@ function CreateQuestion() {
               onChange={formik.handleChange}
               error={formik.touched.answer && Boolean(formik.errors.answer)}
               helperText={formik.touched.answer && formik.errors.answer}
+              autoComplete="off"
+              sx={Textfieldsx}
             />
           </div>
           <Button
             type="submit"
             disabled={formik.isSubmitting}
-            // onClick={() => {
-            //   formik.values.quizId = new Date()
-            //     .toLocaleString()
-            //     .replace(/[\.\s\:ㄱ-ㅎㅏ-ㅣ가-힣]/g, "");
-            // }}
+            sx={Buttonsx}
           >
             Submit
           </Button>

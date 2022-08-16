@@ -162,13 +162,13 @@ class ToolbarComponent extends Component {
             >
               <PowerSettingsNew />
             </IconButton>
-
+</div>
+<div className="messagequizcontainer">
             <IconButton
               color="inherit"
               onClick={this.toggleChat}
-              id="navChatButton"
             >
-              {this.props.showNotification && <div id="point" className="" />}
+              
               <Tooltip title="Chat">
                 <QuestionAnswer />
               </Tooltip>
@@ -177,9 +177,8 @@ class ToolbarComponent extends Component {
             <IconButton
               color="inherit"
               onClick={this.toggleQuiz}
-              id="navQuizButton"
             >
-              {this.props.showNotification && <div id="point" className="" />}
+              
               <Tooltip title="Quiz">
                 <PostAddIcon />
               </Tooltip>

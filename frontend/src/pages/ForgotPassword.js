@@ -156,19 +156,22 @@ function ForgotPassword() {
             sx={{
               position: "absolute",
               display: "flex",
+              justifyContent:"center",
               flexDirection: "column",
-              minWidth: "385px",
+              minWidth: "400px",
               top: "50%",
               left: "50%",
               transform: "translate(-50%, -50%)",
               width: "20vw",
               bgcolor: "background.paper",
+              // bgcolor: "#f8f7fc",
               border: "2px #000",
-              borderRadius: 5,
+              borderRadius: 10,
               boxShadow: 10,
               pt: 2,
               px: 4,
               pb: 3,
+              mt: 4,
             }}
           >
             <div className={styles.toplinks}>
@@ -210,7 +213,8 @@ function ForgotPassword() {
                       formik.touched.userId && Boolean(formik.errors.userId)
                     }
                     helperText={formik.touched.userId && formik.errors.userId}
-                    sx={Textbtnfieldsx}
+                    autoComplete="off"
+                    sx={Textfieldsx}
                   />
                   </div>
                 <div className={styles.inputEmail}>
@@ -221,6 +225,7 @@ function ForgotPassword() {
                     onChange={formik.handleChange}
                     error={formik.touched.email && Boolean(formik.errors.email)}
                     helperText={formik.touched.email && formik.errors.email}
+                    autoComplete="off"
                     sx={Textbtnfieldsx}
                   />
                   <Button
@@ -250,6 +255,7 @@ function ForgotPassword() {
                     onChange={(e) => {
                       setMessageValue(e.target.value);
                     }}
+                    autoComplete="off"
                     sx={Textbtnfieldsx}
                   />
                   <Button
@@ -287,6 +293,7 @@ function ForgotPassword() {
                     helperText={
                       formik.touched.password && formik.errors.password
                     }
+                    autoComplete="off"
                     sx={Textfieldsx}
                   />
                 </div>
@@ -305,6 +312,7 @@ function ForgotPassword() {
                       formik.touched.passwordCheck &&
                       formik.errors.passwordCheck
                     }
+                    autoComplete="off"
                     sx={Textfieldsx}
                   />
                 </div>

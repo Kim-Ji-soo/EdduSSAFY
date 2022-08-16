@@ -436,8 +436,8 @@ class QuizComponent extends Component {
             {this.state.isResult &&
               this.props.store.user.value.position === "professor" && (
                 <>
-                  <TableContainer sx={{ maxWidth: 420, border:"1px solid white"}} component={Paper}>
-                    <Table sx={{ minWidth: 420 }} aria-label="simple table">
+                  <TableContainer sx={{ maxWidth: "70vw", minHeight:"70vh", border:"1px solid white", overflowX: "hidden"}} component={Paper}>
+                    <Table aria-label="simple table">
                       <TableHead sx={{background:"#FFFF74"}}>
                         <TableRow>
                           <TableCell>이름</TableCell>

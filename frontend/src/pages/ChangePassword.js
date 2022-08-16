@@ -7,7 +7,8 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { me } from "../redux/user";
-import { Box } from "@mui/material";
+import styles from "../css/changePassword.module.css";
+import Box from "@mui/material/Box";
 
 
 const validationSchema = yup.object({
@@ -63,11 +64,77 @@ function ChangePassword() {
         });
     },
   });
+
+  const Textfieldsx = {
+    width: "70%",
+    height: "100%",
+    marginTop:"10px",
+    "& .MuiInputLabel-root": { color: "black", fontSize: "0.8vmax" },
+    "& .MuiOutlinedInput-root": {
+      "& > fieldset": {
+        width: "100%",
+        height: "100%",
+        border: "3px solid blue",
+        borderRadius: "20px 20px",
+      },
+    },
+    "& .MuiOutlinedInput-root:hover": {
+      "& > fieldset": {
+        borderColor: "blue",
+      },
+    },
+    "& .MuiOutlinedInput-root.Mui-focused": {
+      "& > fieldset": {
+        borderColor: "blue",
+      },
+    },
+  };
+
+  const Buttonsx = {
+    marginTop:"20px",
+    "&.MuiButton-root": {
+      border: "3px blue solid",
+      width: "80%",
+      textDecoration: "none",
+      borderRadius: "70px 70px",
+      padding: "10px 0px",
+      color: "#4C3657",
+    },
+    "&.MuiButton-root::before": {
+      content: "''",
+      position: "absolute",
+      width: "100%",
+      height: "100%",
+      borderRadius: "70px 70px",
+      backgroundColor: "#FDDD6D",
+      top: "-10px",
+      left: "10px",
+      zIndex: "-1",
+    },
+  };
+
   return (
     <>
       <Box
         sx={{
-          margin: 10,
+          position: "absolute",
+          display: "flex",
+          justifyContent:"center",
+          flexDirection: "column",
+          minWidth: "400px",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "20vw",
+          bgcolor: "background.paper",
+          // bgcolor: "#f8f7fc",
+          border: "2px #000",
+          borderRadius: 10,
+          boxShadow: 10,
+          pt: 2,
+          px: 4,
+          pb: 3,
+          mt: 4,
         }}
       >
         <h1>Change Password</h1>
@@ -86,6 +153,8 @@ function ChangePassword() {
               onChange={formik.handleChange}
               error={formik.touched.userId && Boolean(formik.errors.userId)}
               helperText={formik.touched.userId && formik.errors.userId}
+              autoComplete="off"
+              sx={Textfieldsx}
             />
           </div>
 
@@ -102,6 +171,8 @@ function ChangePassword() {
                     helperText={
                       formik.touched.oldPassword && formik.errors.oldPassword
                     }
+                    autoComplete="off"
+                    sx={Textfieldsx}
                   />
                 </div>
                 <div>
@@ -119,15 +190,17 @@ function ChangePassword() {
                       formik.touched.newPassword &&
                       formik.errors.newPassword
                     }
+                    autoComplete="off"
+                    sx={Textfieldsx}
                   />
                 </div>
           
-          <Button type="submit" disabled={formik.isSubmitting}>
+          <Button type="submit" disabled={formik.isSubmitting}   sx={Buttonsx}>
             비밀번호변경
           </Button>
         </form>
-        <Link to="/userprofile">
-        <Button>
+        <Link to="/userprofile" className={styles.link}>
+        <Button className={styles.buttons}>
             뒤로가기
         </Button>
         </Link>
