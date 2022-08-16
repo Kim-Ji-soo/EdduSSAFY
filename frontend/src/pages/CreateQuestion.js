@@ -96,7 +96,6 @@ function CreateQuestion() {
     return new Promise((resolve) => {
       reader.onload = () => {
         setImageSrc(reader.result);
-        console.log(reader.result);
         resolve();
       };
     });
@@ -148,7 +147,6 @@ function CreateQuestion() {
           onChange={(e) => {
             encodeFileToBase64(e.target.files[0]);
             formik.values.quizPic = e.target.files[0];
-            console.log(formik.values.quizPic);
           }}
         />
         <div className={styles.preview}>

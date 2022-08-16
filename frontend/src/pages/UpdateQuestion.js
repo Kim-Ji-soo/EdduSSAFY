@@ -54,6 +54,7 @@ function CreateContent(props) {
                   return newValue;
                 });
               }}
+              autoComplete="off"
             />
           </div>
         );
@@ -178,6 +179,7 @@ function UpdateQuestion() {
             error={formik.touched.content && Boolean(formik.errors.content)}
             helperText={formik.touched.content && formik.errors.content}
             sx={{ marginTop: "5px" }}
+            autoComplete="off"
           />
         </div>
         <div>
@@ -189,6 +191,7 @@ function UpdateQuestion() {
             error={formik.touched.score && Boolean(formik.errors.score)}
             helperText={formik.touched.score && formik.errors.score}
             sx={{ marginTop: "5px" }}
+            autoComplete="off"
           />
         </div>
         <div>
@@ -244,6 +247,7 @@ function UpdateQuestion() {
             onChange={formik.handleChange}
             error={formik.touched.answer && Boolean(formik.errors.answer)}
             helperText={formik.touched.answer && formik.errors.answer}
+            autoComplete="off"
           />
         </div>
         <Button type="submit">Submit</Button>

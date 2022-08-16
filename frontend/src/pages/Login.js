@@ -194,6 +194,7 @@ function Login() {
                       formik.touched.userId && Boolean(formik.errors.userId)
                     }
                     helperText={formik.touched.userId && formik.errors.userId}
+                    autoComplete="off"
                     sx={Textfieldsx}
                   />
                 </div>
@@ -210,6 +211,7 @@ function Login() {
                     helperText={
                       formik.touched.password && formik.errors.password
                     }
+                    autoComplete="off"
                     sx={Textfieldsx}
                   />
                 </div>
