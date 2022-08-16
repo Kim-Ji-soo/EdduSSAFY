@@ -23,6 +23,8 @@ import UpdateQuestion from "./pages/UpdateQuestion";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+import Mainpage from "./pages/Mainpage";
+
 function App() {
   const theme = createTheme({
     typography: {
@@ -88,6 +90,14 @@ function App() {
                     element={
                       <PrivateRoute
                         component={<ChangePassword></ChangePassword>}
+                      ></PrivateRoute>
+                    }
+                  ></Route>
+                  <Route
+                    path="/mainpage"
+                    element={
+                      <PrivateRoute
+                        component={<Mainpage></Mainpage>}
                       ></PrivateRoute>
                     }
                   ></Route>

@@ -44,6 +44,9 @@ export default function Navbar() {
                   문제 목록
                 </Link>
               )}
+              <Link to="/" className={classes.link}>
+                방 목록
+              </Link>
               <Link to="/userprofile" className={classes.link}>
                 개인정보 수정
               </Link>
