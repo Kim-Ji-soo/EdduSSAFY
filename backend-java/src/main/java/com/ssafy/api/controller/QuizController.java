@@ -32,7 +32,9 @@ public class QuizController {
     //나중에 response 만들자.
     @PostMapping("/createQuiz")
     public ResponseEntity<QuizRes> createQuiz(@ModelAttribute QuizCreateReq quizCreateReq){
-
+////
+        System.out.println("고우스트 : " + quizCreateReq);
+        ///
         QuizRes quiz = quizService.createQuiz(quizCreateReq);
        if( quiz == null){
            return ResponseEntity.status(400).body(null);

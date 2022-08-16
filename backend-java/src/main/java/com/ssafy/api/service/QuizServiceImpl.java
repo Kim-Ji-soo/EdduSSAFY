@@ -32,10 +32,12 @@ public class    QuizServiceImpl implements  QuizService{
         Quiz quiz = quizCreateReq.toEntity();
         try {
             quiz = quizRepository.save(quiz);
-            UploadQuizImgReq uploadReq = new UploadQuizImgReq();
-            uploadReq.setQuizId(quiz.getQuizId());
-            uploadReq.setImg(quizCreateReq.getQuizPic());
-            fileService.uploadQuizImg(uploadReq);
+            if(quizCreateReq.getQuizPic() != null){
+                UploadQuizImgReq uploadReq = new UploadQuizImgReq();
+                uploadReq.setQuizId(quiz.getQuizId());
+                uploadReq.setImg(quizCreateReq.getQuizPic());
+                fileService.uploadQuizImg(uploadReq);
+            }
         }
         catch(Exception e){
             e.printStackTrace();

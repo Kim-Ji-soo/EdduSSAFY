@@ -16,8 +16,8 @@ public class FileController {
     @Autowired
     private FileService fileService;
 
-    @PostMapping(value="/upload",consumes = {"multipart/form-data"})
-    public ResponseEntity<String> uploadQuizImg(@RequestBody UploadQuizImgReq uploadQuizImgReq) {
+    @PutMapping(value="/upload",consumes = {"multipart/form-data"})
+    public ResponseEntity<String> uploadQuizImg(@ModelAttribute UploadQuizImgReq uploadQuizImgReq) {
 
         String imgName = fileService.uploadQuizImg(uploadQuizImgReq);
         if(imgName == null || imgName.length() <= 0){
