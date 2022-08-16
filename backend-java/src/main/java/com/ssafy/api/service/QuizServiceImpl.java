@@ -32,10 +32,12 @@ public class    QuizServiceImpl implements  QuizService{
         Quiz quiz = quizCreateReq.toEntity();
         try {
             quiz = quizRepository.save(quiz);
-            UploadQuizImgReq uploadReq = new UploadQuizImgReq();
-            uploadReq.setQuizId(quiz.getQuizId());
-            uploadReq.setImg(quizCreateReq.getQuizPic());
-            fileService.uploadQuizImg(uploadReq);
+            if(quizCreateReq.getQuizPic() != null){
+                UploadQuizImgReq uploadReq = new UploadQuizImgReq();
+                uploadReq.setQuizId(quiz.getQuizId());
+                uploadReq.setImg(quizCreateReq.getQuizPic());
+                fileService.uploadQuizImg(uploadReq);
+            }
         }
         catch(Exception e){
             e.printStackTrace();
@@ -49,7 +51,14 @@ public class    QuizServiceImpl implements  QuizService{
         try{
             Quiz quiz = quizRepository.findById(quizAlterReq.getQuizId()).get();
 
-            quiz.setQuizPic(quizAlterReq.getQuizPic());
+            if(quizAlterReq.isImgChanged()){
+                UploadQuizImgReq req = new UploadQuizImgReq();
+                req.setImg(quizAlterReq.getQuizPic());
+                req.setQuizId(quiz.getQuizId());
+                fileService.uploadQuizImg(req);
+            }
+
+
             quiz.setAnswer(quizAlterReq.getAnswer());
             quiz.setContent(quizAlterReq.getContent());
             quiz.setOptions(quizAlterReq.getOptions());

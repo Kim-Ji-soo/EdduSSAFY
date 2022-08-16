@@ -5,6 +5,7 @@ import com.ssafy.api.request.UserRoomReq;
 import com.ssafy.api.response.RoomRes;
 import com.ssafy.api.response.UserInRoomRes;
 import com.ssafy.api.response.UserRes;
+import com.ssafy.db.entity.Room;
 import com.ssafy.db.entity.UserRoom;
 import com.ssafy.db.repository.RoomRepository;
 import com.ssafy.db.repository.UserRoomRepository;
@@ -30,6 +31,7 @@ public class UserRoomServiceImpl implements UserRoomService{
     public boolean enterRoom(UserRoomReq userRoomReq) {
 
         try{ //입장하는 유저가 호스트라면 방 start.
+
             String hostId = roomService.getRoomById(userRoomReq.getRoomId()).getHostId();
             if(hostId.equals(userRoomReq.getUserId())){
                 roomService.startRoom(userRoomReq);
@@ -38,6 +40,11 @@ public class UserRoomServiceImpl implements UserRoomService{
             else if(!roomService.isRoomActive(userRoomReq.getRoomId())){
                 throw new Exception("방이 활성화 상태가 아닙니다.");
             }
+            //호스트가 아니고 방 비밀번호가 틀렸을 경우엔.
+            if(!hostId.equals(userRoomReq.getUserId())&& !roomService.checkRoomPassword(userRoomReq.getRoomId(), userRoomReq.getPassword())){
+                throw ( new Exception("비밀번호 틀림"));
+            }
+
             userRoomRepository.save(userRoomReq.toEntity());
         } catch(Exception e){
             e.printStackTrace();
