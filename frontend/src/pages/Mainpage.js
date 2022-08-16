@@ -82,57 +82,57 @@ function Mainpage(props) {
   });
 
   return (
-    <div class="header">
-      <header class="masthead bg-primary text-white text-center">
-        <div class="container d-flex align-items-center flex-column">
+    <div className="header">
+      <header className="masthead bg-primary text-white text-center">
+        <div className="container d-flex align-items-center flex-column">
           {/* <!-- Masthead Avatar Image--> */}
-          <img class="masthead-avatar mb-5" src={logo} alt="..." />
+          <img className="masthead-avatar mb-5" src={logo} alt="..." />
           {/* <!-- Masthead Heading--> */}
-          <h1 class="masthead-heading text-uppercase mb-0">EDDU SSAFY</h1>
+          <h1 className="masthead-heading text-uppercase mb-0">EDDU SSAFY</h1>
           {/* <!-- Icon Divider--> */}
-          <div class="divider-custom divider-light">
-            <div class="divider-custom-line"></div>
-            <div class="divider-custom-icon">
+          <div className="divider-custom divider-light">
+            <div className="divider-custom-line"></div>
+            <div className="divider-custom-icon">
               <FontAwesomeIcon icon={faHandshake} />
             </div>
-            <div class="divider-custom-line"></div>
+            <div className="divider-custom-line"></div>
           </div>
           {/* <!-- Masthead Subheading--> */}
-          <p class="masthead-subheading font-weight-light mb-0">
+          <p className="masthead-subheading font-weight-light mb-0">
             Student - Education - Professor
           </p>
         </div>
       </header>
-      <section class="page-section portfolio" id="portfolio">
-        <div class="container">
+      <section className="page-section portfolio" id="portfolio">
+        <div className="container">
           {/* <!-- Portfolio Section Heading--> */}
-          <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">
+          <h2 className="page-section-heading text-center text-uppercase text-secondary mb-0">
             Contents
           </h2>
           {/* <!-- Icon Divider--> */}
-          <div class="divider-custom">
-            <div class="divider-custom-line"></div>
-            <div class="divider-custom-icon">
+          <div className="divider-custom">
+            <div className="divider-custom-line"></div>
+            <div className="divider-custom-icon">
               <FontAwesomeIcon icon={faLightbulb} />
             </div>
-            <div class="divider-custom-line"></div>
+            <div className="divider-custom-line"></div>
           </div>
           {/* <!-- Portfolio Grid Items--> */}
-          <div class="row justify-content-center">
+          <div className="row justify-content-center">
             {/* <!-- Portfolio Item 1--> */}
-            <div class="col-md-6 col-lg-4 mb-5">
+            <div className="col-md-6 col-lg-4 mb-5">
               <div
-                class="portfolio-item mx-auto"
+                className="portfolio-item mx-auto"
                 data-bs-toggle="modal"
                 data-bs-target="#portfolioModal1"
               >
-                <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                  <div class="portfolio-item-caption-content text-center text-white">
+                <div className="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                  <div className="portfolio-item-caption-content text-center text-white">
                     <FontAwesomeIcon icon={faPlus} size="3x" />
                   </div>
                 </div>
                 <img
-                  class="img-fluid"
+                  className="img-fluid"
                   src={image1}
                   alt="..."
                   width="100%"
@@ -141,19 +141,19 @@ function Mainpage(props) {
               </div>
             </div>
             {/* <!-- Portfolio Item 2--> */}
-            <div class="col-md-6 col-lg-4 mb-5">
+            <div className="col-md-6 col-lg-4 mb-5">
               <div
-                class="portfolio-item mx-auto"
+                className="portfolio-item mx-auto"
                 data-bs-toggle="modal"
                 data-bs-target="#portfolioModal2"
               >
-                <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                  <div class="portfolio-item-caption-content text-center text-white">
+                <div className="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                  <div className="portfolio-item-caption-content text-center text-white">
                     <FontAwesomeIcon icon={faPlus} size="3x" />
                   </div>
                 </div>
                 <img
-                  class="img-fluid"
+                  className="img-fluid"
                   src={image2}
                   alt="..."
                   width="100%"
@@ -162,19 +162,19 @@ function Mainpage(props) {
               </div>
             </div>
             {/* <!-- Portfolio Item 3--> */}
-            <div class="col-md-6 col-lg-4 mb-5">
+            <div className="col-md-6 col-lg-4 mb-5">
               <div
-                class="portfolio-item mx-auto"
+                className="portfolio-item mx-auto"
                 data-bs-toggle="modal"
                 data-bs-target="#portfolioModal3"
               >
-                <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                  <div class="portfolio-item-caption-content text-center text-white">
+                <div className="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                  <div className="portfolio-item-caption-content text-center text-white">
                     <FontAwesomeIcon icon={faPlus} size="3x" />
                   </div>
                 </div>
                 <img
-                  class="img-fluid"
+                  className="img-fluid"
                   src={image3}
                   alt="..."
                   width="100%"
@@ -187,32 +187,32 @@ function Mainpage(props) {
       </section>
 
       {/* <!-- About Section--> */}
-      <section class="page-section bg-primary text-white mb-0" id="about">
-        <div class="container">
+      <section className="page-section bg-primary text-white mb-0" id="about">
+        <div className="container">
           {/* <!-- About Section Heading--> */}
-          <h2 class="page-section-heading text-center text-uppercase text-white">
+          <h2 className="page-section-heading text-center text-uppercase text-white">
             About
           </h2>
           {/* <!-- Icon Divider--> */}
-          <div class="divider-custom divider-light">
-            <div class="divider-custom-line"></div>
-            <div class="divider-custom-icon">
+          <div className="divider-custom divider-light">
+            <div className="divider-custom-line"></div>
+            <div className="divider-custom-icon">
               <FontAwesomeIcon icon={faQuestionCircle} />
             </div>
-            <div class="divider-custom-line"></div>
+            <div className="divider-custom-line"></div>
           </div>
           {/* <!-- About Section Content--> */}
-          <div class="row">
-            <div class="col-lg-4 ms-auto">
-              <p class="lead">
+          <div className="row">
+            <div className="col-lg-4 ms-auto">
+              <p className="lead">
                 Freelancer is a free bootstrap theme created by Start Bootstrap.
                 The download includes the complete source files including HTML,
                 CSS, and JavaScript as well as optional SASS stylesheets for
                 easy customization.
               </p>
             </div>
-            <div class="col-lg-4 me-auto">
-              <p class="lead">
+            <div className="col-lg-4 me-auto">
+              <p className="lead">
                 You can create your own custom avatar for the masthead, change
                 the icon in the dividers, and add your email address to the
                 contact form to make it fully functional!
@@ -220,75 +220,75 @@ function Mainpage(props) {
             </div>
           </div>
           {/* <!-- About Section Button--> */}
-          <div class="text-center mt-4">
+          <div className="text-center mt-4">
             <a
-              class="btn btn-xl btn-outline-light"
+              className="btn btn-xl btn-outline-light"
               href="https://startbootstrap.com/theme/freelancer/"
             >
-              <i class="fas fa-download me-2"></i>
+              <i className="fas fa-download me-2"></i>
               Free Download!
             </a>
           </div>
         </div>
       </section>
       {/* <!-- Copyright Section--> */}
-      <div class="copyright py-4 text-center text-white">
-        <div class="container">
+      <div className="copyright py-4 text-center text-white">
+        <div className="container">
           <small>Copyright &copy; EDDU SSAFY</small>
         </div>
       </div>
       {/* <!-- Portfolio Modals--> */}
       {/* <!-- Portfolio Modal 1--> */}
       <div
-        class="portfolio-modal modal fade"
+        className="portfolio-modal modal fade"
         id="portfolioModal1"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="portfolioModal1"
         aria-hidden="true"
       >
-        <div class="modal-dialog modal-xl modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header border-0">
+        <div className="modal-dialog modal-xl modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-header border-0">
               <button
-                class="btn-close"
+                className="btn-close"
                 type="button"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body text-center pb-5">
-              <div class="container">
-                <div class="row justify-content-center">
-                  <div class="col-lg-8">
+            <div className="modal-body text-center pb-5">
+              <div className="container">
+                <div className="row justify-content-center">
+                  <div className="col-lg-8">
                     {/* <!-- Portfolio Modal - Title--> */}
-                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">
+                    <h2 className="portfolio-modal-title text-secondary text-uppercase mb-0">
                       Log Cabin
                     </h2>
                     {/* <!-- Icon Divider--> */}
-                    <div class="divider-custom">
-                      <div class="divider-custom-line"></div>
-                      <div class="divider-custom-icon">
+                    <div className="divider-custom">
+                      <div className="divider-custom-line"></div>
+                      <div className="divider-custom-icon">
                         <FontAwesomeIcon icon={faLightbulb} />
                       </div>
-                      <div class="divider-custom-line"></div>
+                      <div className="divider-custom-line"></div>
                     </div>
                     {/* <!-- Portfolio Modal - Image--> */}
                     <img
-                      class="img-fluid rounded mb-5"
+                      className="img-fluid rounded mb-5"
                       src="assets/img/portfolio/cabin.png"
                       alt="..."
                     />
                     {/* <!-- Portfolio Modal - Text--> */}
-                    <p class="mb-4">
+                    <p className="mb-4">
                       Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                       Mollitia neque assumenda ipsam nihil, molestias magnam,
                       recusandae quos quis inventore quisquam velit asperiores,
                       vitae? Reprehenderit soluta, eos quod consequuntur itaque.
                       Nam.
                     </p>
-                    <button class="btn btn-primary" data-bs-dismiss="modal">
+                    <button className="btn btn-primary" data-bs-dismiss="modal">
                       <FontAwesomeIcon icon={faXmark} layers="fw" />
-                      <i class="fas fa-xmark fa-fw"></i>
+                      <i className="fas fa-xmark fa-fw"></i>
                       Close Window
                     </button>
                   </div>
@@ -300,55 +300,55 @@ function Mainpage(props) {
       </div>
       {/* <!-- Portfolio Modal 2--> */}
       <div
-        class="portfolio-modal modal fade"
+        className="portfolio-modal modal fade"
         id="portfolioModal2"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="portfolioModal2"
         aria-hidden="true"
       >
-        <div class="modal-dialog modal-xl modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header border-0">
+        <div className="modal-dialog modal-xl modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-header border-0">
               <button
-                class="btn-close"
+                className="btn-close"
                 type="button"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body text-center pb-5">
-              <div class="container">
-                <div class="row justify-content-center">
-                  <div class="col-lg-8">
+            <div className="modal-body text-center pb-5">
+              <div className="container">
+                <div className="row justify-content-center">
+                  <div className="col-lg-8">
                     {/* <!-- Portfolio Modal - Title--> */}
-                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">
+                    <h2 className="portfolio-modal-title text-secondary text-uppercase mb-0">
                       Tasty Cake
                     </h2>
                     {/* <!-- Icon Divider--> */}
-                    <div class="divider-custom">
-                      <div class="divider-custom-line"></div>
-                      <div class="divider-custom-icon">
+                    <div className="divider-custom">
+                      <div className="divider-custom-line"></div>
+                      <div className="divider-custom-icon">
                         <FontAwesomeIcon icon={faLightbulb} />
                       </div>
-                      <div class="divider-custom-line"></div>
+                      <div className="divider-custom-line"></div>
                     </div>
                     {/* <!-- Portfolio Modal - Image--> */}
                     <img
-                      class="img-fluid rounded mb-5"
+                      className="img-fluid rounded mb-5"
                       src="assets/img/portfolio/cake.png"
                       alt="..."
                     />
                     {/* <!-- Portfolio Modal - Text--> */}
-                    <p class="mb-4">
+                    <p className="mb-4">
                       Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                       Mollitia neque assumenda ipsam nihil, molestias magnam,
                       recusandae quos quis inventore quisquam velit asperiores,
                       vitae? Reprehenderit soluta, eos quod consequuntur itaque.
                       Nam.
                     </p>
-                    <button class="btn btn-primary" data-bs-dismiss="modal">
+                    <button className="btn btn-primary" data-bs-dismiss="modal">
                       <FontAwesomeIcon icon={faXmark} layers="fw" />
-                      <i class="fas fa-xmark fa-fw"></i>
+                      <i className="fas fa-xmark fa-fw"></i>
                       Close Window
                     </button>
                   </div>
@@ -360,55 +360,55 @@ function Mainpage(props) {
       </div>
       {/* <!-- Portfolio Modal 3--> */}
       <div
-        class="portfolio-modal modal fade"
+        className="portfolio-modal modal fade"
         id="portfolioModal3"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="portfolioModal3"
         aria-hidden="true"
       >
-        <div class="modal-dialog modal-xl modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header border-0">
+        <div className="modal-dialog modal-xl modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-header border-0">
               <button
-                class="btn-close"
+                className="btn-close"
                 type="button"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body text-center pb-5">
-              <div class="container">
-                <div class="row justify-content-center">
-                  <div class="col-lg-8">
+            <div className="modal-body text-center pb-5">
+              <div className="container">
+                <div className="row justify-content-center">
+                  <div className="col-lg-8">
                     {/* <!-- Portfolio Modal - Title--> */}
-                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">
+                    <h2 className="portfolio-modal-title text-secondary text-uppercase mb-0">
                       Circus Tent
                     </h2>
                     {/* <!-- Icon Divider--> */}
-                    <div class="divider-custom">
-                      <div class="divider-custom-line"></div>
-                      <div class="divider-custom-icon">
+                    <div className="divider-custom">
+                      <div className="divider-custom-line"></div>
+                      <div className="divider-custom-icon">
                         <FontAwesomeIcon icon={faLightbulb} />
                       </div>
-                      <div class="divider-custom-line"></div>
+                      <div className="divider-custom-line"></div>
                     </div>
                     {/* <!-- Portfolio Modal - Image--> */}
                     <img
-                      class="img-fluid rounded mb-5"
+                      className="img-fluid rounded mb-5"
                       src="assets/img/portfolio/circus.png"
                       alt="..."
                     />
                     {/* <!-- Portfolio Modal - Text--> */}
-                    <p class="mb-4">
+                    <p className="mb-4">
                       Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                       Mollitia neque assumenda ipsam nihil, molestias magnam,
                       recusandae quos quis inventore quisquam velit asperiores,
                       vitae? Reprehenderit soluta, eos quod consequuntur itaque.
                       Nam.
                     </p>
-                    <button class="btn btn-primary" data-bs-dismiss="modal">
+                    <button className="btn btn-primary" data-bs-dismiss="modal">
                       <FontAwesomeIcon icon={faXmark} layers="fw" />
-                      <i class="fas fa-xmark fa-fw"></i>
+                      <i className="fas fa-xmark fa-fw"></i>
                       Close Window
                     </button>
                   </div>
