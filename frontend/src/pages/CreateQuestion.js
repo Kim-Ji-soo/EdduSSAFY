@@ -121,6 +121,9 @@ function CreateQuestion() {
         method: "post",
         url: quiz.createQuiz(),
         data: formik.values,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       }).then((res) => {
         console.log(res.data);
         navigate("/problemlist", { replace: true });
