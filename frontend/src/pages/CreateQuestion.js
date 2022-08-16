@@ -116,6 +116,9 @@ function CreateQuestion() {
     onSubmit: (data, { setSubmitting }) => {
       setSubmitting(true);
       setSubmitting(false);
+      if (formik.values.quizPic === "") {
+        delete formik.values.quizPic;
+      }
       console.log(formik.values);
       axios({
         method: "post",

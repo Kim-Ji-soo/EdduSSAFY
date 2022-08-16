@@ -13,6 +13,7 @@ import * as yup from "yup";
 import axios from "axios";
 import { quiz, file } from "../api/api";
 import { useNavigate, useLocation } from "react-router-dom";
+import styles from "../css/CreateQuestion.module.css";
 
 const validationSchema = yup.object({
   content: yup.string("Enter your content").required("content is required"),
@@ -114,7 +115,10 @@ function UpdateQuestion() {
       setSubmitting(true);
       formik.values.imgChanged = isChange;
       if (isChange === false) {
-        formik.values.quizPic = "";
+        delete formik.values.quizPic;
+      }
+      if (formik.values.imgChanged === true && formik.values.quizPic === "") {
+        delete formik.values.quizPic;
       }
       console.log(formik.values);
       setSubmitting(false);
@@ -133,11 +137,12 @@ function UpdateQuestion() {
         .catch((e) => console.log(e));
     },
   });
-  console.log(formik.values);
   return (
     <>
       <h1>update Question</h1>
-      {imageSrc !== "" && <img src={imageSrc}></img>}
+      <div className={styles.preview}>
+        {imageSrc !== "" && <img src={imageSrc}></img>}
+      </div>
       <div>
         <input
           type="file"

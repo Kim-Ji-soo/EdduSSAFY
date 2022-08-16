@@ -44,7 +44,7 @@ public class QuizController {
 
     //굳이 필요할까 리퀘스트가?
     @PutMapping("/alterQuiz")
-    public ResponseEntity<Boolean> alterQuiz(@RequestBody QuizAlterReq quizAlterReq){
+    public ResponseEntity<Boolean> alterQuiz(@ModelAttribute QuizAlterReq quizAlterReq){
 
         if(!quizService.alterQuiz(quizAlterReq)){
             return ResponseEntity.status(400).body(false);
