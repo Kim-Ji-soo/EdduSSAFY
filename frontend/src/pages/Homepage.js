@@ -14,45 +14,52 @@ import { Grid, Button } from "@mui/material"; //contain
 function Homepage(props) {
   const [cropen, setCropen] = useState(false);
   const roomTitle = useRef();
+  const password = useRef();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  
   const userId = useSelector((state) => {
     return state.user.value.userId;
   });
   const position = useSelector((state) => {
     return state.user.value.position;
   });
-  const handleJoinRoom = (roomId) => {
+  const handleJoinRoom = (data) => {
     //axios register
     axios({
       url: room.joinRoom(),
       method: "post",
       data: {
-        roomId: roomId,
+        roomId: data.roomId,
         userId: userId,
       },
     }).then((res) => {
       dispatch(
         roomActions.setRoom({
-          roomId: roomId,
+          roomId: data.roomId,
+          roomTitle : data.title,
         })
       );
       navigate("/openvidu", { replace: true });
     });
+
   };
   const handleCreateRoom = () => {
     //axios 추가 유저아이디, 타이틀
     console.log(roomTitle.current.value, userId);
+    console.log(password.current.value);
     axios({
       url: room.createRoom(),
       method: "post",
       data: {
         title: roomTitle.current.value,
         userId: userId,
+        password : password.current.value,
       },
     }).then((res) => {
+      console.log(res.data);
       dispatch(roomActions.setRoom(res.data));
-      handleJoinRoom(res.data.roomId);
+      navigate("/openvidu", { replace: true });
     });
   };
 
@@ -155,6 +162,15 @@ function Homepage(props) {
             inputRef={roomTitle}
             autoComplete="off"
           />
+
+          <TextField
+            id="password"
+            label="password"
+            variant="outlined"
+            defaultValue=""
+            sx={{}}
+            inputRef={password}
+          />
           <Button
             sx={{ display: "block" }}
             onClick={() => {
@@ -178,6 +194,8 @@ function Homepage(props) {
           </Button>
         </Box>
       </Modal>
+
+      
     </Grid>
   );
 }
