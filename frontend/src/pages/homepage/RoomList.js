@@ -33,7 +33,7 @@ function RoomList() {
   return (
     <div>
       <TableContainer sx={{ maxWidth: 1200 }} component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table sx={{ minWidth: 650}} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell>방제목</TableCell>
@@ -46,7 +46,7 @@ function RoomList() {
             {rows.map((row) => (
               <TableRow
                 key={row.roomId}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                sx={{"&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
                   {row.title}

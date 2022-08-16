@@ -414,7 +414,7 @@ function ProblemList() {
                 });
               }}
             >
-              문제집 생성하기
+              생성하기
             </Button>
             <Button
               sx={{ display: "block" }}
