@@ -17,10 +17,14 @@ import { quizbook } from "../../api/api";
 import { quizbookActions } from "../../redux/quizbook";
 import { roomActions } from "../../redux/room";
 import { TextField } from "@material-ui/core";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
 
 function RoomList() {
+  const [cropen, setCropen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const password = useRef();
   const userId = useSelector((state) => {
     return state.user.value.userId;
   });
@@ -32,6 +36,7 @@ function RoomList() {
   useEffect(() => {
     inputRef.current.focus();
   });
+
   return (
     <div>
       <TableContainer sx={{ maxWidth: 1200 }} component={Paper}>
@@ -76,7 +81,12 @@ function RoomList() {
                           if (row.active === false) {
                             alert("방이 생성되지 않았습니다.");
                           } else {
-                            navigate("/openvidu", { replace: true });
+                            if(row.hasPassword === false){
+                              navigate("/openvidu", { replace: true });
+                            }
+                            else{
+                              setCropen((cropen) => !cropen);
+                            } 
                           }
                         }
                       });
@@ -117,6 +127,76 @@ function RoomList() {
           검색
         </Button>
       </div>
+
+      <Modal
+        open={cropen}
+        onClose={() => {
+          setCropen((cropen) => {
+            return !cropen;
+          });
+        }}
+        aria-labelledby="parent-modal-title"
+        aria-describedby="parent-modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            display: "flex",
+            flexDirection: "column",
+            minWidth: "200px",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "20vw",
+            bgcolor: "background.paper",
+            border: "2px solid #000",
+            boxShadow: 24,
+            pt: 2,
+            px: 4,
+            pb: 3,
+          }}
+        >
+
+          <TextField
+            id="password"
+            label="password"
+            variant="outlined"
+            defaultValue=""
+            sx={{}}
+            inputRef={password}
+          />
+          <Button
+            sx={{ display: "block" }}
+            onClick={() => {
+              setCropen((cropen) => {
+                return !cropen;
+              });
+            }}
+          >
+            join
+          </Button>
+          <Button
+            sx={{ display: "block" }}
+            onClick={(e) => {
+             /* axios({
+                url: room.checkPassword(),
+                method: "post",
+                data: {
+                  password : password.current.value,
+                },
+              }).then((res) => {
+                navigate("/openvidu", { replace: true });
+              });
+              */
+              setCropen((cropen) => {
+                return !cropen;
+              });
+            }}
+          >
+            cancel
+          </Button>
+        </Box>
+      </Modal>
     </div>
   );
 }

@@ -16,6 +16,7 @@ const room = {
   getResult: () => HOST + USER_ROOM + "userList/",
   updateScore: () => HOST + USER_ROOM + "updateScore/",
   search: () => HOST + ROOM + "search/",
+  checkPassword : () => HOST + USER_ROOM +"checkPassword/"
 };
 
 const users = {

@@ -18,10 +18,10 @@ public class RoomRes {
         setHostId(room.getHost().getUserId());
 
         if(room.getPassword() == null || room.getPassword().length() == 0){
-            setHasPassword(true);
+            setHasPassword(false);
         }
         else{
-            setHasPassword(false);
+            setHasPassword(true);
         }
 
     }
