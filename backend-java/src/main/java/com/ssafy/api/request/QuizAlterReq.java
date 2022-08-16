@@ -3,6 +3,7 @@ package com.ssafy.api.request;
 import com.ssafy.db.entity.Quiz;
 import com.ssafy.db.entity.Quizbook;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
@@ -31,5 +32,19 @@ public class QuizAlterReq {
 
     @ApiModelProperty(name="점수", example="20")
     private int score;
+
+    public static QuizAlterReq of(Quiz quiz){
+        QuizAlterReq quizAlterReq = new QuizAlterReq();
+        quizAlterReq.setQuizId(quiz.getQuizId());
+        quizAlterReq.setQuizPic(quiz.getQuizPic());
+        quizAlterReq.setAnswer(quiz.getAnswer());
+        quizAlterReq.setScore(quiz.getScore());
+        quizAlterReq.setContent(quiz.getContent());
+        quizAlterReq.setOptions(quiz.getOptions());
+        quizAlterReq.setType(quiz.getType());
+        quizAlterReq.setOptionSize(quiz.getOptionSize());
+
+        return quizAlterReq;
+    }
 
 }

@@ -17,7 +17,13 @@ public class RoomRes {
         setActive(room.isActive());
         setHostId(room.getHost().getUserId());
 
-//        if(room.getPassword())
+        if(room.getPassword() == null || room.getPassword().length() == 0){
+            setHasPassword(true);
+        }
+        else{
+            setHasPassword(false);
+        }
+
     }
 
     private long roomId;
