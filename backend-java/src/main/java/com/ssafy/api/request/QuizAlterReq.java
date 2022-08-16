@@ -3,7 +3,9 @@ package com.ssafy.api.request;
 import com.ssafy.db.entity.Quiz;
 import com.ssafy.db.entity.Quizbook;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 public class QuizAlterReq {
@@ -17,8 +19,8 @@ public class QuizAlterReq {
     @ApiModelProperty(name="객관식 = choice 주관식 = subjective", example="choice")
     private String type;
 
-    @ApiModelProperty(name="이미지 주소", example="")
-    private String quizPic;
+    @ApiModelProperty(name="이미지 파일", example="")
+    private MultipartFile quizPic;
 
     @ApiModelProperty(name="선택지 갯수(주관식은 1)", example="2")
     private int optionSize;
@@ -31,5 +33,21 @@ public class QuizAlterReq {
 
     @ApiModelProperty(name="점수", example="20")
     private int score;
+
+    private boolean imgChanged;
+
+    public static QuizAlterReq of(Quiz quiz){
+        QuizAlterReq quizAlterReq = new QuizAlterReq();
+        quizAlterReq.setQuizId(quiz.getQuizId());
+//        quizAlterReq.setQuizPic(quiz.getQuizPic());
+        quizAlterReq.setAnswer(quiz.getAnswer());
+        quizAlterReq.setScore(quiz.getScore());
+        quizAlterReq.setContent(quiz.getContent());
+        quizAlterReq.setOptions(quiz.getOptions());
+        quizAlterReq.setType(quiz.getType());
+        quizAlterReq.setOptionSize(quiz.getOptionSize());
+
+        return quizAlterReq;
+    }
 
 }

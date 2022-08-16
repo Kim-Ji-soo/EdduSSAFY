@@ -115,10 +115,17 @@ function CreateQuestion() {
     onSubmit: (data, { setSubmitting }) => {
       setSubmitting(true);
       setSubmitting(false);
+      if (formik.values.quizPic === "") {
+        delete formik.values.quizPic;
+      }
+      console.log(formik.values);
       axios({
         method: "post",
         url: quiz.createQuiz(),
         data: formik.values,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       }).then((res) => {
         console.log(res.data);
         navigate("/problemlist", { replace: true });

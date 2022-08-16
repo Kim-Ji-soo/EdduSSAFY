@@ -2,6 +2,7 @@ package com.ssafy.api.service;
 
 import com.ssafy.api.request.QuizAlterReq;
 import com.ssafy.api.request.QuizCreateReq;
+import com.ssafy.api.request.UploadQuizImgReq;
 import com.ssafy.api.response.QuizRes;
 import com.ssafy.db.entity.Quiz;
 import com.ssafy.db.entity.Quizbook;
@@ -23,11 +24,20 @@ public class    QuizServiceImpl implements  QuizService{
     @Autowired
     QuizRepository quizRepository;
 
+    @Autowired
+    FileService fileService;
+
     @Override
     public QuizRes createQuiz(QuizCreateReq quizCreateReq) {
         Quiz quiz = quizCreateReq.toEntity();
         try {
-            quizRepository.save(quiz);
+            quiz = quizRepository.save(quiz);
+            if(quizCreateReq.getQuizPic() != null){
+                UploadQuizImgReq uploadReq = new UploadQuizImgReq();
+                uploadReq.setQuizId(quiz.getQuizId());
+                uploadReq.setImg(quizCreateReq.getQuizPic());
+                fileService.uploadQuizImg(uploadReq);
+            }
         }
         catch(Exception e){
             e.printStackTrace();
@@ -41,7 +51,14 @@ public class    QuizServiceImpl implements  QuizService{
         try{
             Quiz quiz = quizRepository.findById(quizAlterReq.getQuizId()).get();
 
-            quiz.setQuizPic(quizAlterReq.getQuizPic());
+            if(quizAlterReq.isImgChanged()){
+                UploadQuizImgReq req = new UploadQuizImgReq();
+                req.setImg(quizAlterReq.getQuizPic());
+                req.setQuizId(quiz.getQuizId());
+                fileService.uploadQuizImg(req);
+            }
+
+
             quiz.setAnswer(quizAlterReq.getAnswer());
             quiz.setContent(quizAlterReq.getContent());
             quiz.setOptions(quizAlterReq.getOptions());
@@ -82,5 +99,17 @@ public class    QuizServiceImpl implements  QuizService{
             quizResList.add(new QuizRes(q));
         }
         return quizResList;
+    }
+
+    @Override
+    public Quiz findQuiz(long quizId) {
+        Quiz quiz = new Quiz();
+        try{
+            quiz = quizRepository.findById(quizId).get();
+        }catch(Exception e){
+            e.printStackTrace();
+
+        }
+        return quiz;
     }
 }
