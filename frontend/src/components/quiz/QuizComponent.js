@@ -18,7 +18,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { roomActions } from "../../redux/room";
-import { room } from "../../api/api";
+import { room, file } from "../../api/api";
 import styles from "../../css/CreateQuestion.module.css";
 
 const mapStateToProps = (state) => ({
@@ -37,21 +37,20 @@ const Quiz = function (props) {
   const [imageSrc, setImageSrc] = useState("");
   const roomId = useSelector((state) => state.room.roomId);
   const userId = useSelector((state) => state.user.value.userId);
-  const encodeFileToBase64 = (fileBlob) => {
-    console.log(fileBlob);
-    const reader = new FileReader();
-    reader.readAsDataURL(fileBlob);
-    return new Promise((resolve) => {
-      reader.onload = () => {
-        setImageSrc(reader.result);
-        resolve();
-      };
-    });
-  };
   // const img = JSON.parse(props.quiz.quizPic);
   // console.log(img);
   useEffect(() => {
     // encodeFileToBase64(img);
+    if (props.quiz.quizPic !== "") {
+      axios({
+        method: "get",
+        url: file.download(),
+        params: { fileName: props.quiz.quizPic },
+      }).then((res) => {
+        console.log(res.data);
+        setImageSrc(res.data);
+      });
+    }
     setIsSubmit(props.isSubmit);
     setQuiz(props.quiz);
     if (props.isTimeOut && isSubmit === false) {
@@ -394,7 +393,7 @@ class QuizComponent extends Component {
                 ></Quizbook>
               )}
             {this.state.quiz !== undefined &&
-              this.props.store.user.value.position === "student" && (
+              this.props.store.user.value.position === "professor" && (
                 <Quiz
                   quiz={this.state.quiz}
                   isSubmit={this.state.isSubmit}
@@ -407,6 +406,7 @@ class QuizComponent extends Component {
               this.props.store.user.value.position === "professor" && (
                 <>
                   <div>{this.state.quiz.content}</div>
+
                   <Button
                     onClick={() => {
                       this.endQuiz();

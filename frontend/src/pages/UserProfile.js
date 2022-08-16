@@ -41,10 +41,7 @@ function UserProfile() {
     },
     validationSchema: validationSchema,
     onSubmit: (data, { setSubmitting }) => {
-      console.log(data);
       setSubmitting(true);
-      console.log(formik.values);
-
       setSubmitting(false);
       axios({
         method: "put",
@@ -52,8 +49,16 @@ function UserProfile() {
         data: formik.values,
       })
         .then((res) => {
-          console.log(res.data);
           alert("회원정보 수정완료!");
+          axios({
+            method: "get",
+            url: users.me(),
+          })
+            .then((res) => {
+              dispatch(me(res.data));
+            })
+            .catch((e) => console.log(e));
+          navigate("/", { replace: true });
         })
         .catch((e) => {
           console.log(e);
@@ -63,7 +68,6 @@ function UserProfile() {
         url: users.me(),
       })
         .then((res) => {
-          console.log(res.data);
           dispatch(me(res.data));
         })
         .catch((e) => console.log(e));
