@@ -411,7 +411,7 @@ class QuizComponent extends Component {
               !this.state.isResult &&
               this.props.store.user.value.position === "professor" && (
                 <>
-                  <div>{this.state.quiz.content}</div>
+                  <div style={{fontSize:"2rem"}}>"{this.state.quiz.content}" 를 진행중입니다</div>
                   <Button
                     onClick={() => {
                       this.endQuiz();
