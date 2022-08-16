@@ -49,7 +49,7 @@ function UserProfile() {
         data: formik.values,
       })
         .then((res) => {
-          alert("회원정보 수정완료!");
+          alert("회원정보 수정완료!")
         })
         .catch((e) => {
           console.log(e);
@@ -60,9 +60,9 @@ function UserProfile() {
       })
         .then((res) => {
           dispatch(me(res.data));
-          navigate("/", { replace: true });
         })
         .catch((e) => console.log(e));
+        navigate("/", { replace: true });
     },
   });
   return (
