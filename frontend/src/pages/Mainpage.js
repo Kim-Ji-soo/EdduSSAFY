@@ -1,17 +1,4 @@
 /** @format */
-import { useState, useRef, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { roomActions } from "../redux/room";
-import { room } from "../api/api";
-import axios from "axios";
-import RoomList from "./homepage/RoomList";
-import UserList from "./homepage/UserList";
-import Modal from "@mui/material/Modal";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
-import { Grid, Button } from "@mui/material"; //contain
-
 import stylecss from "../css/styles.css";
 import logo from "../assets/EDDUSSAFY_얼굴만_동그라미.png";
 import image1 from "../assets/img1.png";
@@ -30,57 +17,14 @@ import {
   faLightbulb,
   faQuestionCircle,
   faPlus,
-  faPlusCircle,
-  faXmark,
+  faXmarkCircle,
+  faPlayCircle,
 } from "@fortawesome/free-solid-svg-icons";
 
-import scripts from "../components/scripts";
+import classes from "../css/navbar.module.css";
+import { Link } from "react-router-dom";
 
 function Mainpage(props) {
-  const [cropen, setCropen] = useState(false);
-  const roomTitle = useRef();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const userId = useSelector((state) => {
-    return state.user.value.userId;
-  });
-  const position = useSelector((state) => {
-    return state.user.value.position;
-  });
-
-  const Buttonsx = {
-    "&.MuiButton-root": {
-      marginTop: "10px",
-      width: "10%",
-      textDecoration: "none",
-      borderRadius: "70px 70px",
-      padding: "5px 0px",
-      background: "#11b683",
-    },
-    "&.MuiButton-root:hover": {
-      background: "#0bac7a",
-      transform: "translateY(-2px)",
-    },
-  };
-
-  const Gridsx = {
-    "&.MuiGrid-root": {
-      marginTop: "20px",
-    },
-    "&.MuiGrid-item": {
-      padding: 0,
-    },
-  };
-  useEffect(() => {
-    axios({
-      method: "get",
-      url: room.getRoom(),
-    }).then((res) => {
-      dispatch(roomActions.getRooms(res.data));
-    });
-    navigator.mediaDevices.getUserMedia({ audio: true, video: true });
-  });
-
   return (
     <div className="header">
       <header className="masthead bg-primary text-white text-center">
@@ -221,13 +165,13 @@ function Mainpage(props) {
           </div>
           {/* <!-- About Section Button--> */}
           <div className="text-center mt-4">
-            <a
-              className="btn btn-xl btn-outline-light"
-              href="https://startbootstrap.com/theme/freelancer/"
-            >
-              <i className="fas fa-download me-2"></i>
-              Free Download!
-            </a>
+            <Link to="/roomlist" className={classes.link}>
+              <a className="btn btn-xl btn-outline-light">
+                <FontAwesomeIcon icon={faPlayCircle} />
+                <i className="fas fa-download me-2"></i>
+                Let's Get Study!
+              </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -287,8 +231,8 @@ function Mainpage(props) {
                       Nam.
                     </p>
                     <button className="btn btn-primary" data-bs-dismiss="modal">
-                      <FontAwesomeIcon icon={faXmark} layers="fw" />
-                      <i className="fas fa-xmark fa-fw"></i>
+                      <FontAwesomeIcon icon={faXmarkCircle} />
+                      <i className="fas fa-download me-2"></i>
                       Close Window
                     </button>
                   </div>
@@ -347,8 +291,8 @@ function Mainpage(props) {
                       Nam.
                     </p>
                     <button className="btn btn-primary" data-bs-dismiss="modal">
-                      <FontAwesomeIcon icon={faXmark} layers="fw" />
-                      <i className="fas fa-xmark fa-fw"></i>
+                      <FontAwesomeIcon icon={faXmarkCircle} />
+                      <i className="fas fa-download me-2"></i>
                       Close Window
                     </button>
                   </div>
@@ -407,8 +351,8 @@ function Mainpage(props) {
                       Nam.
                     </p>
                     <button className="btn btn-primary" data-bs-dismiss="modal">
-                      <FontAwesomeIcon icon={faXmark} layers="fw" />
-                      <i className="fas fa-xmark fa-fw"></i>
+                      <FontAwesomeIcon icon={faXmarkCircle} />
+                      <i className="fas fa-download me-2"></i>
                       Close Window
                     </button>
                   </div>
