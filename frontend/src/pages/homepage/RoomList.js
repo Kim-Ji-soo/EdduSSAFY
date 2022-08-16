@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { quizbook } from "../../api/api";
 import { quizbookActions } from "../../redux/quizbook";
 import { roomActions } from "../../redux/room";
-import { TextField } from "@material-ui/core";
+import TextField from '@mui/material/TextField';
 
 function RoomList() {
   const navigate = useNavigate();
@@ -28,6 +28,8 @@ function RoomList() {
     return state.room.rooms;
   });
   const [search, setSearch] = useState("");
+
+
   return (
     <div>
       <TableContainer sx={{ maxWidth: 1200 }} component={Paper}>
@@ -86,15 +88,23 @@ function RoomList() {
           </TableBody>
         </Table>
       </TableContainer>
-      <div>
+      <div style={{display:"flex", justifyContent:"center", alignItems:"center", marginTop:"10px"}}>
         <TextField
+            sx={{
+              "& .MuiFormLabel-root": {
+                fontFamily: "Single Day, cursive"
+              },
+          }}
           name="search"
-          label="search"
+          label="방 제목"
           value={search}
           onChange={(e) => {
             setSearch(e.target.value);
           }}
+          autoComplete="off"  
+          variant="standard"
         />
+
         <Button
           onClick={() => {
             if (search === "") {
@@ -108,6 +118,7 @@ function RoomList() {
               });
             }
           }}
+          sx={{marginTop:"2%"}}
         >
           검색
         </Button>

@@ -14,6 +14,9 @@ import OpenViduLayout from "../layout/openvidu-layout";
 import UserModel from "../models/user-model";
 import ToolbarComponent from "../components/toolbar/ToolbarComponent";
 
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+
 var localUser = new UserModel();
 const mapStateToProps = (state) => ({
   store: state,
@@ -57,7 +60,7 @@ class VideoRoomComponent extends Component {
     this.joinSession = this.joinSession.bind(this);
     this.leaveSession = this.leaveSession.bind(this);
     this.onbeforeunload = this.onbeforeunload.bind(this);
-    this.updateLayout = this.updateLayout.bind(this);
+    // this.updateLayout = this.updateLayout.bind(this);
     this.camStatusChanged = this.camStatusChanged.bind(this);
     this.micStatusChanged = this.micStatusChanged.bind(this);
     this.nicknameChanged = this.nicknameChanged.bind(this);
@@ -92,7 +95,7 @@ class VideoRoomComponent extends Component {
       openViduLayoutOptions
     );
     window.addEventListener("beforeunload", this.onbeforeunload);
-    window.addEventListener("resize", this.updateLayout);
+    // window.addEventListener("resize", this.updateLayout);
     window.addEventListener("resize", this.checkSize);
     this.joinSession();
     const roomId = this.props.store.room.roomId;
@@ -109,7 +112,7 @@ class VideoRoomComponent extends Component {
 
   componentWillUnmount() {
     window.removeEventListener("beforeunload", this.onbeforeunload);
-    window.removeEventListener("resize", this.updateLayout);
+    // window.removeEventListener("resize", this.updateLayout);
     window.removeEventListener("resize", this.checkSize);
     this.leaveSession();
     const roomId = this.props.store.room.roomId;
@@ -238,7 +241,7 @@ class VideoRoomComponent extends Component {
       },
       () => {
         this.state.localUser.getStreamManager().on("streamPlaying", (e) => {
-          this.updateLayout();
+          // this.updateLayout();
           publisher.videos[0].video.parentElement.classList.remove(
             "custom-class"
           );
@@ -262,7 +265,7 @@ class VideoRoomComponent extends Component {
             isScreenShareActive: this.state.localUser.isScreenShareActive(),
           });
         }
-        this.updateLayout();
+        // this.updateLayout();
       }
     );
   }
@@ -364,7 +367,7 @@ class VideoRoomComponent extends Component {
         this.checkSomeoneShareScreen();
       }, 20);
       event.preventDefault();
-      this.updateLayout();
+      // this.updateLayout();
     });
   }
 
@@ -398,11 +401,11 @@ class VideoRoomComponent extends Component {
     });
   }
 
-  updateLayout() {
-    setTimeout(() => {
-      this.layout.updateLayout();
-    }, 20);
-  }
+  // updateLayout() {
+  //   setTimeout(() => {
+  //     this.layout.updateLayout();
+  //   }, 20);
+  // }
 
   sendSignalUserChanged(data) {
     const signalOptions = {
@@ -529,7 +532,7 @@ class VideoRoomComponent extends Component {
       });
     });
     publisher.on("streamPlaying", () => {
-      this.updateLayout();
+      // this.updateLayout();
       publisher.videos[0].video.parentElement.classList.remove("custom-class");
     });
   }
@@ -568,7 +571,7 @@ class VideoRoomComponent extends Component {
       animate: true,
     };
     this.layout.setLayoutOptions(openviduLayoutOptions);
-    this.updateLayout();
+    // this.updateLayout();
   }
 
   toggleChat(property) {
@@ -583,7 +586,7 @@ class VideoRoomComponent extends Component {
       console.log("chat", display);
       this.setState({ chatDisplay: display });
     }
-    this.updateLayout();
+    // this.updateLayout();
   }
   toggleQuiz(property) {
     let display = property;
@@ -597,7 +600,7 @@ class VideoRoomComponent extends Component {
       console.log("quiz", display);
       this.setState({ quizDisplay: display });
     }
-    this.updateLayout();
+    // this.updateLayout();
   }
 
   checkNotification(event) {
@@ -653,10 +656,14 @@ class VideoRoomComponent extends Component {
 
           {/* <div id="layout" className="bounds"> */}
           <div className="bounds">
+        <div className="streamingContainer">
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (
               <div className="OT_root OT_publisher custom-class" id="publisher"
-              style={{position: "absolute", left: "50%", top: "50%", transform:"translate(-50%,-40%)", width: "70vw", height: "70vh"}}
+              
+                style={this.state.chatDisplay==="none"?
+                {position: "absolute", left: "50%", top: "50%", transform:"translate(-50%,-40%)", width: "70vw", height: "70vh"}
+                :{position: "absolute", left: "40%", top: "50%", transform:"translate(-70%,-40%)", width: "55vw", height: "70vh"}}
               >
                 <StreamComponent
                   user={localUser}
@@ -664,9 +671,14 @@ class VideoRoomComponent extends Component {
                 />
               </div>
             )}
-          <div className="subscribersContainer">
+
+          <div className="subscribersContainer" style={this.state.chatDisplay==="none"?
+                {maxWidth: "70vw", width: "auto", height: "15vh", left: "50%", top: "5%", transform: "translate( -50%, -10%)"}
+                :{maxWidth: "55vw", width: "auto", height: "15vh", left: "30%", top: "5%", transform: "translate( -50%, -10%)"}}>
             <div className="subscribersMain">
-              <div className="subscribersMenu">
+              <div className="subscribersMenu" style={this.state.chatDisplay==="none"?
+                {maxWidth: "70vw"}
+                :{maxWidth: "55vw"}}>
           {this.state.subscribers.map((sub, i) => (
             <div style={{display:"flex"}}>
             <div
@@ -687,10 +699,11 @@ class VideoRoomComponent extends Component {
           </div>
           </div>
           </div>
+</div>
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (
               <div
-                className="OT_root OT_publisher custom-class"
+                className=""
                 style={chatDisplay}
               >
                 <ChatComponent
@@ -701,10 +714,11 @@ class VideoRoomComponent extends Component {
                 />
               </div>
             )}
+
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (
               <div
-                className="OT_root OT_publisher custom-class"
+                className=""
                 style={quizDisplay}
               >
                 <QuizComponent
