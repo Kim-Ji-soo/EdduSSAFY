@@ -17,7 +17,7 @@ function Homepage(props) {
   const password = useRef();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+
   const userId = useSelector((state) => {
     return state.user.value.userId;
   });
@@ -37,12 +37,11 @@ function Homepage(props) {
       dispatch(
         roomActions.setRoom({
           roomId: data.roomId,
-          roomTitle : data.title,
+          roomTitle: data.title,
         })
       );
       navigate("/openvidu", { replace: true });
     });
-
   };
   const handleCreateRoom = () => {
     //axios 추가 유저아이디, 타이틀
@@ -54,7 +53,7 @@ function Homepage(props) {
       data: {
         title: roomTitle.current.value,
         userId: userId,
-        password : password.current.value,
+        password: password.current.value,
       },
     }).then((res) => {
       console.log(res.data);
@@ -82,9 +81,8 @@ function Homepage(props) {
   const Gridsx = {
     "&.MuiGrid-root": {
       marginTop: "20px",
-      display:"flex",
-      justifyContent:"center",
-
+      display: "flex",
+      justifyContent: "center",
     },
     "&.MuiGrid-item": {
       padding: 0,
@@ -144,7 +142,7 @@ function Homepage(props) {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: "20vw",
+            width: "40vw",
             bgcolor: "background.paper",
             border: "2px solid #000",
             boxShadow: 24,
@@ -194,8 +192,6 @@ function Homepage(props) {
           </Button>
         </Box>
       </Modal>
-
-      
     </Grid>
   );
 }
