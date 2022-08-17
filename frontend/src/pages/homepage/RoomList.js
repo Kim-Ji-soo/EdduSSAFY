@@ -24,10 +24,11 @@ import Tooltip from "@mui/material/Tooltip";
 import Chip from "@mui/material/Chip";
 import "./RoomList.css";
 import TablePagination from "@mui/material/TablePagination";
+import LockIcon from '@mui/icons-material/Lock';
 
 function RoomList() {
   //
-  const [rowsPerPage, setRowsPerPage] = React.useState(1);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [page, setPage] = React.useState(0);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -101,21 +102,31 @@ function RoomList() {
 
               <TableCell align="center">생성자</TableCell>
               <TableCell align="center">입장</TableCell>
+              <TableCell align="center"></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+
               .map((row) => (
-                <Tooltip title="방 입장">
-                  <TableRow
-                    hover="true"
-                    key={row.roomId}
-                    sx={{
-                      margin: "0 20px",
+                <>
+               
+                 <Tooltip title="방 입장">
+                 <TableRow
+                   // hover="true"
+                   key={row.roomId}
+                   sx={{
+                     margin: "0 20px",
+                     '&:hover': {
+                       background: "#651fff",
+                      },
                     }}
                     className="tableRow"
-                  >
+                    
+                    
+                    >
+                      
                     <TableCell width="15%" align="center">
                       <Chip label={row.roomId} />
                     </TableCell>
@@ -124,10 +135,10 @@ function RoomList() {
                       align="center"
                       component="th"
                       scope="row"
-                    >
+                      >
                       {row.title}
                     </TableCell>
-                    <TableCell width="30%" align="center">
+                    <TableCell width="25%" align="center">
                       {row.hostId}
                     </TableCell>
                     <TableCell width="15%" align="center">
@@ -162,18 +173,20 @@ function RoomList() {
                             }
                           });
                         }}
-                      >
+                        >
                         meet
                       </Button>
                     </TableCell>
+                    <TableCell width="5%" align="center">{row.hasPassword && (<LockIcon></LockIcon>)}</TableCell>
                   </TableRow>
                 </Tooltip>
+                        </>
               ))}
           </TableBody>
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[1, 10, 25]}
+        rowsPerPageOptions={[5, 10, 25]}
         component="div"
         count={rows.length}
         rowsPerPage={rowsPerPage}
@@ -195,6 +208,8 @@ function RoomList() {
               fontFamily: "Single Day, cursive",
             },
           }}
+          style = {{width: 400,
+            fontFamily: "Single Day, cursive",}}
           name="search"
           label="방 제목"
           value={search}
