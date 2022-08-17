@@ -1,11 +1,11 @@
 // const HOST = "http://localhost:8080/api/v1/";
 const HOST = "https://i7c111.p.ssafy.io/api/v1/";
-
 const USERS = "users/";
 const QUIZ = "quiz/";
 const QUIZBOOK = "quizbook/";
 const ROOM = "room/";
 const USER_ROOM = "user_room/";
+const FILE = "file/";
 
 const room = {
   createRoom: () => HOST + ROOM + "create/",
@@ -15,6 +15,8 @@ const room = {
   getResult: () => HOST + USER_ROOM + "userList/",
   updateScore: () => HOST + USER_ROOM + "updateScore/",
   search: () => HOST + ROOM + "search/",
+  check: () => HOST + ROOM + "check/",
+  activeRoom: () => HOST + ROOM + "activeRooms",
 };
 
 const users = {
@@ -40,6 +42,11 @@ const quizbook = {
   createQuizbook: () => HOST + QUIZBOOK + "create/",
   getQuizbook: () => HOST + QUIZBOOK + "getQuizbookCombs/",
   delete: () => HOST + QUIZBOOK + "delete/",
+  alter: () => HOST + QUIZBOOK + "alter/",
 };
-export { quiz, quizbook, room };
+
+const file = {
+  download: () => HOST + FILE + "download/",
+};
+export { quiz, quizbook, room, file };
 export default users;

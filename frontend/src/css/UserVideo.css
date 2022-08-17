@@ -3,6 +3,8 @@ video {
     height: auto;
     float: left;
     cursor: pointer;
+    border: 1px;
+    border-color: red;
 }
 
 .streamcomponent div {

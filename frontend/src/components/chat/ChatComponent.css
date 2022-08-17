@@ -1,7 +1,8 @@
 #chatContainer {
     position: absolute;
+    right: 0;
     z-index: 0;
-    width: 100%;
+    width: 40%;
     height: 100%;
   }
   
@@ -27,7 +28,7 @@
   #chatComponent {
     background-color: #99d1fc;
     position: absolute;
-    z-index: 99999;
+    z-index: 1;
     top: 0;
     left: 0;
     right: 0;
@@ -148,8 +149,7 @@
     width: 100%;
     background-color: #ffffff;
     text-align: center;
-    padding: 10px 0px;
-    height: 30px;
+    height: 50px;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
   }
@@ -159,7 +159,7 @@
     border: none;
     outline: none;
     font-size: 14px;
-    margin-left: -6%;
+    margin-left: 2%;
     color: #000000;
   }
   #messageInput .anonymous {

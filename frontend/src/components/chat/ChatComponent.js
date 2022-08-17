@@ -3,7 +3,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Fab from "@material-ui/core/Fab";
 import HighlightOff from "@material-ui/icons/HighlightOff";
 import Send from "@material-ui/icons/Send";
-import logo from "../../assets/EDDUSSAFY_얼굴만_동그라미.png";
+import logo from "../../assets/favicon-32x32.png";
 import "./ChatComponent.css";
 import { Tooltip } from "@material-ui/core";
 
@@ -24,11 +24,11 @@ export default class ChatComponent extends Component {
   }
 
   componentDidMount() {
+    const img = new Image();
+    img.src = logo;
     this.props.user
       .getStreamManager()
       .stream.session.on("signal:chat", (event) => {
-        const img = new Image();
-        img.src = logo;
         const data = JSON.parse(event.data);
         let messageList = this.state.messageList;
         messageList.push({
@@ -40,15 +40,16 @@ export default class ChatComponent extends Component {
         setTimeout(() => {
           const userImg = document.getElementById(
             "userImg-" + (this.state.messageList.length - 1)
-          );
+            );
+            const avatar = userImg.getContext("2d");
           let video = img;
           if (this.state.isNickname === true) {
             video = img;
+            avatar.drawImage(video, 0, 0, 64, 64);
           } else {
             video = document.getElementById("video-" + data.streamId);
+            avatar.drawImage(video, 200, 120, 285, 285, 0, 0, 60, 60);
           }
-          const avatar = userImg.getContext("2d");
-          avatar.drawImage(video, 200, 120, 285, 285, 0, 0, 60, 60);
           this.props.messageReceived();
         }, 20);
         this.setState({ messageList: messageList });
@@ -119,8 +120,7 @@ export default class ChatComponent extends Component {
         <div id="chatComponent" style={styleChat}>
           <div id="chatToolbar">
             <span>
-              {this.props.user.getStreamManager().stream.session.sessionId} -
-              CHAT
+              채팅
             </span>
             <IconButton id="closeButton" onClick={this.close}>
               <HighlightOff color="secondary" />
@@ -157,17 +157,22 @@ export default class ChatComponent extends Component {
             ))}
           </div>
 
-          <div id="messageInput">
+          <div id="messageInput" style={{display:"flex", flexDirection:"row", alignItems:"center"}}>
             <input
               id="anonymous"
               className="anonymous"
               type="checkbox"
               onChange={this.toggleButton}
             />
-            <label htmlFor="anonymous">익명</label>
+            <label
+              htmlFor="anonymous"
+              style={{ fontSize: "0.8rem", height:"auto" }}
+            >
+              익명
+            </label>
             <input
               className="messageInput"
-              placeholder="Send a messge"
+              placeholder="메시지를 입력해주세요"
               id="chatInput"
               value={this.state.message}
               onChange={this.handleChange}

@@ -74,7 +74,6 @@ function ProblemList() {
         method: "get",
         url: quizbook.getQuizbook() + USERID,
       }).then((res) => {
-        // console.log(res.data);
         dispatch(quizbookActions.getquizbook(res.data));
       });
     });
@@ -84,12 +83,12 @@ function ProblemList() {
   const [mopen, setMopen] = useState([]);
   const [cqopen, setCQopen] = useState(false);
   const [value, setValue] = useState({});
+  const [title, setTitle] = useState("");
   useEffect(() => {
     axios({
       method: "get",
       url: quizbook.getQuizbook() + USERID,
     }).then((res) => {
-      console.log(res.data);
       dispatch(quizbookActions.getquizbook(res.data));
     });
     for (let i in QUIZBOOK) {
@@ -142,7 +141,7 @@ function ProblemList() {
                         ContainerComponent={CustomContainerComponent}
                         ContainerProps={{
                           extraSecondaryAction: (
-                            <ListItemSecondaryAction sx={{ right: "100px" }}>
+                            <ListItemSecondaryAction sx={{ right: "50px" }}>
                               {/* 새페이지 버튼 시작 */}
                               <Tooltip title="문제집 수정하기">
                                 <IconButton
@@ -152,6 +151,7 @@ function ProblemList() {
                                       newMopen[index] = !newMopen[index];
                                       return newMopen;
                                     });
+                                    setTitle(item.title);
                                   }}
                                   aria-label="hi"
                                 >
@@ -209,13 +209,36 @@ function ProblemList() {
                                   >
                                     <TextField
                                       id="outlined-basic"
-                                      label="Outlined"
+                                      label="문제집 이름"
                                       variant="outlined"
-                                      defaultValue={item.title}
-                                      sx={{}}
+                                      defaultValue={title}
+                                      onChange={(e) => {
+                                        setTitle(e.target.value);
+                                      }}
+                                      autoComplete="off"
                                     />
-                                    <Button sx={{ display: "block" }}>
-                                      change
+                                    <Button
+                                      sx={{ display: "block" }}
+                                      onClick={(e) => {
+                                        axios({
+                                          url: quizbook.alter(),
+                                          method: "put",
+                                          data: {
+                                            quizbookId: item.quizbookId,
+                                            title: title,
+                                          },
+                                        });
+                                        setMopen((mopen) => {
+                                          const newMopen = [...mopen];
+                                          newMopen[index] = !newMopen[index];
+                                          return newMopen;
+                                        });
+                                        setRe((re) => {
+                                          return !re;
+                                        });
+                                      }}
+                                    >
+                                      이름 변경하기
                                     </Button>
 
                                     <Button
@@ -228,7 +251,7 @@ function ProblemList() {
                                         });
                                       }}
                                     >
-                                      cancel
+                                      뒤로가기
                                     </Button>
                                   </Box>
                                 </Modal>
@@ -398,11 +421,12 @@ function ProblemList() {
           >
             <TextField
               id="outlined-basic2"
-              label="Outlined"
+              label="문제집 이름"
               variant="outlined"
               defaultValue=""
               sx={{}}
               inputRef={booktitle}
+              autoComplete="off"
             />
             <Button
               sx={{ display: "block" }}
@@ -413,7 +437,7 @@ function ProblemList() {
                 });
               }}
             >
-              change
+              생성하기
             </Button>
             <Button
               sx={{ display: "block" }}
@@ -423,7 +447,7 @@ function ProblemList() {
                 });
               }}
             >
-              cancel
+              취소하기
             </Button>
           </Box>
         </Modal>
