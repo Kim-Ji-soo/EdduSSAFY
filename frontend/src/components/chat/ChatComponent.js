@@ -40,10 +40,10 @@ export default class ChatComponent extends Component {
         setTimeout(() => {
           const userImg = document.getElementById(
             "userImg-" + (this.state.messageList.length - 1)
-            );
-            const avatar = userImg.getContext("2d");
+          );
+          const avatar = userImg.getContext("2d");
           let video = img;
-          if (this.state.isNickname === true) {
+          if (data.nickname === "익명") {
             video = img;
             avatar.drawImage(video, 0, 0, 64, 64);
           } else {
@@ -119,9 +119,7 @@ export default class ChatComponent extends Component {
       <div id="chatContainer">
         <div id="chatComponent" style={styleChat}>
           <div id="chatToolbar">
-            <span>
-              채팅
-            </span>
+            <span>채팅</span>
             <IconButton id="closeButton" onClick={this.close}>
               <HighlightOff color="secondary" />
             </IconButton>
@@ -157,7 +155,14 @@ export default class ChatComponent extends Component {
             ))}
           </div>
 
-          <div id="messageInput" style={{display:"flex", flexDirection:"row", alignItems:"center"}}>
+          <div
+            id="messageInput"
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
             <input
               id="anonymous"
               className="anonymous"
@@ -166,7 +171,7 @@ export default class ChatComponent extends Component {
             />
             <label
               htmlFor="anonymous"
-              style={{ fontSize: "0.8rem", height:"auto" }}
+              style={{ fontSize: "0.8rem", height: "auto" }}
             >
               익명
             </label>

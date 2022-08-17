@@ -184,7 +184,7 @@ function Login() {
               }}
             >
               <div>
-                <h2 className={styles.h2}>로그인하기</h2>
+                <h2 className={styles.h2}>로그인</h2>
                 <span className={styles.span}>
                   Eddu SSAFY에 오신것을 환영합니다
                 </span>

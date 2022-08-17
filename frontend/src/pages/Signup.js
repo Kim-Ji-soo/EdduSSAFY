@@ -40,7 +40,7 @@ const validationSchema = yup.object({
     .required("아이디는 필수입니다"),
   tel: yup
     .string("전화번호를 적어주세요")
-    .length(11, "전화번호는 010-0000-0000 입니다")
+    .length(11, "전화번호는 01012345678형식입니다")
     .required("전화번호는 필수입니다"),
   position: yup.string("직업을 골라주세요").required("직업 선택은 필수입니다"),
 });
@@ -209,7 +209,7 @@ function Signup() {
               </form>
             </div>
             <div>
-              <h2 className={styles.h2}>회원가입하기</h2>
+              <h2 className={styles.h2}>회원가입</h2>
               <span className={styles.span}>
                 Eddu SSAFY의 일원이 되어보세요
               </span>

@@ -24,7 +24,7 @@ const validationSchema = yup.object({
     .required("아이디는 필수입니다"),
   tel: yup
     .string("전화번호를 입력해주세요")
-    .length(11, "전화번호는 010-0000-0000입니다")
+    .length(11, "전화번호는 01012345678형식입니다")
     .required("전화번호는 필수입니다"),
 });
 
@@ -53,7 +53,7 @@ function UserProfile() {
           alert("회원정보 수정완료!");
         })
         .catch((e) => {});
-      axios({
+      await axios({
         method: "get",
         url: users.me(),
       })

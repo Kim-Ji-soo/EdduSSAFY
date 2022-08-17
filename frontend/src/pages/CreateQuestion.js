@@ -218,6 +218,7 @@ function CreateQuestion() {
           justifyContent: "center",
           flexDirection: "column",
           minWidth: "400px",
+          height: "80vh",
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
@@ -231,133 +232,143 @@ function CreateQuestion() {
           px: 4,
           pb: 3,
           mt: 4,
+          overflowY: "scroll",
         }}
       >
-        <h1>Create Question</h1>
-
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            formik.handleSubmit(e);
+        <div
+          style={{
+            position: "absolute",
+            top: "0",
+            left: "50%",
+            transform: "translateX(-50%)",
           }}
         >
-          <label
-            className="inputFileBtn"
-            htmlFor="inputFile"
-            style={{ cursor: "pointer", width: "20vw" }}
-          >
-            이미지 넣기
-          </label>
-          <input
-            id="inputFile"
-            type="file"
-            onChange={(e) => {
-              encodeFileToBase64(e.target.files[0]);
-              formik.values.quizPic = e.target.files[0];
+          <h1>Create Question</h1>
+
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              formik.handleSubmit(e);
             }}
-            style={{ display: "none" }}
-          />
-          <div className={styles.preview}>
-            {imageSrc && <img src={imageSrc} alt="preview-img" />}
-          </div>
-
-          <div>
-            <TextField
-              name="content"
-              label="content"
-              value={formik.values.content}
-              onChange={formik.handleChange}
-              error={formik.touched.content && Boolean(formik.errors.content)}
-              helperText={formik.touched.content && formik.errors.content}
-              autoComplete="off"
-              sx={Textfieldsx}
-            />
-          </div>
-          <div>
-            <TextField
-              name="score"
-              label="score"
-              value={formik.values.score}
-              onChange={formik.handleChange}
-              error={formik.touched.score && Boolean(formik.errors.score)}
-              helperText={formik.touched.score && formik.errors.score}
-              autoComplete="off"
-              sx={Textfieldsx}
-            />
-          </div>
-          <div>
-            <FormControl>
-              <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
-              <RadioGroup
-                aria-labelledby="demo-controlled-radio-buttons-group"
-                name="type"
-                defaultValue="choice"
-                value={formik.values.type}
-                onChange={formik.handleChange}
-                row
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  marginTop: "10px",
-                }}
-              >
-                <FormControlLabel
-                  checked={formik.values.type === "choice"}
-                  value="choice"
-                  control={<Radio />}
-                  label="객관식"
-                  onClick={() => {
-                    formik.values.options = "";
-                    formik.values.optionSize = 0;
-                  }}
-                ></FormControlLabel>
-                <FormControlLabel
-                  checked={formik.values.type === "subjective"}
-                  value="subjective"
-                  control={<Radio />}
-                  label="주관식"
-                  onClick={() => {
-                    formik.values.options = "";
-                    formik.values.optionSize = 0;
-                  }}
-                ></FormControlLabel>
-              </RadioGroup>
-            </FormControl>
-          </div>
-          {formik.values.type === "choice" && (
-            <CreateContent
-              onSubmit={(result) => {
-                const newResultCount = result.filter(
-                  (element) => "" !== element
-                ).length;
-                formik.values.optionSize = newResultCount;
-                formik.values.options = result.join("|");
+          >
+            <label
+              className="inputFileBtn"
+              htmlFor="inputFile"
+              style={{ cursor: "pointer", width: "20vw" }}
+            >
+              이미지 넣기
+            </label>
+            <input
+              id="inputFile"
+              type="file"
+              onChange={(e) => {
+                encodeFileToBase64(e.target.files[0]);
+                formik.values.quizPic = e.target.files[0];
               }}
-            ></CreateContent>
-          )}
-          <div>
-            <TextField
-              name="answer"
-              label="answer"
-              value={formik.values.answer}
-              onChange={formik.handleChange}
-              error={formik.touched.answer && Boolean(formik.errors.answer)}
-              helperText={formik.touched.answer && formik.errors.answer}
-              autoComplete="off"
-              sx={Textfieldsx}
+              style={{ display: "none" }}
             />
-          </div>
-          <Button type="submit" disabled={formik.isSubmitting} sx={Buttonsx}>
-            Submit
+            <div className={styles.preview}>
+              {imageSrc && <img src={imageSrc} alt="preview-img" />}
+            </div>
+
+            <div>
+              <TextField
+                name="content"
+                label="content"
+                value={formik.values.content}
+                onChange={formik.handleChange}
+                error={formik.touched.content && Boolean(formik.errors.content)}
+                helperText={formik.touched.content && formik.errors.content}
+                autoComplete="off"
+                sx={Textfieldsx}
+              />
+            </div>
+            <div>
+              <TextField
+                name="score"
+                label="score"
+                value={formik.values.score}
+                onChange={formik.handleChange}
+                error={formik.touched.score && Boolean(formik.errors.score)}
+                helperText={formik.touched.score && formik.errors.score}
+                autoComplete="off"
+                sx={Textfieldsx}
+              />
+            </div>
+            <div>
+              <FormControl>
+                <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
+                <RadioGroup
+                  aria-labelledby="demo-controlled-radio-buttons-group"
+                  name="type"
+                  defaultValue="choice"
+                  value={formik.values.type}
+                  onChange={formik.handleChange}
+                  row
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    marginTop: "10px",
+                  }}
+                >
+                  <FormControlLabel
+                    checked={formik.values.type === "choice"}
+                    value="choice"
+                    control={<Radio />}
+                    label="객관식"
+                    onClick={() => {
+                      formik.values.options = "";
+                      formik.values.optionSize = 0;
+                    }}
+                  ></FormControlLabel>
+                  <FormControlLabel
+                    checked={formik.values.type === "subjective"}
+                    value="subjective"
+                    control={<Radio />}
+                    label="주관식"
+                    onClick={() => {
+                      formik.values.options = "";
+                      formik.values.optionSize = 0;
+                    }}
+                  ></FormControlLabel>
+                </RadioGroup>
+              </FormControl>
+            </div>
+            {formik.values.type === "choice" && (
+              <CreateContent
+                onSubmit={(result) => {
+                  const newResultCount = result.filter(
+                    (element) => "" !== element
+                  ).length;
+                  formik.values.optionSize = newResultCount;
+                  formik.values.options = result.join("|");
+                }}
+              ></CreateContent>
+            )}
+            <div>
+              <TextField
+                name="answer"
+                label="answer"
+                value={formik.values.answer}
+                onChange={formik.handleChange}
+                error={formik.touched.answer && Boolean(formik.errors.answer)}
+                helperText={formik.touched.answer && formik.errors.answer}
+                autoComplete="off"
+                sx={Textfieldsx}
+              />
+            </div>
+            <Button type="submit" disabled={formik.isSubmitting} sx={Buttonsx}>
+              Submit
+            </Button>
+          </form>
+          <Button
+            onClick={() => {
+              navigate("/problemlist");
+            }}
+          >
+            뒤로 가기
           </Button>
-        </form>
-        <Button
-          onClick={() => {
-            navigate("/problemlist");
-          }}
-        >
-          뒤로 가기
-        </Button>
+        </div>
       </Box>
     </>
   );

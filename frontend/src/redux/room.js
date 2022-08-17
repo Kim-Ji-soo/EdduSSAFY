@@ -18,7 +18,9 @@ export const roomSlice = createSlice({
     getRooms: (state, action) => {
       state.rooms = action.payload;
     },
-    getRoomResult: (state, action) => {},
+    getRoomResult: (state, action) => {
+      state.roomResult = action.payload;
+    },
   },
 });
 

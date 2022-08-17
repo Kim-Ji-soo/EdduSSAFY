@@ -166,11 +166,11 @@ function Mainpage(props) {
           {/* <!-- About Section Button--> */}
           <div className="text-center mt-4">
             <Link to="/roomlist" className={classes.link}>
-              <a className="btn btn-xl btn-outline-light">
+              <p className="btn btn-xl btn-outline-light">
                 <FontAwesomeIcon icon={faPlayCircle} />
                 <i className="fas fa-download me-2"></i>
                 Let's Get Study!
-              </a>
+              </p>
             </Link>
           </div>
         </div>

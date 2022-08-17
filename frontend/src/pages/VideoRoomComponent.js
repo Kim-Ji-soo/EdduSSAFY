@@ -10,7 +10,7 @@ import { Navigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { room } from "../api/api";
 import { createBrowserHistory } from "history";
-
+import { roomActions } from "../redux/room";
 import OpenViduLayout from "../layout/openvidu-layout";
 import UserModel from "../models/user-model";
 import ToolbarComponent from "../components/toolbar/ToolbarComponent";
@@ -21,6 +21,9 @@ import Box from "@mui/material/Box";
 var localUser = new UserModel();
 const mapStateToProps = (state) => ({
   store: state,
+});
+const mapDispatchToProps = (dispatch) => ({
+  getRoomResult: (e) => dispatch(roomActions.getRoomResult(e)),
 });
 
 class VideoRoomComponent extends Component {
@@ -57,6 +60,9 @@ class VideoRoomComponent extends Component {
       currentVideoDevice: undefined,
       publisher: undefined,
       quizDisplay: "none",
+      userId: this.props.store.user.userId,
+      hostId: this.props.store.room.hostId,
+      roomResult: this.props.store.room.roomResult,
     };
     this.joinSession = this.joinSession.bind(this);
     this.leaveSession = this.leaveSession.bind(this);
@@ -75,6 +81,7 @@ class VideoRoomComponent extends Component {
     this.checkNotification = this.checkNotification.bind(this);
     this.checkSize = this.checkSize.bind(this);
     this.setPublisher = this.setPublisher.bind(this);
+    this.setRoomResult = this.setRoomResult.bind(this);
   }
 
   componentDidMount() {
@@ -100,6 +107,7 @@ class VideoRoomComponent extends Component {
     window.addEventListener("resize", this.checkSize);
     const roomId = this.props.store.room.roomId;
     const userId = this.props.store.user.value.userId;
+    const { getRoomResult } = this.props;
     axios({
       url: room.joinRoom(),
       method: "post",
@@ -107,10 +115,34 @@ class VideoRoomComponent extends Component {
         roomId: roomId,
         userId: userId,
       },
+    }).then(() => {
+      axios({
+        method: "get",
+        url: room.getResult() + roomId + "/",
+      }).then((res) => {
+        getRoomResult(res.data);
+      });
     });
     this.joinSession();
+    this.setRoomResult();
   }
-
+  setRoomResult() {
+    let hostNickname = "";
+    console.log(this.props.store);
+    for (let i of this.props.store.room.roomResult) {
+      if (i.userId === this.state.hostId) {
+        hostNickname = i.nickName;
+      }
+    }
+    let host = "";
+    console.log(this.state.subscribers);
+    for (let j of this.state.subscribers) {
+      if (j.nickname === hostNickname) {
+        host = j;
+      }
+    }
+    console.log(hostNickname);
+  }
   componentWillUnmount() {
     window.removeEventListener("beforeunload", this.onbeforeunload);
     // window.removeEventListener("resize", this.updateLayout);
@@ -132,6 +164,7 @@ class VideoRoomComponent extends Component {
   }
 
   joinSession() {
+    this.setRoomResult();
     this.OV = new OpenVidu();
 
     this.setState(
@@ -263,6 +296,7 @@ class VideoRoomComponent extends Component {
             isAudioActive: this.state.localUser.isAudioActive(),
             isVideoActive: this.state.localUser.isVideoActive(),
             nickname: this.state.localUser.getNickname(),
+            userId: this.state.userId,
             isScreenShareActive: this.state.localUser.isScreenShareActive(),
           });
         }
@@ -617,6 +651,22 @@ class VideoRoomComponent extends Component {
     const localUser = this.state.localUser;
     var chatDisplay = { display: this.state.chatDisplay };
     const quizDisplay = { display: this.state.quizDisplay };
+    let hostNickname = "";
+    for (let i of this.props.store.room.roomResult) {
+      if (i.userId === this.state.hostId) {
+        hostNickname = i.nickName;
+      }
+    }
+    let host = "";
+    console.log(host);
+    for (let j of this.state.subscribers) {
+      if (j.nickname === hostNickname) {
+        host = j;
+      }
+    }
+    if (host === "") {
+      host = this.state.subscribers[0];
+    }
     return (
       <div className="container" id="container">
         {this.state.isActive && <Navigate to="/" replace={true} />}
@@ -666,7 +716,7 @@ class VideoRoomComponent extends Component {
                   }
                 >
                   <StreamComponent
-                    user={localUser}
+                    user={host || localUser}
                     handleNickname={this.nicknameChanged}
                   />
                 </div>
@@ -703,13 +753,22 @@ class VideoRoomComponent extends Component {
                       : { maxWidth: "55vw" }
                   }
                 >
+                  {localUser !== undefined && (
+                    <div style={{ display: "flex" }}>
+                      <div
+                        className="OT_root OT_publisher custom-class"
+                        id="remoteUsers"
+                        style={{ width: "10vw", height: "13vh" }}
+                      >
+                        <StreamComponent user={localUser} />
+                      </div>
+                    </div>
+                  )}
                   {this.state.subscribers.map((sub, i) => (
                     <div style={{ display: "flex" }} key={i}>
                       <div
                         className="OT_root OT_publisher custom-class"
                         id="remoteUsers"
-                        // style={{position: "absolute", left: `50% + ${11 * i}vw`, top: "5%", transform:"translateY(-10%)", width: "10vw", height: "13vh"}}
-                        // style={{width: "10vw", height: "13vh"}}
                         style={{ width: "10vw", height: "13vh" }}
                       >
                         <StreamComponent
@@ -837,4 +896,4 @@ class VideoRoomComponent extends Component {
     });
   }
 }
-export default connect(mapStateToProps)(VideoRoomComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(VideoRoomComponent);

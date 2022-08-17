@@ -40,7 +40,7 @@ function RoomList() {
   //
   const [cropen, setCropen] = useState(false);
   const [roomId, setRoomId] = useState("");
-  const [roomTitle, setRoomTitle] =useState("");
+  const [roomTitle, setRoomTitle] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const password = useRef();
@@ -72,9 +72,15 @@ function RoomList() {
         dispatch(
           roomActions.setRoom({
             roomId: roomId,
-            roomTitle : roomTitle,
+            roomTitle: roomTitle,
           })
         );
+        axios({
+          method: "get",
+          url: room.getResult() + roomId + "/",
+        }).then((res) => {
+          dispatch(roomActions.getRoomResult(res.data));
+        });
         navigate("/openvidu", { replace: true });
       })
       .catch((e) => {
@@ -107,9 +113,9 @@ function RoomList() {
             {rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => (
-                <Tooltip title="방 입장">
+                <Tooltip title="방 입장" key={row.roomId}>
                   <TableRow
-                    hover="true"
+                    hover={true}
                     key={row.roomId}
                     sx={{
                       margin: "0 20px",
