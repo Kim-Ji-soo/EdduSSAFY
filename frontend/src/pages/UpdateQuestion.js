@@ -13,7 +13,8 @@ import * as yup from "yup";
 import axios from "axios";
 import { quiz, file } from "../api/api";
 import { useNavigate, useLocation } from "react-router-dom";
-import styles from "../css/CreateQuestion.module.css";
+import { Box } from "@mui/material";
+import styles from "../css/UpdateQuestion.module.css";
 
 const validationSchema = yup.object({
   content: yup.string("Enter your content").required("content is required"),
@@ -38,6 +39,32 @@ function CreateContent(props) {
   useEffect(() => {
     props.onSubmit(value);
   });
+
+  const Textfieldsx = {
+    width: "70%",
+    height: "100%",
+    marginTop:"10px",
+    "& .MuiInputLabel-root": { color: "black", fontSize: "0.8vmax" },
+    "& .MuiOutlinedInput-root": {
+      "& > fieldset": {
+        width: "100%",
+        height: "100%",
+        border: "3px solid blue",
+        borderRadius: "20px 20px",
+      },
+    },
+    "& .MuiOutlinedInput-root:hover": {
+      "& > fieldset": {
+        borderColor: "blue",
+      },
+    },
+    "& .MuiOutlinedInput-root.Mui-focused": {
+      "& > fieldset": {
+        borderColor: "blue",
+      },
+    },
+  };
+
   return (
     <>
       {arr.options.map((option, index) => {
@@ -55,6 +82,7 @@ function CreateContent(props) {
                 });
               }}
               autoComplete="off"
+              sx={Textfieldsx}
             />
           </div>
         );
@@ -66,6 +94,7 @@ function CreateContent(props) {
           });
           arr.options.push("");
         }}
+        className={styles.buttons}
       >
         보기추가
       </Button>
@@ -138,8 +167,81 @@ function UpdateQuestion() {
         .catch((e) => console.log(e));
     },
   });
+  console.log(formik.values);
+
+  const Textfieldsx = {
+    width: "70%",
+    height: "100%",
+    marginTop:"10px",
+    "& .MuiInputLabel-root": { color: "black", fontSize: "0.8vmax" },
+    "& .MuiOutlinedInput-root": {
+      "& > fieldset": {
+        width: "100%",
+        height: "100%",
+        border: "3px solid blue",
+        borderRadius: "20px 20px",
+      },
+    },
+    "& .MuiOutlinedInput-root:hover": {
+      "& > fieldset": {
+        borderColor: "blue",
+      },
+    },
+    "& .MuiOutlinedInput-root.Mui-focused": {
+      "& > fieldset": {
+        borderColor: "blue",
+      },
+    },
+  };
+
+  const Buttonsx = {
+    marginTop:"20px",
+    "&.MuiButton-root": {
+      border: "3px blue solid",
+      width: "80%",
+      textDecoration: "none",
+      borderRadius: "70px 70px",
+      padding: "10px 0px",
+      color: "#4C3657",
+    },
+    "&.MuiButton-root::before": {
+      content: "''",
+      position: "absolute",
+      width: "100%",
+      height: "100%",
+      borderRadius: "70px 70px",
+      backgroundColor: "#FDDD6D",
+      top: "-10px",
+      left: "10px",
+      zIndex: "-1",
+    },
+  };
+
+
   return (
     <>
+     <Box
+        sx={{
+          position: "absolute",
+          display: "flex",
+          justifyContent:"center",
+          flexDirection: "column",
+          minWidth: "400px",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "20vw",
+          bgcolor: "background.paper",
+          // bgcolor: "#f8f7fc",
+          border: "2px #000",
+          borderRadius: 10,
+          boxShadow: 10,
+          pt: 2,
+          px: 4,
+          pb: 3,
+          mt: 4,
+        }}
+      >
       <h1>update Question</h1>
       <div className={styles.preview}>
         {imageSrc !== "" && <img src={imageSrc}></img>}
@@ -180,6 +282,7 @@ function UpdateQuestion() {
             helperText={formik.touched.content && formik.errors.content}
             sx={{ marginTop: "5px" }}
             autoComplete="off"
+            sx={Textfieldsx}
           />
         </div>
         <div>
@@ -192,6 +295,7 @@ function UpdateQuestion() {
             helperText={formik.touched.score && formik.errors.score}
             sx={{ marginTop: "5px" }}
             autoComplete="off"
+            sx={Textfieldsx}
           />
         </div>
         <div>
@@ -203,6 +307,12 @@ function UpdateQuestion() {
               defaultValue={formik.values.type}
               value={formik.values.type}
               onChange={formik.handleChange}
+              row
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                marginTop:"10px",
+              }}
             >
               <FormControlLabel
                 checked={formik.values.type === "choice"}
@@ -248,17 +358,22 @@ function UpdateQuestion() {
             error={formik.touched.answer && Boolean(formik.errors.answer)}
             helperText={formik.touched.answer && formik.errors.answer}
             autoComplete="off"
+            sx={Textfieldsx}
           />
         </div>
-        <Button type="submit">Submit</Button>
+        <Button type="submit" disabled={formik.isSubmitting}  sx={Buttonsx}>
+          Submit
+        </Button>
       </form>
       <Button
         onClick={() => {
           navigate("/problemlist", { replace: true });
         }}
+        className={styles.buttons}
       >
         뒤로 가기
       </Button>
+      </Box>
     </>
   );
 }
