@@ -93,7 +93,7 @@ function Homepage(props) {
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     axios({
       method: "get",
-      url: room.getRoom(),
+      url: room.activeRoom(),
     }).then((res) => {
       dispatch(roomActions.getRooms(res.data));
     });

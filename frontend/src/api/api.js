@@ -17,6 +17,7 @@ const room = {
   updateScore: () => HOST + USER_ROOM + "updateScore/",
   search: () => HOST + ROOM + "search/",
   check: () => HOST + ROOM + "check/",
+  activeRoom: () => HOST + ROOM + "activeRooms",
 };
 
 const users = {

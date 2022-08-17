@@ -21,7 +21,9 @@ import Box from "@mui/material/Box";
 import logo from "../assets/EDDUSSAFY_slogan포함_동그라미.png";
 
 const validationSchema = yup.object({
-  password: yup.string("비밀번호를 입력해주세요").required("비밀번호는 필수입니다"),
+  password: yup
+    .string("비밀번호를 입력해주세요")
+    .required("비밀번호는 필수입니다"),
   userId: yup
     .string("아이디를 입력해주세요")
     .min(5, "아이디는 최소 5글자 입니다")
@@ -66,7 +68,7 @@ function Login() {
           });
           axios({
             method: "get",
-            url: room.getRoom(),
+            url: room.activeRoom(),
           })
             .then((res) => {
               dispatch(roomActions.getRooms(res.data));
