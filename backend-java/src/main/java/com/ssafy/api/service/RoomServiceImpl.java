@@ -38,6 +38,7 @@ public class RoomServiceImpl implements  RoomService{
             if(optionalRoom.isPresent()){
                 room = optionalRoom.get();
                 room.setTitle(roomCreateReq.getTitle());
+                room.setPassword(roomCreateReq.getPassword());
                 roomRepository.save(room);
                 return room;
             }
@@ -152,6 +153,26 @@ public class RoomServiceImpl implements  RoomService{
     }
 
     @Override
+    public List<RoomRes> getActiveRooms() {
+        List<RoomRes> activeRooms = new ArrayList<>();
+        try{
+            List<Room> rooms = roomRepository.findAll();
+            for(Room r : rooms){
+                if(!r.isActive()){
+                    continue;
+                }
+                activeRooms.add(new RoomRes(r));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+        return activeRooms;
+    }
+
+
+    @Override
     public List<RoomRes> searchRooms(String word) {
         List<RoomRes> rooms = new ArrayList<>();
         try{
@@ -168,6 +189,25 @@ public class RoomServiceImpl implements  RoomService{
     }
 
     @Override
+    public boolean checkRoomPassword(long roomId, String password) {
+        try {
+            String roomPassword = roomRepository.findById(roomId).get().getPassword();
+            //비밀번호 없으면 걍 트루 리턴.
+            if(roomPassword == null || roomPassword.length() <= 0){
+                return true;
+            }
+            if(!roomPassword.equals(password)){
+                throw new Exception("비밀번호 틀림");
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+
+    @Override
     public boolean deleteRoom(Long roomId) {
         try{
             roomRepository.deleteById(roomId);
@@ -177,4 +217,6 @@ public class RoomServiceImpl implements  RoomService{
         }
         return true;
     }
+
+
 }

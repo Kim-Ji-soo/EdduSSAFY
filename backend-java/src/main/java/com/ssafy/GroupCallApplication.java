@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 @EnableJpaAuditing
 @SpringBootApplication
 public class GroupCallApplication {
-	public static void main(String[] args) {
+    public static void main(String[] args) {
         SpringApplication.run(GroupCallApplication.class, args);
     }
 

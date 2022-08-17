@@ -1,13 +1,13 @@
-#chatContainer {
+#quizContainer {
     position: absolute;
     z-index: 0;
     width: 100%;
     height: 100%;
   }
   
-  #chatToolbar {
+  #quizToolbar {
     height: 30px;
-    background-color: #3d3d3d;
+    background-color: #36a7fc;
     box-sizing: border-box;
     font-weight: bold;
     font-size: 14px;
@@ -18,14 +18,14 @@
     color: #ffffff;
   }
   
-  #closeButton {
+  #quizcloseButton {
     position: absolute;
     right: 0;
     top: -8px;
   }
   
-  #chatComponent {
-    background-color: #b8b8b8;
+  #quizComponent {
+    background-color: #99d1fc;
     position: absolute;
     z-index: 99999;
     top: 0;
@@ -38,12 +38,32 @@
     border-radius: 20px;
   }
   
-  .message-wrap {
+  .quiz-wrap {
     padding: 0 15px;
     height: calc(100% - 80px);
     overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
   }
-  
+
+  .quiz-wrap::-webkit-scrollbar{
+    width: 10px;
+    height: 10px;
+  }
+  .quiz-wrap::-webkit-scrollbar-thumb{
+    background-color: #3ca8f9;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+  .quiz-wrap::-webkit-scrollbar-track{
+    background-color: #e2f0ff;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+  }
+/*   
   .message {
     position: relative;
     padding: 7px 0;
@@ -95,11 +115,11 @@
   
   .text {
     word-break: break-all;color: #000000;
-  }
+  } */
   
   /* Start message from other user */
   
-  .message > .left .msg-detail .msg-info {
+  /* .message > .left .msg-detail .msg-info {
     text-align: left;
   }
   
@@ -121,13 +141,13 @@
     border-bottom-width: 0;
     border-left-width: 0;
     left: -5px;
-  }
+  } */
   
   /* End message from other user */
   
   /* Start my messages */
   
-  .message.right .msg-detail .msg-info {
+  /* .message.right .msg-detail .msg-info {
     text-align: right;
   }
   .message.right .user-img {
@@ -144,10 +164,10 @@
     border-bottom-width: 0;
     border-left-width: 0;
     right: -5px;
-  }
+  } */
   
   /* End my messages */
-  #messageInput {
+  /* #messageInput {
     position: absolute;
     bottom: 0px;
     width: 100%;
@@ -157,8 +177,8 @@
     height: 30px;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
-  }
-  #messageInput .messageInput {
+  } */
+  /* #messageInput .messageInput {
     width: 75%;
     height: 100%;
     border: none;
@@ -166,19 +186,19 @@
     font-size: 14px;
     margin-left: -6%;
     color: #000000;
-  }
-  #messageInput .anonymous {
+  } */
+  /* #messageInput .anonymous {
     width:5%;
     height: 100%;
     margin-left : 1%;
     float:left;
-  }
-  #messageInput label{
+  } */
+  /* #messageInput label{
     font-size : 20px;
     margin-left : 1%;
     float:left;
-  }
-  #sendButton {
+  } */
+  /* #sendButton {
     background-color: #81e9b0;
     position: absolute;
     right: 10px;
@@ -187,12 +207,12 @@
     margin: auto;
     border: 1px solid #7ae2a9;
     box-shadow: none !important;
-  }
-  #sendButton {
+  } */
+  /* #sendButton {
     margin-left: 3px !important;
     margin-bottom: 2px !important;
   }
-  
+   */
   ::-webkit-scrollbar {
     width: 8px;
   }

@@ -31,8 +31,10 @@ public class QuizController {
 
     //나중에 response 만들자.
     @PostMapping("/createQuiz")
-    public ResponseEntity<QuizRes> createQuiz(@RequestBody QuizCreateReq quizCreateReq){
-
+    public ResponseEntity<QuizRes> createQuiz(@ModelAttribute QuizCreateReq quizCreateReq){
+////
+        System.out.println("고우스트 : " + quizCreateReq);
+        ///
         QuizRes quiz = quizService.createQuiz(quizCreateReq);
        if( quiz == null){
            return ResponseEntity.status(400).body(null);
@@ -42,7 +44,7 @@ public class QuizController {
 
     //굳이 필요할까 리퀘스트가?
     @PutMapping("/alterQuiz")
-    public ResponseEntity<Boolean> alterQuiz(@RequestBody QuizAlterReq quizAlterReq){
+    public ResponseEntity<Boolean> alterQuiz(@ModelAttribute QuizAlterReq quizAlterReq){
 
         if(!quizService.alterQuiz(quizAlterReq)){
             return ResponseEntity.status(400).body(false);

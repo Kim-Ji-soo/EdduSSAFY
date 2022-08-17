@@ -9,6 +9,8 @@ import lombok.Data;
 public class UserRoomReq {
     private String userId;
     private long roomId;
+    private String password;
+
 
     public UserRoom toEntity(){
         return UserRoom.builder()

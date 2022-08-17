@@ -11,6 +11,9 @@
   }
   .toolbar{
     padding: 0 !important;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
   
   .headerLight{
@@ -19,25 +22,19 @@
   }
   
   #navSessionInfo {
-    position: absolute;
+
   }
 
   #navButtons {
-    position: absolute;
-    left: 0;
-    right: 0;
-    min-width: 400px;
-  }
-  #navChatButton {
-    position: absolute;
-    right: 10px;
-    top: 0;
+
   }
 
-  #navQuizButton {
-    position: absolute;
-    right: 50px;
-    top: 0;
+  .messagequizcontainer{
+    min-width: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
   }
   
   #titleContent{
@@ -60,7 +57,7 @@
   #header_img {
     max-width: 135px;
     margin-right: 10px;
-    margin-top: 10px;
+    margin-top: 7px;
   }
 
   #session-title{
