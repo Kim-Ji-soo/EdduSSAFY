@@ -24,11 +24,11 @@ export default class ChatComponent extends Component {
   }
 
   componentDidMount() {
+    const img = new Image();
+    img.src = logo;
     this.props.user
       .getStreamManager()
       .stream.session.on("signal:chat", (event) => {
-        const img = new Image();
-        img.src = logo;
         const data = JSON.parse(event.data);
         let messageList = this.state.messageList;
         messageList.push({
@@ -164,7 +164,12 @@ export default class ChatComponent extends Component {
               type="checkbox"
               onChange={this.toggleButton}
             />
-            <label htmlFor="anonymous" style={{fontSize:"1rem", marginTop:"2%"}}>익명</label>
+            <label
+              htmlFor="anonymous"
+              style={{ fontSize: "1rem", marginTop: "2%" }}
+            >
+              익명
+            </label>
             <input
               className="messageInput"
               placeholder="메시지를 입력해주세요"

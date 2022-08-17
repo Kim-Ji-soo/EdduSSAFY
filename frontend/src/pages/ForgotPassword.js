@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import {
-  TextField,
-  Button,
-} from "@mui/material";
+import { TextField, Button } from "@mui/material";
 import * as yup from "yup";
 import users from "../api/api";
 import axios from "axios";
@@ -41,7 +38,7 @@ function ForgotPassword() {
     initialValues: {
       userId: "",
       email: "",
-      password : ""
+      password: "",
     },
     validationSchema: validationSchema,
     onSubmit: (data, { setSubmitting }) => {
@@ -54,18 +51,23 @@ function ForgotPassword() {
         axios({
           method: "put",
           url: users.resetPassword(),
-          data: {authKey:messageValue, email: formik.values.email, password: formik.values.password, userId : formik.values.userId},
+          data: {
+            authKey: messageValue,
+            email: formik.values.email,
+            password: formik.values.password,
+            userId: formik.values.userId,
+          },
         })
           .then((res) => {
             console.log(res.data);
             navigate("/login", { replace: true });
           })
           .catch((e) => {
-            alert('정보가 잘못 입력되었습니다');
+            alert("정보가 잘못 입력되었습니다!");
             console.log(e);
           });
       } else {
-          alert("이메일 인증 해주세요");
+        alert("이메일 인증 해주세요.");
       }
     },
   });
@@ -202,7 +204,6 @@ function ForgotPassword() {
               }}
             >
               <div className={styles.textcon}>
-                
                 <div userId={styles.inputId}>
                   <TextField
                     name="userId"
@@ -216,7 +217,7 @@ function ForgotPassword() {
                     autoComplete="off"
                     sx={Textfieldsx}
                   />
-                  </div>
+                </div>
                 <div className={styles.inputEmail}>
                   <TextField
                     name="email"
@@ -237,7 +238,7 @@ function ForgotPassword() {
                       axios({
                         method: "post",
                         url: users.sendEmail(),
-                        data: { email: formik.values.email, reqType : "reset" },
+                        data: { email: formik.values.email, reqType: "reset" },
                       }).then((res) => {
                         console.log(res.data.message);
                       });
@@ -267,14 +268,19 @@ function ForgotPassword() {
                       axios({
                         method: "post",
                         url: users.confirmCode(),
-                        data: { authKey : messageValue, email: formik.values.email, reqType : "reset" },
-                      }).then((res) => {
-                        setCheckEmail(true);
-                        alert("이메일 인증이 완료 되었습니다.");
-                      }).catch((e) => {
-                        console.log(e);
-                      });
-
+                        data: {
+                          authKey: messageValue,
+                          email: formik.values.email,
+                          reqType: "reset",
+                        },
+                      })
+                        .then((res) => {
+                          setCheckEmail(true);
+                          alert("이메일 인증이 완료 되었습니다.");
+                        })
+                        .catch((e) => {
+                          console.log(e);
+                        });
                     }}
                   >
                     코드제출
@@ -317,7 +323,7 @@ function ForgotPassword() {
                   />
                 </div>
               </div>
-                    
+
               <Button type="submit" sx={Buttonsx}>
                 변경하기
               </Button>

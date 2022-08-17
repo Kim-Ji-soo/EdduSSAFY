@@ -38,43 +38,49 @@ function Login() {
     validationSchema: validationSchema,
     onSubmit: (data, { setSubmitting }) => {
       setSubmitting(true);
-      console.log(data);
       setSubmitting(false);
       axios({
         method: "post",
         url: users.login(),
         data: formik.values,
-      }).then((res) => {
-        console.log(res.data);
-        const token = res.data.accessToken;
-        dispatch(setToken(res.data));
-        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-        // dispatch(setToken(res.data.accessToken));
-        //localStorage.setItem("token", token);
-        //console.log(localStorage.getItem("token"));
-        axios({
-          method: "get",
-          url: users.me(),
-        }).then((res) => {
+      })
+        .then((res) => {
           console.log(res.data);
-          dispatch(me(res.data));
+          const token = res.data.accessToken;
+          dispatch(setToken(res.data));
+          axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+          // dispatch(setToken(res.data.accessToken));
+          //localStorage.setItem("token", token);
+          //console.log(localStorage.getItem("token"));
+          axios({
+            method: "get",
+            url: users.me(),
+          }).then((res) => {
+            dispatch(me(res.data));
+          });
+          axios({
+            method: "get",
+            url: quizbook.getQuizbook() + formik.values.userId,
+          }).then((res) => {
+            dispatch(quizbookActions.getquizbook(res.data));
+          });
+          axios({
+            method: "get",
+            url: room.getRoom(),
+          })
+            .then((res) => {
+              dispatch(roomActions.getRooms(res.data));
+              navigate("/", { replace: true });
+            })
+            .catch((e) => {});
+        })
+        .catch((e) => {
+          if (e.response.status === 401) {
+            alert("비밀번호가 틀렸습니다.");
+          } else {
+            alert("로그인에 실패했습니다.");
+          }
         });
-        axios({
-          method: "get",
-          url: quizbook.getQuizbook() + formik.values.userId,
-        }).then((res) => {
-          console.log(res.data);
-          dispatch(quizbookActions.getquizbook(res.data));
-        });
-        axios({
-          method: "get",
-          url: room.getRoom(),
-        }).then((res) => {
-          console.log(res.data);
-          dispatch(roomActions.getRooms(res.data));
-        });
-        navigate("/", { replace: true });
-      });
     },
   });
 

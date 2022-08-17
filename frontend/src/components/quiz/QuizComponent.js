@@ -18,7 +18,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { roomActions } from "../../redux/room";
-import { room } from "../../api/api";
+import { room, file } from "../../api/api";
 import styles from "../../css/CreateQuestion.module.css";
 
 const mapStateToProps = (state) => ({
@@ -37,21 +37,18 @@ const Quiz = function (props) {
   const [imageSrc, setImageSrc] = useState("");
   const roomId = useSelector((state) => state.room.roomId);
   const userId = useSelector((state) => state.user.value.userId);
-  const encodeFileToBase64 = (fileBlob) => {
-    console.log(fileBlob);
-    const reader = new FileReader();
-    reader.readAsDataURL(fileBlob);
-    return new Promise((resolve) => {
-      reader.onload = () => {
-        setImageSrc(reader.result);
-        resolve();
-      };
-    });
-  };
   // const img = JSON.parse(props.quiz.quizPic);
-  // console.log(img);
   useEffect(() => {
     // encodeFileToBase64(img);
+    if (props.quiz.quizPic !== "") {
+      axios({
+        method: "get",
+        url: file.download(),
+        params: { fileName: props.quiz.quizPic },
+      }).then((res) => {
+        setImageSrc(res.data);
+      });
+    }
     setIsSubmit(props.isSubmit);
     setQuiz(props.quiz);
     if (props.isTimeOut && isSubmit === false) {
@@ -91,9 +88,7 @@ const Quiz = function (props) {
         url: room.updateScore(),
         data: data,
       })
-        .then((res) => {
-          console.log(res.data);
-        })
+        .then((res) => {})
         .catch((e) => {
           console.log(e);
         });
@@ -103,10 +98,14 @@ const Quiz = function (props) {
   };
   return (
     <div>
-      <h1>{quiz.content}</h1>
-      <div className={styles.preview}>
-        {imageSrc && <img src={imageSrc} alt="preview-img" />}
-      </div>
+      {isSubmit === false && (
+        <>
+          <h1>{quiz.content}</h1>
+          <div className={styles.preview}>
+            {imageSrc && <img src={imageSrc} alt="preview-img" />}
+          </div>
+        </>
+      )}
       {quiz.type === "choice" &&
         isSubmit === false &&
         quiz.options.map((option, index) => {
@@ -116,7 +115,17 @@ const Quiz = function (props) {
                 onClick={() => {
                   checkAnswer(index + 1);
                 }}
-                sx={{"&.MuiButton-root":{display:"inline-block",marginTop:"10px", fontSize:"2rem", background:"#b6dcfc", width:"70vw", border:"2px solid white",borderRadius:"10px"}}}
+                sx={{
+                  "&.MuiButton-root": {
+                    display: "inline-block",
+                    marginTop: "10px",
+                    fontSize: "2rem",
+                    background: "#b6dcfc",
+                    width: "70vw",
+                    border: "2px solid white",
+                    borderRadius: "10px",
+                  },
+                }}
               >
                 {option}
               </Button>
@@ -140,7 +149,17 @@ const Quiz = function (props) {
                   return e.target.value;
                 });
               }}
-              sx={{"&.MuiButton-root":{display:"inline-block",marginTop:"10px", fontSize:"2rem", background:"#b6dcfc", width:"90vw", border:"2px solid white",borderRadius:"10px"}}}
+              sx={{
+                "&.MuiButton-root": {
+                  display: "inline-block",
+                  marginTop: "10px",
+                  fontSize: "2rem",
+                  background: "#b6dcfc",
+                  width: "90vw",
+                  border: "2px solid white",
+                  borderRadius: "10px",
+                },
+              }}
             />
             <Button type="submit">제출하기</Button>
           </form>
@@ -148,8 +167,12 @@ const Quiz = function (props) {
       )}
       {isSubmit === true && (
         <div>
-          <h2 style={{color:"#FFFF60", fontSize:"4rem"}}>{result.result}입니다</h2>
-          <h3 style={{color:"#FFFF60", fontSize:"3rem"}}>총 점수는 {result.score}입니다</h3>
+          <h2 style={{ color: "#FFFF60", fontSize: "4rem" }}>
+            {result.result}입니다
+          </h2>
+          <h3 style={{ color: "#FFFF60", fontSize: "3rem" }}>
+            총 점수는 {result.score}입니다
+          </h3>
         </div>
       )}
     </div>
@@ -169,7 +192,6 @@ const Quizbook = function (props) {
   const [isQuizbook, setIsQuizbook] = useState(true);
   const [quizbookId, setQuizbookId] = useState(0);
   const [quiz, setQuiz] = useState([]);
-  console.log(quiz);
   useEffect(() => {
     setQuiz(() => {
       return quizs[quizbookId];
@@ -189,7 +211,17 @@ const Quizbook = function (props) {
                     });
                     setQuizbookId(index);
                   }}
-                  sx={{"&.MuiButton-root":{display:"inline-block",marginTop:"10px", fontSize:"2rem", background:"#b6dcfc", width:"90vw", border:"2px solid white",borderRadius:"10px"}}}
+                  sx={{
+                    "&.MuiButton-root": {
+                      display: "inline-block",
+                      marginTop: "10px",
+                      fontSize: "2rem",
+                      background: "#b6dcfc",
+                      width: "90vw",
+                      border: "2px solid white",
+                      borderRadius: "10px",
+                    },
+                  }}
                 >
                   {quizbook.title}
                 </Button>
@@ -207,7 +239,17 @@ const Quizbook = function (props) {
                   onClick={() => {
                     props.sendQuiz({ index: index, quizbookId: quizbookId });
                   }}
-                  sx={{"&.MuiButton-root":{display:"inline-block",marginTop:"10px", fontSize:"2rem", background:"#b6dcfc", width:"90vw", border:"2px solid white",borderRadius:"10px"}}}
+                  sx={{
+                    "&.MuiButton-root": {
+                      display: "inline-block",
+                      marginTop: "10px",
+                      fontSize: "2rem",
+                      background: "#b6dcfc",
+                      width: "90vw",
+                      border: "2px solid white",
+                      borderRadius: "10px",
+                    },
+                  }}
                 >
                   {quiz.content}
                 </Button>
@@ -220,7 +262,17 @@ const Quizbook = function (props) {
                 return !isQuizbook;
               });
             }}
-            sx={{"&.MuiButton-root":{display:"inline-block",marginTop:"10px", fontSize:"1rem", background:"#66cbac", width:"10vw", border:"2px solid white",borderRadius:"10px"}}}
+            sx={{
+              "&.MuiButton-root": {
+                display: "inline-block",
+                marginTop: "10px",
+                fontSize: "1rem",
+                background: "#66cbac",
+                width: "10vw",
+                border: "2px solid white",
+                borderRadius: "10px",
+              },
+            }}
           >
             뒤로 가기
           </Button>
@@ -233,7 +285,6 @@ const Quizbook = function (props) {
 class QuizComponent extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props.store);
     this.state = {
       messageList: [],
       message: "",
@@ -265,11 +316,6 @@ class QuizComponent extends Component {
       .getStreamManager()
       .stream.session.on("signal:quiz", (event) => {
         const data = JSON.parse(event.data);
-        console.log(
-          this.props.store.quizbooks.quizsInQuizbooks[data.quizbookId][
-            data.index
-          ]
-        );
         this.setState({
           index: data.index,
           quizbookId: data.quizbookId,
@@ -301,7 +347,6 @@ class QuizComponent extends Component {
     }
   }
   sendQuiz(e) {
-    console.log(e);
     const data = e;
     this.props.user.getStreamManager().stream.session.signal({
       data: JSON.stringify(data),
@@ -328,7 +373,6 @@ class QuizComponent extends Component {
     });
   }
   sendMessage() {
-    console.log(this.state.message);
     let nickname;
     if (this.state.isNickname === false) {
       nickname = this.props.user.getNickname();
@@ -381,12 +425,12 @@ class QuizComponent extends Component {
     return (
       <div id="quizContainer">
         <div id="quizComponent" style={styleChat}>
-            <div id="quizToolbar">
-              <span>Quiz</span>
-              <IconButton id="quizcloseButton" onClick={this.close}>
-                <HighlightOff color="secondary" />
-              </IconButton>
-            </div>
+          <div id="quizToolbar">
+            <span>Quiz</span>
+            <IconButton id="quizcloseButton" onClick={this.close}>
+              <HighlightOff color="secondary" />
+            </IconButton>
+          </div>
           <div className="quiz-wrap" ref={this.chatScroll}>
             {quizbook === undefined &&
               !this.state.isEnd &&
@@ -411,7 +455,9 @@ class QuizComponent extends Component {
               !this.state.isResult &&
               this.props.store.user.value.position === "professor" && (
                 <>
-                  <div style={{fontSize:"2rem"}}>"{this.state.quiz.content}" 를 진행중입니다</div>
+                  <div style={{ fontSize: "2rem" }}>
+                    "{this.state.quiz.content}" 를 진행중입니다
+                  </div>
                   <Button
                     onClick={() => {
                       this.endQuiz();
@@ -427,7 +473,17 @@ class QuizComponent extends Component {
                         });
                       });
                     }}
-                    sx={{"&.MuiButton-root":{display:"inline-block",marginTop:"10px", fontSize:"1rem", background:"#66cbac", width:"10vw", border:"2px solid white",borderRadius:"10px"}}}
+                    sx={{
+                      "&.MuiButton-root": {
+                        display: "inline-block",
+                        marginTop: "10px",
+                        fontSize: "1rem",
+                        background: "#66cbac",
+                        width: "10vw",
+                        border: "2px solid white",
+                        borderRadius: "10px",
+                      },
+                    }}
                   >
                     종료
                   </Button>
@@ -444,20 +500,24 @@ class QuizComponent extends Component {
                           <TableCell align="right">점수</TableCell>
                         </TableRow>
                       </TableHead>
-                      <TableBody sx={{background:"#FFFFCC"}}>
-                        {this.state.roomResult.map((row) => (
-                          <TableRow
-                            key={row.nickName}
-                            sx={{
-                              "&:last-child td, &:last-child th": { border: 0 },
-                            }}
-                          >
-                            <TableCell component="th" scope="row">
-                              {row.nickName}
-                            </TableCell>
-                            <TableCell align="right">{row.score}</TableCell>
-                          </TableRow>
-                        ))}
+                      <TableBody sx={{ background: "#FFFFCC" }}>
+                        {this.state.roomResult
+                          .filter((row) => row.position !== "professor")
+                          .map((row) => (
+                            <TableRow
+                              key={row.nickName}
+                              sx={{
+                                "&:last-child td, &:last-child th": {
+                                  border: 0,
+                                },
+                              }}
+                            >
+                              <TableCell component="th" scope="row">
+                                {row.nickName}
+                              </TableCell>
+                              <TableCell align="right">{row.score}</TableCell>
+                            </TableRow>
+                          ))}
                       </TableBody>
                     </Table>
                   </TableContainer>
@@ -465,7 +525,17 @@ class QuizComponent extends Component {
                     onClick={() => {
                       this.toggleResult();
                     }}
-                   sx={{"&.MuiButton-root":{display:"inline-block",marginTop:"10px", fontSize:"1rem", background:"#66cbac", width:"10vw", border:"2px solid white",borderRadius:"10px"}}}
+                    sx={{
+                      "&.MuiButton-root": {
+                        display: "inline-block",
+                        marginTop: "10px",
+                        fontSize: "1rem",
+                        background: "#66cbac",
+                        width: "10vw",
+                        border: "2px solid white",
+                        borderRadius: "10px",
+                      },
+                    }}
                   >
                     종료하기
                   </Button>

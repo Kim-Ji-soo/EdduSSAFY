@@ -5,11 +5,12 @@ import * as yup from "yup";
 import users from "../api/api";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { me, logout } from "../redux/user";
 import { deleteToken} from "../redux/token";
 import styles from "../css/userProfile.module.css";
 import Box from "@mui/material/Box";
+
 
 const validationSchema = yup.object({
   email: yup
@@ -41,34 +42,29 @@ function UserProfile() {
       tel: user.tel,
     },
     validationSchema: validationSchema,
-    onSubmit: (data, { setSubmitting }) => {
-      console.log(data);
+    onSubmit: async (data, { setSubmitting }) => {
       setSubmitting(true);
-      console.log(formik.values);
-
       setSubmitting(false);
-      axios({
+      await axios({
         method: "put",
         url: users.update(),
         data: formik.values,
       })
         .then((res) => {
-          console.log(res.data);
-          alert("회원정보 수정완료!");
-          axios({
-            method: "get",
-            url: users.me(),
-          })
-            .then((res) => {
-              console.log(res.data);
-              dispatch(me(res.data));
-            })
-            .catch((e) => console.log(e));
-          navigate("/", { replace: true });
+          alert("회원정보 수정완료!")
         })
         .catch((e) => {
           console.log(e);
         });
+      axios({
+        method: "get",
+        url: users.me(),
+      })
+        .then((res) => {
+          dispatch(me(res.data));
+        })
+        .catch((e) => console.log(e));
+        navigate("/", { replace: true });
     },
   });
 
@@ -225,24 +221,25 @@ function UserProfile() {
         </Button>
         </div>
         </Link>
-        <Button onClick={()=>{
-          axios({
-            method: "delete",
-            url: users.delete() + user.userId + "/",
-          })
-            .then((res) => {
-              console.log(res.data);
-              alert("회원 탈퇴가 완료되었습니다!");
-              dispatch(deleteToken());
-              dispatch(logout());
-              navigate("/login", { replace: true });
+        <Button className={styles.buttons}
+          onClick={() => {
+            axios({
+              method: "delete",
+              url: users.delete() + user.userId + "/",
             })
-            .catch((e) => {
-              console.log(e);
-            });
-        }}
-        className={styles.buttons}>
-            회원탈퇴
+              .then((res) => {
+                console.log(res.data);
+                alert("회원 탈퇴가 완료되었습니다!");
+                dispatch(deleteToken());
+                dispatch(logout());
+                navigate("/login", { replace: true });
+              })
+              .catch((e) => {
+                console.log(e);
+              });
+          }}
+        >
+          회원탈퇴
         </Button>
       </Box>
     </>

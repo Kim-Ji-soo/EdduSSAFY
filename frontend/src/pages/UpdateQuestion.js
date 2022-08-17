@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import * as yup from "yup";
 import axios from "axios";
-import { quiz } from "../api/api";
+import { quiz, file } from "../api/api";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Box } from "@mui/material";
 import styles from "../css/UpdateQuestion.module.css";
@@ -103,22 +103,62 @@ function CreateContent(props) {
 }
 //
 
-function CreateQuestion() {
+function UpdateQuestion() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const newState = { ...state };
+  const [imageSrc, setImageSrc] = useState("");
+  const [isChange, setIsChange] = useState(false);
+  const encodeFileToBase64 = (fileBlob) => {
+    if (fileBlob !== undefined) {
+      const reader = new FileReader();
+      reader.readAsDataURL(fileBlob);
+      return new Promise((resolve) => {
+        reader.onload = () => {
+          setImageSrc(reader.result);
+          resolve();
+        };
+      });
+    } else {
+      setImageSrc("");
+      console.log(1);
+      formik.values.quizPic = "";
+    }
+  };
+  useEffect(() => {
+    if (state.quizPic !== "") {
+      console.log(state.quizPic);
+      axios({
+        method: "get",
+        url: file.download(),
+        params: { fileName: state.quizPic },
+      }).then((res) => {
+        console.log(res.data);
+        setImageSrc(res.data);
+      });
+    }
+  }, []);
   const formik = useFormik({
     initialValues: newState,
     validationSchema: validationSchema,
     onSubmit: (data, { setSubmitting }) => {
       setSubmitting(true);
+      formik.values.imgChanged = isChange;
+      if (isChange === false) {
+        delete formik.values.quizPic;
+      }
+      if (formik.values.imgChanged === true && formik.values.quizPic === "") {
+        delete formik.values.quizPic;
+      }
       console.log(formik.values);
       setSubmitting(false);
-      console.log(quiz.createQuiz());
       axios({
         method: "put",
         url: quiz.updateQuiz(),
         data: formik.values,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       })
         .then((res) => {
           console.log(res.data);
@@ -203,9 +243,32 @@ function CreateQuestion() {
         }}
       >
       <h1>update Question</h1>
+      <div className={styles.preview}>
+        {imageSrc !== "" && <img src={imageSrc}></img>}
+      </div>
+      <div>
+        <input
+          type="file"
+          onChange={(e) => {
+            encodeFileToBase64(e.target.files[0]);
+            formik.values.quizPic = e.target.files[0];
+            setIsChange(true);
+            console.log(formik.values.quizPic);
+          }}
+          sx={{ marginTop: "5px" }}
+        />
+      </div>
+      <Button
+        onClick={() => {
+          setIsChange(true);
+          setImageSrc("");
+          formik.values.quizPic = "";
+        }}
+      >
+        파일 삭제
+      </Button>
       <form
         onSubmit={(e) => {
-          e.preventDefault();
           formik.handleSubmit(e);
         }}
       >
@@ -217,6 +280,7 @@ function CreateQuestion() {
             onChange={formik.handleChange}
             error={formik.touched.content && Boolean(formik.errors.content)}
             helperText={formik.touched.content && formik.errors.content}
+            sx={{ marginTop: "5px" }}
             autoComplete="off"
             sx={Textfieldsx}
           />
@@ -229,6 +293,7 @@ function CreateQuestion() {
             onChange={formik.handleChange}
             error={formik.touched.score && Boolean(formik.errors.score)}
             helperText={formik.touched.score && formik.errors.score}
+            sx={{ marginTop: "5px" }}
             autoComplete="off"
             sx={Textfieldsx}
           />
@@ -239,7 +304,7 @@ function CreateQuestion() {
             <RadioGroup
               aria-labelledby="demo-controlled-radio-buttons-group"
               name="type"
-              defaultValue="choice"
+              defaultValue={formik.values.type}
               value={formik.values.type}
               onChange={formik.handleChange}
               row
@@ -313,4 +378,4 @@ function CreateQuestion() {
   );
 }
 
-export default CreateQuestion;
+export default UpdateQuestion;

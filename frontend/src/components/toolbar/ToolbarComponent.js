@@ -31,8 +31,11 @@ class ToolbarComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      mic: true,
+      cam: true,
       fullscreen: false,
       position: this.props.store.user.value.position,
+      isScreen: false,
     };
     this.camStatusChanged = this.camStatusChanged.bind(this);
     this.micStatusChanged = this.micStatusChanged.bind(this);
@@ -46,18 +49,22 @@ class ToolbarComponent extends Component {
   }
 
   micStatusChanged() {
+    this.setState({ mic: !this.state.mic });
     this.props.micStatusChanged();
   }
 
   camStatusChanged() {
+    this.setState({ cam: !this.state.cam });
     this.props.camStatusChanged();
   }
 
   screenShare() {
+    this.setState({ isScreen: !this.state.isScreen });
     this.props.screenShare();
   }
 
   stopScreenShare() {
+    this.setState({ isScreen: !this.state.isScreen });
     this.props.stopScreenShare();
   }
 
@@ -84,6 +91,7 @@ class ToolbarComponent extends Component {
   render() {
     const mySessionId = this.props.sessionId;
     const localUser = this.props.user;
+    console.log(localUser);
     return (
       <AppBar className="toolbar" id="header">
         <Toolbar className="toolbar">
@@ -125,23 +133,28 @@ class ToolbarComponent extends Component {
             </IconButton>
 
             {this.state.position === "professor" && (
-              <IconButton
-                color="inherit"
-                className="navButton"
-                onClick={this.screenShare}
-              >
-                {localUser !== undefined && localUser.isScreenShareActive() ? (
-                  <PictureInPicture />
-                ) : (
-                  <ScreenShare />
-                )}
-              </IconButton>
-            )}
+              <>
+                <IconButton
+                  color="inherit"
+                  className="navButton"
+                  onClick={this.screenShare}
+                >
+                  {localUser !== undefined && this.state.isScreen ? (
+                    <PictureInPicture />
+                  ) : (
+                    <ScreenShare />
+                  )}
+                </IconButton>
 
-            {localUser !== undefined && localUser.isScreenShareActive() && (
-              <IconButton onClick={this.stopScreenShare} id="navScreenButton">
-                <StopScreenShare color="secondary" />
-              </IconButton>
+                {localUser !== undefined && this.state.isScreen && (
+                  <IconButton
+                    onClick={this.stopScreenShare}
+                    id="navScreenButton"
+                  >
+                    <StopScreenShare color="secondary" />
+                  </IconButton>
+                )}
+              </>
             )}
             <IconButton
               color="inherit"

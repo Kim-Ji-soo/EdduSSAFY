@@ -126,7 +126,6 @@ function CreateQuestion() {
     return new Promise((resolve) => {
       reader.onload = () => {
         setImageSrc(reader.result);
-        console.log(reader.result);
         resolve();
       };
     });
@@ -146,11 +145,17 @@ function CreateQuestion() {
     onSubmit: (data, { setSubmitting }) => {
       setSubmitting(true);
       setSubmitting(false);
+      if (formik.values.quizPic === "") {
+        delete formik.values.quizPic;
+      }
       console.log(formik.values);
       axios({
         method: "post",
         url: quiz.createQuiz(),
         data: formik.values,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       }).then((res) => {
         console.log(res.data);
         navigate("/problemlist", { replace: true });
@@ -246,7 +251,6 @@ function CreateQuestion() {
           onChange={(e) => {
             encodeFileToBase64(e.target.files[0]);
             formik.values.quizPic = e.target.files[0];
-            console.log(formik.values.quizPic);
           }}
           style={{display:"none"}}
         />
@@ -348,6 +352,13 @@ function CreateQuestion() {
             Submit
           </Button>
         </form>
+        <Button
+          onClick={() => {
+            navigate("/problemlist");
+          }}
+        >
+          뒤로 가기
+        </Button>
       </Box>
     </>
   );

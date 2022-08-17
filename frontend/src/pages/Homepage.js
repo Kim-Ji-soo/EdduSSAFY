@@ -14,27 +14,30 @@ import { Grid, Button } from "@mui/material"; //contain
 function Homepage(props) {
   const [cropen, setCropen] = useState(false);
   const roomTitle = useRef();
+  const password = useRef();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const userId = useSelector((state) => {
     return state.user.value.userId;
   });
   const position = useSelector((state) => {
     return state.user.value.position;
   });
-  const handleJoinRoom = (roomId) => {
+  const handleJoinRoom = (data) => {
     //axios register
     axios({
       url: room.joinRoom(),
       method: "post",
       data: {
-        roomId: roomId,
+        roomId: data.roomId,
         userId: userId,
       },
     }).then((res) => {
       dispatch(
         roomActions.setRoom({
-          roomId: roomId,
+          roomId: data.roomId,
+          roomTitle: data.title,
         })
       );
       navigate("/openvidu", { replace: true });
@@ -43,16 +46,19 @@ function Homepage(props) {
   const handleCreateRoom = () => {
     //axios 추가 유저아이디, 타이틀
     console.log(roomTitle.current.value, userId);
+    console.log(password.current.value);
     axios({
       url: room.createRoom(),
       method: "post",
       data: {
         title: roomTitle.current.value,
         userId: userId,
+        password: password.current.value,
       },
     }).then((res) => {
+      console.log(res.data);
       dispatch(roomActions.setRoom(res.data));
-      handleJoinRoom(res.data.roomId);
+      navigate("/openvidu", { replace: true });
     });
   };
 
@@ -75,16 +81,16 @@ function Homepage(props) {
   const Gridsx = {
     "&.MuiGrid-root": {
       marginTop: "20px",
-      display:"flex",
-      justifyContent:"center",
-
+      display: "flex",
+      justifyContent: "center",
     },
     "&.MuiGrid-item": {
       padding: 0,
     },
   };
-  
+  const token = useSelector((state) => state.token.value.accessToken);
   useEffect(() => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     axios({
       method: "get",
       url: room.getRoom(),
@@ -136,7 +142,7 @@ function Homepage(props) {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: "20vw",
+            width: "40vw",
             bgcolor: "background.paper",
             border: "2px solid #000",
             boxShadow: 24,
@@ -153,6 +159,15 @@ function Homepage(props) {
             sx={{}}
             inputRef={roomTitle}
             autoComplete="off"
+          />
+
+          <TextField
+            id="password"
+            label="password"
+            variant="outlined"
+            defaultValue=""
+            sx={{}}
+            inputRef={password}
           />
           <Button
             sx={{ display: "block" }}
