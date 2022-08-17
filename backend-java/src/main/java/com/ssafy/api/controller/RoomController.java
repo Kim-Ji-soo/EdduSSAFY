@@ -78,6 +78,16 @@ public class RoomController {
         return ResponseEntity.status(200).body(allRooms);
     }
 
+    @GetMapping("/activeRooms")
+    public ResponseEntity<List<RoomRes>> getActiveRooms(){
+        List<RoomRes> allRooms = roomService.getActiveRooms();
+        if(allRooms == null){
+            return ResponseEntity.status(400).body(null);
+        }
+
+        return ResponseEntity.status(200).body(allRooms);
+    }
+
 //   @PostMapping("/enter")
 //    public ResponseEntity<Boolean> enterRoom(@RequestBody RoomEnterReq roomEnterReq){
 //        if(!roomService.enterRoom(roomEnterReq)){
@@ -98,6 +108,14 @@ public class RoomController {
         return ResponseEntity.status(200).body(rooms);
     }
 
+    @PostMapping("/check")
+    public ResponseEntity<Boolean> checkRoomPassword(@RequestBody UserRoomReq userRoomReq){
+
+        if(!roomService.checkRoomPassword(userRoomReq.getRoomId(), userRoomReq.getPassword())){
+            return ResponseEntity.status(400).body(false);
+        }
+        return ResponseEntity.status(200).body(true);
+    }
 
 
 }

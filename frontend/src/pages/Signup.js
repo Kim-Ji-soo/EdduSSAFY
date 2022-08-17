@@ -19,30 +19,30 @@ import Box from "@mui/material/Box";
 
 const validationSchema = yup.object({
   email: yup
-    .string("Enter your email")
-    .email("Enter a valid email")
-    .required("Email is required"),
+    .string("이메일을 입력해주세요")
+    .email("이메일이 유효하지 않습니다")
+    .required("이메일은 필수입니다"),
   password: yup
-    .string("Enter your password")
-    .min(8, "Password should be of minimum 8 characters length")
-    .required("Password is required"),
+    .string("패스워드를 입력해주세요")
+    .min(8, "패스워드는 최소 8글자 입니다")
+    .required("패스워드는 필수입니다"),
   passwordCheck: yup.string().when("password", {
     is: (val) => (val && val.length > 0 ? true : false),
     then: yup
       .string()
-      .oneOf([yup.ref("password")], "Both password need to be the same"),
+      .oneOf([yup.ref("password")], "패스워드와 일치해야합니다"),
   }),
-  name: yup.string("Enter your name").required("name is required"),
-  nickname: yup.string("Enter your nickname").required("nickname is required"),
+  name: yup.string("이름을 입력해주세요").required("이름은 필수입니다"),
+  nickname: yup.string("닉네임을 입력해주세요").required("닉네임은 필수입니다"),
   userId: yup
-    .string("Enter your id")
-    .min(5, "id should be of minimum 5 characters length")
-    .required("id is required"),
+    .string("아이디를 입력해주세요")
+    .min(5, "아이디는 최소 5글자 입니다")
+    .required("아이디는 필수입니다"),
   tel: yup
-    .string("Enter your phonenumber")
-    .length(11, "phonenumber should be 11 characters length")
-    .required("phonenumber is required"),
-  position: yup.string("Enter your position").required("position is required"),
+    .string("전화번호를 적어주세요")
+    .length(11, "전화번호는 010-0000-0000 입니다")
+    .required("전화번호는 필수입니다"),
+  position: yup.string("직업을 골라주세요").required("직업 선택은 필수입니다"),
 });
 
 function Signup() {
@@ -85,9 +85,9 @@ function Signup() {
           });
       } else {
         if (checkId === false) {
-          alert("아이디 중복체크 해주세요.");
+          alert("아이디 중복체크 해주세요");
         } else {
-          alert("이메일 인증 해주세요.");
+          alert("이메일 인증 해주세요");
         }
       }
     },
@@ -180,7 +180,7 @@ function Signup() {
               position: "absolute",
               display: "flex",
               flexDirection: "column",
-              minWidth: "385px",
+              minWidth: "15vw",
               top: "50%",
               left: "50%",
               transform: "translate(-50%, -50%)",
@@ -203,16 +203,16 @@ function Signup() {
                 <div>
                   <Link to="/" className={styles.link}>
                     <Button type="submit" className={styles.buttons}>
-                      Sign in
+                      로그인
                     </Button>
                   </Link>
                 </div>
               </form>
             </div>
             <div>
-              <h2 className={styles.h2}>Sign Up</h2>
+              <h2 className={styles.h2}>회원가입하기</h2>
               <span className={styles.span}>
-                Make our Eddu SSAFY community register{" "}
+                Eddu SSAFY의 일원이 되어보세요
               </span>
             </div>
             <form
@@ -225,18 +225,19 @@ function Signup() {
                 <div>
                   <TextField
                     name="name"
-                    label="name"
+                    label="이름"
                     value={formik.values.name}
                     onChange={formik.handleChange}
                     error={formik.touched.name && Boolean(formik.errors.name)}
                     helperText={formik.touched.name && formik.errors.name}
+                    autoComplete="off"
                     sx={Textfieldsx}
                   />
                 </div>
                 <div>
                   <TextField
                     name="nickname"
-                    label="nickname"
+                    label="닉네임"
                     value={formik.values.nickname}
                     onChange={formik.handleChange}
                     error={
@@ -245,40 +246,45 @@ function Signup() {
                     helperText={
                       formik.touched.nickname && formik.errors.nickname
                     }
+                    autoComplete="off"
                     sx={Textfieldsx}
                   />
                 </div>
-                <div userId={styles.inputId}>
+                <div className={styles.inputId}>
                   <TextField
                     name="userId"
-                    label="userId"
+                    label="사용자 ID"
                     value={formik.values.userId}
                     onChange={formik.handleChange}
                     error={
                       formik.touched.userId && Boolean(formik.errors.userId)
                     }
                     helperText={formik.touched.userId && formik.errors.userId}
+                    autoComplete="off"
                     sx={Textbtnfieldsx}
                   />
                   <Button
-                    userId="inputButton"
                     className={styles.inputButton}
                     onClick={() => {
                       const userId = formik.values.userId;
-                      console.log(users.idcheck() + userId);
-                      axios({
-                        method: "get",
-                        url: users.idcheck() + userId,
-                      }).then((res) => {
-                        if (res.data === true) {
-                          alert("중복된 아이디입니다.");
-                        } else {
-                          setCheckId(true);
-                          setValid(checkEmail && checkId);
-                          alert("사용 가능한 아이디입니다.");
-                        }
-                      });
+                      if(userId.length<5){
+                        alert('아이디 길이는 5자 이상이어야 합니다!')
+                      }else{
+                        axios({
+                          method: "get",
+                          url: users.idcheck() + userId,
+                        }).then((res) => {
+                          if (res.data === true) {
+                            alert("중복된 아이디입니다.");
+                          } else {
+                            setCheckId(true);
+                            setValid(checkEmail && checkId);
+                            alert("사용 가능한 아이디입니다.");
+                          }
+                        });
+                      }
                     }}
+                    sx ={{marginTop: "2%"}}
                   >
                     중복체크
                   </Button>
@@ -287,7 +293,7 @@ function Signup() {
                   <TextField
                     name="password"
                     type="password"
-                    label="password"
+                    label="비밀번호"
                     value={formik.values.password}
                     onChange={formik.handleChange}
                     error={
@@ -296,6 +302,7 @@ function Signup() {
                     helperText={
                       formik.touched.password && formik.errors.password
                     }
+                    autoComplete="off"
                     sx={Textfieldsx}
                   />
                 </div>
@@ -303,7 +310,7 @@ function Signup() {
                   <TextField
                     name="passwordCheck"
                     type="password"
-                    label="passwordcheck"
+                    label="비밀번호 다시입력"
                     value={formik.values.passwordCheck}
                     onChange={formik.handleChange}
                     error={
@@ -314,17 +321,19 @@ function Signup() {
                       formik.touched.passwordCheck &&
                       formik.errors.passwordCheck
                     }
+                    autoComplete="off"
                     sx={Textfieldsx}
                   />
                 </div>
                 <div className={styles.inputEmail}>
                   <TextField
                     name="email"
-                    label="email"
+                    label="이메일"
                     value={formik.values.email}
                     onChange={formik.handleChange}
                     error={formik.touched.email && Boolean(formik.errors.email)}
                     helperText={formik.touched.email && formik.errors.email}
+                    autoComplete="off"
                     sx={Textbtnfieldsx}
                   />
                   <Button
@@ -338,9 +347,14 @@ function Signup() {
                         url: users.sendEmail(),
                         data: { email: formik.values.email, reqType : "register" },
                       }).then((res) => {
+                        alert('이메일 발신 성공!');
                         console.log(res.data.message);
+                      }).catch((e) => {
+                        alert('이미 존재하는 이메일입니다!');
+                        console.log(e);
                       });
                     }}
+                    sx ={{marginTop: "2%"}}
                   >
                     코드발송
                   </Button>
@@ -349,32 +363,37 @@ function Signup() {
                 <div className={styles.inputEmail}>
                   <TextField
                     name="message"
-                    label="message"
+                    label="메일로 받은 코드"
                     value={messageValue}
                     onChange={(e) => {
                       setMessageValue(e.target.value);
                     }}
+                    autoComplete="off"
                     sx={Textbtnfieldsx}
                   />
                   <Button
                     className={styles.inputButton}
                     onClick={(e) => {
                       e.preventDefault();
-                      console.log(messageValue);
-                      console.log(formik.values.email);
                       axios({
                         method: "post",
                         url: users.confirmCode(),
-                        data: { authKey : messageValue, email: formik.values.email, reqType : "register" },
-                      }).then((res) => {
-                        setCheckEmail(true);
-                        setValid(true && checkId);
-                        alert("이메일 인증이 완료 되었습니다.");
-                      }).catch((e) => {
-                        console.log(e);
-                      });
-
+                        data: {
+                          authKey: messageValue,
+                          email: formik.values.email,
+                          reqType: "register",
+                        },
+                      })
+                        .then((res) => {
+                          setCheckEmail(true);
+                          setValid(true && checkId);
+                          alert("이메일 인증이 완료 되었습니다.");
+                        })
+                        .catch((e) => {
+                          console.log(e);
+                        });
                     }}
+                    sx ={{marginTop: "2%"}}
                   >
                     코드제출
                   </Button>
@@ -383,18 +402,19 @@ function Signup() {
                 <div>
                   <TextField
                     name="tel"
-                    label="tel"
+                    label="전화번호"
                     value={formik.values.tel}
                     onChange={formik.handleChange}
                     error={formik.touched.tel && Boolean(formik.errors.tel)}
                     helperText={formik.touched.tel && formik.errors.tel}
+                    autoComplete="off"
                     sx={Textfieldsx}
                   />
                 </div>
               </div>
               <div>
                 <FormControl>
-                  <FormLabel userId="demo-radio-buttons-group-label"></FormLabel>
+                  <FormLabel className="demo-radio-buttons-group-label"></FormLabel>
                   <RadioGroup
                     aria-labelledby="demo-controlled-radio-buttons-group"
                     name="position"
@@ -430,7 +450,7 @@ function Signup() {
                 </FormControl>
               </div>
               <Button type="submit" sx={Buttonsx}>
-                Submit
+                가입하기
               </Button>
             </form>
           </Box>

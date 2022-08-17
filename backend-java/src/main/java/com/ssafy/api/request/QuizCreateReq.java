@@ -4,6 +4,7 @@ import com.ssafy.db.entity.Quiz;
 import com.ssafy.db.entity.Quizbook;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 public class QuizCreateReq {
@@ -16,8 +17,8 @@ public class QuizCreateReq {
     @ApiModelProperty(name="객관식 = choice 주관식 = subjective", example="choice")
     private String type;
 
-    @ApiModelProperty(name="이미지 주소", example="")
-    private String quizPic;
+    @ApiModelProperty(name="이미지 파일", example="")
+    private MultipartFile quizPic;
 
     @ApiModelProperty(name="선택지 갯수(주관식은 1)", example="2")
     private int optionSize;
@@ -35,7 +36,7 @@ public class QuizCreateReq {
         return Quiz.builder()
                 .content(getContent())
                 .type(getType())
-                .quizPic(getQuizPic())
+                //.quizPic(getQuizPic())
                 .optionSize(getOptionSize())
                 .options(getOptions())
                 .answer(getAnswer())

@@ -27,4 +27,8 @@ public interface RoomService {
     List<RoomRes> getAllRooms();
 
     List<RoomRes> searchRooms(String word);
+
+    boolean checkRoomPassword(long roomId, String password);
+
+    List<RoomRes> getActiveRooms();
 }
