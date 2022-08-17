@@ -40,6 +40,7 @@ function RoomList() {
   //
   const [cropen, setCropen] = useState(false);
   const [roomId, setRoomId] = useState("");
+  const [roomTitle, setRoomTitle] =useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const password = useRef();
@@ -71,6 +72,7 @@ function RoomList() {
         dispatch(
           roomActions.setRoom({
             roomId: roomId,
+            roomTitle : roomTitle,
           })
         );
         navigate("/openvidu", { replace: true });
@@ -153,6 +155,7 @@ function RoomList() {
                                   navigate("/openvidu", { replace: true });
                                 } else {
                                   setRoomId(row.roomId);
+                                  setRoomTitle(row.roomTitle);
                                   setCropen((cropen) => !cropen);
                                 }
                               }
