@@ -21,11 +21,11 @@ import Box from "@mui/material/Box";
 import logo from "../assets/EDDUSSAFY_slogan포함_동그라미.png";
 
 const validationSchema = yup.object({
-  password: yup.string("Enter your password").required("Password is required"),
+  password: yup.string("비밀번호를 입력해주세요").required("비밀번호는 필수입니다"),
   userId: yup
-    .string("Enter your id")
-    .min(5, "id should be of minimum 5 characters length")
-    .required("id is required"),
+    .string("아이디를 입력해주세요")
+    .min(5, "아이디는 최소 5글자 입니다")
+    .required("아이디는 필수입니다"),
 });
 function Login() {
   const dispatch = useDispatch();
@@ -167,7 +167,7 @@ function Login() {
                 <div>
                   <Link to="/signup" className={styles.link}>
                     <Button type="submit" className={styles.buttons}>
-                      Sign Up
+                      회원가입
                     </Button>
                   </Link>
                 </div>
@@ -183,9 +183,9 @@ function Login() {
               }}
             >
               <div>
-                <h2 className={styles.h2}>Login</h2>
+                <h2 className={styles.h2}>로그인하기</h2>
                 <span className={styles.span}>
-                  To join our Eddu SSAFY community web site{" "}
+                  Eddu SSAFY에 오신것을 환영합니다
                 </span>
               </div>
 
@@ -193,7 +193,7 @@ function Login() {
                 <div>
                   <TextField
                     name="userId"
-                    label="userId"
+                    label="사용자 ID"
                     value={formik.values.userId}
                     onChange={formik.handleChange}
                     error={
@@ -208,7 +208,7 @@ function Login() {
                   <TextField
                     name="password"
                     type="password"
-                    label="password"
+                    label="패스워드"
                     value={formik.values.password}
                     onChange={formik.handleChange}
                     error={
@@ -228,7 +228,7 @@ function Login() {
                   disabled={formik.isSubmitting}
                   sx={Buttonsx}
                 >
-                  Login
+                  로그인
                 </Button>
               </div>
             </form>
@@ -249,7 +249,7 @@ function Login() {
                       },
                     }}
                   >
-                    Forgot Password?
+                    비밀번호를 잊어버리셨나요?
                   </Button>
                 </Link>
               </div>

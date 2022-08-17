@@ -45,6 +45,23 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-x: hidden;
+  }
+
+  .quiz-wrap::-webkit-scrollbar{
+    width: 10px;
+    height: 10px;
+  }
+  .quiz-wrap::-webkit-scrollbar-thumb{
+    background-color: #3ca8f9;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+  .quiz-wrap::-webkit-scrollbar-track{
+    background-color: #e2f0ff;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
   }
 /*   
   .message {

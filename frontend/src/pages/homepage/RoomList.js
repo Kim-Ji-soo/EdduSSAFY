@@ -102,6 +102,41 @@ function RoomList() {
             </TableRow>
           </TableHead>
           <TableBody>
+            {rows.map((row) => (
+              <TableRow
+                key={row.roomId}
+                sx={{"&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  {row.title}
+                </TableCell>
+                <TableCell align="right">{row.roomId}</TableCell>
+                <TableCell align="right">{row.hostId}</TableCell>
+                <TableCell align="right">
+                  <Button
+                    onClick={() => {
+                      axios({
+                        method: "get",
+                        url: quizbook.getQuizbook() + row.hostId,
+                      }).then((res) => {
+                        dispatch(quizbookActions.getquizbook(res.data));
+                        dispatch(
+                          roomActions.setRoom({
+                            roomTitle: row.title,
+                            roomId: row.roomId,
+                            hostId: row.hostId,
+                          })
+                        );
+                        if (userId === row.hostId) {
+                          navigate("/openvidu", { replace: true });
+                        } else {
+                          if (row.active === false) {
+                            alert("방이 생성되지 않았습니다.");
+                          } else {
+                            navigate("/openvidu", { replace: true });
+                          }
+                        }
+                      });
             {rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => (

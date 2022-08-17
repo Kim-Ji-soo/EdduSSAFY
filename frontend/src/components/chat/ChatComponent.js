@@ -172,7 +172,7 @@ export default class ChatComponent extends Component {
             </label>
             <input
               className="messageInput"
-              placeholder="Send a messge"
+              placeholder="메시지를 입력해주세요"
               id="chatInput"
               value={this.state.message}
               onChange={this.handleChange}
