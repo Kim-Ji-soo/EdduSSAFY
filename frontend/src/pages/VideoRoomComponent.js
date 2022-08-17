@@ -15,8 +15,8 @@ import OpenViduLayout from "../layout/openvidu-layout";
 import UserModel from "../models/user-model";
 import ToolbarComponent from "../components/toolbar/ToolbarComponent";
 
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 
 var localUser = new UserModel();
 const mapStateToProps = (state) => ({
@@ -98,7 +98,6 @@ class VideoRoomComponent extends Component {
     window.addEventListener("beforeunload", this.onbeforeunload);
     // window.addEventListener("resize", this.updateLayout);
     window.addEventListener("resize", this.checkSize);
-    this.joinSession();
     const roomId = this.props.store.room.roomId;
     const userId = this.props.store.user.value.userId;
     const history = createBrowserHistory(0);
@@ -110,13 +109,13 @@ class VideoRoomComponent extends Component {
         userId: userId,
       },
     });
+    this.joinSession();
   }
 
   componentWillUnmount() {
     window.removeEventListener("beforeunload", this.onbeforeunload);
     // window.removeEventListener("resize", this.updateLayout);
     window.removeEventListener("resize", this.checkSize);
-    this.leaveSession();
     const roomId = this.props.store.room.roomId;
     axios({
       url: room.leaveRoom(),
@@ -126,6 +125,7 @@ class VideoRoomComponent extends Component {
         userId: this.props.store.user.value.userId,
       },
     });
+    this.leaveSession();
   }
 
   onbeforeunload(event) {
@@ -148,12 +148,10 @@ class VideoRoomComponent extends Component {
 
   connectToSession() {
     if (this.props.token !== undefined) {
-      console.log("token received: ", this.props.token);
       this.connect(this.props.token);
     } else {
       this.getToken()
         .then((token) => {
-          console.log(token);
           this.connect(token);
         })
         .catch((error) => {
@@ -234,7 +232,9 @@ class VideoRoomComponent extends Component {
     this.sendSignalUserChanged({
       isScreenShareActive: localUser.isScreenShareActive(),
     });
-    this.remotes.push(localUser);
+    if (this.remotes.length === 0) {
+      this.remotes.push(localUser);
+    }
     this.setState(
       {
         currentVideoDevice: videoDevices[0],
@@ -276,9 +276,6 @@ class VideoRoomComponent extends Component {
     const mySession = this.state.session;
     const hostId = this.props.store.room.hostId;
     const userId = this.props.store.user.value.userId;
-    if (hostId === userId) {
-      this.state.session.signal({ type: "endRoom" });
-    }
     if (mySession) {
       mySession.disconnect();
     }
@@ -379,7 +376,6 @@ class VideoRoomComponent extends Component {
       remoteUsers.forEach((user) => {
         if (user.getConnectionId() === event.from.connectionId) {
           const data = JSON.parse(event.data);
-          console.log("EVENTO REMOTE: ", event.data);
           if (data.isAudioActive !== undefined) {
             user.setAudioActive(data.isAudioActive);
           }
@@ -415,14 +411,6 @@ class VideoRoomComponent extends Component {
       type: "userChanged",
     };
     this.state.session.signal(signalOptions);
-    console.log(1);
-    if (this.state.localuser !== undefined) {
-      console.log(2);
-      this.state.session.on("signal:endRoom", (event) => {
-        console.log(3);
-        this.leaveSession();
-      });
-    }
   }
 
   toggleFullscreen() {
@@ -585,7 +573,6 @@ class VideoRoomComponent extends Component {
     if (display === "block") {
       this.setState({ chatDisplay: display, messageReceived: false });
     } else {
-      console.log("chat", display);
       this.setState({ chatDisplay: display });
     }
     // this.updateLayout();
@@ -599,7 +586,6 @@ class VideoRoomComponent extends Component {
     if (display === "block") {
       this.setState({ quizDisplay: display, messageReceived: false });
     } else {
-      console.log("quiz", display);
       this.setState({ quizDisplay: display });
     }
     // this.updateLayout();
@@ -611,34 +597,32 @@ class VideoRoomComponent extends Component {
     });
   }
   checkSize() {
-    if (
-      document.getElementById("layout").offsetWidth <= 700 &&
-      !this.hasBeenUpdated
-    ) {
-      this.toggleChat("none");
-      this.hasBeenUpdated = true;
-    }
-    if (
-      document.getElementById("layout").offsetWidth > 700 &&
-      this.hasBeenUpdated
-    ) {
-      this.hasBeenUpdated = false;
-    }
+    // if (
+    //   document.getElementById("layout").offsetWidth <= 700 &&
+    //   !this.hasBeenUpdated
+    // ) {
+    //   this.toggleChat("none");
+    //   this.hasBeenUpdated = true;
+    // }
+    // if (
+    //   document.getElementById("layout").offsetWidth > 700 &&
+    //   this.hasBeenUpdated
+    // ) {
+    //   this.hasBeenUpdated = false;
+    // }
   }
 
   render() {
     // const mySessionId = this.state.mySessionId;
     const roomTitle = this.state.roomTitle;
     const localUser = this.state.localUser;
-    console.log(this.state.subscribers);
     var chatDisplay = { display: this.state.chatDisplay };
     const quizDisplay = { display: this.state.quizDisplay };
-    console.log(quizDisplay);
     return (
       <div className="container" id="container">
         {this.state.isActive && <Navigate to="/" replace={true} />}
         <ToolbarComponent
-          sessionId={roomTitle}
+          sessionId={this.state.roomTitle}
           user={localUser}
           showNotification={this.state.messageReceived}
           camStatusChanged={this.camStatusChanged}
@@ -656,58 +640,95 @@ class VideoRoomComponent extends Component {
           cancelClicked={this.closeDialogExtension}
         />
 
-          {/* <div id="layout" className="bounds"> */}
-          <div className="bounds">
-        <div className="streamingContainer">
-          {localUser !== undefined &&
-            localUser.getStreamManager() !== undefined && (
-              <div className="OT_root OT_publisher custom-class" id="publisher"
-              
-                style={this.state.chatDisplay==="none"?
-                {position: "absolute", left: "50%", top: "50%", transform:"translate(-50%,-40%)", width: "70vw", height: "70vh"}
-                :{position: "absolute", left: "40%", top: "50%", transform:"translate(-70%,-40%)", width: "55vw", height: "70vh"}}
-              >
-                <StreamComponent
-                  user={localUser}
-                  handleNickname={this.nicknameChanged}
-                />
-              </div>
-            )}
+        {/* <div id="layout" className="bounds"> */}
+        <div className="bounds">
+          <div className="streamingContainer">
+            {localUser !== undefined &&
+              localUser.getStreamManager() !== undefined && (
+                <div
+                  className="OT_root OT_publisher custom-class"
+                  id="publisher"
+                  style={
+                    this.state.chatDisplay === "none"
+                      ? {
+                          position: "absolute",
+                          left: "50%",
+                          top: "50%",
+                          transform: "translate(-50%,-40%)",
+                          width: "70vw",
+                          height: "70vh",
+                        }
+                      : {
+                          position: "absolute",
+                          left: "40%",
+                          top: "50%",
+                          transform: "translate(-70%,-40%)",
+                          width: "55vw",
+                          height: "70vh",
+                        }
+                  }
+                >
+                  <StreamComponent
+                    user={localUser}
+                    handleNickname={this.nicknameChanged}
+                  />
+                </div>
+              )}
 
-          <div className="subscribersContainer" style={this.state.chatDisplay==="none"?
-                {maxWidth: "70vw", width: "auto", height: "15vh", left: "50%", top: "5%", transform: "translate( -50%, -10%)"}
-                :{maxWidth: "55vw", width: "auto", height: "15vh", left: "30%", top: "5%", transform: "translate( -50%, -10%)"}}>
-            <div className="subscribersMain">
-              <div className="subscribersMenu" style={this.state.chatDisplay==="none"?
-                {maxWidth: "70vw"}
-                :{maxWidth: "55vw"}}>
-          {this.state.subscribers.map((sub, i) => (
-            <div style={{display:"flex"}}>
             <div
-              key={i}
-              className="OT_root OT_publisher custom-class"
-              id="remoteUsers"
-              // style={{position: "absolute", left: `50% + ${11 * i}vw`, top: "5%", transform:"translateY(-10%)", width: "10vw", height: "13vh"}}
-              // style={{width: "10vw", height: "13vh"}}
-              style={{width: "10vw", height: "13vh"}}
+              className="subscribersContainer"
+              style={
+                this.state.chatDisplay === "none"
+                  ? {
+                      maxWidth: "70vw",
+                      width: "auto",
+                      height: "15vh",
+                      left: "50%",
+                      top: "5%",
+                      transform: "translate( -50%, -10%)",
+                    }
+                  : {
+                      maxWidth: "55vw",
+                      width: "auto",
+                      height: "15vh",
+                      left: "30%",
+                      top: "5%",
+                      transform: "translate( -50%, -10%)",
+                    }
+              }
             >
-              <StreamComponent
-                user={sub}
-                streamId={sub.streamManager.stream.streamId}
-              />
+              <div className="subscribersMain">
+                <div
+                  className="subscribersMenu"
+                  style={
+                    this.state.chatDisplay === "none"
+                      ? { maxWidth: "70vw" }
+                      : { maxWidth: "55vw" }
+                  }
+                >
+                  {this.state.subscribers.map((sub, i) => (
+                    <div style={{ display: "flex" }} key={i}>
+                      <div
+                        className="OT_root OT_publisher custom-class"
+                        id="remoteUsers"
+                        // style={{position: "absolute", left: `50% + ${11 * i}vw`, top: "5%", transform:"translateY(-10%)", width: "10vw", height: "13vh"}}
+                        // style={{width: "10vw", height: "13vh"}}
+                        style={{ width: "10vw", height: "13vh" }}
+                      >
+                        <StreamComponent
+                          user={sub}
+                          streamId={sub.streamManager.stream.streamId}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
-            </div>
-          ))}
           </div>
-          </div>
-          </div>
-</div>
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (
-              <div
-                className=""
-                style={chatDisplay}
-              >
+              <div className="" style={chatDisplay}>
                 <ChatComponent
                   user={localUser}
                   chatDisplay={this.state.chatDisplay}
@@ -719,10 +740,7 @@ class VideoRoomComponent extends Component {
 
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (
-              <div
-                className=""
-                style={quizDisplay}
-              >
+              <div className="" style={quizDisplay}>
                 <QuizComponent
                   user={localUser}
                   quizDisplay={this.state.quizDisplay}
@@ -766,7 +784,6 @@ class VideoRoomComponent extends Component {
           },
         })
         .then((response) => {
-          console.log("CREATE SESION", response);
           resolve(response.data.id);
         })
         .catch((response) => {
@@ -817,7 +834,6 @@ class VideoRoomComponent extends Component {
           }
         )
         .then((response) => {
-          console.log("TOKEN", response);
           resolve(response.data.token);
         })
         .catch((error) => reject(error));

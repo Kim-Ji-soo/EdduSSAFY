@@ -74,7 +74,6 @@ function ProblemList() {
         method: "get",
         url: quizbook.getQuizbook() + USERID,
       }).then((res) => {
-        // console.log(res.data);
         dispatch(quizbookActions.getquizbook(res.data));
       });
     });
@@ -84,12 +83,12 @@ function ProblemList() {
   const [mopen, setMopen] = useState([]);
   const [cqopen, setCQopen] = useState(false);
   const [value, setValue] = useState({});
+  const [title, setTitle] = useState("");
   useEffect(() => {
     axios({
       method: "get",
       url: quizbook.getQuizbook() + USERID,
     }).then((res) => {
-      console.log(res.data);
       dispatch(quizbookActions.getquizbook(res.data));
     });
     for (let i in QUIZBOOK) {
@@ -152,6 +151,7 @@ function ProblemList() {
                                       newMopen[index] = !newMopen[index];
                                       return newMopen;
                                     });
+                                    setTitle(item.title);
                                   }}
                                   aria-label="hi"
                                 >
@@ -211,10 +211,33 @@ function ProblemList() {
                                       id="outlined-basic"
                                       label="문제집 이름"
                                       variant="outlined"
-                                      defaultValue={item.title}
+                                      defaultValue={title}
+                                      onChange={(e) => {
+                                        setTitle(e.target.value);
+                                      }}
                                       autoComplete="off"
                                     />
-                                    <Button sx={{ display: "block" }}>
+                                    <Button
+                                      sx={{ display: "block" }}
+                                      onClick={(e) => {
+                                        axios({
+                                          url: quizbook.alter(),
+                                          method: "put",
+                                          data: {
+                                            quizbookId: item.quizbookId,
+                                            title: title,
+                                          },
+                                        });
+                                        setMopen((mopen) => {
+                                          const newMopen = [...mopen];
+                                          newMopen[index] = !newMopen[index];
+                                          return newMopen;
+                                        });
+                                        setRe((re) => {
+                                          return !re;
+                                        });
+                                      }}
+                                    >
                                       이름 변경하기
                                     </Button>
 
