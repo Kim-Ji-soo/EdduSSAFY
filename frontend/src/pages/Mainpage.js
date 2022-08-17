@@ -1,17 +1,4 @@
 /** @format */
-import { useState, useRef, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { roomActions } from "../redux/room";
-import { room } from "../api/api";
-import axios from "axios";
-import RoomList from "./homepage/RoomList";
-import UserList from "./homepage/UserList";
-import Modal from "@mui/material/Modal";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
-import { Grid, Button } from "@mui/material"; //contain
-
 import stylecss from "../css/styles.css";
 import logo from "../assets/EDDUSSAFY_얼굴만_동그라미.png";
 import image1 from "../assets/img1.png";
@@ -30,57 +17,14 @@ import {
   faLightbulb,
   faQuestionCircle,
   faPlus,
-  faPlusCircle,
-  faXmark,
+  faXmarkCircle,
+  faPlayCircle,
 } from "@fortawesome/free-solid-svg-icons";
 
-import scripts from "../components/scripts";
+import classes from "../css/navbar.module.css";
+import { Link } from "react-router-dom";
 
 function Mainpage(props) {
-  const [cropen, setCropen] = useState(false);
-  const roomTitle = useRef();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const userId = useSelector((state) => {
-    return state.user.value.userId;
-  });
-  const position = useSelector((state) => {
-    return state.user.value.position;
-  });
-
-  const Buttonsx = {
-    "&.MuiButton-root": {
-      marginTop: "10px",
-      width: "10%",
-      textDecoration: "none",
-      borderRadius: "70px 70px",
-      padding: "5px 0px",
-      background: "#11b683",
-    },
-    "&.MuiButton-root:hover": {
-      background: "#0bac7a",
-      transform: "translateY(-2px)",
-    },
-  };
-
-  const Gridsx = {
-    "&.MuiGrid-root": {
-      marginTop: "20px",
-    },
-    "&.MuiGrid-item": {
-      padding: 0,
-    },
-  };
-  useEffect(() => {
-    axios({
-      method: "get",
-      url: room.getRoom(),
-    }).then((res) => {
-      dispatch(roomActions.getRooms(res.data));
-    });
-    navigator.mediaDevices.getUserMedia({ audio: true, video: true });
-  });
-
   return (
     <div className="header">
       <header className="masthead bg-primary text-white text-center">
@@ -205,29 +149,29 @@ function Mainpage(props) {
           <div className="row">
             <div className="col-lg-4 ms-auto">
               <p className="lead">
-                Freelancer is a free bootstrap theme created by Start Bootstrap.
-                The download includes the complete source files including HTML,
-                CSS, and JavaScript as well as optional SASS stylesheets for
-                easy customization.
+                코로나 19 재유행으로 인해 대면으로 수업하기 어려워진 지금, 다시
+                비대면 플랫폼이 활성화되고 있습니다. 저희 EDDU SSAFY는 다양한
+                교육 기관에서 교육할 때 도움을 줄 수 있는 기능을 포함한 웹
+                서비스를 제공합니다.
               </p>
             </div>
             <div className="col-lg-4 me-auto">
               <p className="lead">
-                You can create your own custom avatar for the masthead, change
-                the icon in the dividers, and add your email address to the
-                contact form to make it fully functional!
+                비대면 교육 플랫폼 및 환경이 필요한 강사 와 비대면 환경에서
+                집중을 하지 못하는 학생들을 위하여 Quiz와 점수 기능을 제공하여
+                집중도를 높일 수 있습니다.
               </p>
             </div>
           </div>
           {/* <!-- About Section Button--> */}
           <div className="text-center mt-4">
-            <a
-              className="btn btn-xl btn-outline-light"
-              href="https://startbootstrap.com/theme/freelancer/"
-            >
-              <i className="fas fa-download me-2"></i>
-              Free Download!
-            </a>
+            <Link to="/roomlist" className={classes.link}>
+              <a className="btn btn-xl btn-outline-light">
+                <FontAwesomeIcon icon={faPlayCircle} />
+                <i className="fas fa-download me-2"></i>
+                Let's Get Study!
+              </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -262,7 +206,7 @@ function Mainpage(props) {
                   <div className="col-lg-8">
                     {/* <!-- Portfolio Modal - Title--> */}
                     <h2 className="portfolio-modal-title text-secondary text-uppercase mb-0">
-                      Log Cabin
+                      Online Lecture
                     </h2>
                     {/* <!-- Icon Divider--> */}
                     <div className="divider-custom">
@@ -280,15 +224,15 @@ function Mainpage(props) {
                     />
                     {/* <!-- Portfolio Modal - Text--> */}
                     <p className="mb-4">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      Mollitia neque assumenda ipsam nihil, molestias magnam,
-                      recusandae quos quis inventore quisquam velit asperiores,
-                      vitae? Reprehenderit soluta, eos quod consequuntur itaque.
-                      Nam.
+                      코로나19 재유행으로 인해 대면으로 수업하기 어려워진 지금,
+                      기존 화상 회의 서비스에 여러 기능들을 더해 선생님과 학생
+                      모두 만족할 수 있는 교육용 플랫폼을 목표로 합니다.
+                      선생님은 화면 공유를 통해 원할한 강의를 진행할 수
+                      있습니다.
                     </p>
                     <button className="btn btn-primary" data-bs-dismiss="modal">
-                      <FontAwesomeIcon icon={faXmark} layers="fw" />
-                      <i className="fas fa-xmark fa-fw"></i>
+                      <FontAwesomeIcon icon={faXmarkCircle} />
+                      <i className="fas fa-download me-2"></i>
                       Close Window
                     </button>
                   </div>
@@ -322,7 +266,7 @@ function Mainpage(props) {
                   <div className="col-lg-8">
                     {/* <!-- Portfolio Modal - Title--> */}
                     <h2 className="portfolio-modal-title text-secondary text-uppercase mb-0">
-                      Tasty Cake
+                      Quiz
                     </h2>
                     {/* <!-- Icon Divider--> */}
                     <div className="divider-custom">
@@ -340,15 +284,14 @@ function Mainpage(props) {
                     />
                     {/* <!-- Portfolio Modal - Text--> */}
                     <p className="mb-4">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      Mollitia neque assumenda ipsam nihil, molestias magnam,
-                      recusandae quos quis inventore quisquam velit asperiores,
-                      vitae? Reprehenderit soluta, eos quod consequuntur itaque.
-                      Nam.
+                      서비스를 사용하는 학생들에게 공부에 집중할 수 있는
+                      요소들을 추가하여 공부에 흥미를 잃지 않게 만드는 서비스를
+                      제공합니다. 선생님이 직접 출제하는 Quiz를 맞추며 학생들은
+                      재미있게 학습할 수 있습니다.
                     </p>
                     <button className="btn btn-primary" data-bs-dismiss="modal">
-                      <FontAwesomeIcon icon={faXmark} layers="fw" />
-                      <i className="fas fa-xmark fa-fw"></i>
+                      <FontAwesomeIcon icon={faXmarkCircle} />
+                      <i className="fas fa-download me-2"></i>
                       Close Window
                     </button>
                   </div>
@@ -382,7 +325,7 @@ function Mainpage(props) {
                   <div className="col-lg-8">
                     {/* <!-- Portfolio Modal - Title--> */}
                     <h2 className="portfolio-modal-title text-secondary text-uppercase mb-0">
-                      Circus Tent
+                      Score & Rank
                     </h2>
                     {/* <!-- Icon Divider--> */}
                     <div className="divider-custom">
@@ -400,15 +343,14 @@ function Mainpage(props) {
                     />
                     {/* <!-- Portfolio Modal - Text--> */}
                     <p className="mb-4">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      Mollitia neque assumenda ipsam nihil, molestias magnam,
-                      recusandae quos quis inventore quisquam velit asperiores,
-                      vitae? Reprehenderit soluta, eos quod consequuntur itaque.
-                      Nam.
+                      비대면 환경에서 집중을 하지 못하는 학생들을 위하여 문제와
+                      점수를 시각적으로 보여줍니다. 점수로 순위를 매겨
+                      학생들에게 동기부여와 집중도를 높이는 효과를 제공하여
+                      학생들의 흥미를 이끌어냅니다.
                     </p>
                     <button className="btn btn-primary" data-bs-dismiss="modal">
-                      <FontAwesomeIcon icon={faXmark} layers="fw" />
-                      <i className="fas fa-xmark fa-fw"></i>
+                      <FontAwesomeIcon icon={faXmarkCircle} />
+                      <i className="fas fa-download me-2"></i>
                       Close Window
                     </button>
                   </div>
