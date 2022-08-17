@@ -149,8 +149,7 @@
     width: 100%;
     background-color: #ffffff;
     text-align: center;
-    padding: 10px 0px;
-    height: 30px;
+    height: 50px;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
   }
@@ -160,7 +159,7 @@
     border: none;
     outline: none;
     font-size: 14px;
-    margin-left: -6%;
+    margin-left: 2%;
     color: #000000;
   }
   #messageInput .anonymous {

@@ -163,11 +163,12 @@ function Homepage(props) {
 
           <TextField
             id="password"
-            label="password"
+            label="방 비밀번호"
             variant="outlined"
             defaultValue=""
-            sx={{}}
+            sx={{marginTop:"15px"}}
             inputRef={password}
+            autoComplete="off"
           />
           <Button
             sx={{ display: "block" }}

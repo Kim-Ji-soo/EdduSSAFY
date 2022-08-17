@@ -279,7 +279,7 @@ const Quizbook = function (props) {
         <div>
           <TextField
             name="min"
-            label="min"
+            label="분"
             value={min}
             onChange={(e) => {
               setMin((min) => {
@@ -287,20 +287,17 @@ const Quizbook = function (props) {
               });
             }}
             sx={{
-              "&.MuiButton-root": {
-                display: "inline-block",
+              "&.MuiFormControl-root": {
                 marginTop: "10px",
                 fontSize: "2rem",
-                background: "#b6dcfc",
-                width: "90vw",
-                border: "2px solid white",
-                borderRadius: "10px",
               },
             }}
+            autoComplete="off"
+            variant="standard"
           />
           <TextField
             name="sec"
-            label="sec"
+            label="초"
             value={sec}
             onChange={(e) => {
               setSec((sec) => {
@@ -308,16 +305,14 @@ const Quizbook = function (props) {
               });
             }}
             sx={{
-              "&.MuiButton-root": {
-                display: "inline-block",
+              "&.MuiFormControl-root": {
                 marginTop: "10px",
+                marginLeft:"10px",
                 fontSize: "2rem",
-                background: "#b6dcfc",
-                width: "90vw",
-                border: "2px solid white",
-                borderRadius: "10px",
               },
             }}
+            autoComplete="off"
+            variant="standard"
           />
           {quiz.map((quiz, index) => {
             return (
@@ -539,7 +534,7 @@ class QuizComponent extends Component {
                 ></Quizbook>
               )}
             {this.state.quiz !== undefined &&
-              this.props.store.user.value.position === "professor" && (
+              this.props.store.user.value.position === "student" && (
                 <Quiz
                   quiz={this.state.quiz}
                   isSubmit={this.state.isSubmit}
@@ -556,6 +551,7 @@ class QuizComponent extends Component {
                   <div style={{ fontSize: "2rem" }}>
                     "{this.state.quiz.content}" 를 진행중입니다
                   </div>
+                  <Timer min={this.state.min} sec={this.state.sec}></Timer>
                   <Button
                     onClick={() => {
                       this.endQuiz();

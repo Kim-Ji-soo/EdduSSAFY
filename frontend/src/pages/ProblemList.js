@@ -421,8 +421,8 @@ function ProblemList() {
           >
             <TextField
               id="outlined-basic2"
-              label="Outlined"
-              variant="문제집 이름"
+              label="문제집 이름"
+              variant="outlined"
               defaultValue=""
               sx={{}}
               inputRef={booktitle}

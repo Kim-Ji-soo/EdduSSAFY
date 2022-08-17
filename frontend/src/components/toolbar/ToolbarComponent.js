@@ -59,12 +59,12 @@ class ToolbarComponent extends Component {
   }
 
   screenShare() {
-    this.setState({ isScreen: !this.state.isScreen });
+    this.setState({ isScreen: true });
     this.props.screenShare();
   }
 
   stopScreenShare() {
-    this.setState({ isScreen: !this.state.isScreen });
+    this.setState({ isScreen: false });
     this.props.stopScreenShare();
   }
 
@@ -182,7 +182,7 @@ class ToolbarComponent extends Component {
               onClick={this.toggleChat}
             >
               
-              <Tooltip title="Chat">
+              <Tooltip title="채팅">
                 <QuestionAnswer />
               </Tooltip>
             </IconButton>
@@ -192,7 +192,7 @@ class ToolbarComponent extends Component {
               onClick={this.toggleQuiz}
             >
               
-              <Tooltip title="Quiz">
+              <Tooltip title="퀴즈">
                 <PostAddIcon />
               </Tooltip>
             </IconButton>
