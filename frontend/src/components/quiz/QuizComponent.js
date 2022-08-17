@@ -29,6 +29,48 @@ const mapDispatchToProps = (dispatch) => ({
   getRoomResult: (e) => dispatch(roomActions.getRoomResult(e)),
 });
 
+const padNumber = (num, length) => {
+  return String(num).padStart(length, "0");
+};
+
+const Timer = (props) => {
+  // 아무것도 입력하지 않으면 undefined가 들어오기 때문에 유효성 검사부터..
+  const tempHour = props.hour ? parseInt(props.hour) : 0;
+  const tempMin = props.min ? parseInt(props.min) : 0;
+  const tempSec = props.sec ? parseInt(props.sec) : 0;
+  // 타이머를 초단위로 변환한 initialTime과 setInterval을 저장할 interval ref
+  const initialTime = useRef(tempHour * 60 * 60 + tempMin * 60 + tempSec);
+  const interval = useRef(null);
+
+  const [hour, setHour] = useState(padNumber(tempHour, 2));
+  const [min, setMin] = useState(padNumber(tempMin, 2));
+  const [sec, setSec] = useState(padNumber(tempSec, 2));
+
+  useEffect(() => {
+    interval.current = setInterval(() => {
+      initialTime.current -= 1;
+      setSec(padNumber(initialTime.current % 60, 2));
+      setMin(padNumber(parseInt(initialTime.current / 60), 2));
+      setHour(padNumber(parseInt(initialTime.current / 60 / 60), 2));
+    }, 1000);
+    return () => clearInterval(interval.current);
+  }, []);
+
+  // 초가 변할 때만 실행되는 useEffect
+  // initialTime을 검사해서 0이 되면 interval을 멈춘다.
+  useEffect(() => {
+    if (initialTime.current <= 0) {
+      clearInterval(interval.current);
+    }
+  }, [sec]);
+
+  return (
+    <div>
+      {hour} : {min} : {sec}
+    </div>
+  );
+};
+
 const Quiz = function (props) {
   const [quiz, setQuiz] = useState(props.quiz);
   const [answer, setAnswer] = useState("");
@@ -104,6 +146,7 @@ const Quiz = function (props) {
           <div className={styles.preview}>
             {imageSrc && <img src={imageSrc} alt="preview-img" />}
           </div>
+          <Timer min={props.min} sec={props.sec}></Timer>
         </>
       )}
       {quiz.type === "choice" &&
@@ -191,6 +234,8 @@ const Quizbook = function (props) {
   });
   const [isQuizbook, setIsQuizbook] = useState(true);
   const [quizbookId, setQuizbookId] = useState(0);
+  const [min, setMin] = useState(3);
+  const [sec, setSec] = useState(0);
   const [quiz, setQuiz] = useState([]);
   useEffect(() => {
     setQuiz(() => {
@@ -232,12 +277,59 @@ const Quizbook = function (props) {
       )}
       {position === "professor" && !isQuizbook && (
         <div>
+          <TextField
+            name="min"
+            label="min"
+            value={min}
+            onChange={(e) => {
+              setMin((min) => {
+                return e.target.value;
+              });
+            }}
+            sx={{
+              "&.MuiButton-root": {
+                display: "inline-block",
+                marginTop: "10px",
+                fontSize: "2rem",
+                background: "#b6dcfc",
+                width: "90vw",
+                border: "2px solid white",
+                borderRadius: "10px",
+              },
+            }}
+          />
+          <TextField
+            name="sec"
+            label="sec"
+            value={sec}
+            onChange={(e) => {
+              setSec((sec) => {
+                return e.target.value;
+              });
+            }}
+            sx={{
+              "&.MuiButton-root": {
+                display: "inline-block",
+                marginTop: "10px",
+                fontSize: "2rem",
+                background: "#b6dcfc",
+                width: "90vw",
+                border: "2px solid white",
+                borderRadius: "10px",
+              },
+            }}
+          />
           {quiz.map((quiz, index) => {
             return (
               <div key={index}>
                 <Button
                   onClick={() => {
-                    props.sendQuiz({ index: index, quizbookId: quizbookId });
+                    props.sendQuiz({
+                      index: index,
+                      quizbookId: quizbookId,
+                      min: min,
+                      sec: sec,
+                    });
                   }}
                   sx={{
                     "&.MuiButton-root": {
@@ -299,6 +391,8 @@ class QuizComponent extends Component {
       isResult: false,
       roomResult: [],
       roomId: this.props.store.room.roomId,
+      min: 0,
+      sec: 0,
     };
     this.chatScroll = React.createRef();
     this.handleChange = this.handleChange.bind(this);
@@ -322,6 +416,8 @@ class QuizComponent extends Component {
           quiz: this.props.store.quizbooks.quizsInQuizbooks[data.quizbookId][
             data.index
           ],
+          min: data.min,
+          sec: data.sec,
           isSubmit: false,
           isTimeOut: false,
         });
@@ -448,6 +544,8 @@ class QuizComponent extends Component {
                   quiz={this.state.quiz}
                   isSubmit={this.state.isSubmit}
                   isTimeOut={this.state.isTimeOut}
+                  min={this.state.min}
+                  sec={this.state.sec}
                 ></Quiz>
               )}
             {this.state.quiz !== undefined &&
