@@ -19,8 +19,25 @@ import { roomActions } from "../../redux/room";
 import { TextField } from "@material-ui/core";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Tooltip from "@mui/material/Tooltip";
+import Chip from "@mui/material/Chip";
+import "./RoomList.css";
+import TablePagination from "@mui/material/TablePagination";
 
 function RoomList() {
+  //
+  const [rowsPerPage, setRowsPerPage] = React.useState(1);
+  const [page, setPage] = React.useState(0);
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+  //
   const [cropen, setCropen] = useState(false);
   const [roomId, setRoomId] = useState("");
   const navigate = useNavigate();
@@ -45,93 +62,135 @@ function RoomList() {
       url: room.check(),
       method: "post",
       data: {
-        password : password.current.value,
-        roomId : roomId,
-        userId : userId,
+        password: password.current.value,
+        roomId: roomId,
+        userId: userId,
       },
-    }).then((res) => {
-      dispatch(
-        roomActions.setRoom({
-          roomId: roomId,
-        })
-      );
-      navigate("/openvidu", { replace: true });
-    }).catch((e) => {
-      alert('정보가 잘못 입력되었습니다!');
-      console.log(e);
-    });
+    })
+      .then((res) => {
+        dispatch(
+          roomActions.setRoom({
+            roomId: roomId,
+          }),
+        );
+        navigate("/openvidu", { replace: true });
+      })
+      .catch((e) => {
+        alert("정보가 잘못 입력되었습니다!");
+        console.log(e);
+      });
   };
 
   return (
     <div>
-      <TableContainer sx={{ maxWidth: 1200 }} component={Paper}>
+      <TableContainer
+        sx={{
+          display: "grid",
+          width: "80vw",
+          boxShadow: "none",
+        }}
+        component={Paper}
+      >
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>방제목</TableCell>
-              <TableCell align="right">방번호</TableCell>
-              <TableCell align="right">생성자</TableCell>
-              <TableCell align="right">입장</TableCell>
+              <TableCell align="center">방번호</TableCell>
+              <TableCell align="center">방제목</TableCell>
+
+              <TableCell align="center">생성자</TableCell>
+              <TableCell align="center">입장</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow
-                key={row.roomId}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.title}
-                </TableCell>
-                <TableCell align="right">{row.roomId}</TableCell>
-                <TableCell align="right">{row.hostId}</TableCell>
-                <TableCell align="right">
-                  <Button
-                    onClick={() => {
-                      axios({
-                        method: "get",
-                        url: quizbook.getQuizbook() + row.hostId,
-                      }).then((res) => {
-                        dispatch(quizbookActions.getquizbook(res.data));
-                        dispatch(
-                          roomActions.setRoom({
-                            roomTitle: row.title,
-                            roomId: row.roomId,
-                            hostId: row.hostId,
-                          })
-                        );
-                        if (userId === row.hostId) {
-                          navigate("/openvidu", { replace: true });
-                        } else {
-                          if (row.active === false) {
-                            alert("방이 생성되지 않았습니다.");
-                          } else {
-                            if(row.hasPassword === false){
-                              navigate("/openvidu", { replace: true });
-                            }
-                            else{
-                              setRoomId(row.roomId);
-                              setCropen((cropen) => !cropen);
-                            } 
-                          }
-                        }
-                      });
+            {rows
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row) => (
+                <Tooltip title="방 입장">
+                  <TableRow
+                    hover="true"
+                    key={row.roomId}
+                    sx={{
+                      margin: "0 20px",
                     }}
+                    className="tableRow"
                   >
-                    meet
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
+                    <TableCell width="15%" align="center">
+                      <Chip label={row.roomId} />
+                    </TableCell>
+                    <TableCell
+                      width="40%"
+                      align="center"
+                      component="th"
+                      scope="row"
+                    >
+                      {row.title}
+                    </TableCell>
+                    <TableCell width="30%" align="center">
+                      {row.hostId}
+                    </TableCell>
+                    <TableCell width="15%" align="center">
+                      <Button
+                        onClick={() => {
+                          axios({
+                            method: "get",
+                            url: quizbook.getQuizbook() + row.hostId,
+                          }).then((res) => {
+                            dispatch(quizbookActions.getquizbook(res.data));
+                            dispatch(
+                              roomActions.setRoom({
+                                roomTitle: row.title,
+                                roomId: row.roomId,
+                                hostId: row.hostId,
+                              }),
+                            );
+                            if (userId === row.hostId) {
+                              navigate("/openvidu", { replace: true });
+                            } else {
+                              if (row.active === false) {
+                                alert("방이 생성되지 않았습니다.");
+                              } else {
+                                if (row.hasPassword === false) {
+                                  navigate("/openvidu", { replace: true });
+                                } else {
+                                  setRoomId(row.roomId);
+                                  setCropen((cropen) => !cropen);
+                                }
+                              }
+                            }
+                          });
+                        }}
+                      >
+                        meet
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                </Tooltip>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
-      <div style={{display:"flex", justifyContent:"center", alignItems:"center", marginTop:"10px"}}>
+      <TablePagination
+        rowsPerPageOptions={[1, 10, 25]}
+        component="div"
+        count={rows.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: "10px",
+        }}
+      >
         <TextField
-            sx={{
-              "& .MuiFormLabel-root": {
-                fontFamily: "Single Day, cursive"
-              },
+          sx={{
+            "& .MuiFormLabel-root": {
+              fontFamily: "Single Day, cursive",
+            },
           }}
           name="search"
           label="방 제목"
@@ -140,7 +199,7 @@ function RoomList() {
           onChange={(e) => {
             setSearch(e.target.value);
           }}
-          autoComplete="off"  
+          autoComplete="off"
           variant="standard"
         />
 
@@ -157,7 +216,7 @@ function RoomList() {
               });
             }
           }}
-          sx={{marginTop:"2%"}}
+          sx={{ marginTop: "2%" }}
         >
           검색
         </Button>
@@ -191,7 +250,6 @@ function RoomList() {
             pb: 3,
           }}
         >
-
           <TextField
             id="password"
             label="password"

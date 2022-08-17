@@ -244,6 +244,13 @@ function CreateQuestion() {
             Submit
           </Button>
         </form>
+        <Button
+          onClick={() => {
+            navigate("/problemlist");
+          }}
+        >
+          뒤로 가기
+        </Button>
       </Box>
     </>
   );
