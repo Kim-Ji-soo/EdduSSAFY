@@ -1,4 +1,4 @@
-.background{
+.background {
   position: absolute;
   width: 100vw;
   height: 100vh;
@@ -9,47 +9,47 @@
   top: 0;
 }
 
-.container{
+.container {
   position: absolute;
   display: flex;
   flex-direction: column;
-  width: 30vw;
+  width: 50vw;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  max-width: 500px;
+  /* max-width: 500px; */
   min-width: 400px;
 }
-.toplinks{
+.toplinks {
   display: flex;
   flex-direction: row-reverse;
 }
-.link{
+.link {
   background-color: white;
   text-decoration: none;
   border: none;
   border-radius: 70px 70px;
   padding: 10px 10px;
 }
-.link:hover{
-  background-color: #FDDD6D;
+.link:hover {
+  background-color: #fddd6d;
 }
-.buttons{
+.buttons {
   color: blue;
 }
-.buttons:hover{
-  color: #4C3657;
+.buttons:hover {
+  color: #4c3657;
 }
-.h2{
+.h2 {
   font-size: 6vmin;
   margin: 10px;
 }
-.span{
+.span {
   display: inline-block;
   font-size: 1vmin;
   margin-bottom: 20px;
 }
-.textcon{
+.textcon {
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -57,16 +57,16 @@
   margin-top: 20px;
   margin-bottom: 40px;
 }
-.textfield{
+.textfield {
   width: 120%;
 }
-.subcon{
+.subcon {
   margin-top: 30px;
 }
-.linktext{
+.linktext {
   text-decoration: none;
 }
-.linkbtn{
+.linkbtn {
   width: 100%;
   color: white;
 }
@@ -80,7 +80,7 @@
   left: 0;
   top: 0;
   background-repeat: no-repeat;
-    background-position: top center;
-    background-size: cover;
-    background-attachment: fixed;
+  background-position: top center;
+  background-size: cover;
+  background-attachment: fixed;
 }

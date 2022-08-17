@@ -67,8 +67,6 @@ function Signup() {
     onSubmit: (data, { setSubmitting }) => {
       if (valid === true) {
         setSubmitting(true);
-        console.log(formik.values);
-        console.log(users.signup());
         setSubmitting(false);
 
         axios({
@@ -77,7 +75,6 @@ function Signup() {
           data: formik.values,
         })
           .then((res) => {
-            console.log(res.data);
             navigate("/login", { replace: true });
           })
           .catch((e) => {
@@ -181,10 +178,11 @@ function Signup() {
               display: "flex",
               flexDirection: "column",
               minWidth: "15vw",
+              height: "90vh",
               top: "50%",
               left: "50%",
               transform: "translate(-50%, -50%)",
-              width: "20vw",
+              width: "30vw",
               bgcolor: "background.paper",
               border: "2px #000",
               borderRadius: 5,
@@ -192,6 +190,7 @@ function Signup() {
               pt: 2,
               px: 4,
               pb: 3,
+              overflowY: "scroll",
             }}
           >
             <div className={styles.toplinks}>
@@ -261,15 +260,15 @@ function Signup() {
                     }
                     helperText={formik.touched.userId && formik.errors.userId}
                     autoComplete="off"
-                    sx={Textbtnfieldsx}
+                    sx={{ ...Textfieldsx, width: "52%" }}
                   />
                   <Button
                     className={styles.inputButton}
                     onClick={() => {
                       const userId = formik.values.userId;
-                      if(userId.length<5){
-                        alert('아이디 길이는 5자 이상이어야 합니다!')
-                      }else{
+                      if (userId.length < 5) {
+                        alert("아이디 길이는 5자 이상이어야 합니다!");
+                      } else {
                         axios({
                           method: "get",
                           url: users.idcheck() + userId,
@@ -284,7 +283,7 @@ function Signup() {
                         });
                       }
                     }}
-                    sx ={{marginTop: "2%"}}
+                    sx={{ marginTop: "2%", width: "18%" }}
                   >
                     중복체크
                   </Button>
@@ -340,21 +339,23 @@ function Signup() {
                     className={styles.inputButton}
                     onClick={() => {
                       const userId = formik.values.userId;
-                      console.log(users.idcheck() + userId);
-                      console.log(formik.values.email);
                       axios({
                         method: "post",
                         url: users.sendEmail(),
-                        data: { email: formik.values.email, reqType : "register" },
-                      }).then((res) => {
-                        alert('이메일 발신 성공!');
-                        console.log(res.data.message);
-                      }).catch((e) => {
-                        alert('이미 존재하는 이메일입니다!');
-                        console.log(e);
-                      });
+                        data: {
+                          email: formik.values.email,
+                          reqType: "register",
+                        },
+                      })
+                        .then((res) => {
+                          alert("이메일 발신 성공!");
+                        })
+                        .catch((e) => {
+                          alert("이미 존재하는 이메일입니다!");
+                          console.log(e);
+                        });
                     }}
-                    sx ={{marginTop: "2%"}}
+                    sx={{ marginTop: "2%", width: "18%" }}
                   >
                     코드발송
                   </Button>
@@ -393,7 +394,7 @@ function Signup() {
                           console.log(e);
                         });
                     }}
-                    sx ={{marginTop: "2%"}}
+                    sx={{ marginTop: "2%", width: "18%" }}
                   >
                     코드제출
                   </Button>

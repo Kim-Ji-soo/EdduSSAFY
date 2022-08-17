@@ -91,7 +91,6 @@ class ToolbarComponent extends Component {
   render() {
     const mySessionId = this.props.sessionId;
     const localUser = this.props.user;
-    console.log(localUser);
     return (
       <AppBar className="toolbar" id="header">
         <Toolbar className="toolbar">
@@ -175,23 +174,15 @@ class ToolbarComponent extends Component {
             >
               <PowerSettingsNew />
             </IconButton>
-</div>
-<div className="messagequizcontainer">
-            <IconButton
-              color="inherit"
-              onClick={this.toggleChat}
-            >
-              
+          </div>
+          <div className="messagequizcontainer">
+            <IconButton color="inherit" onClick={this.toggleChat}>
               <Tooltip title="채팅">
                 <QuestionAnswer />
               </Tooltip>
             </IconButton>
 
-            <IconButton
-              color="inherit"
-              onClick={this.toggleQuiz}
-            >
-              
+            <IconButton color="inherit" onClick={this.toggleQuiz}>
               <Tooltip title="퀴즈">
                 <PostAddIcon />
               </Tooltip>

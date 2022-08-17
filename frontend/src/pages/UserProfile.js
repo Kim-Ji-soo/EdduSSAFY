@@ -7,10 +7,9 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { me, logout } from "../redux/user";
-import { deleteToken} from "../redux/token";
+import { deleteToken } from "../redux/token";
 import styles from "../css/userProfile.module.css";
 import Box from "@mui/material/Box";
-
 
 const validationSchema = yup.object({
   email: yup
@@ -51,11 +50,9 @@ function UserProfile() {
         data: formik.values,
       })
         .then((res) => {
-          alert("회원정보 수정완료!")
+          alert("회원정보 수정완료!");
         })
-        .catch((e) => {
-          console.log(e);
-        });
+        .catch((e) => {});
       axios({
         method: "get",
         url: users.me(),
@@ -64,14 +61,14 @@ function UserProfile() {
           dispatch(me(res.data));
         })
         .catch((e) => console.log(e));
-        navigate("/", { replace: true });
+      navigate("/", { replace: true });
     },
   });
 
   const Textfieldsx = {
     width: "70%",
     height: "100%",
-    marginTop:"15px",
+    marginTop: "15px",
     "& .MuiInputLabel-root": { color: "black", fontSize: "0.8vmax" },
     "& .MuiOutlinedInput-root": {
       "& > fieldset": {
@@ -94,7 +91,7 @@ function UserProfile() {
   };
 
   const Buttonsx = {
-    marginTop:"20px",
+    marginTop: "20px",
     "&.MuiButton-root": {
       border: "3px blue solid",
       width: "80%",
@@ -119,26 +116,26 @@ function UserProfile() {
   return (
     <>
       <Box
-   sx={{
-    position: "absolute",
-    display: "flex",
-    justifyContent:"center",
-    flexDirection: "column",
-    minWidth: "400px",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "20vw",
-    bgcolor: "background.paper",
-    // bgcolor: "#f8f7fc",
-    border: "2px #000",
-    borderRadius: 10,
-    boxShadow: 10,
-    pt: 2,
-    px: 4,
-    pb: 3,
-    mt: 4,
-  }}
+        sx={{
+          position: "absolute",
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+          minWidth: "400px",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "20vw",
+          bgcolor: "background.paper",
+          // bgcolor: "#f8f7fc",
+          border: "2px #000",
+          borderRadius: 10,
+          boxShadow: 10,
+          pt: 2,
+          px: 4,
+          pb: 3,
+          mt: 4,
+        }}
       >
         <h1>사용자계정</h1>
         <form
@@ -210,25 +207,23 @@ function UserProfile() {
               sx={Textfieldsx}
             />
           </div>
-          <Button type="submit" disabled={formik.isSubmitting}  sx={Buttonsx}>
+          <Button type="submit" disabled={formik.isSubmitting} sx={Buttonsx}>
             정보수정
           </Button>
         </form>
         <Link to="/changepassword" className={styles.link}>
-        <div>
-        <Button className={styles.buttons}>
-            비밀번호변경
-        </Button>
-        </div>
+          <div>
+            <Button className={styles.buttons}>비밀번호변경</Button>
+          </div>
         </Link>
-        <Button className={styles.buttons}
+        <Button
+          className={styles.buttons}
           onClick={() => {
             axios({
               method: "delete",
               url: users.delete() + user.userId + "/",
             })
               .then((res) => {
-                console.log(res.data);
                 alert("회원 탈퇴가 완료되었습니다!");
                 dispatch(deleteToken());
                 dispatch(logout());

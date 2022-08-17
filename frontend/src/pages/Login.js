@@ -47,7 +47,6 @@ function Login() {
         data: formik.values,
       })
         .then((res) => {
-          console.log(res.data);
           const token = res.data.accessToken;
           dispatch(setToken(res.data));
           axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -146,7 +145,7 @@ function Login() {
               top: "50%",
               left: "50%",
               transform: "translate(-50%, -50%)",
-              width: "20vw",
+              width: "30vw",
               bgcolor: "background.paper",
               // bgcolor: "#f8f7fc",
               border: "2px #000",
@@ -176,7 +175,7 @@ function Login() {
               </form>
             </div>
             <div>
-              <img text-align="center" width="350" height="350" src={logo} />
+              <img text-align="center" width="200" height="200" src={logo} />
             </div>
             <form
               onSubmit={(event) => {

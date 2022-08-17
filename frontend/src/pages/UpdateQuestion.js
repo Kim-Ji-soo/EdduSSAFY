@@ -43,7 +43,7 @@ function CreateContent(props) {
   const Textfieldsx = {
     width: "70%",
     height: "100%",
-    marginTop:"10px",
+    marginTop: "10px",
     "& .MuiInputLabel-root": { color: "black", fontSize: "0.8vmax" },
     "& .MuiOutlinedInput-root": {
       "& > fieldset": {
@@ -121,19 +121,16 @@ function UpdateQuestion() {
       });
     } else {
       setImageSrc("");
-      console.log(1);
       formik.values.quizPic = "";
     }
   };
   useEffect(() => {
     if (state.quizPic !== "") {
-      console.log(state.quizPic);
       axios({
         method: "get",
         url: file.download(),
         params: { fileName: state.quizPic },
       }).then((res) => {
-        console.log(res.data);
         setImageSrc(res.data);
       });
     }
@@ -150,7 +147,6 @@ function UpdateQuestion() {
       if (formik.values.imgChanged === true && formik.values.quizPic === "") {
         delete formik.values.quizPic;
       }
-      console.log(formik.values);
       setSubmitting(false);
       axios({
         method: "put",
@@ -161,18 +157,16 @@ function UpdateQuestion() {
         },
       })
         .then((res) => {
-          console.log(res.data);
           navigate("/problemlist", { replace: true });
         })
         .catch((e) => console.log(e));
     },
   });
-  console.log(formik.values);
 
   const Textfieldsx = {
     width: "70%",
     height: "100%",
-    marginTop:"10px",
+    marginTop: "10px",
     "& .MuiInputLabel-root": { color: "black", fontSize: "0.8vmax" },
     "& .MuiOutlinedInput-root": {
       "& > fieldset": {
@@ -195,7 +189,7 @@ function UpdateQuestion() {
   };
 
   const Buttonsx = {
-    marginTop:"20px",
+    marginTop: "20px",
     "&.MuiButton-root": {
       border: "3px blue solid",
       width: "80%",
@@ -217,14 +211,13 @@ function UpdateQuestion() {
     },
   };
 
-
   return (
     <>
-     <Box
+      <Box
         sx={{
           position: "absolute",
           display: "flex",
-          justifyContent:"center",
+          justifyContent: "center",
           flexDirection: "column",
           minWidth: "400px",
           top: "50%",
@@ -242,137 +235,136 @@ function UpdateQuestion() {
           mt: 4,
         }}
       >
-      <h1>update Question</h1>
-      <div className={styles.preview}>
-        {imageSrc !== "" && <img src={imageSrc}></img>}
-      </div>
-      <div>
-        <input
-          type="file"
-          onChange={(e) => {
-            encodeFileToBase64(e.target.files[0]);
-            formik.values.quizPic = e.target.files[0];
-            setIsChange(true);
-            console.log(formik.values.quizPic);
-          }}
-          sx={{ marginTop: "5px" }}
-        />
-      </div>
-      <Button
-        onClick={() => {
-          setIsChange(true);
-          setImageSrc("");
-          formik.values.quizPic = "";
-        }}
-      >
-        파일 삭제
-      </Button>
-      <form
-        onSubmit={(e) => {
-          formik.handleSubmit(e);
-        }}
-      >
-        <div>
-          <TextField
-            name="content"
-            label="content"
-            value={formik.values.content}
-            onChange={formik.handleChange}
-            error={formik.touched.content && Boolean(formik.errors.content)}
-            helperText={formik.touched.content && formik.errors.content}
-            sx={{ marginTop: "5px" }}
-            autoComplete="off"
-            sx={Textfieldsx}
-          />
+        <h1>update Question</h1>
+        <div className={styles.preview}>
+          {imageSrc !== "" && <img src={imageSrc}></img>}
         </div>
         <div>
-          <TextField
-            name="score"
-            label="score"
-            value={formik.values.score}
-            onChange={formik.handleChange}
-            error={formik.touched.score && Boolean(formik.errors.score)}
-            helperText={formik.touched.score && formik.errors.score}
-            sx={{ marginTop: "5px" }}
-            autoComplete="off"
-            sx={Textfieldsx}
-          />
-        </div>
-        <div>
-          <FormControl>
-            <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
-            <RadioGroup
-              aria-labelledby="demo-controlled-radio-buttons-group"
-              name="type"
-              defaultValue={formik.values.type}
-              value={formik.values.type}
-              onChange={formik.handleChange}
-              row
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                marginTop:"10px",
-              }}
-            >
-              <FormControlLabel
-                checked={formik.values.type === "choice"}
-                value="choice"
-                control={<Radio />}
-                label="객관식"
-                onClick={() => {
-                  formik.values.options = "";
-                  formik.values.optionSize = 0;
-                }}
-              ></FormControlLabel>
-              <FormControlLabel
-                checked={formik.values.type === "subjective"}
-                value="subjective"
-                control={<Radio />}
-                label="주관식"
-                onClick={() => {
-                  formik.values.options = "";
-                  formik.values.optionSize = 0;
-                }}
-              ></FormControlLabel>
-            </RadioGroup>
-          </FormControl>
-        </div>
-        {formik.values.type === "choice" && (
-          <CreateContent
-            state={state}
-            onSubmit={(result) => {
-              const newResultCount = result.filter(
-                (element) => "" !== element
-              ).length;
-              formik.values.optionSize = newResultCount;
-              formik.values.options = result.join("|");
+          <input
+            type="file"
+            onChange={(e) => {
+              encodeFileToBase64(e.target.files[0]);
+              formik.values.quizPic = e.target.files[0];
+              setIsChange(true);
             }}
-          ></CreateContent>
-        )}
-        <div>
-          <TextField
-            name="answer"
-            label="answer"
-            value={formik.values.answer}
-            onChange={formik.handleChange}
-            error={formik.touched.answer && Boolean(formik.errors.answer)}
-            helperText={formik.touched.answer && formik.errors.answer}
-            autoComplete="off"
-            sx={Textfieldsx}
+            sx={{ marginTop: "5px" }}
           />
         </div>
-        <Button type="submit" disabled={formik.isSubmitting}  sx={Buttonsx}>
-          Submit
+        <Button
+          onClick={() => {
+            setIsChange(true);
+            setImageSrc("");
+            formik.values.quizPic = "";
+          }}
+        >
+          파일 삭제
         </Button>
-      </form>
-      <Button
-        onClick={() => {
-          navigate("/problemlist", { replace: true });
-        }}
-        className={styles.buttons}
-      >
-        뒤로 가기
-      </Button>
+        <form
+          onSubmit={(e) => {
+            formik.handleSubmit(e);
+          }}
+        >
+          <div>
+            <TextField
+              name="content"
+              label="content"
+              value={formik.values.content}
+              onChange={formik.handleChange}
+              error={formik.touched.content && Boolean(formik.errors.content)}
+              helperText={formik.touched.content && formik.errors.content}
+              sx={{ marginTop: "5px" }}
+              autoComplete="off"
+              sx={Textfieldsx}
+            />
+          </div>
+          <div>
+            <TextField
+              name="score"
+              label="score"
+              value={formik.values.score}
+              onChange={formik.handleChange}
+              error={formik.touched.score && Boolean(formik.errors.score)}
+              helperText={formik.touched.score && formik.errors.score}
+              sx={{ marginTop: "5px" }}
+              autoComplete="off"
+              sx={Textfieldsx}
+            />
+          </div>
+          <div>
+            <FormControl>
+              <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
+              <RadioGroup
+                aria-labelledby="demo-controlled-radio-buttons-group"
+                name="type"
+                defaultValue={formik.values.type}
+                value={formik.values.type}
+                onChange={formik.handleChange}
+                row
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  marginTop: "10px",
+                }}
+              >
+                <FormControlLabel
+                  checked={formik.values.type === "choice"}
+                  value="choice"
+                  control={<Radio />}
+                  label="객관식"
+                  onClick={() => {
+                    formik.values.options = "";
+                    formik.values.optionSize = 0;
+                  }}
+                ></FormControlLabel>
+                <FormControlLabel
+                  checked={formik.values.type === "subjective"}
+                  value="subjective"
+                  control={<Radio />}
+                  label="주관식"
+                  onClick={() => {
+                    formik.values.options = "";
+                    formik.values.optionSize = 0;
+                  }}
+                ></FormControlLabel>
+              </RadioGroup>
+            </FormControl>
+          </div>
+          {formik.values.type === "choice" && (
+            <CreateContent
+              state={state}
+              onSubmit={(result) => {
+                const newResultCount = result.filter(
+                  (element) => "" !== element
+                ).length;
+                formik.values.optionSize = newResultCount;
+                formik.values.options = result.join("|");
+              }}
+            ></CreateContent>
+          )}
+          <div>
+            <TextField
+              name="answer"
+              label="answer"
+              value={formik.values.answer}
+              onChange={formik.handleChange}
+              error={formik.touched.answer && Boolean(formik.errors.answer)}
+              helperText={formik.touched.answer && formik.errors.answer}
+              autoComplete="off"
+              sx={Textfieldsx}
+            />
+          </div>
+          <Button type="submit" disabled={formik.isSubmitting} sx={Buttonsx}>
+            Submit
+          </Button>
+        </form>
+        <Button
+          onClick={() => {
+            navigate("/problemlist", { replace: true });
+          }}
+          className={styles.buttons}
+        >
+          뒤로 가기
+        </Button>
       </Box>
     </>
   );

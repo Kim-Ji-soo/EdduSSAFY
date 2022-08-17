@@ -45,8 +45,6 @@ function Homepage(props) {
   };
   const handleCreateRoom = () => {
     //axios 추가 유저아이디, 타이틀
-    console.log(roomTitle.current.value, userId);
-    console.log(password.current.value);
     axios({
       url: room.createRoom(),
       method: "post",
@@ -56,7 +54,6 @@ function Homepage(props) {
         password: password.current.value,
       },
     }).then((res) => {
-      console.log(res.data);
       dispatch(roomActions.setRoom(res.data));
       navigate("/openvidu", { replace: true });
     });
@@ -166,7 +163,7 @@ function Homepage(props) {
             label="방 비밀번호"
             variant="outlined"
             defaultValue=""
-            sx={{marginTop:"15px"}}
+            sx={{ marginTop: "15px" }}
             inputRef={password}
             autoComplete="off"
           />

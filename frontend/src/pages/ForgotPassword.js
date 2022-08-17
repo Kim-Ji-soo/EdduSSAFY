@@ -22,12 +22,10 @@ const validationSchema = yup.object({
     .string("비밀번호를 입력해주세요")
     .min(8, "비밀번호는 최소 8글자 입니다")
     .required("비밀번호는 필수입니다"),
-    passwordCheck: yup.string().when("password", {
-      is: (val) => (val && val.length > 0 ? true : false),
-      then: yup
-        .string()
-        .oneOf([yup.ref("password")], "비밀번호와 같아야 합니다"),
-    }),
+  passwordCheck: yup.string().when("password", {
+    is: (val) => (val && val.length > 0 ? true : false),
+    then: yup.string().oneOf([yup.ref("password")], "비밀번호와 같아야 합니다"),
+  }),
 });
 
 function ForgotPassword() {
@@ -44,8 +42,6 @@ function ForgotPassword() {
     onSubmit: (data, { setSubmitting }) => {
       if (checkEmail === true) {
         setSubmitting(true);
-        console.log(formik.values);
-        console.log(users.resetPassword());
         setSubmitting(false);
 
         axios({
@@ -59,7 +55,6 @@ function ForgotPassword() {
           },
         })
           .then((res) => {
-            console.log(res.data);
             navigate("/login", { replace: true });
           })
           .catch((e) => {
@@ -158,7 +153,7 @@ function ForgotPassword() {
             sx={{
               position: "absolute",
               display: "flex",
-              justifyContent:"center",
+              justifyContent: "center",
               flexDirection: "column",
               minWidth: "400px",
               top: "50%",
@@ -233,15 +228,11 @@ function ForgotPassword() {
                     className={styles.inputButton}
                     onClick={() => {
                       const userId = formik.values.userId;
-                      console.log(users.idcheck() + userId);
-                      console.log(formik.values.email);
                       axios({
                         method: "post",
                         url: users.sendEmail(),
                         data: { email: formik.values.email, reqType: "reset" },
-                      }).then((res) => {
-                        console.log(res.data.message);
-                      });
+                      }).then((res) => {});
                     }}
                   >
                     코드발송
@@ -263,8 +254,6 @@ function ForgotPassword() {
                     className={styles.inputButton}
                     onClick={(e) => {
                       e.preventDefault();
-                      console.log(messageValue);
-                      console.log(formik.values.email);
                       axios({
                         method: "post",
                         url: users.confirmCode(),

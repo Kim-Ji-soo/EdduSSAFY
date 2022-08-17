@@ -10,17 +10,16 @@ import { me } from "../redux/user";
 import styles from "../css/changePassword.module.css";
 import Box from "@mui/material/Box";
 
-
 const validationSchema = yup.object({
   userId: yup
     .string("아이디를 입력해주세요")
     .min(5, "아이디는 최소 5자리입니다")
     .required("아이디는 필수입니다"),
-    oldPassword: yup
+  oldPassword: yup
     .string("이전 비밀번호를 입력해주세요")
     .min(8, "비밀번호는 최소 8자리입니다")
     .required("이전 비밀번호는 필수입니다"),
-    newPassword: yup
+  newPassword: yup
     .string("새로운 비밀번호를 입력해주세요")
     .min(8, "비밀번호는 최소 8자리입니다")
     .required("새 비밀번호는 필수입니다"),
@@ -32,9 +31,9 @@ function ChangePassword() {
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
-        userId: user.userId,
-        oldPassword : "",
-        newPassword : "",
+      userId: user.userId,
+      oldPassword: "",
+      newPassword: "",
     },
     validationSchema: validationSchema,
     onSubmit: (data, { setSubmitting }) => {
@@ -52,15 +51,14 @@ function ChangePassword() {
             url: users.me(),
           })
             .then((res) => {
-              console.log(res.data);
               dispatch(me(res.data));
             })
             .catch((e) => console.log(e));
           navigate("/", { replace: true });
         })
         .catch((e) => {
-            alert('비밀번호를 잘못 입력하셨습니다!');
-            console.log(e);
+          alert("비밀번호를 잘못 입력하셨습니다!");
+          console.log(e);
         });
     },
   });
@@ -68,7 +66,7 @@ function ChangePassword() {
   const Textfieldsx = {
     width: "70%",
     height: "100%",
-    marginTop:"10px",
+    marginTop: "10px",
     "& .MuiInputLabel-root": { color: "black", fontSize: "0.8vmax" },
     "& .MuiOutlinedInput-root": {
       "& > fieldset": {
@@ -91,7 +89,7 @@ function ChangePassword() {
   };
 
   const Buttonsx = {
-    marginTop:"20px",
+    marginTop: "20px",
     "&.MuiButton-root": {
       border: "3px blue solid",
       width: "80%",
@@ -119,7 +117,7 @@ function ChangePassword() {
         sx={{
           position: "absolute",
           display: "flex",
-          justifyContent:"center",
+          justifyContent: "center",
           flexDirection: "column",
           minWidth: "400px",
           top: "50%",
@@ -159,50 +157,46 @@ function ChangePassword() {
           </div>
 
           <div>
-                  <TextField
-                    name="oldPassword"
-                    type="password"
-                    label="이전 비밀번호"
-                    value={formik.values.oldPassword}
-                    onChange={formik.handleChange}
-                    error={
-                      formik.touched.oldPassword && Boolean(formik.errors.oldPassword)
-                    }
-                    helperText={
-                      formik.touched.oldPassword && formik.errors.oldPassword
-                    }
-                    autoComplete="off"
-                    sx={Textfieldsx}
-                  />
-                </div>
-                <div>
-                  <TextField
-                    name="newPassword"
-                    type="password"
-                    label="새로운 비밀번호"
-                    value={formik.values.newPassword}
-                    onChange={formik.handleChange}
-                    error={
-                      formik.touched.newPassword &&
-                      Boolean(formik.errors.newPassword)
-                    }
-                    helperText={
-                      formik.touched.newPassword &&
-                      formik.errors.newPassword
-                    }
-                    autoComplete="off"
-                    sx={Textfieldsx}
-                  />
-                </div>
-          
-          <Button type="submit" disabled={formik.isSubmitting}   sx={Buttonsx}>
+            <TextField
+              name="oldPassword"
+              type="password"
+              label="이전 비밀번호"
+              value={formik.values.oldPassword}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.oldPassword && Boolean(formik.errors.oldPassword)
+              }
+              helperText={
+                formik.touched.oldPassword && formik.errors.oldPassword
+              }
+              autoComplete="off"
+              sx={Textfieldsx}
+            />
+          </div>
+          <div>
+            <TextField
+              name="newPassword"
+              type="password"
+              label="새로운 비밀번호"
+              value={formik.values.newPassword}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.newPassword && Boolean(formik.errors.newPassword)
+              }
+              helperText={
+                formik.touched.newPassword && formik.errors.newPassword
+              }
+              autoComplete="off"
+              sx={Textfieldsx}
+            />
+          </div>
+
+          <Button type="submit" disabled={formik.isSubmitting} sx={Buttonsx}>
             비밀번호변경
           </Button>
         </form>
         <Link to="/userprofile" className={styles.link}>
-        <Button className={styles.buttons}>
-            뒤로가기
-        </Button>
+          <Button className={styles.buttons}>뒤로가기</Button>
         </Link>
       </Box>
     </>

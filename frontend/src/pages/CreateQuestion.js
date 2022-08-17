@@ -42,7 +42,7 @@ function CreateContent(props) {
   const Textfieldsx = {
     width: "70%",
     height: "100%",
-    marginTop:"10px",
+    marginTop: "10px",
     "& .MuiInputLabel-root": { color: "black", fontSize: "0.8vmax" },
     "& .MuiOutlinedInput-root": {
       "& > fieldset": {
@@ -148,7 +148,6 @@ function CreateQuestion() {
       if (formik.values.quizPic === "") {
         delete formik.values.quizPic;
       }
-      console.log(formik.values);
       axios({
         method: "post",
         url: quiz.createQuiz(),
@@ -157,7 +156,6 @@ function CreateQuestion() {
           "Content-Type": "multipart/form-data",
         },
       }).then((res) => {
-        console.log(res.data);
         navigate("/problemlist", { replace: true });
       });
     },
@@ -166,7 +164,7 @@ function CreateQuestion() {
   const Textfieldsx = {
     width: "70%",
     height: "100%",
-    marginTop:"10px",
+    marginTop: "10px",
     "& .MuiInputLabel-root": { color: "black", fontSize: "0.8vmax" },
     "& .MuiOutlinedInput-root": {
       "& > fieldset": {
@@ -189,7 +187,7 @@ function CreateQuestion() {
   };
 
   const Buttonsx = {
-    marginTop:"20px",
+    marginTop: "20px",
     "&.MuiButton-root": {
       border: "3px blue solid",
       width: "80%",
@@ -217,7 +215,7 @@ function CreateQuestion() {
         sx={{
           position: "absolute",
           display: "flex",
-          justifyContent:"center",
+          justifyContent: "center",
           flexDirection: "column",
           minWidth: "400px",
           top: "50%",
@@ -237,26 +235,31 @@ function CreateQuestion() {
       >
         <h1>Create Question</h1>
 
-        
         <form
           onSubmit={(e) => {
             e.preventDefault();
             formik.handleSubmit(e);
           }}
         >
-          <label className="inputFileBtn" htmlFor="inputFile" style={{cursor:"pointer", width:"20vw"}}>이미지 넣기</label>
-        <input
-          id="inputFile"
-          type="file"
-          onChange={(e) => {
-            encodeFileToBase64(e.target.files[0]);
-            formik.values.quizPic = e.target.files[0];
-          }}
-          style={{display:"none"}}
-        />
-        <div className={styles.preview}>
-          {imageSrc && <img src={imageSrc} alt="preview-img" />}
-        </div>
+          <label
+            className="inputFileBtn"
+            htmlFor="inputFile"
+            style={{ cursor: "pointer", width: "20vw" }}
+          >
+            이미지 넣기
+          </label>
+          <input
+            id="inputFile"
+            type="file"
+            onChange={(e) => {
+              encodeFileToBase64(e.target.files[0]);
+              formik.values.quizPic = e.target.files[0];
+            }}
+            style={{ display: "none" }}
+          />
+          <div className={styles.preview}>
+            {imageSrc && <img src={imageSrc} alt="preview-img" />}
+          </div>
 
           <div>
             <TextField
@@ -295,7 +298,7 @@ function CreateQuestion() {
                 sx={{
                   display: "flex",
                   flexDirection: "row",
-                  marginTop:"10px",
+                  marginTop: "10px",
                 }}
               >
                 <FormControlLabel
@@ -344,11 +347,7 @@ function CreateQuestion() {
               sx={Textfieldsx}
             />
           </div>
-          <Button
-            type="submit"
-            disabled={formik.isSubmitting}
-            sx={Buttonsx}
-          >
+          <Button type="submit" disabled={formik.isSubmitting} sx={Buttonsx}>
             Submit
           </Button>
         </form>
