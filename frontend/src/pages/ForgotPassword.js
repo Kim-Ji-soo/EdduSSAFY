@@ -14,22 +14,22 @@ import Box from "@mui/material/Box";
 
 const validationSchema = yup.object({
   email: yup
-    .string("Enter your email")
-    .email("Enter a valid email")
-    .required("Email is required"),
+    .string("이메일을 입력해주세요")
+    .email("이메일이 유효하지 않습니다")
+    .required("이메일은 필수입니다"),
   userId: yup
-    .string("Enter your id")
-    .min(5, "id should be of minimum 5 characters length")
-    .required("id is required"),
+    .string("아이디를 입력해주세요")
+    .min(5, "아이디는 최소 5글자 입니다")
+    .required("아이디는 필수입니다"),
   password: yup
-    .string("Enter your password")
-    .min(8, "Password should be of minimum 8 characters length")
-    .required("Password is required"),
+    .string("비밀번호를 입력해주세요")
+    .min(8, "비밀번호는 최소 8글자 입니다")
+    .required("비밀번호는 필수입니다"),
     passwordCheck: yup.string().when("password", {
       is: (val) => (val && val.length > 0 ? true : false),
       then: yup
         .string()
-        .oneOf([yup.ref("password")], "Both password need to be the same"),
+        .oneOf([yup.ref("password")], "비밀번호와 같아야 합니다"),
     }),
 });
 
@@ -61,11 +61,11 @@ function ForgotPassword() {
             navigate("/login", { replace: true });
           })
           .catch((e) => {
-            alert('정보가 잘못 입력되었습니다!');
+            alert('정보가 잘못 입력되었습니다');
             console.log(e);
           });
       } else {
-          alert("이메일 인증 해주세요.");
+          alert("이메일 인증 해주세요");
       }
     },
   });
@@ -183,16 +183,16 @@ function ForgotPassword() {
                 <div>
                   <Link to="/" className={styles.link}>
                     <Button type="submit" className={styles.buttons}>
-                      Sign in
+                      로그인
                     </Button>
                   </Link>
                 </div>
               </form>
             </div>
             <div>
-              <h2 className={styles.h2}>Forgot Password?</h2>
+              <h2 className={styles.h2}>비밀번호 찾기</h2>
               <span className={styles.span}>
-                Find your Eddu SSAFY community account{" "}
+                당신의 Eddu SSAFY 계정을 찾아보세요
               </span>
             </div>
             <form
@@ -206,7 +206,7 @@ function ForgotPassword() {
                 <div userId={styles.inputId}>
                   <TextField
                     name="userId"
-                    label="userId"
+                    label="사용자 ID"
                     value={formik.values.userId}
                     onChange={formik.handleChange}
                     error={
@@ -220,7 +220,7 @@ function ForgotPassword() {
                 <div className={styles.inputEmail}>
                   <TextField
                     name="email"
-                    label="email"
+                    label="이메일"
                     value={formik.values.email}
                     onChange={formik.handleChange}
                     error={formik.touched.email && Boolean(formik.errors.email)}
@@ -250,7 +250,7 @@ function ForgotPassword() {
                 <div className={styles.inputEmail}>
                   <TextField
                     name="message"
-                    label="message"
+                    label="메일로 받은 코드"
                     value={messageValue}
                     onChange={(e) => {
                       setMessageValue(e.target.value);
@@ -284,7 +284,7 @@ function ForgotPassword() {
                   <TextField
                     name="password"
                     type="password"
-                    label="New Password"
+                    label="새로운 비밀번호"
                     value={formik.values.password}
                     onChange={formik.handleChange}
                     error={
@@ -301,7 +301,7 @@ function ForgotPassword() {
                   <TextField
                     name="passwordCheck"
                     type="password"
-                    label="passwordcheck"
+                    label="비밀번호 확인"
                     value={formik.values.passwordCheck}
                     onChange={formik.handleChange}
                     error={
@@ -319,7 +319,7 @@ function ForgotPassword() {
               </div>
                     
               <Button type="submit" sx={Buttonsx}>
-                Submit
+                변경하기
               </Button>
             </form>
           </Box>

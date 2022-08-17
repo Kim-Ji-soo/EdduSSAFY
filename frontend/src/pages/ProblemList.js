@@ -399,7 +399,7 @@ function ProblemList() {
             <TextField
               id="outlined-basic2"
               label="Outlined"
-              variant="outlined"
+              variant="문제집 이름"
               defaultValue=""
               sx={{}}
               inputRef={booktitle}

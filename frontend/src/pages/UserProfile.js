@@ -13,19 +13,19 @@ import Box from "@mui/material/Box";
 
 const validationSchema = yup.object({
   email: yup
-    .string("Enter your email")
-    .email("Enter a valid email")
-    .required("Email is required"),
-  name: yup.string("Enter your name").required("name is required"),
-  nickname: yup.string("Enter your nickname").required("nickname is required"),
+    .string("이메일을 입력해주세요")
+    .email("이메일이 유효하지 않습니다")
+    .required("이메일은 필수입니다"),
+  name: yup.string("이름을 입력해주세요").required("이름은 필수입니다"),
+  nickname: yup.string("닉네임을 입력해주세요").required("닉네임은 필수입니다"),
   userId: yup
-    .string("Enter your id")
-    .min(5, "id should be of minimum 5 characters length")
-    .required("id is required"),
+    .string("아이디를 입력해주세요")
+    .min(5, "아이디는 최소 5자리입니다")
+    .required("아이디는 필수입니다"),
   tel: yup
-    .string("Enter your phonenumber")
-    .length(11, "phonenumber should be 11 characters length")
-    .required("phonenumber is required"),
+    .string("전화번호를 입력해주세요")
+    .length(11, "전화번호는 010-0000-0000입니다")
+    .required("전화번호는 필수입니다"),
 });
 
 function UserProfile() {
@@ -144,7 +144,7 @@ function UserProfile() {
     mt: 4,
   }}
       >
-        <h1>User Profile</h1>
+        <h1>사용자계정</h1>
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -155,7 +155,7 @@ function UserProfile() {
             <TextField
               disabled
               name="name"
-              label="name"
+              label="이름"
               value={formik.values.name}
               onChange={formik.handleChange}
               error={formik.touched.name && Boolean(formik.errors.name)}
@@ -167,7 +167,7 @@ function UserProfile() {
           <div>
             <TextField
               name="nickname"
-              label="nickname"
+              label="닉네임"
               value={formik.values.nickname}
               onChange={formik.handleChange}
               error={formik.touched.nickname && Boolean(formik.errors.nickname)}
@@ -180,7 +180,7 @@ function UserProfile() {
             <TextField
               disabled
               name="userId"
-              label="userId"
+              label="사용자 ID"
               value={formik.values.userId}
               onChange={formik.handleChange}
               error={formik.touched.userId && Boolean(formik.errors.userId)}
@@ -193,7 +193,7 @@ function UserProfile() {
             <TextField
               disabled
               name="email"
-              label="email"
+              label="이메일"
               value={formik.values.email}
               onChange={formik.handleChange}
               error={formik.touched.email && Boolean(formik.errors.email)}
@@ -205,7 +205,7 @@ function UserProfile() {
           <div>
             <TextField
               name="tel"
-              label="tel"
+              label="전화번호"
               value={formik.values.tel}
               onChange={formik.handleChange}
               error={formik.touched.tel && Boolean(formik.errors.tel)}

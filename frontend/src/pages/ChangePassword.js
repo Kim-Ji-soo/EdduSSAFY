@@ -13,17 +13,17 @@ import Box from "@mui/material/Box";
 
 const validationSchema = yup.object({
   userId: yup
-    .string("Enter your id")
-    .min(5, "id should be of minimum 5 characters length")
-    .required("id is required"),
+    .string("아이디를 입력해주세요")
+    .min(5, "아이디는 최소 5자리입니다")
+    .required("아이디는 필수입니다"),
     oldPassword: yup
-    .string("Enter your past password")
-    .min(8, "Password should be of minimum 8 characters length")
-    .required("Password is required"),
+    .string("이전 비밀번호를 입력해주세요")
+    .min(8, "비밀번호는 최소 8자리입니다")
+    .required("이전 비밀번호는 필수입니다"),
     newPassword: yup
-    .string("Enter your past password")
-    .min(8, "Password should be of minimum 8 characters length")
-    .required("Password is required"),
+    .string("새로운 비밀번호를 입력해주세요")
+    .min(8, "비밀번호는 최소 8자리입니다")
+    .required("새 비밀번호는 필수입니다"),
 });
 
 function ChangePassword() {
@@ -137,7 +137,7 @@ function ChangePassword() {
           mt: 4,
         }}
       >
-        <h1>Change Password</h1>
+        <h1>비밀번호 변경</h1>
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -148,7 +148,7 @@ function ChangePassword() {
             <TextField
               disabled
               name="userId"
-              label="userId"
+              label="사용자 ID"
               value={formik.values.userId}
               onChange={formik.handleChange}
               error={formik.touched.userId && Boolean(formik.errors.userId)}
@@ -162,7 +162,7 @@ function ChangePassword() {
                   <TextField
                     name="oldPassword"
                     type="password"
-                    label="oldPassword"
+                    label="이전 비밀번호"
                     value={formik.values.oldPassword}
                     onChange={formik.handleChange}
                     error={
@@ -179,7 +179,7 @@ function ChangePassword() {
                   <TextField
                     name="newPassword"
                     type="password"
-                    label="newPassword"
+                    label="새로운 비밀번호"
                     value={formik.values.newPassword}
                     onChange={formik.handleChange}
                     error={

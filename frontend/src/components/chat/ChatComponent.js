@@ -167,7 +167,7 @@ export default class ChatComponent extends Component {
             <label htmlFor="anonymous" style={{fontSize:"1rem", marginTop:"2%"}}>익명</label>
             <input
               className="messageInput"
-              placeholder="Send a messge"
+              placeholder="메시지를 입력해주세요"
               id="chatInput"
               value={this.state.message}
               onChange={this.handleChange}
