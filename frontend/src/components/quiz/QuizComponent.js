@@ -82,7 +82,7 @@ const Quiz = function (props) {
   // const img = JSON.parse(props.quiz.quizPic);
   useEffect(() => {
     // encodeFileToBase64(img);
-    if (props.quiz.quizPic !== "") {
+    if (props.quiz.quizPic !== null) {
       axios({
         method: "get",
         url: file.download(),

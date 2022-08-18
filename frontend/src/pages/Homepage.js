@@ -25,7 +25,7 @@ function Homepage(props) {
   };
 
   const roomTitle = useRef();
-  const password = useRef("");
+  const password = useRef();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -56,13 +56,18 @@ function Homepage(props) {
   };
   const handleCreateRoom = () => {
     //axios 추가 유저아이디, 타이틀
+    let pass = "";
+    if (password.current !== undefined) {
+      pass = password.current.value;
+    }
+    const title = roomTitle.current.value;
     axios({
       url: room.createRoom(),
       method: "post",
       data: {
-        title: roomTitle.current.value,
+        title: title,
         userId: userId,
-        password: password.current.value,
+        password: pass,
       },
     }).then((res) => {
       dispatch(roomActions.setRoom(res.data));
@@ -74,13 +79,13 @@ function Homepage(props) {
         dispatch(quizbookActions.getquizbook(res.data));
         dispatch(
           roomActions.setRoom({
-            roomTitle: roomTitle.current.value,
+            roomTitle: title,
             roomId: roomId,
             hostId: userId,
           })
         );
+        navigate("/openvidu", { replace: true });
       });
-      navigate("/openvidu", { replace: true });
     });
   };
 

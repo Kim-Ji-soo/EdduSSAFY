@@ -252,7 +252,6 @@ class VideoRoomComponent extends Component {
       {
         currentVideoDevice: videoDevices[0],
         localUser: localUser,
-        subscribers: [],
       },
       () => {
         this.state.localUser.getStreamManager().on("streamPlaying", (e) => {
