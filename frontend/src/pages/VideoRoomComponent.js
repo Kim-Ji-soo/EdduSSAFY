@@ -84,6 +84,7 @@ class VideoRoomComponent extends Component {
   }
 
   componentDidMount() {
+    navigator.mediaDevices.getUserMedia({ audio: true, video: true });
     const openViduLayoutOptions = {
       maxRatio: 3 / 2, // The narrowest ratio that will be used (default 2x3)
       minRatio: 9 / 16, // The widest ratio that will be used (default 16x9)

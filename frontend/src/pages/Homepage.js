@@ -124,7 +124,6 @@ function Homepage(props) {
     }).then((res) => {
       dispatch(roomActions.getRooms(res.data));
     });
-    navigator.mediaDevices.getUserMedia({ audio: true, video: true });
   });
   return (
     <Grid
@@ -183,8 +182,8 @@ function Homepage(props) {
             label="방 이름"
             variant="outlined"
             defaultValue=""
-            sx={{}}
             inputRef={roomTitle}
+            sx={{ height: "1.0em", marginBottom: "2.6em" }}
             autoComplete="off"
           />
           <FormGroup sx={{ alignSelf: "center" }}>
