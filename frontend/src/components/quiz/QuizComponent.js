@@ -187,6 +187,7 @@ const Quiz = function (props) {
               name="answer"
               label="answer"
               value={answer}
+              autoComplete="off"
               onChange={(e) => {
                 setAnswer((answer) => {
                   return e.target.value;
@@ -281,6 +282,7 @@ const Quizbook = function (props) {
             name="min"
             label="분"
             value={min}
+            autoComplete="off"
             onChange={(e) => {
               setMin((min) => {
                 return e.target.value;
@@ -292,13 +294,13 @@ const Quizbook = function (props) {
                 fontSize: "2rem",
               },
             }}
-            autoComplete="off"
             variant="standard"
           />
           <TextField
             name="sec"
             label="초"
             value={sec}
+            autoComplete="off"
             onChange={(e) => {
               setSec((sec) => {
                 return e.target.value;
@@ -311,7 +313,6 @@ const Quizbook = function (props) {
                 fontSize: "2rem",
               },
             }}
-            autoComplete="off"
             variant="standard"
           />
           {quiz.map((quiz, index) => {

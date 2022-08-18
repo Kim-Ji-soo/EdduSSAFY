@@ -182,6 +182,7 @@ export default class ChatComponent extends Component {
               value={this.state.message}
               onChange={this.handleChange}
               onKeyPress={this.handlePressKey}
+              autoComplete="off"
             />
 
             <Tooltip title="Send message">

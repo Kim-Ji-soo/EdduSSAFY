@@ -17,6 +17,7 @@ import styles from "../css/CreateQuestion.module.css";
 
 import { Box } from "@mui/material";
 import { Copyright } from "@material-ui/icons";
+import { useEffect } from "react";
 
 const validationSchema = yup.object({
   content: yup.string("Enter your content").required("content is required"),
@@ -38,6 +39,15 @@ function CreateContent(props) {
   const [number, setNumber] = useState(1);
   const [value, setValue] = useState({});
   const [content, setContent] = useState([]);
+
+  useEffect(() => {
+    const newResult = [];
+    for (const i in value) {
+      newResult.push(value[i]);
+    }
+    setResult(newResult);
+    props.onSubmit(newResult);
+  }, [value]);
 
   const Textfieldsx = {
     width: "70%",
@@ -96,20 +106,6 @@ function CreateContent(props) {
         className={styles.buttons}
       >
         보기추가
-      </Button>
-      <Button
-        onClick={async (e) => {
-          e.preventDefault();
-          const newResult = [];
-          for (const i in value) {
-            newResult.push(value[i]);
-          }
-          await setResult(newResult);
-          props.onSubmit(newResult); //보기 배열 넘기기
-        }}
-        className={styles.buttons}
-      >
-        보기 확정
       </Button>
     </>
   );

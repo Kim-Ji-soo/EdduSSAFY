@@ -183,7 +183,13 @@ function Homepage(props) {
             variant="outlined"
             defaultValue=""
             inputRef={roomTitle}
-            sx={{ height: "1.0em", marginBottom: "2.6em" }}
+            // sx={{ height: "1.0em", marginBottom: "2.6em" }}
+            sx={{
+              "& .MuiInputBase-input": {
+                height: "1.0em",
+                padding: "20px",
+              },
+            }}
             autoComplete="off"
           />
           <FormGroup sx={{ alignSelf: "center" }}>

@@ -13,6 +13,8 @@ export const quizbookSlice = createSlice({
           if (i[j].type === "choice") {
             const arr = i[j].options.split("|");
             i[j].options = arr;
+          } else {
+            i[j].options = [];
           }
         }
       }

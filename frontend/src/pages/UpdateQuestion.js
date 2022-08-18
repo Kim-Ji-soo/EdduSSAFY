@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import {
   TextField,
@@ -36,6 +36,7 @@ function CreateContent(props) {
   const [number, setNumber] = useState(props.state.optionSize + 1);
   const [value, setValue] = useState(props.state.options);
   const arr = props.state;
+  console.log(arr);
   useEffect(() => {
     props.onSubmit(value);
   });
