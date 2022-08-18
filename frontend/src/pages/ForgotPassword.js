@@ -37,6 +37,7 @@ function ForgotPassword() {
       userId: "",
       email: "",
       password: "",
+      passwordCheck: "",
     },
     validationSchema: validationSchema,
     onSubmit: (data, { setSubmitting }) => {
@@ -199,7 +200,7 @@ function ForgotPassword() {
               }}
             >
               <div className={styles.textcon}>
-                <div userId={styles.inputId}>
+                <div className={styles.inputId}>
                   <TextField
                     name="userId"
                     label="사용자 ID"
@@ -232,7 +233,9 @@ function ForgotPassword() {
                         method: "post",
                         url: users.sendEmail(),
                         data: { email: formik.values.email, reqType: "reset" },
-                      }).then((res) => {});
+                      }).then((res) => {
+                        alert("이메일 발신 성공!");
+                      });
                     }}
                   >
                     코드발송
