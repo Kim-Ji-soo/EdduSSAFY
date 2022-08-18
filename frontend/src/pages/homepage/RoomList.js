@@ -28,7 +28,7 @@ import LockIcon from "@mui/icons-material/Lock";
 
 function RoomList() {
   //
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [page, setPage] = React.useState(0);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
