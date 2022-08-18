@@ -57,7 +57,7 @@ function Homepage(props) {
   const handleCreateRoom = () => {
     //axios 추가 유저아이디, 타이틀
     let pass = "";
-    if (password.current !== undefined) {
+    if (password.current !== undefined && password.current !== null) {
       pass = password.current.value;
     }
     const title = roomTitle.current.value;
@@ -210,7 +210,12 @@ function Homepage(props) {
               label="방 비밀번호"
               variant="outlined"
               defaultValue=""
-              sx={{ marginTop: "15px" }}
+              sx={{
+                "& .MuiInputBase-input": {
+                  height: "1.0em",
+                  padding: "20px",
+                },
+              }}
               inputRef={password}
               autoComplete="off"
               fullWidth
