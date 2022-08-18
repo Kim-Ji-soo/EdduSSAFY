@@ -4,6 +4,9 @@ import logo from "../assets/EDDUSSAFY_얼굴만_동그라미.png";
 import image1 from "../assets/img1.png";
 import image2 from "../assets/img2.png";
 import image3 from "../assets/img3.png";
+import Lecture from "../assets/Lecture.png";
+import Quiz from "../assets/Quiz.png";
+import Score from "../assets/Score.png";
 // import image1 from "../assets/cabin.png";
 // import image2 from "../assets/cake.png";
 // import image3 from "../assets/circus.png";
@@ -219,7 +222,7 @@ function Mainpage(props) {
                     {/* <!-- Portfolio Modal - Image--> */}
                     <img
                       className="img-fluid rounded mb-5"
-                      src="assets/img/portfolio/cabin.png"
+                      src={Lecture}
                       alt="..."
                     />
                     {/* <!-- Portfolio Modal - Text--> */}
@@ -279,7 +282,7 @@ function Mainpage(props) {
                     {/* <!-- Portfolio Modal - Image--> */}
                     <img
                       className="img-fluid rounded mb-5"
-                      src="assets/img/portfolio/cake.png"
+                      src={Quiz}
                       alt="..."
                     />
                     {/* <!-- Portfolio Modal - Text--> */}
@@ -338,7 +341,7 @@ function Mainpage(props) {
                     {/* <!-- Portfolio Modal - Image--> */}
                     <img
                       className="img-fluid rounded mb-5"
-                      src="assets/img/portfolio/circus.png"
+                      src={Score}
                       alt="..."
                     />
                     {/* <!-- Portfolio Modal - Text--> */}
