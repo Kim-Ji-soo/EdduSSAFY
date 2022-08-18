@@ -124,7 +124,7 @@ function RoomList() {
                     sx={{
                       margin: "0 20px",
                       "&:hover": {
-                        background: "#651fff",
+                        background: "#d9d9d9",
                       },
                     }}
                     className="tableRow"

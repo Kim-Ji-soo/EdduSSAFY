@@ -3,7 +3,8 @@ import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { roomActions } from "../redux/room";
-import { room } from "../api/api";
+import { quizbookActions } from "../redux/quizbook";
+import { room, quizbook } from "../api/api";
 import axios from "axios";
 import RoomList from "./homepage/RoomList";
 import UserList from "./homepage/UserList";
@@ -65,6 +66,20 @@ function Homepage(props) {
       },
     }).then((res) => {
       dispatch(roomActions.setRoom(res.data));
+      const roomId = res.data.roomId;
+      axios({
+        method: "get",
+        url: quizbook.getQuizbook() + userId,
+      }).then((res) => {
+        dispatch(quizbookActions.getquizbook(res.data));
+        dispatch(
+          roomActions.setRoom({
+            roomTitle: roomTitle.current.value,
+            roomId: roomId,
+            hostId: userId,
+          })
+        );
+      });
       navigate("/openvidu", { replace: true });
     });
   };

@@ -388,6 +388,9 @@ class QuizComponent extends Component {
       roomId: this.props.store.room.roomId,
       min: 0,
       sec: 0,
+      isHost: Boolean(
+        this.props.store.room.hostId === this.props.store.user.value.userId
+      ),
     };
     this.chatScroll = React.createRef();
     this.handleChange = this.handleChange.bind(this);
@@ -526,27 +529,26 @@ class QuizComponent extends Component {
             {quizbook === undefined &&
               !this.state.isEnd &&
               !this.state.isResult &&
-              this.props.store.user.value.position === "professor" && (
+              this.state.isHost && (
                 <Quizbook
                   sendQuiz={(e) => {
                     this.sendQuiz(e);
                   }}
                 ></Quizbook>
               )}
-            {this.state.quiz !== undefined &&
-              this.props.store.user.value.position === "student" && (
-                <Quiz
-                  quiz={this.state.quiz}
-                  isSubmit={this.state.isSubmit}
-                  isTimeOut={this.state.isTimeOut}
-                  min={this.state.min}
-                  sec={this.state.sec}
-                ></Quiz>
-              )}
+            {this.state.quiz !== undefined && !this.state.isHost && (
+              <Quiz
+                quiz={this.state.quiz}
+                isSubmit={this.state.isSubmit}
+                isTimeOut={this.state.isTimeOut}
+                min={this.state.min}
+                sec={this.state.sec}
+              ></Quiz>
+            )}
             {this.state.quiz !== undefined &&
               this.state.isEnd &&
               !this.state.isResult &&
-              this.props.store.user.value.position === "professor" && (
+              this.state.isHost && (
                 <>
                   <div style={{ fontSize: "2rem" }}>
                     "{this.state.quiz.content}" 를 진행중입니다
@@ -583,66 +585,68 @@ class QuizComponent extends Component {
                   </Button>
                 </>
               )}
-            {this.state.isResult &&
-              this.props.store.user.value.position === "professor" && (
-                <>
-                  <TableContainer
-                    sx={{
-                      maxWidth: "70vw",
-                      minHeight: "70vh",
-                      border: "1px solid white",
-                      overflowX: "hidden",
-                    }}
-                    component={Paper}
-                  >
-                    <Table aria-label="simple table">
-                      <TableHead sx={{ background: "#FFFF74" }}>
-                        <TableRow>
-                          <TableCell>이름</TableCell>
-                          <TableCell align="right">점수</TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody sx={{ background: "#FFFFCC" }}>
-                        {this.state.roomResult
-                          .filter((row) => row.position !== "professor")
-                          .map((row) => (
-                            <TableRow
-                              key={row.nickName}
-                              sx={{
-                                "&:last-child td, &:last-child th": {
-                                  border: 0,
-                                },
-                              }}
-                            >
-                              <TableCell component="th" scope="row">
-                                {row.nickName}
-                              </TableCell>
-                              <TableCell align="right">{row.score}</TableCell>
-                            </TableRow>
-                          ))}
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                  <Button
-                    onClick={() => {
-                      this.toggleResult();
-                    }}
-                    sx={{
-                      "&.MuiButton-root": {
-                        display: "inline-block",
-                        marginTop: "10px",
-                        fontSize: "1rem",
-                        background: "#66cbac",
-                        width: "10vw",
-                        border: "2px solid white",
-                        borderRadius: "10px",
-                      },
-                    }}
-                  >
-                    종료하기
-                  </Button>
-                </>
-              )}
+            {this.state.isResult && this.state.isHost && (
+              <>
+                <TableContainer
+                  sx={{
+                    maxWidth: "70vw",
+                    minHeight: "70vh",
+                    border: "1px solid white",
+                    overflowX: "hidden",
+                  }}
+                  component={Paper}
+                >
+                  <Table aria-label="simple table">
+                    <TableHead sx={{ background: "#FFFF74" }}>
+                      <TableRow>
+                        <TableCell>이름</TableCell>
+                        <TableCell align="right">점수</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody sx={{ background: "#FFFFCC" }}>
+                      {this.state.roomResult
+                        .filter(
+                          (row) =>
+                            row.userId !== this.props.store.user.value.userId
+                        )
+                        .map((row) => (
+                          <TableRow
+                            key={row.nickName}
+                            sx={{
+                              "&:last-child td, &:last-child th": {
+                                border: 0,
+                              },
+                            }}
+                          >
+                            <TableCell component="th" scope="row">
+                              {row.nickName}
+                            </TableCell>
+                            <TableCell align="right">{row.score}</TableCell>
+                          </TableRow>
+                        ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+                <Button
+                  onClick={() => {
+                    this.toggleResult();
+                  }}
+                  sx={{
+                    "&.MuiButton-root": {
+                      display: "inline-block",
+                      marginTop: "10px",
+                      fontSize: "1rem",
+                      background: "#66cbac",
+                      width: "10vw",
+                      border: "2px solid white",
+                      borderRadius: "10px",
+                    },
+                  }}
+                >
+                  종료하기
+                </Button>
+              </>
+            )}
           </div>
         </div>
       </div>
