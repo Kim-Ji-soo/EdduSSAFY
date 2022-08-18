@@ -104,7 +104,7 @@ function RoomList() {
       >
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
-            <TableRow>
+            <TableRow sx={{ "& > th": { fontSize: "30px" } }}>
               <TableCell align="center">방번호</TableCell>
               <TableCell align="center">방제목</TableCell>
 
@@ -125,6 +125,12 @@ function RoomList() {
                       margin: "0 20px",
                       "&:hover": {
                         background: "#d9d9d9",
+                      },
+                      "& > th": {
+                        fontSize: "20px",
+                      },
+                      "& > td": {
+                        fontSize: "20px",
                       },
                     }}
                     className="tableRow"

@@ -4,9 +4,6 @@ import logo from "../assets/EDDUSSAFY_얼굴만_동그라미.png";
 import image1 from "../assets/img1.png";
 import image2 from "../assets/img2.png";
 import image3 from "../assets/img3.png";
-import Lecture from "../assets/Lecture.gif";
-import Quiz from "../assets/Quiz.gif";
-import Score from "../assets/Score.gif";
 // import image1 from "../assets/cabin.png";
 // import image2 from "../assets/cake.png";
 // import image3 from "../assets/circus.png";
@@ -160,7 +157,7 @@ function Mainpage(props) {
             </div>
             <div className="col-lg-4 me-auto">
               <p className="lead">
-                비대면 교육 플랫폼 및 환경이 필요한 강사 와 비대면 환경에서
+                비대면 교육 플랫폼 및 환경이 필요한강사 와 비대면 환경에서
                 집중을 하지 못하는 학생들을 위하여 Quiz와 점수 기능을 제공하여
                 집중도를 높일 수 있습니다.
               </p>
@@ -222,7 +219,7 @@ function Mainpage(props) {
                     {/* <!-- Portfolio Modal - Image--> */}
                     <img
                       className="img-fluid rounded mb-5"
-                      src={Lecture}
+                      src="assets/img/portfolio/cabin.png"
                       alt="..."
                     />
                     {/* <!-- Portfolio Modal - Text--> */}
@@ -282,7 +279,7 @@ function Mainpage(props) {
                     {/* <!-- Portfolio Modal - Image--> */}
                     <img
                       className="img-fluid rounded mb-5"
-                      src={Quiz}
+                      src="assets/img/portfolio/cake.png"
                       alt="..."
                     />
                     {/* <!-- Portfolio Modal - Text--> */}
@@ -328,7 +325,7 @@ function Mainpage(props) {
                   <div className="col-lg-8">
                     {/* <!-- Portfolio Modal - Title--> */}
                     <h2 className="portfolio-modal-title text-secondary text-uppercase mb-0">
-                      Score & Rank
+                      Score Board
                     </h2>
                     {/* <!-- Icon Divider--> */}
                     <div className="divider-custom">
@@ -341,15 +338,15 @@ function Mainpage(props) {
                     {/* <!-- Portfolio Modal - Image--> */}
                     <img
                       className="img-fluid rounded mb-5"
-                      src={Score}
+                      src="assets/img/portfolio/circus.png"
                       alt="..."
                     />
                     {/* <!-- Portfolio Modal - Text--> */}
                     <p className="mb-4">
                       비대면 환경에서 집중을 하지 못하는 학생들을 위하여 문제와
-                      점수를 시각적으로 보여줍니다. 점수로 순위를 매겨
-                      학생들에게 동기부여와 집중도를 높이는 효과를 제공하여
-                      학생들의 흥미를 이끌어냅니다.
+                      점수를 시각적으로 보여줍니다.해당 기능은 학생들에게
+                      동기부여와 집중도를 높이는 효과를 제공하여 학생들의 흥미를
+                      이끌어냅니다.
                     </p>
                     <button className="btn btn-primary" data-bs-dismiss="modal">
                       <FontAwesomeIcon icon={faXmarkCircle} />

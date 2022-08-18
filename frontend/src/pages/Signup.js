@@ -115,7 +115,7 @@ function Signup() {
   };
 
   const Textbtnfieldsx = {
-    width: "52%",
+    width: "45%",
     height: "100%",
     "& .MuiInputLabel-root": { color: "black", fontSize: "0.8vmax" },
     "& .MuiOutlinedInput-root": {
@@ -261,6 +261,7 @@ function Signup() {
                     helperText={formik.touched.userId && formik.errors.userId}
                     autoComplete="off"
                     sx={{ ...Textfieldsx, width: "52%" }}
+                    placeholder={"아이디는 5글자 이상입니다."}
                   />
                   <Button
                     className={styles.inputButton}
@@ -303,6 +304,7 @@ function Signup() {
                     }
                     autoComplete="off"
                     sx={Textfieldsx}
+                    placeholder={"비밀번호는 8자리 이상입니다."}
                   />
                 </div>
                 <div>
@@ -355,9 +357,9 @@ function Signup() {
                           console.log(e);
                         });
                     }}
-                    sx={{ marginTop: "2%", width: "18%" }}
+                    sx={{ width: "25%" }}
                   >
-                    코드발송
+                    인증코드 받기
                   </Button>
                 </div>
 
@@ -394,9 +396,9 @@ function Signup() {
                           console.log(e);
                         });
                     }}
-                    sx={{ marginTop: "2%", width: "18%" }}
+                    sx={{ width: "25%" }}
                   >
-                    코드제출
+                    인증코드 입력
                   </Button>
                 </div>
 

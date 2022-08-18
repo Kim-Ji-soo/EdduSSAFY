@@ -246,7 +246,7 @@ function Login() {
                     sx={{
                       "&.MuiButton-root": {
                         color: "black",
-                        fontSize: "0.8vmin",
+                        fontSize: "2vmin",
                       },
                     }}
                   >

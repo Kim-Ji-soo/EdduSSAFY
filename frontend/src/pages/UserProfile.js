@@ -219,19 +219,22 @@ function UserProfile() {
         <Button
           className={styles.buttons}
           onClick={() => {
-            axios({
-              method: "delete",
-              url: users.delete() + user.userId + "/",
-            })
-              .then((res) => {
-                alert("회원 탈퇴가 완료되었습니다!");
-                dispatch(deleteToken());
-                dispatch(logout());
-                navigate("/login", { replace: true });
+            if (window.confirm("정말로 탈퇴하시겠습니까?")) {
+              axios({
+                method: "delete",
+                url: users.delete() + user.userId + "/",
               })
-              .catch((e) => {
-                console.log(e);
-              });
+                .then((res) => {
+                  alert("회원 탈퇴가 완료되었습니다!");
+                  dispatch(deleteToken());
+                  dispatch(logout());
+                  navigate("/login", { replace: true });
+                  axios.defaults.headers.common["Authorization"] = "";
+                })
+                .catch((e) => {
+                  console.log(e);
+                });
+            }
           }}
         >
           회원탈퇴

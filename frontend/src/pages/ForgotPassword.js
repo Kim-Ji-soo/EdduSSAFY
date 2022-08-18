@@ -93,7 +93,7 @@ function ForgotPassword() {
   };
 
   const Textbtnfieldsx = {
-    width: "52%",
+    width: "45%",
     height: "100%",
     "& .MuiInputLabel-root": { color: "black", fontSize: "0.8vmax" },
     "& .MuiOutlinedInput-root": {
@@ -160,7 +160,7 @@ function ForgotPassword() {
               top: "50%",
               left: "50%",
               transform: "translate(-50%, -50%)",
-              width: "20vw",
+              width: "30vw",
               bgcolor: "background.paper",
               // bgcolor: "#f8f7fc",
               border: "2px #000",
@@ -238,7 +238,7 @@ function ForgotPassword() {
                       });
                     }}
                   >
-                    코드발송
+                    인증코드 받기
                   </Button>
                 </div>
 
@@ -275,7 +275,7 @@ function ForgotPassword() {
                         });
                     }}
                   >
-                    코드제출
+                    인증코드 입력
                   </Button>
                 </div>
                 <div>

@@ -3,7 +3,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Fab from "@material-ui/core/Fab";
 import HighlightOff from "@material-ui/icons/HighlightOff";
 import Send from "@material-ui/icons/Send";
-import logo from "../../assets/favicon-32x32.png";
+import logo from "../../assets/apple-icon-60x60.png";
 import "./ChatComponent.css";
 import { Tooltip } from "@material-ui/core";
 
@@ -45,7 +45,7 @@ export default class ChatComponent extends Component {
           let video = img;
           if (data.nickname === "익명") {
             video = img;
-            avatar.drawImage(video, 0, 0, 64, 64);
+            avatar.drawImage(video, 0, 0, 60, 60);
           } else {
             video = document.getElementById("video-" + data.streamId);
             avatar.drawImage(video, 200, 120, 285, 285, 0, 0, 60, 60);
