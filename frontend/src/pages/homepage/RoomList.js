@@ -42,6 +42,7 @@ function RoomList() {
   const [cropen, setCropen] = useState(false);
   const [roomId, setRoomId] = useState("");
   const [roomTitle, setRoomTitle] = useState("");
+  const [hostId, setHostId] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const password = useRef();
@@ -74,6 +75,7 @@ function RoomList() {
           roomActions.setRoom({
             roomId: roomId,
             roomTitle: roomTitle,
+            hostId: hostId,
           })
         );
         axios({
@@ -116,75 +118,73 @@ function RoomList() {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 
               .map((row) => (
-                <>
-                  <Tooltip title="방 입장">
-                    <TableRow
-                      // hover="true"
-                      key={row.roomId}
-                      sx={{
-                        margin: "0 20px",
-                        "&:hover": {
-                          background: "#651fff",
-                        },
-                      }}
-                      className="tableRow"
+                <Tooltip title="방 입장" key={row.roomId}>
+                  <TableRow
+                    // hover="true"
+                    sx={{
+                      margin: "0 20px",
+                      "&:hover": {
+                        background: "#651fff",
+                      },
+                    }}
+                    className="tableRow"
+                  >
+                    <TableCell width="15%" align="center">
+                      <Chip label={row.roomId} />
+                    </TableCell>
+                    <TableCell
+                      width="40%"
+                      align="center"
+                      component="th"
+                      scope="row"
                     >
-                      <TableCell width="15%" align="center">
-                        <Chip label={row.roomId} />
-                      </TableCell>
-                      <TableCell
-                        width="40%"
-                        align="center"
-                        component="th"
-                        scope="row"
-                      >
-                        {row.title}
-                      </TableCell>
-                      <TableCell width="25%" align="center">
-                        {row.hostId}
-                      </TableCell>
-                      <TableCell width="15%" align="center">
-                        <Button
-                          onClick={() => {
-                            axios({
-                              method: "get",
-                              url: quizbook.getQuizbook() + row.hostId,
-                            }).then((res) => {
-                              dispatch(quizbookActions.getquizbook(res.data));
-                              dispatch(
-                                roomActions.setRoom({
-                                  roomTitle: row.title,
-                                  roomId: row.roomId,
-                                  hostId: row.hostId,
-                                })
-                              );
-                              if (userId === row.hostId) {
-                                navigate("/openvidu", { replace: true });
+                      {row.title}
+                    </TableCell>
+                    <TableCell width="25%" align="center">
+                      {row.hostId}
+                    </TableCell>
+                    <TableCell width="15%" align="center">
+                      <Button
+                        onClick={() => {
+                          axios({
+                            method: "get",
+                            url: quizbook.getQuizbook() + row.hostId,
+                          }).then((res) => {
+                            dispatch(quizbookActions.getquizbook(res.data));
+                            dispatch(
+                              roomActions.setRoom({
+                                roomTitle: row.title,
+                                roomId: row.roomId,
+                                hostId: row.hostId,
+                              })
+                            );
+                            if (userId === row.hostId) {
+                              navigate("/openvidu", { replace: true });
+                            } else {
+                              if (row.active === false) {
+                                alert("방이 생성되지 않았습니다.");
                               } else {
-                                if (row.active === false) {
-                                  alert("방이 생성되지 않았습니다.");
+                                if (row.hasPassword === false) {
+                                  navigate("/openvidu", { replace: true });
                                 } else {
-                                  if (row.hasPassword === false) {
-                                    navigate("/openvidu", { replace: true });
-                                  } else {
-                                    setRoomId(row.roomId);
-                                    setRoomTitle(row.roomTitle);
-                                    setCropen((cropen) => !cropen);
-                                  }
+                                  setRoomId(row.roomId);
+                                  setRoomTitle(row.roomTitle);
+                                  setHostId(row.hostId);
+                                  setCropen((cropen) => !cropen);
                                 }
                               }
-                            });
-                          }}
-                        >
-                          meet
-                        </Button>
-                      </TableCell>
-                      <TableCell width="5%" align="center">
-                        {row.hasPassword && <LockIcon></LockIcon>}
-                      </TableCell>
-                    </TableRow>
-                  </Tooltip>
-                </>
+                            }
+                          });
+                        }}
+                      >
+                        meet
+                      </Button>
+                    </TableCell>
+                    <TableCell width="5%" align="center">
+                      {row.hasPassword && <LockIcon></LockIcon>}
+                    </TableCell>
+                  </TableRow>
+                </Tooltip>
               ))}
           </TableBody>
         </Table>

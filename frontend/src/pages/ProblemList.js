@@ -106,7 +106,7 @@ function ProblemList() {
         return newMopen;
       });
     }
-  }, [re]);
+  }, [re, QUIZBOOK]);
 
   return (
     <>
@@ -167,6 +167,8 @@ function ProblemList() {
                                         quizbook.delete() +
                                         item.quizbookId +
                                         "/",
+                                    }).then(() => {
+                                      alert("문제집이 삭제 되었습니다.");
                                     });
                                     setRe(!re);
                                   }}
@@ -314,14 +316,6 @@ function ProblemList() {
                                   title="문제 수정하기"
                                   onClick={(e) => {
                                     const newBiq = { ...biq };
-                                    // newBiq.options = {};
-                                    // for (
-                                    //   let i = 1;
-                                    //   i < biq.options.length + 1;
-                                    //   i++
-                                    // ) {
-                                    //   newBiq.options[i] = biq.options[i - 1];
-                                    // }
                                     navigate("/updatequestion", {
                                       replace: true,
                                       state: newBiq,
@@ -339,6 +333,8 @@ function ProblemList() {
                                       axios({
                                         method: "delete",
                                         url: quiz.delete() + biq.quizId + "/",
+                                      }).then(() => {
+                                        alert("문제가 삭제 되었습니다.");
                                       });
                                       setRe(!re);
                                     }}

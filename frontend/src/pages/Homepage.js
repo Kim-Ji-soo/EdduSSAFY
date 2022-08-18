@@ -11,23 +11,20 @@ import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import { Grid, Button } from "@mui/material"; //contain
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import Collapse from '@mui/material/Collapse';
-
-
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
+import Collapse from "@mui/material/Collapse";
 
 function Homepage(props) {
   const [cropen, setCropen] = useState(false);
   const [checked, setChecked] = useState(false);
   const handleChange = (event) => {
     setChecked(event.target.checked);
-   
   };
 
   const roomTitle = useRef();
-  const password = useRef();
+  const password = useRef("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -170,23 +167,29 @@ function Homepage(props) {
             inputRef={roomTitle}
             autoComplete="off"
           />
- <FormGroup sx={{alignSelf : "center"}}>
-          <FormControlLabel control={<Switch checked={checked}
-           onChange={handleChange}
-           inputProps={{ 'aria-label': 'controlled' }}
-          />} label="비밀번호 넣기" />
-            </FormGroup>
-            <Collapse  in={checked} timeout="auto" unmountOnExit>
-          <TextField
-            id="password"
-            label="방 비밀번호"
-            variant="outlined"
-            defaultValue=""
-            sx={{ marginTop: "15px" }}
-            inputRef={password}
-            autoComplete="off"
-            fullWidth
-          />
+          <FormGroup sx={{ alignSelf: "center" }}>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={checked}
+                  onChange={handleChange}
+                  inputProps={{ "aria-label": "controlled" }}
+                />
+              }
+              label="비밀번호 넣기"
+            />
+          </FormGroup>
+          <Collapse in={checked} timeout="auto" unmountOnExit>
+            <TextField
+              id="password"
+              label="방 비밀번호"
+              variant="outlined"
+              defaultValue=""
+              sx={{ marginTop: "15px" }}
+              inputRef={password}
+              autoComplete="off"
+              fullWidth
+            />
           </Collapse>
           <Button
             sx={{ display: "block" }}

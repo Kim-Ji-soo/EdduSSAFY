@@ -125,7 +125,7 @@ function UpdateQuestion() {
     }
   };
   useEffect(() => {
-    if (state.quizPic !== "") {
+    if (state.quizPic !== null) {
       axios({
         method: "get",
         url: file.download(),

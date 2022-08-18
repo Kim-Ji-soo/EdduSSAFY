@@ -81,7 +81,6 @@ class VideoRoomComponent extends Component {
     this.checkNotification = this.checkNotification.bind(this);
     this.checkSize = this.checkSize.bind(this);
     this.setPublisher = this.setPublisher.bind(this);
-    this.setRoomResult = this.setRoomResult.bind(this);
   }
 
   componentDidMount() {
@@ -124,24 +123,7 @@ class VideoRoomComponent extends Component {
       });
     });
     this.joinSession();
-    this.setRoomResult();
-  }
-  setRoomResult() {
-    let hostNickname = "";
-    console.log(this.props.store);
-    for (let i of this.props.store.room.roomResult) {
-      if (i.userId === this.state.hostId) {
-        hostNickname = i.nickName;
-      }
-    }
-    let host = "";
-    console.log(this.state.subscribers);
-    for (let j of this.state.subscribers) {
-      if (j.nickname === hostNickname) {
-        host = j;
-      }
-    }
-    console.log(hostNickname);
+    this.updateSubscribers();
   }
   componentWillUnmount() {
     window.removeEventListener("beforeunload", this.onbeforeunload);
@@ -164,7 +146,6 @@ class VideoRoomComponent extends Component {
   }
 
   joinSession() {
-    this.setRoomResult();
     this.OV = new OpenVidu();
 
     this.setState(
@@ -264,9 +245,9 @@ class VideoRoomComponent extends Component {
     this.sendSignalUserChanged({
       isScreenShareActive: localUser.isScreenShareActive(),
     });
-    if (this.remotes.length === 0) {
-      this.remotes.push(localUser);
-    }
+    // if (this.remotes.length === 0) {
+    //   this.remotes.push(localUser);
+    // }
     this.setState(
       {
         currentVideoDevice: videoDevices[0],
@@ -658,15 +639,14 @@ class VideoRoomComponent extends Component {
       }
     }
     let host = "";
-    console.log(host);
     for (let j of this.state.subscribers) {
       if (j.nickname === hostNickname) {
         host = j;
       }
     }
-    if (host === "") {
-      host = this.state.subscribers[0];
-    }
+    // if (host === "") {
+    //   host = this.state.subscribers[0];
+    // }
     return (
       <div className="container" id="container">
         {this.state.isActive && <Navigate to="/" replace={true} />}
