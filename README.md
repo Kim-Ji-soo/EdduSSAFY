@@ -1,4 +1,4 @@
-# ![favicon-32x32](/uploads/0065b79aaeec8b89d0386770bf08fcb7/favicon-32x32.png) EDDU SSAFY(에뜌 싸피)
+# ![favicon-32x32](https://user-images.githubusercontent.com/67624305/204273212-7c286ace-8403-4b7e-83d1-b1872ff33e76.png) EDDU SSAFY(에뜌 싸피)
 비대면 수업을 위한 화상회의 사이트
 
 <br/>
@@ -22,14 +22,19 @@ master
   ├ front - feature/FE-기능...  
   └ back - feature/BE-기능...
 ```
-  
+<br/> 
 master : 운영 서버로 배포하기 위한 브랜치
+<br/>
 develop : 다음 출시 기능을 개발하는 브랜치
+<br/>
 front : 프론트엔드 개발하는 브랜치
+<br/>
 back : 백엔드를 개발하는 브랜치
+<br/>
 feature : 세부 기능을 개발하는 브랜치
+<br/>
 
-`feature-` 이후에 어떤 기능을 개발하는지를 붙여주었습니다.
+feature- 이후에 어떤 기능을 개발하는지를 붙여주었습니다.
 
 
 <br/><br/><br/>
@@ -108,34 +113,35 @@ feature : 세부 기능을 개발하는 브랜치
 
 - **와이어프레임**(figma)
 
-![image](/uploads/fef3c172a69813a46ec8e44c7afea670/image.png)
+![와이어프레임](https://user-images.githubusercontent.com/67624305/204273667-568906b2-fbaf-496d-8060-74b567da87c3.png)
 
 <br/>
 
 - **ERD**
 
-![image](/uploads/5b20fd3e0259ce47136e939d85d5f1fb/image.png)
+![ERD](https://user-images.githubusercontent.com/67624305/204273693-f21ea6be-01f2-45e7-baf0-926270fb3f07.png)
 
 <br/>
 
 - **화면정의서**
-
-<img src="/uploads/17028b920dfb76d79d4f25ac38f2e5c7/image.png" width="45%"> <img src="/uploads/88ce51527c0d7d02181a6cc210c85a8c/image.png" width="45%">
-<img src="/uploads/07d3045d7c2c95165181bf8541b3d3e3/image.png" width="45%"> <img src="/uploads/6ba5be1bcdd1e14a3bef9a918cf2de0d/image.png" width="45%">
-<img src="/uploads/4a466c788d73adb7a2ec93b17f838a2a/image.png" width="45%">
-
+![화면정의서1](https://user-images.githubusercontent.com/67624305/204273942-6fe09309-ae1f-4970-bdcc-ffea099df463.png)
+![화면정의서2](https://user-images.githubusercontent.com/67624305/204273949-1bd8018b-8e07-4c8e-a56b-58b17498fdc0.png)
+![화면정의서3](https://user-images.githubusercontent.com/67624305/204273963-31546fff-e91b-41a3-989f-8a1fb07d1e08.png)
+![화면정의서4](https://user-images.githubusercontent.com/67624305/204273975-5038fac9-c288-4ec4-a2d7-af8ea0a6556c.png)
+![화면정의서5](https://user-images.githubusercontent.com/67624305/204273982-b920788b-9a51-4cf6-ae78-ddc29c8a15dc.png)
+![화면정의서6](https://user-images.githubusercontent.com/67624305/204274026-d0d9eb21-3646-4637-82fd-8d091911d933.png)
+![화면정의서7](https://user-images.githubusercontent.com/67624305/204274052-4d1fa1cf-6a67-4ca0-9c5a-89306f8302d9.png)
+![화면정의서8](https://user-images.githubusercontent.com/67624305/204274061-c12f93c2-a5e0-4c9e-b846-0d5f627669d1.png)
 <br/>
-
-<img src="/uploads/f530e8f431395ad1d73d72bdf5db4d85/image.png" width="45%"> <img src="/uploads/d6d7718c53f86086e75fd6de0eb78886/image.png" width="45%">
-<img src="/uploads/6fe31aab8ca622964259fb8ff651c9fa/image.png" width="45%">
-
 <br/>
 
 - **시퀀스 다이어그램**
-
-<img src="/uploads/174558e5e0ad665433136461962f2adc/image.png" width="45%"> <img src="/uploads/6dd1c4a71dd68df28d9655548b462d9e/image.png" width="45%">
-<img src="/uploads/71855836f707b1c0e8f07b42ab90fa63/image.png" width="45%"> <img src="/uploads/b83155f8fa963d9d3e774aaa12cfda49/image.png" width="45%">
-<img src="/uploads/f9dcee540d384403ea660dff248fd6e3/image.png" width="45%"> <img src="/uploads/54ba1d146c6d84c83a8aa632b89ade6f/image.png" width="45%">
+![시퀀스다이어그램1](https://user-images.githubusercontent.com/67624305/204274573-fdf6979e-eb94-4e68-9b52-738658921e6a.png)
+![시퀀스다이어그램2](https://user-images.githubusercontent.com/67624305/204274580-f56fa2a4-bd8f-44c5-a703-3844f9a2f04e.png)
+![시퀀스다이어그램3](https://user-images.githubusercontent.com/67624305/204274585-2777ed58-2a3b-456a-803e-e62104258c88.png)
+![시퀀스다이어그램4](https://user-images.githubusercontent.com/67624305/204274593-1020733e-4b25-41aa-8267-5c8712ebb939.png)
+![시퀀스다이어그램5](https://user-images.githubusercontent.com/67624305/204274600-05ba2c64-ee6b-4836-b17a-2e998128d45b.png)
+![시퀀스다이어그램6](https://user-images.githubusercontent.com/67624305/204274608-e00b368e-2ad1-4b3e-881f-517bc192571d.png)
 
 
 <br/><br/><br/>
@@ -164,46 +170,46 @@ feature : 세부 기능을 개발하는 브랜치
 ## 📌주요 기능
 
 ### 회원 가입
-![회원가입](/uploads/a3d4cbc0c24e82bab8f6e1bb6f0b29ed/회원가입.gif)
+![회원가입](https://user-images.githubusercontent.com/67624305/204274798-19458acd-9906-493e-b5b1-c6dafc16764a.gif)
 
 ### 로그인
-![로그인](/uploads/12098c3ca3b584615a6a5824e58a5a3b/로그인.gif)
+![로그인](https://user-images.githubusercontent.com/67624305/204274827-f26bd642-ef14-4ec9-9e15-479cf21b17d9.gif)
 
 ### 개인정보 수정
-![개인정보_수정](/uploads/dd1160a1ad11394f929c0f7ac8e76b22/개인정보_수정.gif)
+![개인정보_수정](https://user-images.githubusercontent.com/67624305/204274897-408bbc00-6357-4007-90ee-062b37f49834.gif)
 
 ### 비밀번호 변경
-![비밀번호_변경](/uploads/af76a9ead980f0470066abc27f7e5ac8/비밀번호_변경.gif)
+![비밀번호_변경](https://user-images.githubusercontent.com/67624305/204274917-db330e62-583f-477f-8d10-a8dbb6bb2c2d.gif)
 
 ### 회원 탈퇴
-![회원_탈퇴](/uploads/e2b4665d3abee6d3c41af82be8034ff3/회원_탈퇴.gif)
+![회원_탈퇴](https://user-images.githubusercontent.com/67624305/204274987-9f254427-be49-4cbf-b0fd-bc8b69e32aa2.gif)
 
 ### 채팅 기능(학생용)
-![채팅_기능_학생용_](/uploads/4a519bde36a110564abc15fbb2cc3579/채팅_기능_학생용_.gif)
+![채팅_기능_학생용_](https://user-images.githubusercontent.com/67624305/204278603-e89e5537-f99f-456f-ba83-aa7cbaa99759.gif)
 
 ### 퀴즈 풀기(학생용)
-![퀴즈_풀기_학생용_](/uploads/071ce709637b48d986a036af8a025073/퀴즈_풀기_학생용_.gif)
+![퀴즈_풀기_학생용_](https://user-images.githubusercontent.com/67624305/204278273-8a3fda1e-0cbf-426b-92c3-b6880a0e173c.gif)
 
 ### 방 입장(학생용)
-![방_입장_학생용_](/uploads/65cd9f15c95eef8df207f32bd73c2196/방_입장_학생용_.gif)
+![방_입장_학생용_](https://user-images.githubusercontent.com/67624305/204278625-589b3b9f-0bc7-40f7-b734-748039546d3c.gif)
 
 ### 방 생성(교수용)
-![방_생성_교수용_](/uploads/5f9ce518387b4f00738afea037e31a67/방_생성_교수용_.gif)
+![방_생성_교수용_](https://user-images.githubusercontent.com/67624305/204278326-28225f48-1d74-4414-8be3-fac87210efdc.gif)
 
 ### 채팅 기능(교수용)
-![채팅_기능_교수용_](/uploads/b30644be16ee32be849f9d4a4c9b2546/채팅_기능_교수용_.gif)
+![채팅_기능_교수용_](https://user-images.githubusercontent.com/67624305/204278619-678cd292-5c9c-430f-9182-140f1f94bfc6.gif)
 
 ### 퀴즈 생성(교수용)
-![퀴즈_생성_교수용_](/uploads/534103446170c72e820f38bb2b9369ca/퀴즈_생성_교수용_.gif)
+![퀴즈_생성_교수용_](https://user-images.githubusercontent.com/67624305/204278899-705763bb-35d9-4fad-b485-0ed49191a6ff.gif)
 
 ### 화면 공유(교수용)
-![화면_공유_교수용_](/uploads/cf633166836439aeff921f50eaec3034/화면_공유_교수용_.gif)
+![화면_공유_교수용_](https://user-images.githubusercontent.com/67624305/204278923-f41671cb-2e36-4698-96fc-20c9a67349a1.gif)
 
 ### 퀴즈 풀기(교수용)
-![퀴즈_풀기_학생용_](/uploads/9edcbf265ac17d729e961c6fd8b63600/퀴즈_풀기_학생용_.gif)
+![퀴즈_풀기_교수용_](https://user-images.githubusercontent.com/67624305/204278950-da6f00c7-36de-4908-915f-93f8c1a9879c.gif)
 
 ### 방 나가기(교수용)
-![방_나가기_교수용_](/uploads/9684ba5d6738fdbc5355eccbf9c000a9/방_나가기_교수용_.gif)
+![방_나가기_교수용_](https://user-images.githubusercontent.com/67624305/204278965-ca80cf89-d878-49ea-90a7-7da361e2bca8.gif)
 
 
 
@@ -232,13 +238,13 @@ $ docker run -p 4443:4443 --rm -e OPENVIDU_SECRET=MY_SECRET openvidu/openvidu-se
 <br/><br/><br/>
 
 ## 🛠프로젝트 빌드 및 배포
-- [프로젝트 빌드 및 배포](https://lab.ssafy.com/s07-webmobile1-sub2/S07P12C111/-/blob/master/exec/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8_%EB%B9%8C%EB%93%9C_%EB%B0%8F_%EB%B0%B0%ED%8F%AC.md)
+- [프로젝트 빌드 및 배포](https://github.com/Kim-Ji-soo/EdduSSAFY/blob/master/exec/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8_%EB%B9%8C%EB%93%9C_%EB%B0%8F_%EB%B0%B0%ED%8F%AC.md)
 
 <br/><br/><br/>
 
 ## ⚙시스템 환경 및 구성
 
-![아키텍쳐](/uploads/f32d442589c8e456c69a6c20e1efe00a/아키텍쳐.png)
+![아키텍쳐](https://user-images.githubusercontent.com/67624305/204279401-dfae1054-0214-4004-b280-7a270554439b.png)
 
 - OS: Windows10, Linux
 - Backend Framework: Spring Boot 2.7.1
@@ -267,11 +273,6 @@ $ docker run -p 4443:4443 --rm -e OPENVIDU_SECRET=MY_SECRET openvidu/openvidu-se
 - 김지수: 너무 좋은 팀원들을 만나 활발히 소통하면서 만드는 프로젝트를 경험해 볼 수 있었습니다. React의 다양한 기능 및 openvidu를 통한 웹 화상회의 기능을 구현해보면서 웹기술에 대한 지식을 조금은 배워갈 수 있었던 것 같습니다. 또한 처음으로 체계적인 프로젝트를 진행해보며 부족한 점이 많았지만 팀원들 덕분에 잘 이겨낼 수 있었다고 생각합니다. 팀원분들 다들 너무 수고 많으셨습니다.
 
 - 박무창: 처음 써보는 라이브러리나 기능들을 마주하게 되면서 어려운 부분이 많았지만, 기존의 방식에 새로운 방식을 더해보면서 다양한 활용법을 배워볼 수 있었습니다. 또한 실제 서비스를 만들면서 사용자를 고려한 UI/UX를 설계해보고, 양방향의 실시간 연결을 구현하며 웹 영상 개발 능력과 웹 개발 능력, 디자인 능력을 보다 증진 시킬 수 있었습니다.
-
-<br/><br/><br/>
-
-## 🎞최종산출물(시연 영상)
-영상 링크?
 
 <br/><br/><br/>
 
